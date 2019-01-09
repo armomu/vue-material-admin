@@ -1,7 +1,6 @@
-/* eslint-disable */
 <template>
     <div class="home">
-        home
+        homeasdasf
         <div class="amap-page-container">
             <el-amap
                     vid="amapDemo"
@@ -9,8 +8,13 @@
                     :zoom="zoom"
                     class="amap-demo"
                     :events="events">
-                <el-amap-marker v-for="marker in markers" :position="marker.position" :content="marker.content"
-                                :events="marker.events"></el-amap-marker>
+                <el-amap-marker v-for="(marker,index) in markers"
+                                :position="marker.position"
+                                :content="marker.content"
+                                :events="marker.events"
+                                :key="index">
+
+                </el-amap-marker>
             </el-amap>
         </div>
     </div>
@@ -19,13 +23,12 @@
 
 
 <script>
-    /* eslint-disable */
     export default {
         data() {
             let self = this;
             return {
                 zoom: 12,
-                center: [121.59996, 31.197646],
+                center: [114.22951, 22.720603],
                 markers: [],
                 markerRefs: [],
                 events: {
@@ -47,11 +50,11 @@
             let markers = [];
             let index = 0;
 
-            let basePosition = [121.59996, 31.197646];
+            // let basePosition = [121.59996, 31.197646];
 
-            while (++index <= 30) {
+            while (++index <= 40) {
                 markers.push({
-                    position: [basePosition[0] + 0.01 * index, basePosition[1]],
+                    position: [114.22951 + (0.001 * index), 22.720603],
                     content: '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
                     events: {
                         init(o) {
@@ -64,7 +67,7 @@
             this.markers = markers;
         },
         mounted: function () {
-
+            // jojo
         },
         methods: {
             _renderCluserMarker(context) {

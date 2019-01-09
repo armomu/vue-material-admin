@@ -33,7 +33,6 @@ export default new Router({
                 }
             ]
         },
-        //首页
         {
             path: '/about',
             name: 'about',
