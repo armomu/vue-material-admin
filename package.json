@@ -10,14 +10,14 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "@antv/g2": "^3.4.5",
-    "ant-design-vue": "^1.2.2",
+    "axios": "^0.18.0",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
+    "vue": "^2.6.10",
     "vue-amap": "^0.5.8",
-    "vue": "^2.5.21",
-    "vue-router": "^3.0.1",
+    "vue-router": "^3.0.3",
+    "vuetify": "^1.5.13",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -31,8 +31,11 @@
     "chai": "^4.1.2",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "material-design-icons-iconfont": "^4.0.5",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.5.21"
   }
 }
