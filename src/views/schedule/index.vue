@@ -150,7 +150,7 @@ const intervalsDefault = {
 };
 
 const stylings = {
-  default(interval) {
+  default() {
     return undefined;
   },
   workday(interval) {

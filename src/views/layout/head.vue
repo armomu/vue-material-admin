@@ -13,12 +13,12 @@
     >{{item.title}}</router-link>
     <v-spacer></v-spacer>
 
-    <v-btn icon>
+    <v-btn icon @click="login">
       <v-icon>search</v-icon>
     </v-btn>
 
-    <v-btn icon>
-      <v-icon>github-circle</v-icon>
+    <v-btn icon @click="handleSignOut">
+      <v-icon>chat</v-icon>
     </v-btn>
   </v-toolbar>
 </template>
@@ -36,7 +36,14 @@ export default {
       return item;
     });
   },
-  methods: {}
+  methods: {
+    login() {
+      this.$store.commit("handleSignIn");
+    },
+    handleSignOut() {
+      this.$store.commit("handleSignOut");
+    },
+  }
 };
 </script>
 <style lang="scss" scoped>
