@@ -6,12 +6,12 @@ import layout from '@/views/layout/layout.vue';
 Vue.use(Router);
 
 export default new Router({
-    // mode:'history',
+    mode:'history',
     routes: [
         //首页
         {
             path: '/',
-            redirect: '/home',
+            redirect: '/moving',
             name: '/',
             hidden: false,
             component: layout,
@@ -20,22 +20,40 @@ export default new Router({
                 keepAlive: false
             },
             children: [
-                //首页
                 {
-                    path: 'home',
-                    name: 'home',
-                    component: () => import(/* webpackChunkName: "login" */ "@/views/home/index.vue"),
-                    meta: {
-                        icon: 'home',
-                        title: '首页',
-                        keepAlive: false
-                    },
-                }
+                    path: 'moving',
+                    name: 'moving',
+                    title: '动态',
+                    component: () => import(/* webpackChunkName: "login" */ "@/views/moving/index.vue")
+                },
+                {
+                    path: 'task',
+                    name: 'task',
+                    title:"任务",
+                    component: () => import(/* webpackChunkName: "login" */ "@/views/task/index.vue")
+                },
+                {
+                    path: 'schedule',
+                    name: 'schedule',
+                    title:"日程",
+                    component: () => import(/* webpackChunkName: "login" */ "@/views/schedule/index.vue")
+                },
+                {
+                    path: 'flies',
+                    name: 'flies',
+                    title:"文件",
+                    component: () => import(/* webpackChunkName: "login" */ "@/views/flies/index.vue")
+                },
+                {
+                    path: 'map',
+                    name: 'map',
+                    title:"地图",
+                    component: () => import(/* webpackChunkName: "login" */ "@/views/map/index.vue")
+                },
             ]
         },
         {
             path: '/about',
-            name: 'about',
             hidden: false,
             component: layout,
             meta: {
