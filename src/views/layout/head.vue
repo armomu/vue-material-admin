@@ -36,13 +36,20 @@ export default {
       return item;
     });
   },
+  computed: {
+    // 计算属性的 getter
+    isLogin() {
+      // `this` 指向 vm 实例
+      return this.$store.state.isLogin;
+    }
+  },
   methods: {
     login() {
       this.$store.commit("handleSignIn");
     },
     handleSignOut() {
       this.$store.commit("handleSignOut");
-    },
+    }
   }
 };
 </script>
@@ -53,7 +60,7 @@ export default {
   display: block;
   color: #ffffff;
   line-height: 64px;
-  padding: 0 15px;
+  padding: 0 24px;
   text-decoration: none;
 }
 .nav-link.router-link-active {

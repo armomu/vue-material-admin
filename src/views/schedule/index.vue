@@ -140,6 +140,7 @@
   </v-layout>
 </template>
 <script>
+/*eslint-disable*/
 const weekdaysDefault = [0, 1, 2, 3, 4, 5, 6];
 
 const intervalsDefault = {
@@ -260,7 +261,8 @@ export default {
   computed: {
     intervalStyle() {
       return stylings[this.styleInterval].bind(this);
-    },
+	},
+	
     hasIntervals() {
       return (
         this.type in
