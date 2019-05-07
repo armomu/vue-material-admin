@@ -306,6 +306,9 @@ export default {
       height: calc(100vh - 144px);
       overflow-y: auto;
       background: #fafafa;
+      &:hover::-webkit-scrollbar-thumb {
+		background: #bdbdbd;
+	}
       &::-webkit-scrollbar {
         // 定义了滚动条整体的样式；
         width: 8px;
@@ -314,10 +317,10 @@ export default {
       &::-webkit-scrollbar-thumb {
         width: 8px;
         border-radius: 4px;
-        background: #bdbdbd;
+        background: transparent;
       }
       　 &::-webkit-scrollbar-thumb {
-        background: #ededed;
+        background: transparent;
       }
       .content {
         .v-card {
