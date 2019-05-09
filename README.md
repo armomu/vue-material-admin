@@ -1,39 +1,31 @@
-# vue-layout
+# Vuetify-todo
 
-## Project setup
-```
-npm install
-```
++ 类似 Todo 的练手项目
++ 基于 Vue-cli3
++ JS 引擎 Vue2.6x + Vuex + Vue-router
++ UI 组件 Vuetify1.5x 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 功能列表
 
-### Compiles and minifies for production
-```
-npm run build
-```
++ 动态（未完成）
++ 任务 任务列表 点击任务推出详情
++ 日程（未完成）
++ 文件（未完成）
++ 地图 点位聚合
 
-### Run your tests
-```
-npm run test
-```
+### 运行
 
-### Lints and fixes files
-```
-npm run lint
-```
++ 安装依赖 npm install 
++ 开发 npm run serve
++ 打包 npm run build
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+### 截图
 
-### Run your unit tests
-```
-npm run test:unit
-```
+![Task](https://github.com/894620576/Vuetify-todo/blob/master/src/assets/task.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### QAQ
+
++ 喜欢或者 fork 啥的就帮忙点个赞啦！
++ 894620576@qq.com 
+
