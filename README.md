@@ -21,7 +21,7 @@
 
 ### 截图
 
-![Task](https://github.com/894620576/Vuetify-todo/blob/master/src/assets/task.png)
+![Task](https://raw.githubusercontent.com/894620576/Vuetify-todo/master/src/assets/task.png)
 
 
 ### QAQ
