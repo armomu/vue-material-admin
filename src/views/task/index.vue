@@ -19,7 +19,7 @@
     </v-card>
     <div class="scroll-wrap" @click.stop="handleHideDetail">
       <div class="inner-head">
-        <div class="title">我的任务</div>
+        <div class="title">{{ $t("task.title") }}</div>
         <v-btn small fab dark color="indigo" @click="click">
           <v-icon dark>add</v-icon>
         </v-btn>

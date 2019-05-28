@@ -13,14 +13,7 @@ export default {
   },
   data() {
     return {
-      collapsed: false,
-      admins: [["Management", "people_outline"], ["Settings", "settings"]],
-      cruds: [
-        ["Create", "add"],
-        ["Read", "insert_drive_file"],
-        ["Update", "update"],
-        ["Delete", "delete"]
-      ]
+
     };
   }
 };

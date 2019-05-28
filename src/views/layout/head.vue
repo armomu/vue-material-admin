@@ -10,7 +10,7 @@
       class="nav-link"
       v-for="(item,index) in menus"
       :key="index"
-    >{{item.title}}</router-link>
+    >{{$t("header."+item.name)}}</router-link>
     <v-spacer></v-spacer>
 
     <v-btn icon @click="login">
@@ -20,13 +20,14 @@
     <v-btn icon @click="handleSignOut">
       <v-icon>chat</v-icon>
     </v-btn>
+    <v-btn icon @click="handleCutover">{{ btntext }}</v-btn>
   </v-toolbar>
 </template>
 <script>
 export default {
   data() {
     return {
-      menus: []
+      btntext:"中文"
     };
   },
   created() {
@@ -37,11 +38,15 @@ export default {
     });
   },
   computed: {
-    // 计算属性的 getter
     isLogin() {
-      // `this` 指向 vm 实例
       return this.$store.state.isLogin;
+    },
+    locale(key) {
+      return this.$t("header." + key);
     }
+  },
+  mounted() {
+    // console.log(this.$t("header.moving"))
   },
   methods: {
     login() {
@@ -49,6 +54,15 @@ export default {
     },
     handleSignOut() {
       this.$store.commit("handleSignOut");
+    },
+    handleCutover() {
+      if (this.$i18n.locale === "zh_CN") {
+        this.$i18n.locale = "en_US";
+        this.btntext = "中文"
+      } else {
+        this.$i18n.locale = "zh_CN";
+        this.btntext = "EN"
+      }
     }
   }
 };

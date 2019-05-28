@@ -1,7 +1,7 @@
 <template>
   <v-flex xs10 offset-xs1>
-    <h1>文件</h1>
-    <v-btn color="info" @click="$refs['excel-upload-input'].click()">上传 Excel 文件</v-btn>
+    <h1>{{ $t("files.title") }}</h1>
+    <v-btn color="info" @click="$refs['excel-upload-input'].click()">{{ $t("files.btn") }}</v-btn>
     <input
       ref="excel-upload-input"
       class="excel-upload-input"

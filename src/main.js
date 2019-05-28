@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import VueAMap from 'vue-amap'
 import Vuetify from 'vuetify'
+import i18n from './tools/i18n'
 import 'vuetify/src/stylus/main.styl';
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.use(Vuetify, {
@@ -25,6 +26,7 @@ Vue.config.productionTip = false
 
 new Vue({
     router,
+    i18n,
     store,
     render: h => h(App)
 }).$mount('#app')

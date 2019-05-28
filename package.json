@@ -12,12 +12,11 @@
   "dependencies": {
     "@antv/g2": "^3.4.5",
     "axios": "^0.18.0",
-    "csv": "^5.1.1",
-    "js-xlsx": "^0.8.22",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "vue": "^2.6.10",
     "vue-amap": "^0.5.8",
+    "vue-i18n": "^8.11.2",
     "vue-router": "^3.0.3",
     "vuetify": "^1.5.13",
     "vuex": "^3.0.1",
