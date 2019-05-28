@@ -160,7 +160,6 @@
 </template>
 <script>
 import { setTimeout } from "timers";
-import { truncate } from "fs";
 export default {
   data() {
     return {
@@ -307,8 +306,8 @@ export default {
       overflow-y: auto;
       background: #fafafa;
       &:hover::-webkit-scrollbar-thumb {
-		background: #bdbdbd;
-	}
+        background: #bdbdbd;
+      }
       &::-webkit-scrollbar {
         // 定义了滚动条整体的样式；
         width: 8px;
@@ -317,9 +316,6 @@ export default {
       &::-webkit-scrollbar-thumb {
         width: 8px;
         border-radius: 4px;
-        background: transparent;
-      }
-      　 &::-webkit-scrollbar-thumb {
         background: transparent;
       }
       .content {
