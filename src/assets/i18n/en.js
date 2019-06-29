@@ -1,11 +1,11 @@
 
 module.exports = {
     header: {
-        'moving': 'moving',
-        'task': 'task',
-        'schedule': 'schedule',
-        'flies': 'flies',
-        'map': 'map'
+        'moving': 'MOVING',
+        'task': 'TASK',
+        'schedule': 'SCHEDULE',
+        'flies': 'FLIES',
+        'map': 'MAP'
     },
     task:{
         title:"My task"

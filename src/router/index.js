@@ -12,7 +12,7 @@ export default new Router({
         //首页
         {
             path: '/',
-            redirect: '/task',
+            redirect: '/moving',
             name: '/',
             hidden: false,
             component: layout,
