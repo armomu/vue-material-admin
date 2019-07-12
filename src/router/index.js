@@ -11,7 +11,7 @@ export default new Router({
         //首页
         {
             path: '/',
-            redirect: '/moving',
+            redirect: '/dashboard',
             name: '/',
             hidden: false,
             component: layout,
@@ -21,10 +21,10 @@ export default new Router({
             },
             children: [
                 {
-                    path: 'moving',
-                    name: 'moving',
+                    path: 'dashboard',
+                    name: 'dashboard',
                     title: '动态',
-                    component: () => import(/* webpackChunkName: "moving" */ '@/views/moving/index.vue')
+                    component: () => import(/* webpackChunkName: "moving" */ '@/views/dashboard/index.vue')
                 },
                 {
                     path: 'task',

@@ -1,21 +1,34 @@
 <template>
-  <v-flex xs10 offset-xs1>
-    <h1>{{ $t("files.title") }}</h1>
-    <v-btn color="info" @click="$refs['excel-upload-input'].click()">{{ $t("files.btn") }}</v-btn>
-    <input
-      ref="excel-upload-input"
-      class="excel-upload-input"
-      type="file"
-      accept=".xlsx, .xls"
-      hidden
-      @change="handleFileChange"
-    />
-    <v-data-table :headers="headers" :items="desserts" class="elevation-1">
-      <template v-slot:items="props">
-        <td v-for="(tr,index) in headers" :key="index">{{ props.item[tr.value] }}</td>
-      </template>
-    </v-data-table>
-  </v-flex>
+    <v-flex
+        xs10
+        offset-xs1
+    >
+        <h1>{{ $t("files.title") }}</h1>
+        <v-btn
+            color="info"
+            @click="$refs['excel-upload-input'].click()"
+        >{{ $t("files.btn") }}</v-btn>
+        <input
+            ref="excel-upload-input"
+            class="excel-upload-input"
+            type="file"
+            accept=".xlsx, .xls"
+            hidden
+            @change="handleFileChange"
+        />
+        <v-data-table
+            :headers="headers"
+            :items="desserts"
+            class="elevation-1"
+        >
+            <template v-slot:items="props">
+                <td
+                    v-for="(tr,index) in headers"
+                    :key="index"
+                >{{ props.item[tr.value] }}</td>
+            </template>
+        </v-data-table>
+    </v-flex>
 </template>
 
 <script>
@@ -184,8 +197,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .amap-demo {
-  width: 100%;
-  height: calc(100vh - 64px);
+    width: 100%;
+    height: calc(100vh - 64px);
 }
 </style>
 

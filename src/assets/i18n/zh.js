@@ -1,7 +1,7 @@
 
 module.exports = {
     header: {
-        moving: '动态',
+        dashboard: '仪表盘',
         task: '任务',
         schedule: '日程',
         flies: '文件',
