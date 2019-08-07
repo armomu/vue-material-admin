@@ -2,11 +2,12 @@
     <div class="home">
         <div class="amap-page-container">
             <el-amap
-                vid="amapDemo"
+                vid="Amap"
                 :center="center"
                 :zoom="zoom"
                 class="amap-demo"
                 :events="events"
+                :amap-manager="amapManager"
             >
                 <el-amap-marker
                     v-for="(marker,index) in markers"
@@ -19,43 +20,38 @@
         </div>
     </div>
 </template>
-
-
-
 <script>
+import VueMap, { AMapManager } from 'vue-amap';
+let amapManager = new VueMap.AMapManager();
 export default {
     data() {
         let self = this;
         return {
-            zoom: 12,
+            zoom: 1,
             center: [114.22951, 22.720603],
             markers: [],
+            amapManager,
             markerRefs: [],
             events: {
                 init(o) {
-                    setTimeout(() => {
-                        console.log(self.markerRefs);
-                        let cluster = new AMap.MarkerClusterer(
-                            o,
-                            self.markerRefs,
-                            {
-                                gridSize: 80,
-                                renderCluserMarker: self._renderCluserMarker
-                            }
-                        );
-                        console.log(cluster);
-                    }, 1000);
+                    // setTimeout(() => {
+                    //     let cluster = new AMap.MarkerClusterer(
+                    //         o,
+                    //         self.markerRefs,
+                    //         {
+                    //             gridSize: 80,
+                    //             renderCluserMarker: self._renderCluserMarker
+                    //         }
+                    //     );
+                    // }, 1000);
                 }
             }
         };
     },
-    created: function() {
+    created() {
         let self = this;
         let markers = [];
         let index = 0;
-
-        // let basePosition = [121.59996, 31.197646];
-
         while (++index <= 40) {
             markers.push({
                 position: [114.22951 + 0.001 * index, 22.720603],
@@ -69,10 +65,23 @@ export default {
             });
         }
 
-        this.markers = markers;
+        // this.markers = markers;
     },
-    mounted: function() {
-        // jojo
+    computed: {
+        map() {
+            return this.amapManager.getMap();
+        },
+        locale(key) {
+            return this.$t('header.' + key);
+        }
+    },
+    mounted() {
+        setTimeout(()=>{
+            console.log(this.map.getCenter());
+            this.map.setMapStyle('amap://styles/5a5b5154506719b871666675766b9035');
+        },2000)
+
+
     },
     methods: {
         _renderCluserMarker(context) {

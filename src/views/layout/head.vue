@@ -19,7 +19,6 @@
             :key="index"
         >{{$t("header."+item.name)}}</router-link>
         <v-spacer></v-spacer>
-
         <v-btn
             icon
             @click="login"
@@ -31,19 +30,28 @@
             icon
             @click="handleSignOut"
         >
-            <v-icon>chat</v-icon>
+            <v-icon>email</v-icon>
         </v-btn>
         <v-btn
             icon
             @click="handleCutover"
         >{{ btntext }}</v-btn>
+        <v-btn
+            icon
+            href="https://vuetifyjs.com/"
+            target="_blank"
+            title="Vuetifyjs components-ui"
+            style="background-image: url(&quot;https://cdn.vuetifyjs.com/images/logos/v-alt.svg&quot;); background-position: center center;"
+        ></v-btn>
+
     </v-toolbar>
 </template>
 <script>
 export default {
     data() {
         return {
-            btntext: '中文'
+            btntext: '中文',
+            menus: []
         };
     },
     created() {

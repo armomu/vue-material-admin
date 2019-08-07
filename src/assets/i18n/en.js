@@ -4,7 +4,7 @@ module.exports = {
         dashboard: 'Dashboard',
         task: 'Task',
         schedule: 'Schedule',
-        flies: 'Flie',
+        flies: 'Flies',
         map: 'Map'
     },
     task:{

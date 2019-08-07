@@ -11,6 +11,7 @@ export default {
         return {};
     },
     mounted() {
+        console.log(this)
         var canvas = document.getElementById('canvas');
         QRCode.toCanvas(canvas, '扫我干啥？啊啊', function(error) {
             if (error) console.error(error);

@@ -1,0 +1,8 @@
+body {
+    font-family: "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", "Hiragino Sans GB",
+        "WenQuanYi Micro Hei", Arial, sans-serif;
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
