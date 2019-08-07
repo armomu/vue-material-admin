@@ -3,13 +3,20 @@
         <div class="row1">
             <div class="left">
                 <div class="item">
-                    <div class="item_flex_title">
-                        <div class="item_flex_title">Total sales</div>
-                    </div>
+                    <div class="item_flex_title">Total sales</div>
+                    <div class="item_content"></div>
                 </div>
-                <div class="item"></div>
+                <div class="item">
+                    <div class="item_flex_title">Total sales</div>
+                    <div class="item_content"></div>
+                </div>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <div class="item">
+                    <div class="item_flex_title">Total sales</div>
+                    <div class="item_content"></div>
+                </div>
+            </div>
         </div>
         <!-- <h1>动态</h1>
         <canvas id="canvas"></canvas> -->

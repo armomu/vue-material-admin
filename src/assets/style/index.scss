@@ -1,5 +1,5 @@
 // @import url("./variable.scss");
-$cp: #3F51B5;
+$cp: #3f51b5;
 body {
     font-family: "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", "Hiragino Sans GB",
         "WenQuanYi Micro Hei", Arial, sans-serif;
@@ -8,22 +8,33 @@ body {
         height: 0;
     }
 }
-.dashboard_container{
+.dashboard_container {
     background: rgb(38, 49, 109);
     min-height: calc(100vh - 64px);
     padding: 30px;
     color: #fff;
-    .item{
+    .item {
         background: $cp;
-        font-weight: 600;
-        padding: 0 26px;
-        font-size: 16px;
-        height: 56px;
-        display: flex;
-        align-items: center;
         border-radius: 6px;
         box-shadow: 0 0.5rem 1rem 0 #1a1f33;
-        border-bottom: 1px solid #1b1b38;
+        .item_flex_title {
+            font-weight: 600;
+            padding: 0 26px;
+            font-size: 16px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #1b1b38;
+        }
     }
-
+    .row1 {
+        display: flex;
+        justify-content: space-between;
+        .left {
+            width: calc(40% - 15px);
+        }
+        .right {
+            width: calc(60% - 15px);
+        }
+    }
 }
