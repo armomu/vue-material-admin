@@ -1,6 +1,5 @@
 # Vuetify-todo
 
-+ 类似 Todo 的练手项目
 + 基于 Vue-cli3
 + JS 引擎 Vue2.6x + Vuex + Vue-router
 + UI 组件 Vuetify1.5x 
@@ -27,5 +26,5 @@
 ### QAQ
 
 + 喜欢或者 fork 啥的就帮忙点个赞啦！
-+ 894620576@qq.com 
+
 
