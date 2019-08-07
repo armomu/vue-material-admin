@@ -21,11 +21,11 @@
     </div>
 </template>
 <script>
-import VueMap, { AMapManager } from 'vue-amap';
-let amapManager = new VueMap.AMapManager();
+import VueMap from 'vue-amap';
+const amapManager = new VueMap.AMapManager();
 export default {
     data() {
-        let self = this;
+        // let self = this;
         return {
             zoom: 1,
             center: [114.22951, 22.720603],
@@ -33,7 +33,10 @@ export default {
             amapManager,
             markerRefs: [],
             events: {
-                init(o) {
+                init(amp) {
+                    amp.setMapStyle(
+                        'amap://styles/5a5b5154506719b871666675766b9035'
+                    );
                     // setTimeout(() => {
                     //     let cluster = new AMap.MarkerClusterer(
                     //         o,
@@ -49,22 +52,21 @@ export default {
         };
     },
     created() {
-        let self = this;
-        let markers = [];
-        let index = 0;
-        while (++index <= 40) {
-            markers.push({
-                position: [114.22951 + 0.001 * index, 22.720603],
-                content:
-                    '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
-                events: {
-                    init(o) {
-                        self.markerRefs.push(o);
-                    }
-                }
-            });
-        }
-
+        // let self = this;
+        // let markers = [];
+        // let index = 0;
+        // while (++index <= 40) {
+        //     markers.push({
+        //         position: [114.22951 + 0.001 * index, 22.720603],
+        //         content:
+        //             '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
+        //         events: {
+        //             init(o) {
+        //                 self.markerRefs.push(o);
+        //             }
+        //         }
+        //     });
+        // }
         // this.markers = markers;
     },
     computed: {
@@ -76,12 +78,9 @@ export default {
         }
     },
     mounted() {
-        setTimeout(()=>{
+        setTimeout(() => {
             console.log(this.map.getCenter());
-            this.map.setMapStyle('amap://styles/5a5b5154506719b871666675766b9035');
-        },2000)
-
-
+        }, 2000);
     },
     methods: {
         _renderCluserMarker(context) {
