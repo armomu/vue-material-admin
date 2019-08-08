@@ -1,8 +1,8 @@
 // @import url("./variable.scss");
 $cp: #323259;
 body {
-    font-family: "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", "Hiragino Sans GB",
-        "WenQuanYi Micro Hei", Arial, sans-serif;
+    font-family: "Roboto", "sans-serif", "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
+        "Hiragino Sans GB", "WenQuanYi Micro Hei", Arial, sans-serif;
     &::-webkit-scrollbar {
         width: 0;
         height: 0;
@@ -18,7 +18,7 @@ body {
         border-radius: 4px;
         box-shadow: 0 0.5rem 1rem 0 #1a1f33;
         margin-bottom: 30px;
-        .item_flex_title {
+        .item_header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -26,7 +26,6 @@ body {
             padding: 0 16px;
             .name {
                 font-weight: 600;
-
                 font-size: 16px;
             }
             border-bottom: 1px solid #1b1b38;
@@ -42,8 +41,8 @@ body {
                 justify-content: space-between;
                 .item {
                     width: calc(50% - 15px);
-                    .item_flex_title{
-                        >i{
+                    .item_header {
+                        > i {
                             color: #fff;
                             position: relative;
                             right: -5px;
@@ -95,6 +94,113 @@ body {
         }
         .right {
             width: calc(55% - 15px);
+            .item {
+                position: relative;
+                overflow: hidden;
+                .inner_item {
+                    width: 60%;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    background: rgba($color: #000, $alpha: 0.2);
+                    z-index: 8;
+                    transition: all 0.3s;
+                    .item_header {
+                        display: block;
+                        padding-top: 30px;
+                        height: auto;
+                        .total {
+                            font-size: 32px;
+                            font-weight: bold;
+                        }
+                    }
+                    .inner_item_content {
+                        margin-top: 50px;
+                    }
+                    .c {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-top: 30px;
+                        .row {
+                            width: 30%;
+                        }
+                        .row_inner {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .c1 {
+                            margin-right: 20px;
+                        }
+                        .cb {
+                            width: 15px;
+                            height: 15px;
+                            margin-right: 10px;
+                        }
+                        .cb1 {
+                            background: #a16eff;
+                        }
+                        .cb2 {
+                            background: #00d68f;
+                        }
+                    }
+                }
+                .inner_item_hide {
+                    right: -43%;
+                    .item_header {
+                    }
+                    .inner_item_content {
+                    }
+                    .c {
+                    }
+                }
+                .arrow{
+                    position: absolute;
+                    right: 16px;
+                    top: 16px;
+                    z-index: 9;
+                    i{
+                        color: #fff;
+                        font-size: 30px;
+                    }
+                }
+            }
+            .item_header {
+                border-bottom: 0;
+            }
+            .item_content {
+                padding: 0 30px 30px 30px;
+                .min_title {
+                    margin-bottom: 0;
+                }
+                .chart_header {
+                    height: 100px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-left: 40px;
+                    .c {
+                        display: flex;
+                        align-items: center;
+                        .c1 {
+                            margin-right: 20px;
+                        }
+                        .cb {
+                            width: 15px;
+                            height: 15px;
+                            margin-right: 10px;
+                        }
+                        .cb1 {
+                            background: #a16eff;
+                        }
+                        .cb2 {
+                            background: #00d68f;
+                        }
+                    }
+                }
+            }
         }
     }
 }
