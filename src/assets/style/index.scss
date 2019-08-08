@@ -1,5 +1,5 @@
 // @import url("./variable.scss");
-$cp: #3f51b5;
+$cp: #323259;
 body {
     font-family: "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", "Hiragino Sans GB",
         "WenQuanYi Micro Hei", Arial, sans-serif;
@@ -9,21 +9,26 @@ body {
     }
 }
 .dashboard_container {
-    background: rgb(38, 49, 109);
+    background: #1b1b38;
     min-height: calc(100vh - 64px);
     padding: 30px;
     color: #fff;
     .item {
         background: $cp;
-        border-radius: 6px;
+        border-radius: 4px;
         box-shadow: 0 0.5rem 1rem 0 #1a1f33;
+        margin-bottom: 30px;
         .item_flex_title {
-            font-weight: 600;
-            padding: 0 26px;
-            font-size: 16px;
-            height: 56px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            padding: 0 16px;
+            .name {
+                font-weight: 600;
+
+                font-size: 16px;
+            }
             border-bottom: 1px solid #1b1b38;
         }
     }
@@ -31,10 +36,65 @@ body {
         display: flex;
         justify-content: space-between;
         .left {
-            width: calc(40% - 15px);
+            width: calc(45% - 15px);
+            .card_wrap {
+                display: flex;
+                justify-content: space-between;
+                .item {
+                    width: calc(50% - 15px);
+                    .item_flex_title{
+                        >i{
+                            color: #fff;
+                            position: relative;
+                            right: -5px;
+                        }
+                    }
+                    .item_content {
+                        overflow: hidden;
+                        position: relative;
+                        .chart_wrap {
+                            width: calc(100% + 40px);
+                            > div {
+                                left: -40px;
+                            }
+                        }
+                        .chart_wrap1 {
+                            width: calc(100% + 120px);
+                            > div {
+                                left: -80px;
+                                bottom: -40px;
+                            }
+                        }
+                        .tool {
+                            width: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            .t {
+                                display: flex;
+                                align-items: center;
+                                padding: 0 16px;
+                                height: 45px;
+                                justify-content: space-between;
+                                .r {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    i {
+                                        color: red;
+                                    }
+                                }
+                            }
+                            .v {
+                                padding: 0 16px;
+                            }
+                        }
+                    }
+                }
+            }
         }
         .right {
-            width: calc(60% - 15px);
+            width: calc(55% - 15px);
         }
     }
 }

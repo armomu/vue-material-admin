@@ -21,15 +21,12 @@
         <v-spacer></v-spacer>
         <v-btn
             icon
-            @click="login"
+            @click="testChangeColor"
         >
             <v-icon>search</v-icon>
         </v-btn>
 
-        <v-btn
-            icon
-            @click="handleSignOut"
-        >
+        <v-btn icon>
             <v-icon>email</v-icon>
         </v-btn>
         <v-btn
@@ -50,34 +47,29 @@
 export default {
     data() {
         return {
-            btntext: '中文',
-            menus: []
+            btntext: '中文'
         };
     },
-    created() {
-        const { options } = this.$router;
-        this.menus = options.routes[0].children.map((item) => {
-            item['active'] = false;
-            return item;
-        });
-    },
+
     computed: {
-        isLogin() {
-            return this.$store.state.isLogin;
-        },
         locale(key) {
             return this.$t('header.' + key);
+        },
+        menus() {
+            const { options } = this.$router;
+            return (this.menus = options.routes[0].children.map((item) => {
+                item['active'] = false;
+                return item;
+            }));
         }
     },
     mounted() {
         // console.log(this.$t("header.moving"))
     },
     methods: {
-        login() {
-            this.$store.commit('handleSignIn');
-        },
-        handleSignOut() {
-            this.$store.commit('handleSignOut');
+        testChangeColor() {
+            this.$vuetify.theme.primary = '#4caf50';
+            console.log(this.$vuetify);
         },
         handleCutover() {
             if (this.$i18n.locale === 'zh_CN') {

@@ -24,7 +24,7 @@ export default new Router({
                     path: 'dashboard',
                     name: 'dashboard',
                     title: '动态',
-                    component: () => import(/* webpackChunkName: "moving" */ '@/views/dashboard/index.vue')
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue')
                 },
                 {
                     path: 'task',
