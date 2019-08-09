@@ -5,9 +5,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        isLogin: false
+        isLogin: false,
+        ymlmlh: false,
+        mlmlh: false
     },
     mutations: {
+        handleChangeMlmlh(state){
+            state.mlmlh = !state.mlmlh;
+        },
+        handleChangeYmlmlh(state){
+            state.ymlmlh = !state.ymlmlh;
+        },
         handleSignIn(state) {
             state.isLogin = true;
         },

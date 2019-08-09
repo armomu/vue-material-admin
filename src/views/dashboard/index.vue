@@ -13,7 +13,7 @@
                                 <ve-histogram
                                     :data="chartData"
                                     :extend="chartExtend"
-                                    height="180px"
+                                    height="240px"
                                 ></ve-histogram>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                     :data="chartData2"
                                     :extend="chartExtend2"
                                     :settings="chartSettings"
-                                    height="180px"
+                                    height="240px"
                                 ></ve-line>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                         class="arrow"
                         @click="handlePieBoxVisibleStatus"
                     >
-                        <v-btn icon="">
+                        <v-btn icon>
                             <v-icon v-if="pieBoxVisible">arrow_back</v-icon>
                             <v-icon v-else>arrow_forward</v-icon>
                         </v-btn>
@@ -123,7 +123,7 @@
                                 :data="pieData"
                                 :settings="pieSettings"
                                 :extend="pieExtend"
-                                height="400px"
+                                height="460px"
                             ></ve-ring>
                         </div>
                         <div class="c">
@@ -165,7 +165,7 @@
                                 :data="chartData3"
                                 :extend="chartExtend3"
                                 :settings="chartSettings3"
-                                height="400px"
+                                height="460px"
                             ></ve-line>
                         </div>
                     </div>

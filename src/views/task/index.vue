@@ -308,6 +308,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.nav-link.router-link-active {
+    color: #fff;
+}
 .task-warp {
     display: flex;
     .left-menu {

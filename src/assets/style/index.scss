@@ -1,4 +1,6 @@
 // @import url("./variable.scss");
+@import "./transition.scss";
+@import "./variable.scss";
 $cp: #323259;
 body {
     font-family: "Roboto", "sans-serif", "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
@@ -397,24 +399,6 @@ body {
                 width: 100%;
             }
         }
-    }
-}
-
-@media screen and (max-width: 960px) {
-    .zwf{
-        height: 56px;
-    }
-    .dashboard_container {
-        .card_box {
-            .left{
-                .card_wrap{
-                    .r_card{
-                        // width: 100%;
-                    }
-                }
-            }
-        }
-
     }
 }
 
