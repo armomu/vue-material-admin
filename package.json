@@ -10,7 +10,6 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@antv/g2": "^3.4.5",
     "axios": "^0.18.0",
     "echarts": "^4.2.1",
     "node-sass": "^4.9.2",
