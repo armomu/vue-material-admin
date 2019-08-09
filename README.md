@@ -1,6 +1,6 @@
 # Vuetify-todo
 
-基于 Vue-cli3脚手架。Vue2.6x + Vuex + Vue-router。 UI 组件 Vuetify1.5x，
+基于 Vue-cli3脚手架，Vue2.6x + Vuex + Vue-router。 UI 组件 Vuetify1.5x。
 >让 Vue 和 Material Design 的强大力量在开发上助您一臂之力
 >[Vuetifyjs 官方文档](https://vuetifyjs.com/zh-Hans/)，仪表盘参考了 [ngx-admin](http://akveo.com/ngx-admin/#/pages/dashboard)
 
@@ -52,7 +52,7 @@ yarn build
 
 ## 截图
 
-![Task](https://raw.githubusercontent.com/894620576/Vuetify-todo/master/src/assets/task.png)
+![Task](https://raw.githubusercontent.com/894620576/Vuetify-todo/master/src/assets/dashboard.png)
 
 
 ## Emmm~
