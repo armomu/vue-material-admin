@@ -13,7 +13,7 @@ body {
     min-height: calc(100vh - 64px);
     padding: 30px;
     color: #fff;
-    .item {
+    .r_card {
         background: $cp;
         border-radius: 4px;
         box-shadow: 0 0.5rem 1rem 0 #1a1f33;
@@ -21,28 +21,35 @@ body {
         .item_header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             height: 56px;
             padding: 0 16px;
-            .name {
+            .title {
                 font-weight: 600;
-                font-size: 16px;
+                font-size: 16px !important;
+                margin-right: auto;
             }
             border-bottom: 1px solid #1b1b38;
         }
+        > i {
+            color: #fff;
+            cursor: pointer;
+        }
     }
-    .row1 {
+    .card_box {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         .left {
             width: calc(45% - 15px);
             .card_wrap {
                 display: flex;
                 justify-content: space-between;
-                .item {
+                flex-wrap: wrap;
+                .r_card {
                     width: calc(50% - 15px);
                     .item_header {
                         > i {
+                            cursor: pointer;
                             color: #fff;
                             position: relative;
                             right: -5px;
@@ -91,10 +98,56 @@ body {
                     }
                 }
             }
+            .r_card {
+                .item_weather {
+                    padding: 20px 30px;
+                    .weather_header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        .weather_header_left {
+                            .city {
+                                font-size: 32px;
+                                margin-bottom: 20px;
+                            }
+                            .wd {
+                                font-weight: bold;
+                            }
+                        }
+                        .weather_header_right {
+                            margin-right: 50px;
+                            animation: tyggxh 10s infinite;
+                            i {
+                                font-size: 130px;
+                                color: #f7de1f;
+                            }
+                        }
+                    }
+                    .weather_week {
+                        border-top: 1px #1a1f33 solid;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-top: 16px;
+                        padding-top: 20px;
+                        .day_item {
+                            text-align: center;
+                            .lb {
+                                color: #ccc;
+                            }
+                            i {
+                                font-size: 35px;
+                                color: #fff;
+                                margin: 15px 0;
+                            }
+                        }
+                    }
+                }
+            }
         }
         .right {
             width: calc(55% - 15px);
-            .item {
+            .r_card {
                 position: relative;
                 overflow: hidden;
                 .inner_item {
@@ -108,23 +161,25 @@ body {
                     transition: all 0.3s;
                     .item_header {
                         display: block;
-                        padding-top: 30px;
+                        padding-top: 15px;
+                        padding-left: 35px;
                         height: auto;
+                        transition: all 0.3s;
                         .total {
                             font-size: 32px;
                             font-weight: bold;
                         }
                     }
                     .inner_item_content {
-                        margin-top: 50px;
+                        transition: all 0.3s;
                     }
                     .c {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        margin-top: 30px;
                         .row {
-                            .bfb{
+                            margin: 0 40px;
+                            .bfb {
                                 font-size: 30px;
                                 font-weight: 700;
                             }
@@ -153,18 +208,19 @@ body {
                 .inner_item_hide {
                     right: -43%;
                     .item_header {
+                        transform: translate(30%, 0);
                     }
                     .inner_item_content {
-                    }
-                    .c {
+                        transform: translate(30%, 0);
                     }
                 }
-                .arrow{
+                .arrow {
                     position: absolute;
                     right: 16px;
                     top: 16px;
                     z-index: 9;
-                    i{
+                    cursor: pointer;
+                    i {
                         color: #fff;
                         font-size: 30px;
                     }
@@ -205,5 +261,177 @@ body {
                 }
             }
         }
+    }
+    .camera_play_row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .camera_wrap {
+            width: calc(65% - 15px);
+            .r_card {
+                .item_header {
+                    i {
+                        color: #fff;
+                    }
+                }
+            }
+            .reversal {
+                position: relative;
+                transform-style: preserve-3d;
+                height: 600px;
+                .camera_content {
+                    width: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    transition: all 1s;
+                    backface-visibility: hidden;
+                    .camera_item {
+                        width: 50%;
+                        height: 300px;
+                        position: relative;
+                        background-size: cover;
+                        background-position: center;
+                        cursor: pointer;
+                        &::after {
+                            content: "";
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            background: rgba($color: #ccc, $alpha: 0.2);
+                        }
+                        &:hover:after {
+                            background: none;
+                        }
+                        .camera_name {
+                            margin: 20px 0 0 20px;
+                            line-height: 50px;
+                        }
+                    }
+                }
+                .camera_content2 {
+                    transform: rotateY(180deg);
+                    .camera_item {
+                        width: 100%;
+                        height: 600px;
+                    }
+                }
+            }
+            .run_reversal {
+                .camera_content {
+                    transform: rotateY(180deg);
+                }
+                .camera_content2 {
+                    transform: rotateY(0);
+                }
+            }
+        }
+        .play_item {
+            width: calc(35% - 15px);
+            .item_content {
+                text-align: center;
+                .image {
+                    width: 240px;
+                    height: 240px;
+                    margin: 50px auto 50px auto;
+                    background-size: cover;
+                }
+                .title {
+                    text-align: center;
+                    font-size: 30px !important;
+                }
+                .current_time {
+                    padding: 30px 30px 0 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .t {
+                        width: 50px;
+                        text-align: center;
+                        transform: translate(0, -2px);
+                    }
+                }
+                .btn_g {
+                    i {
+                        color: #fff;
+                    }
+                    .py {
+                        i {
+                            font-size: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@keyframes tyggxh {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .dashboard_container {
+        .card_box {
+            .left{
+                width: 100%;
+            }
+            .right{
+                width: 100%;
+            }
+        }
+        .camera_play_row{
+            .camera_wrap{
+                width: 100%;
+            }
+            .play_item{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .zwf{
+        height: 56px;
+    }
+    .dashboard_container {
+        .card_box {
+            .left{
+                .card_wrap{
+                    .r_card{
+                        // width: 100%;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .zwf{
+        height: 56px;
+    }
+    .dashboard_container {
+        .card_box {
+            .left{
+                .card_wrap{
+                    .r_card{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -7,7 +7,7 @@
 export default {
     mounted() {
         setTimeout(() => {
-            document.getElementById("loading").remove();
+            document.getElementById('loading').remove();
         }, 500);
     }
 };

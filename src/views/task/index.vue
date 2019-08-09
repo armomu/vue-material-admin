@@ -290,6 +290,7 @@ export default {
         }
     },
     mounted() {
+        this.$vuetify.theme.primary = '#3F51B5';
         setTimeout(() => {
             this.slider = false;
         }, 100);

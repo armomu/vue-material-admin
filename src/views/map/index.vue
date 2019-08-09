@@ -78,6 +78,7 @@ export default {
         }
     },
     mounted() {
+        this.$vuetify.theme.primary = '#323259';
         setTimeout(() => {
             console.log(this.map.getCenter());
         }, 2000);

@@ -3,6 +3,7 @@
         dark
         fixed
         color="primary"
+        style="z-index:900"
     >
         <v-btn
             icon
@@ -21,7 +22,6 @@
         <v-spacer></v-spacer>
         <v-btn
             icon
-            @click="testChangeColor"
         >
             <v-icon>search</v-icon>
         </v-btn>
@@ -50,14 +50,16 @@ export default {
             btntext: '中文'
         };
     },
+    created(){
 
+    },
     computed: {
         locale(key) {
             return this.$t('header.' + key);
         },
         menus() {
             const { options } = this.$router;
-            return (this.menus = options.routes[0].children.map((item) => {
+            return (options.routes[0].children.map((item) => {
                 item['active'] = false;
                 return item;
             }));
@@ -67,10 +69,6 @@ export default {
         // console.log(this.$t("header.moving"))
     },
     methods: {
-        testChangeColor() {
-            this.$vuetify.theme.primary = '#4caf50';
-            console.log(this.$vuetify);
-        },
         handleCutover() {
             if (this.$i18n.locale === 'zh_CN') {
                 this.$i18n.locale = 'en_US';
@@ -94,5 +92,10 @@ export default {
 }
 .nav-link.router-link-active {
     background: rgba($color: #ffffff, $alpha: 0.2);
+}
+@media screen and (max-width: 960px) {
+    .nav-link{
+      line-height: 56px;
+    }
 }
 </style>
