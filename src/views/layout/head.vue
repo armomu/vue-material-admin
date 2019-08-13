@@ -15,7 +15,7 @@
             <v-icon>search</v-icon>
         </v-btn>
 
-        <v-btn icon>
+        <v-btn icon href="mailto:894620576@qq.com">
             <v-icon title="894620576@qq.com">email</v-icon>
         </v-btn>
         <v-btn icon @click="handleCutover">{{ btntext }}</v-btn>
@@ -33,7 +33,7 @@
             <v-btn icon dark color="primary" class="menu_btn" v-else @click="handleChangeMenuVisible(true)">
                 <v-icon>menu</v-icon>
             </v-btn>
-            
+
             <div class="menu_list" @click="handleChangeMenuVisible(false)">
                 <router-link
                     v-ripple
@@ -41,7 +41,7 @@
                     class="nav-link"
                     v-for="(item,index) in menus"
                     :key="index"
-                    
+
                 >{{$t("header."+item.name)}}</router-link>
             </div>
         </v-card>
