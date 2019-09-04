@@ -270,26 +270,23 @@ body {
         flex-wrap: wrap;
         .camera_wrap {
             width: calc(65% - 15px);
+            position: relative;
             .r_card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                transform-style: preserve-3d;
+                backface-visibility: hidden;
+                transition: all 0.3s;
                 .item_header {
                     i {
                         color: #fff;
                     }
                 }
-            }
-            .reversal {
-                position: relative;
-                transform-style: preserve-3d;
-                height: 600px;
                 .camera_content {
-                    width: 100%;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
                     display: flex;
                     flex-wrap: wrap;
-                    transition: all 1s;
-                    backface-visibility: hidden;
                     .camera_item {
                         width: 50%;
                         height: 300px;
@@ -317,20 +314,38 @@ body {
                     }
                 }
                 .camera_content2 {
-                    transform: rotateY(180deg);
                     .camera_item {
                         width: 100%;
                         height: 600px;
+                        &::after {
+                            display: none;
+                            opacity: 0;
+                        }
                     }
                 }
             }
-            .run_reversal {
-                .camera_content {
-                    transform: rotateY(180deg);
-                }
-                .camera_content2 {
-                    transform: rotateY(0);
-                }
+            .reversal_before {
+                position: relative;
+                opacity: 1;
+                z-index: 2;
+            }
+            .reversal_after {
+                
+                transform: rotateY(360deg);
+                opacity: 0;
+                z-index: 1;
+            }
+        }
+        .reversal {
+            .reversal_before {
+                transform: rotateY(-360deg);
+                opacity: 0;
+                z-index: 1;
+            }
+            .reversal_after {
+                transform: rotateY(0);
+                opacity: 1;
+                z-index: 2;
             }
         }
         .play_item {
@@ -384,18 +399,18 @@ body {
 @media screen and (max-width: 1024px) {
     .dashboard_container {
         .card_box {
-            .left{
+            .left {
                 width: 100%;
             }
-            .right{
+            .right {
                 width: 100%;
             }
         }
-        .camera_play_row{
-            .camera_wrap{
+        .camera_play_row {
+            .camera_wrap {
                 width: 100%;
             }
-            .play_item{
+            .play_item {
                 width: 100%;
             }
         }
@@ -403,19 +418,18 @@ body {
 }
 
 @media screen and (max-width: 650px) {
-    .zwf{
+    .zwf {
         height: 56px;
     }
     .dashboard_container {
         .card_box {
-            .left{
-                .card_wrap{
-                    .r_card{
+            .left {
+                .card_wrap {
+                    .r_card {
                         width: 100%;
                     }
                 }
             }
         }
-
     }
 }

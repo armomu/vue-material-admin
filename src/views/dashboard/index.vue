@@ -6,7 +6,7 @@
                     <div class="r_card">
                         <div class="item_header">
                             <div class="title">$ Histogram</div>
-                            <v-icon>keyboard_arrow_right</v-icon>
+                            <!-- <v-icon>keyboard_arrow_right</v-icon> -->
                         </div>
                         <div class="item_content">
                             <div class="chart_wrap">
@@ -21,7 +21,7 @@
                     <div class="r_card">
                         <div class="item_header">
                             <div class="title">Ve-line</div>
-                            <v-icon>keyboard_arrow_right</v-icon>
+                            <!-- <v-icon>keyboard_arrow_right</v-icon> -->
                         </div>
                         <div class="item_content">
                             <div class="tool">
@@ -173,59 +173,61 @@
             </div>
         </div>
         <div class="camera_play_row">
-            <div class="camera_wrap">
-                <div class=" r_card">
+            <div class="camera_wrap" :class="{ reversal: reversal }">
+                <div class="r_card reversal_before">
                     <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
                             icon
                             @click="handleRunReversal"
-                            v-if="reversal"
-                        >
-                            <v-icon>dashboard</v-icon>
-                        </v-btn>
-                        <v-btn
-                            icon
-                            @click="handleRunReversal"
-                            v-else
                         >
                             <v-icon>view_agenda</v-icon>
                         </v-btn>
                     </div>
+                    <div class="camera_content">
+                        <div
+                            class="camera_item"
+                            style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera1.jpg');"
+                            @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera1.jpg')"
+                        >
+                            <span class="camera_name">Camera #1</span>
+                        </div>
+                        <div
+                            class="camera_item"
+                            style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera2.jpg');"
+                            @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera2.jpg')"
+                        >
+                            <span class="camera_name">Camera #2</span>
+                        </div>
+                        <div
+                            class="camera_item"
+                            style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera3.jpg');"
+                            @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera3.jpg')"
+                        >
+                            <span class="camera_name">Camera #3</span>
+                        </div>
+                        <div
+                            class="camera_item"
+                            style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera4.jpg');"
+                            @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera4.jpg')"
+                        >
+                            <span class="camera_name">Camera #4</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="r_card reversal_after">
+                    <div class="item_header">
+                        <div class="title">📹 Camera</div>
+                        <v-btn
+                            icon
+                            @click="handleRunReversal"
+                        >
+                            <v-icon>dashboard</v-icon>
+                        </v-btn>
+                    </div>
                     <div
                         class="reversal"
-                        :class="{run_reversal: reversal}"
                     >
-                        <div class="camera_content">
-                            <div
-                                class="camera_item"
-                                style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera1.jpg');"
-                                @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera1.jpg')"
-                            >
-                                <span class="camera_name">Camera #1</span>
-                            </div>
-                            <div
-                                class="camera_item"
-                                style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera2.jpg');"
-                                @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera2.jpg')"
-                            >
-                                <span class="camera_name">Camera #2</span>
-                            </div>
-                            <div
-                                class="camera_item"
-                                style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera3.jpg');"
-                                @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera3.jpg')"
-                            >
-                                <span class="camera_name">Camera #3</span>
-                            </div>
-                            <div
-                                class="camera_item"
-                                style="background-image: url('http://akveo.com/ngx-admin/assets/images/camera4.jpg');"
-                                @click="handleZoomCamera('http://akveo.com/ngx-admin/assets/images/camera4.jpg')"
-                            >
-                                <span class="camera_name">Camera #4</span>
-                            </div>
-                        </div>
                         <div class="camera_content camera_content2">
                             <div
                                 class="camera_item"
