@@ -5,7 +5,7 @@
         </v-btn>
 
         <router-link
-            :to="item.path"
+            :to=" '/' + item.path"
             class="nav-link"
             v-for="(item,index) in menus"
             :key="index"

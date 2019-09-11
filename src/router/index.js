@@ -29,8 +29,23 @@ export default new Router({
                 {
                     path: 'task',
                     name: 'task',
+                    redirect: '/task/mine',
                     title: '任务',
-                    component: () => import(/* webpackChunkName: "task" */ '@/views/task/index.vue')
+                    component: () => import(/* webpackChunkName: "task" */ '@/views/task/router.vue'),
+                    children: [
+                        {
+                            path: 'mine',
+                            name: 'myTask',
+                            title: '我的任务',
+                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/index.vue')
+                        },
+                        {
+                            path: 'star',
+                            name: 'starTask',
+                            title: '星标任务',
+                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/star.vue')
+                        },
+                    ]
                 },
                 {
                     path: 'schedule',

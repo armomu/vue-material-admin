@@ -1,33 +1,5 @@
 <template>
-    <div class="task-warp">
-        <v-card class="left-menu">
-            <v-list>
-                <template v-for="(item) in menu">
-                    <v-list-tile
-                        v-if="item.action"
-                        :key="item.title"
-                        @click="click"
-                    >
-                        <v-list-tile-action>
-                            <v-icon color="blue white--text">{{ item.action }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </template>
-            </v-list>
-            <v-layout
-                align-end
-                justify-center
-            >
-                <v-btn
-                    round
-                    color="primary"
-                    outline
-                >create menu</v-btn>
-            </v-layout>
-        </v-card>
+    <div class="task_router_content">       
         <div
             class="scroll-wrap"
             @click.stop="handleHideDetail"
@@ -290,7 +262,7 @@ export default {
         }
     },
     mounted() {
-        this.$vuetify.theme.primary = '#3F51B5';
+        this.$vuetify.theme.primary = '#1890ff';
         setTimeout(() => {
             this.slider = false;
         }, 100);
@@ -311,20 +283,9 @@ export default {
 .nav-link.router-link-active {
     color: #fff;
 }
-.task-warp {
+.task_router_content {
+    flex: 1;
     display: flex;
-    .left-menu {
-        flex: 0 0 250px;
-        width: 250px;
-        height: calc(100vh - 64px);
-        position: relative;
-        .layout {
-            width: 100%;
-            position: absolute;
-            left: 0;
-            bottom: 20px;
-        }
-    }
     .scroll-wrap {
         flex: 1;
         margin: 0 30px;
