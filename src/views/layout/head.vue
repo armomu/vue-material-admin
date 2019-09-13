@@ -9,9 +9,12 @@
             class="nav-link"
             v-for="(item,index) in menus"
             :key="index"
-        >{{$t("header."+item.name)}}</router-link>
+        >
+            <span>·</span>
+            {{$t("header."+item.name)}}
+        </router-link>
         <v-spacer></v-spacer>
-        <v-btn icon  @click="tmlx">
+        <v-btn icon @click="tmlx">
             <v-icon>search</v-icon>
         </v-btn>
 
@@ -21,27 +24,39 @@
         <v-btn icon @click="handleCutover">{{ btntext }}</v-btn>
         <v-btn
             icon
-            href="https://vuetifyjs.com/"
+            href="https://v15.vuetifyjs.com/zh-Hans/"
             target="_blank"
             title="Vuetifyjs components-ui"
             style="background-image: url(&quot;https://cdn.vuetifyjs.com/images/logos/v-alt.svg&quot;); background-position: center center;"
         ></v-btn>
         <v-card dark color="primary" class="left_menu" :class="{show_menu:muneVisible}">
-            <v-btn icon dark color="primary" class="menu_btn" v-if="muneVisible" @click="handleChangeMenuVisible(false)">
+            <v-btn
+                icon
+                dark
+                color="primary"
+                class="menu_btn"
+                v-if="muneVisible"
+                @click="handleChangeMenuVisible(false)"
+            >
                 <v-icon>arrow_back</v-icon>
             </v-btn>
-            <v-btn icon dark color="primary" class="menu_btn" v-else @click="handleChangeMenuVisible(true)">
+            <v-btn
+                icon
+                dark
+                color="primary"
+                class="menu_btn"
+                v-else
+                @click="handleChangeMenuVisible(true)"
+            >
                 <v-icon>menu</v-icon>
             </v-btn>
 
             <div class="menu_list" @click="handleChangeMenuVisible(false)">
                 <router-link
-                    v-ripple
                     :to="item.path"
                     class="nav-link"
                     v-for="(item,index) in menus"
                     :key="index"
-
                 >{{$t("header."+item.name)}}</router-link>
             </div>
         </v-card>
@@ -75,11 +90,11 @@ export default {
         handleChangeMenuVisible(status) {
             this.muneVisible = status;
         },
-        tmyx(){
-            this.$store.commit('handleChangeMlmlh');
+        tmyx() {
+            this.$store.commit("handleChangeMlmlh");
         },
-        tmlx(){
-            this.$store.commit('handleChangeYmlmlh');
+        tmlx() {
+            this.$store.commit("handleChangeYmlmlh");
         },
         handleCutover() {
             if (this.$i18n.locale === "zh_CN") {
@@ -97,18 +112,30 @@ export default {
 .nav-link {
     font-size: 16px;
     color: #ffffff;
-    margin: 0 24px;
+    margin: 0 12px;
     text-decoration: none;
     transition: all 0.3s;
+    line-height: 30px;
+    padding: 0 12px;
+    opacity: 0.8;
     &:hover {
-        color: #a16eff;
+        background: rgba($color: #fff, $alpha: 0.1);
+        border-radius: 6px;
+        opacity: 1;
+    }
+    span {
+        display: none;
+        font-weight: 900;
     }
 }
 .left_menu {
     display: none;
 }
 .nav-link.router-link-active {
-    color: #a16eff;
+    opacity: 1;
+    span {
+        display: inline-block;
+    }
 }
 
 @media screen and (max-width: 800px) {

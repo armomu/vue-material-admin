@@ -29,7 +29,7 @@
 <script>
 export default {
     created() {
-        console.log(this.$router)
+        // console.log(this.$router)
     },
     computed: {
         menus() {

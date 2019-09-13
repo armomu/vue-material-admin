@@ -47,12 +47,12 @@ export default new Router({
                         },
                     ]
                 },
-                {
-                    path: 'schedule',
-                    name: 'schedule',
-                    title: '日程',
-                    component: () => import(/* webpackChunkName: "schedule" */ '@/views/schedule/index.vue')
-                },
+                // {
+                //     path: 'schedule',
+                //     name: 'schedule',
+                //     title: '日程',
+                //     component: () => import(/* webpackChunkName: "schedule" */ '@/views/schedule/index.vue')
+                // },
                 {
                     path: 'flies',
                     name: 'flies',

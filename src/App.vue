@@ -14,7 +14,6 @@ export default {
         },
     },
     mounted() {
-        console.log(this.$store.state.mlmlh);
         setTimeout(() => {
             document.getElementById("loading").remove();
         }, 500);
