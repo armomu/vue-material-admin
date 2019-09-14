@@ -1,6 +1,6 @@
 <template>
-    <v-toolbar dark fixed color="primary" style="z-index:900">
-        <v-btn icon style="margin-right:18px;" @click="tmyx">
+    <v-toolbar dark fixed color="primary" style="z-index:900" class="header">
+        <v-btn icon style="margin-right:18px;" @click="handleChangeMenuVisible(true)">
             <v-icon>apps</v-icon>
         </v-btn>
 
@@ -14,12 +14,12 @@
             {{$t("header."+item.name)}}
         </router-link>
         <v-spacer></v-spacer>
-        <v-btn icon @click="tmlx">
-            <v-icon>search</v-icon>
-        </v-btn>
-
+        <v-text-field class="mx-3" flat label="Search" prepend-inner-icon="search" solo-inverted></v-text-field>
         <v-btn icon href="mailto:894620576@qq.com">
             <v-icon title="894620576@qq.com">email</v-icon>
+        </v-btn>
+        <v-btn icon @click="tmyx">
+            <v-icon>settings</v-icon>
         </v-btn>
         <v-btn icon @click="handleCutover">{{ btntext }}</v-btn>
         <v-btn
@@ -40,7 +40,7 @@
             >
                 <v-icon>arrow_back</v-icon>
             </v-btn>
-            <v-btn
+            <!-- <v-btn
                 icon
                 dark
                 color="primary"
@@ -49,11 +49,11 @@
                 @click="handleChangeMenuVisible(true)"
             >
                 <v-icon>menu</v-icon>
-            </v-btn>
+            </v-btn>-->
 
             <div class="menu_list" @click="handleChangeMenuVisible(false)">
                 <router-link
-                    :to="item.path"
+                    :to="'/' + item.path"
                     class="nav-link"
                     v-for="(item,index) in menus"
                     :key="index"
@@ -108,39 +108,32 @@ export default {
     }
 };
 </script>
-<style lang="scss" scoped>
-.nav-link {
-    font-size: 16px;
-    color: #ffffff;
-    margin: 0 12px;
-    text-decoration: none;
-    transition: all 0.3s;
-    line-height: 30px;
-    padding: 0 12px;
-    opacity: 0.8;
-    &:hover {
-        background: rgba($color: #fff, $alpha: 0.1);
-        border-radius: 6px;
-        opacity: 1;
+<style lang="scss">
+.header {
+    .v-input__control {
+        min-height: 40px !important;
     }
-    span {
-        display: none;
-        font-weight: 900;
+    .v-input__slot {
+        margin-bottom: 0;
     }
-}
-.left_menu {
-    display: none;
-}
-.nav-link.router-link-active {
-    opacity: 1;
-    span {
-        display: inline-block;
-    }
-}
-
-@media screen and (max-width: 800px) {
     .nav-link {
-        display: none;
+        font-size: 16px;
+        color: #ffffff;
+        margin: 0 12px;
+        text-decoration: none;
+        transition: all 0.3s;
+        line-height: 30px;
+        padding: 0 12px;
+        opacity: 0.8;
+        &:hover {
+            background: rgba($color: #fff, $alpha: 0.1);
+            border-radius: 6px;
+            opacity: 1;
+        }
+        span {
+            display: none;
+            font-weight: 900;
+        }
     }
     .left_menu {
         display: block;
@@ -171,6 +164,23 @@ export default {
     }
     .left_menu.show_menu {
         left: 0;
+    }
+    .nav-link.router-link-active {
+        opacity: 1;
+        span {
+            display: inline-block;
+        }
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .header {
+        .v-input__control {
+            min-height: 30px !important;
+        }
+        .nav-link {
+            display: none;
+        }
     }
 }
 </style>

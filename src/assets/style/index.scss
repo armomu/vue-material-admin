@@ -10,6 +10,12 @@ body {
         height: 0;
     }
 }
+.v-card__actions {
+    padding: 16px;
+}
+.task_form {
+    padding: 0 20px;
+}
 .dashboard_container {
     background: #1b1b38;
     max-height: calc(100vh - 64px);
@@ -17,6 +23,7 @@ body {
     color: #fff;
     overflow-x: hidden;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     &:hover::-webkit-scrollbar-thumb {
         background: $cp;
     }
@@ -345,7 +352,6 @@ body {
                 z-index: 2;
             }
             .reversal_after {
-                
                 transform: rotateY(360deg);
                 opacity: 0;
                 z-index: 1;
@@ -411,8 +417,54 @@ body {
     }
 }
 
+@media screen and (max-width: 1300px) {
+    .task_router {
+        .left_nav {
+            display: none !important;
+        }
+        .v-bottom-nav {
+            display: flex !important;
+        }
+    }
+}
+@media screen and (max-width: 1200px) {
+    .task_router {
+        .task_router_content {
+            .down_tip_section {
+                width: 100% !important;
+            }
+            .list_wrap {
+                .inner-head {
+                    position: absolute !important;
+                    width: auto !important;
+                    right: 0;
+                    bottom: 56px;
+                    z-index: 2;
+                    .title {
+                        display: none;
+                    }
+                }
+                .scroll_wrap {
+                    height: calc(100vh - 74px) !important;
+                }
+            }
+            .right_section {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                height: 60vh !important;
+                transition:  all 0.5s;
+                transform: translateY(0);
+            }
+            .hidetaskdetail.right_section {
+                transform: translateY(100%);
+            }
+        }
+    }
+}
 @media screen and (max-width: 1024px) {
     .dashboard_container {
+        
         .card_box {
             .left {
                 width: 100%;
@@ -435,6 +487,17 @@ body {
 @media screen and (max-width: 650px) {
     .zwf {
         height: 56px;
+    }
+    .task_router {
+        height: calc(100vh - 56px) !important;
+        .task_router_content {
+            height: calc(100vh - 56px) !important;
+            .list_wrap {
+                .scroll_wrap {
+                    height: calc(100vh - 56px) !important;
+                }
+            }
+        }
     }
     .dashboard_container {
         .card_box {

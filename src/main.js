@@ -4,6 +4,7 @@ import router from './router';
 import store from './plugins/store';
 import VueAMap from 'vue-amap';
 import Vuetify from 'vuetify';
+import zhHans from 'vuetify/es5/locale/zh-Hans';
 import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
 
@@ -17,6 +18,10 @@ Vue.use(VCharts);
 Vue.use(Vuetify, {
     theme: {
         primary: '#323259'
+    },
+    lang: {
+        locales: { zhHans },
+        current: 'zhHans'
     }
 });
 

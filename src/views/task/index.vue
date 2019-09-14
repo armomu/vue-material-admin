@@ -1,77 +1,238 @@
 <template>
     <div
         class="task_router_content"
-        @click.stop="handleHideDetail"
-        @mousedown.stop="testDown"
-        @mouseup.stop="testUp"
-        @mousemove.stop="testMove"
+        @touchstart.stop="testDown"
+        @touchend.stop="testUp"
+        @touchmove.stop="testMove"
         @mouseout.stop="touchStart = false"
     >
-        <div></div>
-        <div class="scroll-wrap" ref="scrollWrap">
+        <div class="down_tip_section" ref="down_tip_section" :class="{hisDetail: detailStatus}">
+            <span>{{ loadText }}</span>
+        </div>
+        <div
+            class="list_wrap"
+            ref="down_section"
+            :class="{ slider: slider }"
+            @click.stop="detailStatus = true"
+        >
             <div class="inner-head">
                 <div class="title">{{ $t("task.title") }}</div>
-                <v-btn small fab dark color="primary" @click="click">
+                <v-btn small fab dark color="primary" @click="createTaskmDialogVisible = true">
                     <v-icon dark>add</v-icon>
                 </v-btn>
             </div>
-            <v-card :class="{ slider: slider }">
-                <v-list subheader>
-                    <template
-                        v-for="(item,key) in items"
-                    >   
-                        <v-list-tile                            
-                            :key="key + 2"
-                            avatar
-                            @click.stop="handleShowDetail(item)"
-                        >
-                            <v-list-tile-avatar @click.stop="handleCheckbox(key)">
-                                <v-checkbox v-model="item.active"></v-checkbox>
-                            </v-list-tile-avatar>                        
-                            <v-list-tile-content>
-                                <v-list-tile-title :title="item.title">{{ item.title }}</v-list-tile-title>
-                            </v-list-tile-content>
-                            <v-list-tile-action @click.stop="handleCollect(key)">
-                                <v-btn icon ripple>
-                                    <v-icon color="amber lighten-1" v-if="item.isCollect">star</v-icon>
-                                    <v-icon color="grey lighten-1" v-else>star</v-icon>
-                                </v-btn>
-                            </v-list-tile-action>
-                        </v-list-tile>
-                    </template>
-                </v-list>
-            </v-card>
+            <div class="scroll_wrap" @scroll="handleScoll" ref="scrollWrap">
+                <v-card ref="cardSection">
+                    <v-list subheader>
+                        <template v-for="(item,key) in items">
+                            <v-list-tile
+                                :key="key + 2"
+                                avatar
+                                :class="{active: item.active}"
+                                @click.stop="handleShowDetail(item,key)"
+                            >
+                                <v-list-tile-avatar @click.stop.native="handleCheckbox(key)">
+                                    <v-checkbox v-model="item.selected"></v-checkbox>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title :title="item.title">{{ item.name }}</v-list-tile-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action @click.stop="handleCollect(key)">
+                                    <v-btn icon ripple>
+                                        <v-icon
+                                            :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'"
+                                        >star</v-icon>
+                                    </v-btn>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                            <v-divider v-if="key + 1 < items.length" :key="`divider-${key}`"></v-divider>
+                        </template>
+                    </v-list>
+                </v-card>
+            </div>
         </div>
-        <v-card class="task-detail" :class="{ hidetaskdetail:detailStatus }">
-            <div class="toolbar">
+        <v-card class="right_section" ref="right_section" :class="{ hidetaskdetail:detailStatus }">
+            <!-- <div class="toolbar">
                 <v-btn fab dark small :color="detail.iconClass">
                     <v-icon dark>{{ detail.icon }}</v-icon>
                 </v-btn>
                 <div class="title">
                     <span>{{detail.title}}</span>
                 </div>
-            </div>
+            </div>-->
+
+            <v-toolbar color="white" absolute>
+                <v-btn
+                    round
+                    :color="detail.selected ? 'green darken-1' : 'primary'"
+                    outline
+                    @click.stop="handleCheckbox(detail.key)"
+                >
+                    <v-icon dark>check</v-icon>Complete
+                </v-btn>
+                <v-btn icon ripple @click.stop="handleCollect(detail.key)">
+                    <v-icon :color="detail.isCollect ? 'amber lighten-1' : 'grey darken-1'">star</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <!-- <v-btn icon>
+                    <v-icon color="grey darken-1">search</v-icon>
+                </v-btn>
+                <v-btn icon>
+                    <v-icon color="grey darken-1">favorite</v-icon>
+                </v-btn>-->
+
+                <v-btn icon @click="detailStatus = true">
+                    <v-icon color="grey darken-1">delete</v-icon>
+                </v-btn>
+            </v-toolbar>
             <div class="content-wrap">
                 <div class="content">
-                    <h1>111</h1>
+                    <v-layout row wrap style="margin: 20px 20px 0 0">
+                        <v-flex
+                            xs2
+                            style="display: flex; align-items: center; justify-content: center"
+                        >
+                            <v-icon color="primary" large>alarm</v-icon>
+                        </v-flex>
+                        <v-flex xs5>
+                            <v-menu offset-y>
+                                <template v-slot:activator="{ on }">
+                                    <v-text-field
+                                        v-model="detail.startTime"
+                                        v-on="on"
+                                        label="Start time"
+                                        required
+                                        style="margin-right: 10px"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker v-model="detail.startTime"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs5>
+                            <v-menu offset-y>
+                                <template v-slot:activator="{ on }">
+                                    <v-text-field
+                                        v-model="detail.endTime"
+                                        v-on="on"
+                                        label="End time"
+                                        required
+                                        style="margin-left: 10px"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker v-model="detail.endTime"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+                    </v-layout>
+                    <v-card>
+                        <v-form ref="form" v-model="valid" lazy-validation class="task_form">
+                            <v-text-field
+                                v-model="detail.name"
+                                :counter="10"
+                                :rules="nameRules"
+                                label="Task name"
+                                required
+                            ></v-text-field>
+                            <v-select
+                                v-model="detail.association"
+                                :items="selects"
+                                label="Association"
+                                required
+                            ></v-select>
+                            <v-textarea name="desc" label="Descption" v-model="detail.desc"></v-textarea>
+                        </v-form>
+                    </v-card>
+                    <v-tabs
+                        v-model="tab"
+                        color="transparent"
+                        style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px"
+                    >
+                        <v-tabs-slider color="primary"></v-tabs-slider>
+                        <v-tab v-for="item in tabs" :key="item">{{ item }}</v-tab>
+                    </v-tabs>
+                    <v-tabs-items v-model="tab">
+                        <v-tab-item v-for="item in tabs" :key="item">
+                            <v-card flat>
+                                <v-card-text>{{ item }}</v-card-text>
+                            </v-card>
+                        </v-tab-item>
+                    </v-tabs-items>
                 </div>
             </div>
         </v-card>
-        <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-snackbar v-model="dialog" multi-line top left>
+            {{ tips }}
+            <v-btn color="primary" @click="dialog = false">Close</v-btn>
+        </v-snackbar>
+        <v-dialog v-model="isLoad" hide-overlay persistent width="300">
+            <v-card color="primary" dark>
+                <v-card-text>
+                    Please stand by
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="createTaskmDialogVisible" :persistent="false" max-width="600px">
             <v-card>
                 <v-card-title>
-                    <span class="headline">Dialog title</span>
+                    <span class="headline">Create task</span>
                 </v-card-title>
-                <v-card-text>本页面支持滚动底部加载分页，下拉刷新 (￣▽￣)""</v-card-text>
+                <v-form ref="form" v-model="valid" lazy-validation class="task_form">
+                    <v-text-field
+                        v-model="detail.name"
+                        :counter="10"
+                        :rules="nameRules"
+                        label="Task name"
+                        required
+                    ></v-text-field>
+                    <v-layout row wrap>
+                        <v-flex xs6>
+                            <v-menu offset-y>
+                                <template v-slot:activator="{ on }">
+                                    <v-text-field
+                                        v-model="detail.startTime"
+                                        v-on="on"
+                                        label="Start time"
+                                        required
+                                        style="margin-right: 10px"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker v-model="detail.startTime"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs6>
+                            <v-menu offset-y>
+                                <template v-slot:activator="{ on }">
+                                    <v-text-field
+                                        v-model="detail.endTime"
+                                        v-on="on"
+                                        label="End time"
+                                        required
+                                        style="margin-left: 10px"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker v-model="detail.endTime"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+                    </v-layout>
+                    <v-select
+                        v-model="detail.association"
+                        :items="selects"
+                        label="Association"
+                        required
+                    ></v-select>
+                    <v-textarea name="desc" label="Descption" v-model="detail.desc"></v-textarea>
+                </v-form>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" @click="dialog = false">Close</v-btn>
+                    <v-btn color="primary" flat @click="createTaskmDialogVisible = false">cancel</v-btn>
+                    <v-btn color="primary" @click="createTaskmDialogVisible = false">Save</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
     </div>
 </template>
 <script>
+import { setTimeout } from "timers";
 export default {
     data() {
         return {
@@ -79,12 +240,38 @@ export default {
             slider: true,
             detailStatus: true,
             detail: {
-                title: "title"
+                name: "",
+                key: 0,
+                active: false,
+                selected: false,
+                isCollect: false,
+                startTime: "",
+                endTime: "",
+                desc: "",
+                association: ""
             },
+            selects: ["Item 1", "Item 2", "Item 3", "Item 4"],
+            nameRules: [
+                v => !!v || "Task name is required",
+                v =>
+                    (v && v.length <= 10) ||
+                    "Task name must be less than 10 characters"
+            ],
+            loadText: "下拉刷新",
+            valid: true,
+            tips:
+                "本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) ''' >>>",
             dialog: true,
+            createTaskmDialogVisible: false,
             touchStart: false,
             panelStartOffsetY: 0,
-            panelMoveOffsetY: 0
+            panelMoveOffsetY: 0,
+            pageIndex: 1,
+            pageSize: 15,
+            total: 0,
+            isLoad: false,
+            tab: null,
+            tabs: ["comment", "Flies"]
         };
     },
     computed: {
@@ -97,51 +284,144 @@ export default {
         setTimeout(() => {
             this.slider = false;
             for (let i = 0; i < 15; i++) {
-                console.log(i);
                 this.items.push({
-                    title: "task" + i,
-                    acitive: false,
-                    isCollect: false
+                    name: "task" + i,
+                    key: i,
+                    active: false,
+                    isCollect: false,
+                    selected: false,
+                    startTime: "",
+                    endTime: "",
+                    desc: "",
+                    association: ""
                 });
             }
+            this.detail = this.items[0];
+            this.total = 15;
         }, 200);
     },
     methods: {
         click() {},
         testDown(e) {
             this.touchStart = true;
-            this.panelStartOffsetY = e.offsetY;
-            console.log(e.offsetY);
+            this.panelStartOffsetY = e.targetTouches[0].clientY;
         },
         testMove(e) {
-            if (this.touchStart) {
-                // console.log(e.offsetY);
-                const { offsetY } = e;
-                console.log(offsetY, this.panelStartOffsetY);
+            // console.log(this.$refs)
+            if (this.touchStart && this.$refs.scrollWrap.scrollTop <= 0) {
+                const offsetY = e.changedTouches[0].clientY;
                 this.panelMoveOffsetY = offsetY;
                 if (offsetY > this.panelStartOffsetY) {
-                    this.$refs.scrollWrap.style.transform = `translateY(${offsetY -
-                        this.panelStartOffsetY}px)`;
+                    const translateY = offsetY - this.panelStartOffsetY;
+                    this.$refs.down_section.style.transform = `translateY(${translateY}px)`;
+                    // this.$refs.down_tip_section.style.transform = `translateY(${0 - translateY}px)`;
+                    if (translateY < 80) {
+                        // this.$refs.down_tip_section.style.top = `${-30 + translateY}px`;
+                        this.$refs.down_tip_section.style.transform = `translateY(${translateY}px)`;
+                        this.loadText = "下拉刷新";
+                    } else {
+                        this.loadText = "别拉了快放手...";
+                        // this.$refs.down_tip_section.style.top = "80px";
+                        this.$refs.down_tip_section.style.transform = `translateY(80px)`;
+                    }
                 }
             }
         },
         testUp(e) {
             this.touchStart = false;
-            this.$refs.scrollWrap.style.transform = `translateY(${0}px)`;
-            console.log(e.offsetY);
+            const offsetY = e.changedTouches[0].clientY;
+            if (
+                offsetY - this.panelStartOffsetY >= 80 &&
+                this.$refs.scrollWrap.scrollTop <= 0
+            ) {
+                this.isLoad = true;
+                this.loadText = "加载中...";
+                setTimeout(() => {
+                    const items = [];
+                    for (let i = 0; i < 15; i++) {
+                        items.push({
+                            name: "task" + i,
+                            key: i,
+                            active: false,
+                            isCollect: false,
+                            selected: false,
+                            startTime: "",
+                            endTime: "",
+                            desc: "",
+                            association: ""
+                        });
+                    }
+                    this.$refs.scrollWrap.scrollTop = 0;
+                    this.items = items;
+                    this.total = 15;
+                    this.pageIndex = 1;
+                    this.isLoad = false;
+                    this.$refs.down_section.style.transform = `translateY(0px)`;
+                    this.$refs.down_tip_section.style.transform = `translateY(0px)`;
+                    this.loadText = "下拉刷新";
+                    // if(this.$refs.scrollWrap){
+                    //     this.$router.push({
+                    //     path: "/task/mine?pageIndex=" + this.pageIndex
+                    // });
+                    // }
+                }, 1000);
+            } else {
+                this.$refs.down_section.style.transform = `translateY(0px)`;
+                this.$refs.down_tip_section.style.transform = `translateY(0px)`;
+                this.loadText = "下拉刷新";
+            }
+        },
+        handleScoll(e) {
+            const { scrollTop } = e.srcElement;
+            const { offsetHeight } = this.$refs.scrollWrap;
+            const cardOffsetHeight = this.total * 56 + 8;
+            if (scrollTop > cardOffsetHeight - offsetHeight && !this.isLoad) {
+                if (this.total > 75) {
+                    this.tips = "没有更多数据了";
+                    this.dialog = true;
+                    return;
+                }
+                this.loadPages();
+            }
         },
         handleCollect(key) {
             this.items[key].isCollect = !this.items[key].isCollect;
         },
         handleCheckbox(key) {
-            this.items[key].acitve = !this.items[key].acitve;
+            this.items[key].selected = !this.items[key].selected;
         },
         handleHideDetail() {
             this.detailStatus = true;
         },
-        handleShowDetail(item) {
+        handleShowDetail(item, key) {            
+            this.items[key].active = true;
+            this.items[this.detail.key].active = false;
             this.detail = item;
             this.detailStatus = false;
+        },
+        loadPages() {
+            this.isLoad = true;
+            this.pageIndex += 1;
+            // this.$router.push({
+            //     path: "/task/mine?pageIndex=" + this.pageIndex
+            // });
+            for (let i = this.total; i < this.total + 15; i++) {
+                this.items.push({
+                    name: "task" + i,
+                    key: i,
+                    active: false,
+                    selected: false,
+                    isCollect: false,
+                    startTime: "",
+                    endTime: "",
+                    desc: "",
+                    association: ""
+                });
+            }
+            this.total += 15;
+            setTimeout(() => {
+                this.isLoad = false;
+            }, 1000);
         }
     }
 };
@@ -154,27 +434,31 @@ export default {
     flex: 1;
     display: flex;
     height: calc(100vh - 64px);
-    overflow-y: auto;
     align-items: flex-start;
-    &:hover::-webkit-scrollbar-thumb {
-        background: #bdbdbd;
+    position: relative;
+    overflow: hidden;
+    .down_tip_section {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 700px);
+        top: -30px;
+        transition: transform 0ms;
+        span {
+            line-height: 30px;
+            font-size: 15px;
+        }
     }
-    &::-webkit-scrollbar {
-        // 定义了滚动条整体的样式；
-        width: 8px;
+    .down_tip_section.hisDetail {
+        width: 100%;
     }
-
-    &::-webkit-scrollbar-thumb {
-        width: 8px;
-        border-radius: 4px;
-        background: transparent;
-    }
-    .scroll-wrap {
+    .list_wrap {
         flex: 1;
-        margin: 0 30px 50px 30px;
-        transition: transform 0.3s;
-        height: auto;
+        margin: 0 20px 50px 20px;
+        transition: transform 0ms;
         .inner-head {
+            padding: 0 5px 0 10px;
             height: 80px;
             position: relative;
             display: flex;
@@ -184,12 +468,40 @@ export default {
                 margin-right: auto;
             }
         }
+        .scroll_wrap {
+            height: calc(100vh - 144px);
+            overflow-y: auto;
+            padding: 5px 5px 5px 10px;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            .active {
+                background: rgba(0, 0, 0, 0.04);
+            }
+            &:hover::-webkit-scrollbar-thumb {
+                background: #bdbdbd;
+            }
+            &::-webkit-scrollbar {
+                // 定义了滚动条整体的样式；
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                width: 8px;
+                border-radius: 4px;
+                background: transparent;
+            }
+            .v-card {
+                margin-bottom: 20px;
+            }
+        }
     }
-    .task-detail {
-        flex: 0 0 600px;
+    .right_section {
+        flex: 0 0 700px;
         height: calc(100vh - 64px);
         overflow-y: auto;
         z-index: 1;
+        padding: 64px 0;
+        overflow-y: auto;
         .toolbar {
             background: #ffffff;
             height: 80px;
@@ -200,8 +512,6 @@ export default {
             z-index: 2;
         }
         .content-wrap {
-            height: calc(100vh - 144px);
-            overflow-y: auto;
             background: #fafafa;
             &:hover::-webkit-scrollbar-thumb {
                 background: #bdbdbd;
@@ -216,17 +526,16 @@ export default {
                 border-radius: 4px;
                 background: transparent;
             }
+            
             .content {
                 .v-card {
                     margin: 20px;
-                }
-                h1 {
-                    height: 1000px;
+                    padding-top: 10px;
                 }
             }
         }
     }
-    .hidetaskdetail.task-detail {
+    .hidetaskdetail.right_section {
         flex: 0 0 0;
     }
     .slider.v-card {

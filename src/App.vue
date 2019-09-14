@@ -1,6 +1,6 @@
 <template>
     <v-app id="app" :class="{malimalih: mlmlh,ymalimalih: ymlmlh}">
-        <router-view  :class="{ymalimalih: ymlmlh}"/>        
+        <router-view :class="{ymalimalih: ymlmlh}" />
     </v-app>
 </template>
 <script>
@@ -11,11 +11,11 @@ export default {
         },
         ymlmlh() {
             return this.$store.state.ymlmlh;
-        },
+        }
     },
     mounted() {
         setTimeout(() => {
-            document.getElementById("loading").remove();
+            document.getElementById('loading').remove();
         }, 500);
     }
 };
@@ -23,9 +23,9 @@ export default {
 <style lang="scss" scoped>
 #app {
     transition: all 0.5s;
-    perspective:150;
-    > div{
-        transition: all .5s;
+    perspective: 150;
+    > div {
+        transition: all 0.5s;
     }
 }
 .malimalih {
