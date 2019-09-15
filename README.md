@@ -1,6 +1,6 @@
 # Vuetify-todo
 
-基于 Vue2.6x + Vuex + Vue-router
+基于 Vue2.6x + Vuex + Vue-router + Vuetify1.5x，支持响应式移动端。
 >感谢 ngx-admin 团队，仪表盘参考了[ngx-admin](http://akveo.com/ngx-admin/#/pages/dashboard) 的风格，
 >UI 组件使用了 Material Design 风格的 Vuetify，版本是1.5x。目前该库已经升级到了 2.x，[Vuetifyjs 官方文档](https://vuetifyjs.com/zh-Hans/)，让 Vue 和 Material Design 的强大力量在开发上助您一臂之力吧
 
@@ -30,13 +30,10 @@
 
 ## 开发 && 运行
 ```
-// 安装依赖
 yarn 
-
-// 开发 
+ 
 yarn serve
 
-// 打包 
 yarn build
 ```
 
@@ -44,10 +41,9 @@ yarn build
 
 + 仪表盘
 + 任务
-+ 日程
 + 文件
 + 地图
-
+>目前只有仪表盘和任务
 
 
 ## 截图
