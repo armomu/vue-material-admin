@@ -115,8 +115,8 @@
             </v-list>
             <v-subheader>Language Option</v-subheader>
             <v-radio-group v-model="Language" @change="handleCutover" style="margin: 0 20px;">
-                <v-radio label="中文" value="zh_CN"></v-radio>
-                <v-radio label="English" value="en_US"></v-radio>
+                <v-radio label="中文" value="zh_CN" color="primary"></v-radio>
+                <v-radio label="English" value="en_US" color="primary"></v-radio>
             </v-radio-group>
         </v-navigation-drawer>
     </v-toolbar>
