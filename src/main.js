@@ -9,7 +9,7 @@ import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
 
 import 'vuetify/src/stylus/main.styl';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
+// import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '../src/assets/style/index.scss';
 
 
