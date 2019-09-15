@@ -45,6 +45,18 @@ export default new Router({
                             title: '星标任务',
                             component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/star.vue')
                         },
+                        {
+                            path: 'book',
+                            name: 'bookTask',
+                            title: '星标任务',
+                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/book.vue')
+                        },
+                        {
+                            path: 'image',
+                            name: 'starTask',
+                            title: '星标任务',
+                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/image.vue')
+                        },
                     ]
                 },
                 // {
