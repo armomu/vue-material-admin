@@ -3,7 +3,7 @@
         <v-card class="left_nav">
             <v-text-field label="Search" prepend-inner-icon="search"></v-text-field>
             <v-list>
-                <v-list-tile @click="()=>{}" exact to="/task/mine">
+                <v-list-tile exact to="/task/mine">
                     <v-list-tile-action>
                         <v-icon color="primary">bookmark</v-icon>
                     </v-list-tile-action>
@@ -11,12 +11,28 @@
                         <v-list-tile-title>Mine</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile @click="()=>{}" exact to="/task/star">
+                <v-list-tile exact to="/task/star">
                     <v-list-tile-action>
                         <v-icon color="amber lighten-1">star</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>Star</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact to="/task/book">
+                    <v-list-tile-action>
+                        <v-icon color="teal darken-2">book</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Book</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact to="/task/image">
+                    <v-list-tile-action>
+                        <v-icon color="orange darken-2">image</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Image</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -39,12 +55,12 @@
                 <v-icon>star</v-icon>
             </v-btn>
 
-            <v-btn dark>
+            <v-btn dark exact to="/task/book">
                 <span>Book</span>
                 <v-icon>book</v-icon>
             </v-btn>
 
-            <v-btn dark>
+            <v-btn dark exact to="/task/image">
                 <span>Image</span>
                 <v-icon>image</v-icon>
             </v-btn>
