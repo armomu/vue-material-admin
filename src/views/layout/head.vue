@@ -15,7 +15,10 @@
         </router-link>
         <v-spacer></v-spacer>
         <v-text-field class="mx-3" flat label="Search" prepend-inner-icon="search" solo-inverted></v-text-field>
-        <v-btn icon href="mailto:894620576@qq.com">
+        <!-- <v-btn icon href="mailto:894620576@qq.com">
+            <v-icon title="894620576@qq.com">email</v-icon>
+        </v-btn> -->
+        <v-btn icon target="_blank" href="https://github.com/Groundhog-Chen/Vuetify-todo">
             <v-icon title="894620576@qq.com">email</v-icon>
         </v-btn>
         <v-btn icon @click="tmyx">
