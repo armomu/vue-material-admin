@@ -27,6 +27,7 @@
                         <template v-for="(item,key) in items">
                             <v-list-tile
                                 :key="key + 2"
+                                v-ripple
                                 avatar
                                 :class="{active: item.active}"
                                 @click.stop="handleShowDetail(item,key)"
@@ -393,7 +394,7 @@ export default {
         handleHideDetail() {
             this.detailStatus = true;
         },
-        handleShowDetail(item, key) {            
+        handleShowDetail(item, key) {
             this.items[key].active = true;
             this.items[this.detail.key].active = false;
             this.detail = item;
@@ -526,7 +527,7 @@ export default {
                 border-radius: 4px;
                 background: transparent;
             }
-            
+
             .content {
                 .v-card {
                     margin: 20px;

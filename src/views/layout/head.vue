@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar dark fixed color="primary" style="z-index:900" class="header">
+    <v-toolbar dark fixed color="primary" style="z-index:10" class="header">
         <v-btn icon style="margin-right:18px;" @click="handleChangeMenuVisible(true)">
             <v-icon>apps</v-icon>
         </v-btn>
@@ -17,14 +17,13 @@
         <v-text-field class="mx-3" flat label="Search" prepend-inner-icon="search" solo-inverted></v-text-field>
         <!-- <v-btn icon href="mailto:894620576@qq.com">
             <v-icon title="894620576@qq.com">email</v-icon>
-        </v-btn> -->
+        </v-btn>-->
         <v-btn icon target="_blank" href="https://github.com/Groundhog-Chen/Vuetify-todo">
             <v-icon title="894620576@qq.com">email</v-icon>
         </v-btn>
-        <v-btn icon @click="tmyx">
+        <v-btn icon @click="settingsVisible = true">
             <v-icon>settings</v-icon>
         </v-btn>
-        <v-btn icon @click="handleCutover">{{ btntext }}</v-btn>
         <v-btn
             icon
             href="https://v15.vuetifyjs.com/zh-Hans/"
@@ -32,45 +31,125 @@
             title="Vuetifyjs components-ui"
             style="background-image: url(&quot;https://cdn.vuetifyjs.com/images/logos/v-alt.svg&quot;); background-position: center center;"
         ></v-btn>
-        <v-card dark color="primary" class="left_menu" :class="{show_menu:muneVisible}">
-            <v-btn
-                icon
-                dark
-                color="primary"
-                class="menu_btn"
-                v-if="muneVisible"
-                @click="handleChangeMenuVisible(false)"
-            >
-                <v-icon>arrow_back</v-icon>
-            </v-btn>
-            <!-- <v-btn
-                icon
-                dark
-                color="primary"
-                class="menu_btn"
-                v-else
-                @click="handleChangeMenuVisible(true)"
-            >
-                <v-icon>menu</v-icon>
-            </v-btn>-->
+        <v-navigation-drawer
+            v-model="muneVisible"
+            color="primary"
+            fixed
+            temporary
+            hide-overlay
+            light
+            style="height: 100vh;"
+        >
+            <v-toolbar dark color="primary">
+                <v-toolbar-title class="white--text">Vue Material</v-toolbar-title>
 
-            <div class="menu_list" @click="handleChangeMenuVisible(false)">
-                <router-link
-                    :to="'/' + item.path"
-                    class="nav-link"
-                    v-for="(item,index) in menus"
-                    :key="index"
-                >{{$t("header."+item.name)}}</router-link>
-            </div>
-        </v-card>
+                <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-list>
+                <v-list-tile exact to="/dashboard" v-ripple>
+                    <v-list-tile-action>
+                        <v-icon color="primary">dashboard</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Dashboard</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact to="/task" v-ripple>
+                    <v-list-tile-action>
+                        <v-icon color="amber lighten-1">build</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Task</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact to="/flies" v-ripple>
+                    <v-list-tile-action>
+                        <v-icon color="teal darken-2">backup</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Flies</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile exact to="/map" v-ripple>
+                    <v-list-tile-action>
+                        <v-icon color="orange darken-2">map</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Map</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
+        </v-navigation-drawer>
+        <v-navigation-drawer
+            v-model="settingsVisible"
+            fixed
+            temporary
+            hide-overlay
+            right
+            light
+            style="height: 100vh"
+        >
+            <v-toolbar dark color="primary">
+                <v-toolbar-title class="white--text">Settings</v-toolbar-title>
+
+                <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-subheader>Color Option</v-subheader>
+            <v-list subheader style="margin: 0 20px;">
+                <template v-for="(item,key) in colors">
+                    <v-list-tile
+                        :key="key + 2"
+                        dark
+                        :style="{background: item.color}"
+                        @click="handleChangeColor(item.color, key)"
+                    >
+                        <v-list-tile-action>
+                            <v-checkbox v-model="item.active"></v-checkbox>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-divider v-if="key + 1 < colors.length" :key="`divider-${key}`"></v-divider>
+                </template>
+            </v-list>
+            <v-subheader>Language Option</v-subheader>
+            <v-radio-group v-model="Language" @change="handleCutover" style="margin: 0 20px;">
+                <v-radio label="中文" value="zh_CN"></v-radio>
+                <v-radio label="English" value="en_US"></v-radio>
+            </v-radio-group>
+        </v-navigation-drawer>
     </v-toolbar>
 </template>
 <script>
 export default {
     data() {
         return {
-            btntext: "中文",
-            muneVisible: false
+            Language: "en_US",
+            muneVisible: false,
+            settingsVisible: false,
+            colors: [
+                {
+                    name: "default",
+                    color: "#1890ff",
+                    active: true
+                },
+                {
+                    name: "deep-purple",
+                    color: "#673AB7",
+                    active: false
+                },
+                {
+                    name: "pink",
+                    color: "#E91E63",
+                    active: false
+                },
+                {
+                    name: "teal",
+                    color: "#009688",
+                    active: false
+                }
+            ]
         };
     },
     created() {},
@@ -99,14 +178,15 @@ export default {
         tmlx() {
             this.$store.commit("handleChangeYmlmlh");
         },
-        handleCutover() {
-            if (this.$i18n.locale === "zh_CN") {
-                this.$i18n.locale = "en_US";
-                this.btntext = "中文";
-            } else {
-                this.$i18n.locale = "zh_CN";
-                this.btntext = "EN";
-            }
+        handleChangeColor(calor, key) {
+            this.$vuetify.theme.primary = calor;
+            this.colors = this.colors.map((item, index) => {
+                item.active = index === key;
+                return item;
+            });
+        },
+        handleCutover(val) {
+            this.$i18n.locale = val;
         }
     }
 };

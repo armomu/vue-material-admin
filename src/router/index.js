@@ -53,7 +53,7 @@ export default new Router({
                         },
                         {
                             path: 'image',
-                            name: 'starTask',
+                            name: 'imageTask',
                             title: '星标任务',
                             component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/image.vue')
                         },
