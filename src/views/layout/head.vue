@@ -1,6 +1,16 @@
 <template>
-    <v-toolbar dark fixed color="primary" style="z-index:10" class="header">
-        <v-btn icon style="margin-right:18px;" @click="handleChangeMenuVisible(true)">
+    <v-toolbar
+        dark
+        fixed
+        color="primary"
+        style="z-index:10"
+        class="header"
+    >
+        <v-btn
+            icon
+            style="margin-right:18px;"
+            @click="handleChangeMenuVisible(true)"
+        >
             <v-icon>apps</v-icon>
         </v-btn>
 
@@ -14,14 +24,27 @@
             {{$t("header."+item.name)}}
         </router-link>
         <v-spacer></v-spacer>
-        <v-text-field class="mx-3" flat label="Search" prepend-inner-icon="search" solo-inverted></v-text-field>
+        <v-text-field
+            class="mx-3"
+            flat
+            label="Search"
+            prepend-inner-icon="search"
+            solo-inverted
+        ></v-text-field>
         <!-- <v-btn icon href="mailto:894620576@qq.com">
             <v-icon title="894620576@qq.com">email</v-icon>
         </v-btn>-->
-        <v-btn icon target="_blank" href="https://github.com/Groundhog-Chen/Vuetify-todo">
+        <v-btn
+            icon
+            target="_blank"
+            href="https://github.com/Groundhog-Chen/Vuetify-todo"
+        >
             <v-icon title="894620576@qq.com">email</v-icon>
         </v-btn>
-        <v-btn icon @click="settingsVisible = true">
+        <v-btn
+            icon
+            @click="settingsVisible = true"
+        >
             <v-icon>settings</v-icon>
         </v-btn>
         <v-btn
@@ -40,13 +63,20 @@
             light
             style="height: 100vh;"
         >
-            <v-toolbar dark color="primary">
+            <v-toolbar
+                dark
+                color="primary"
+            >
                 <v-toolbar-title class="white--text">Vue Material</v-toolbar-title>
 
                 <v-spacer></v-spacer>
             </v-toolbar>
             <v-list>
-                <v-list-tile exact to="/dashboard" v-ripple>
+                <v-list-tile
+                    exact
+                    to="/dashboard"
+                    v-ripple
+                >
                     <v-list-tile-action>
                         <v-icon color="primary">dashboard</v-icon>
                     </v-list-tile-action>
@@ -54,7 +84,11 @@
                         <v-list-tile-title>Dashboard</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile exact to="/task" v-ripple>
+                <v-list-tile
+                    exact
+                    to="/task"
+                    v-ripple
+                >
                     <v-list-tile-action>
                         <v-icon color="amber lighten-1">build</v-icon>
                     </v-list-tile-action>
@@ -62,7 +96,11 @@
                         <v-list-tile-title>Task</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile exact to="/flies" v-ripple>
+                <v-list-tile
+                    exact
+                    to="/flies"
+                    v-ripple
+                >
                     <v-list-tile-action>
                         <v-icon color="teal darken-2">backup</v-icon>
                     </v-list-tile-action>
@@ -70,7 +108,11 @@
                         <v-list-tile-title>Flies</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile exact to="/map" v-ripple>
+                <v-list-tile
+                    exact
+                    to="/map"
+                    v-ripple
+                >
                     <v-list-tile-action>
                         <v-icon color="orange darken-2">map</v-icon>
                     </v-list-tile-action>
@@ -89,13 +131,19 @@
             light
             style="height: 100vh"
         >
-            <v-toolbar dark color="primary">
+            <v-toolbar
+                dark
+                color="primary"
+            >
                 <v-toolbar-title class="white--text">Settings</v-toolbar-title>
 
                 <v-spacer></v-spacer>
             </v-toolbar>
             <v-subheader>Color Option</v-subheader>
-            <v-list subheader style="margin: 0 20px;">
+            <v-list
+                subheader
+                style="margin: 0 20px;"
+            >
                 <template v-for="(item,key) in colors">
                     <v-list-tile
                         :key="key + 2"
@@ -110,13 +158,28 @@
                             <v-list-tile-title>{{ item.name }}</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
-                    <v-divider v-if="key + 1 < colors.length" :key="`divider-${key}`"></v-divider>
+                    <v-divider
+                        v-if="key + 1 < colors.length"
+                        :key="`divider-${key}`"
+                    ></v-divider>
                 </template>
             </v-list>
             <v-subheader>Language Option</v-subheader>
-            <v-radio-group v-model="Language" @change="handleCutover" style="margin: 0 20px;">
-                <v-radio label="中文" value="zh_CN" color="primary"></v-radio>
-                <v-radio label="English" value="en_US" color="primary"></v-radio>
+            <v-radio-group
+                v-model="Language"
+                @change="handleCutover"
+                style="margin: 0 20px;"
+            >
+                <v-radio
+                    label="中文"
+                    value="zh_CN"
+                    color="primary"
+                ></v-radio>
+                <v-radio
+                    label="English"
+                    value="en_US"
+                    color="primary"
+                ></v-radio>
             </v-radio-group>
         </v-navigation-drawer>
     </v-toolbar>
@@ -125,28 +188,28 @@
 export default {
     data() {
         return {
-            Language: "en_US",
+            Language: 'en_US',
             muneVisible: false,
             settingsVisible: false,
             colors: [
                 {
-                    name: "default",
-                    color: "#1890ff",
+                    name: 'default',
+                    color: '#1890ff',
                     active: true
                 },
                 {
-                    name: "deep-purple",
-                    color: "#673AB7",
+                    name: 'deep-purple',
+                    color: '#673AB7',
                     active: false
                 },
                 {
-                    name: "pink",
-                    color: "#E91E63",
+                    name: 'pink',
+                    color: '#E91E63',
                     active: false
                 },
                 {
-                    name: "teal",
-                    color: "#009688",
+                    name: 'teal',
+                    color: '#009688',
                     active: false
                 }
             ]
@@ -155,12 +218,12 @@ export default {
     created() {},
     computed: {
         locale(key) {
-            return this.$t("header." + key);
+            return this.$t('header.' + key);
         },
         menus() {
             const { options } = this.$router;
-            return options.routes[0].children.map(item => {
-                item["active"] = false;
+            return options.routes[0].children.map((item) => {
+                item['active'] = false;
                 return item;
             });
         }
@@ -173,10 +236,10 @@ export default {
             this.muneVisible = status;
         },
         tmyx() {
-            this.$store.commit("handleChangeMlmlh");
+            this.$store.commit('handleChangeMlmlh');
         },
         tmlx() {
-            this.$store.commit("handleChangeYmlmlh");
+            this.$store.commit('handleChangeYmlmlh');
         },
         handleChangeColor(calor, key) {
             this.$vuetify.theme.primary = calor;

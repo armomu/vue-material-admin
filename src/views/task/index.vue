@@ -6,7 +6,11 @@
         @touchmove.stop="testMove"
         @mouseout.stop="touchStart = false"
     >
-        <div class="down_tip_section" ref="down_tip_section" :class="{hisDetail: detailStatus}">
+        <div
+            class="down_tip_section"
+            ref="down_tip_section"
+            :class="{hisDetail: detailStatus}"
+        >
             <span>{{ loadText }}</span>
         </div>
         <div
@@ -17,11 +21,21 @@
         >
             <div class="inner-head">
                 <div class="title">{{ $t("task.title") }}</div>
-                <v-btn small fab dark color="primary" @click="createTaskmDialogVisible = true">
+                <v-btn
+                    small
+                    fab
+                    dark
+                    color="primary"
+                    @click="createTaskmDialogVisible = true"
+                >
                     <v-icon dark>add</v-icon>
                 </v-btn>
             </div>
-            <div class="scroll_wrap" @scroll="handleScoll" ref="scrollWrap">
+            <div
+                class="scroll_wrap"
+                @scroll="handleScoll"
+                ref="scrollWrap"
+            >
                 <v-card ref="cardSection">
                     <v-list subheader>
                         <template v-for="(item,key) in items">
@@ -39,20 +53,28 @@
                                     <v-list-tile-title :title="item.title">{{ item.name }}</v-list-tile-title>
                                 </v-list-tile-content>
                                 <v-list-tile-action @click.stop="handleCollect(key)">
-                                    <v-btn icon ripple>
-                                        <v-icon
-                                            :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'"
-                                        >star</v-icon>
+                                    <v-btn
+                                        icon
+                                        ripple
+                                    >
+                                        <v-icon :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'">star</v-icon>
                                     </v-btn>
                                 </v-list-tile-action>
                             </v-list-tile>
-                            <v-divider v-if="key + 1 < items.length" :key="`divider-${key}`"></v-divider>
+                            <v-divider
+                                v-if="key + 1 < items.length"
+                                :key="`divider-${key}`"
+                            ></v-divider>
                         </template>
                     </v-list>
                 </v-card>
             </div>
         </div>
-        <v-card class="right_section" ref="right_section" :class="{ hidetaskdetail:detailStatus }">
+        <v-card
+            class="right_section"
+            ref="right_section"
+            :class="{ hidetaskdetail:detailStatus }"
+        >
             <!-- <div class="toolbar">
                 <v-btn fab dark small :color="detail.iconClass">
                     <v-icon dark>{{ detail.icon }}</v-icon>
@@ -62,7 +84,10 @@
                 </div>
             </div>-->
 
-            <v-toolbar color="white" absolute>
+            <v-toolbar
+                color="white"
+                absolute
+            >
                 <v-btn
                     round
                     :color="detail.selected ? 'green darken-1' : 'primary'"
@@ -71,7 +96,11 @@
                 >
                     <v-icon dark>check</v-icon>Complete
                 </v-btn>
-                <v-btn icon ripple @click.stop="handleCollect(detail.key)">
+                <v-btn
+                    icon
+                    ripple
+                    @click.stop="handleCollect(detail.key)"
+                >
                     <v-icon :color="detail.isCollect ? 'amber lighten-1' : 'grey darken-1'">star</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -82,18 +111,28 @@
                     <v-icon color="grey darken-1">favorite</v-icon>
                 </v-btn>-->
 
-                <v-btn icon @click="detailStatus = true">
+                <v-btn
+                    icon
+                    @click="detailStatus = true"
+                >
                     <v-icon color="grey darken-1">delete</v-icon>
                 </v-btn>
             </v-toolbar>
             <div class="content-wrap">
                 <div class="content">
-                    <v-layout row wrap style="margin: 20px 20px 0 0">
+                    <v-layout
+                        row
+                        wrap
+                        style="margin: 20px 20px 0 0"
+                    >
                         <v-flex
                             xs2
                             style="display: flex; align-items: center; justify-content: center"
                         >
-                            <v-icon color="primary" large>alarm</v-icon>
+                            <v-icon
+                                color="primary"
+                                large
+                            >alarm</v-icon>
                         </v-flex>
                         <v-flex xs5>
                             <v-menu offset-y>
@@ -125,7 +164,12 @@
                         </v-flex>
                     </v-layout>
                     <v-card>
-                        <v-form ref="form" v-model="valid" lazy-validation class="task_form">
+                        <v-form
+                            ref="form"
+                            v-model="valid"
+                            lazy-validation
+                            class="task_form"
+                        >
                             <v-text-field
                                 v-model="detail.name"
                                 :counter="10"
@@ -139,7 +183,11 @@
                                 label="Association"
                                 required
                             ></v-select>
-                            <v-textarea name="desc" label="Descption" v-model="detail.desc"></v-textarea>
+                            <v-textarea
+                                name="desc"
+                                label="Descption"
+                                v-model="detail.desc"
+                            ></v-textarea>
                         </v-form>
                     </v-card>
                     <v-tabs
@@ -148,10 +196,16 @@
                         style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px"
                     >
                         <v-tabs-slider color="primary"></v-tabs-slider>
-                        <v-tab v-for="item in tabs" :key="item">{{ item }}</v-tab>
+                        <v-tab
+                            v-for="item in tabs"
+                            :key="item"
+                        >{{ item }}</v-tab>
                     </v-tabs>
                     <v-tabs-items v-model="tab">
-                        <v-tab-item v-for="item in tabs" :key="item">
+                        <v-tab-item
+                            v-for="item in tabs"
+                            :key="item"
+                        >
                             <v-card flat>
                                 <v-card-text>{{ item }}</v-card-text>
                             </v-card>
@@ -160,24 +214,53 @@
                 </div>
             </div>
         </v-card>
-        <v-snackbar v-model="dialog" multi-line top left>
+        <v-snackbar
+            v-model="dialog"
+            multi-line
+            top
+            left
+        >
             {{ tips }}
-            <v-btn color="primary" @click="dialog = false">Close</v-btn>
+            <v-btn
+                color="primary"
+                @click="dialog = false"
+            >Close</v-btn>
         </v-snackbar>
-        <v-dialog v-model="isLoad" hide-overlay persistent width="300">
-            <v-card color="primary" dark>
+        <v-dialog
+            v-model="isLoad"
+            hide-overlay
+            persistent
+            width="300"
+        >
+            <v-card
+                color="primary"
+                dark
+            >
                 <v-card-text>
                     Please stand by
-                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                    <v-progress-linear
+                        indeterminate
+                        color="white"
+                        class="mb-0"
+                    ></v-progress-linear>
                 </v-card-text>
             </v-card>
         </v-dialog>
-        <v-dialog v-model="createTaskmDialogVisible" :persistent="false" max-width="600px">
+        <v-dialog
+            v-model="createTaskmDialogVisible"
+            :persistent="false"
+            max-width="600px"
+        >
             <v-card>
                 <v-card-title>
                     <span class="headline">Create task</span>
                 </v-card-title>
-                <v-form ref="form" v-model="valid" lazy-validation class="task_form">
+                <v-form
+                    ref="form"
+                    v-model="valid"
+                    lazy-validation
+                    class="task_form"
+                >
                     <v-text-field
                         v-model="detail.name"
                         :counter="10"
@@ -185,7 +268,10 @@
                         label="Task name"
                         required
                     ></v-text-field>
-                    <v-layout row wrap>
+                    <v-layout
+                        row
+                        wrap
+                    >
                         <v-flex xs6>
                             <v-menu offset-y>
                                 <template v-slot:activator="{ on }">
@@ -221,19 +307,30 @@
                         label="Association"
                         required
                     ></v-select>
-                    <v-textarea name="desc" label="Descption" v-model="detail.desc"></v-textarea>
+                    <v-textarea
+                        name="desc"
+                        label="Descption"
+                        v-model="detail.desc"
+                    ></v-textarea>
                 </v-form>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click="createTaskmDialogVisible = false">cancel</v-btn>
-                    <v-btn color="primary" @click="createTaskmDialogVisible = false">Save</v-btn>
+                    <v-btn
+                        color="primary"
+                        flat
+                        @click="createTaskmDialogVisible = false"
+                    >cancel</v-btn>
+                    <v-btn
+                        color="primary"
+                        @click="createTaskmDialogVisible = false"
+                    >Save</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
     </div>
 </template>
 <script>
-import { setTimeout } from "timers";
+import { setTimeout } from 'timers';
 export default {
     data() {
         return {
@@ -241,27 +338,27 @@ export default {
             slider: true,
             detailStatus: true,
             detail: {
-                name: "",
+                name: '',
                 key: 0,
                 active: false,
                 selected: false,
                 isCollect: false,
-                startTime: "",
-                endTime: "",
-                desc: "",
-                association: ""
+                startTime: '',
+                endTime: '',
+                desc: '',
+                association: ''
             },
-            selects: ["Item 1", "Item 2", "Item 3", "Item 4"],
+            selects: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
             nameRules: [
-                v => !!v || "Task name is required",
-                v =>
+                (v) => !!v || 'Task name is required',
+                (v) =>
                     (v && v.length <= 10) ||
-                    "Task name must be less than 10 characters"
+                    'Task name must be less than 10 characters'
             ],
-            loadText: "下拉刷新",
+            loadText: '下拉刷新',
             valid: true,
             tips:
-                "本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) ''' >>>",
+                '本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) """ >>>',
             dialog: true,
             createTaskmDialogVisible: false,
             touchStart: false,
@@ -272,7 +369,7 @@ export default {
             total: 0,
             isLoad: false,
             tab: null,
-            tabs: ["comment", "Flies"]
+            tabs: ['comment', 'Flies']
         };
     },
     computed: {
@@ -281,20 +378,20 @@ export default {
         }
     },
     mounted() {
-        this.$vuetify.theme.primary = "#1890ff";
+        this.$vuetify.theme.primary = '#1890ff';
         setTimeout(() => {
             this.slider = false;
             for (let i = 0; i < 15; i++) {
                 this.items.push({
-                    name: "task" + i,
+                    name: 'task' + i,
                     key: i,
                     active: false,
                     isCollect: false,
                     selected: false,
-                    startTime: "",
-                    endTime: "",
-                    desc: "",
-                    association: ""
+                    startTime: '',
+                    endTime: '',
+                    desc: '',
+                    association: ''
                 });
             }
             this.detail = this.items[0];
@@ -319,11 +416,12 @@ export default {
                     if (translateY < 80) {
                         // this.$refs.down_tip_section.style.top = `${-30 + translateY}px`;
                         this.$refs.down_tip_section.style.transform = `translateY(${translateY}px)`;
-                        this.loadText = "下拉刷新";
+                        this.loadText = '下拉刷新';
                     } else {
-                        this.loadText = "别拉了快放手...";
+                        this.loadText = '别拉了快放手...';
                         // this.$refs.down_tip_section.style.top = "80px";
-                        this.$refs.down_tip_section.style.transform = `translateY(80px)`;
+                        this.$refs.down_tip_section.style.transform =
+                            'translateY(80px)';
                     }
                 }
             }
@@ -336,20 +434,20 @@ export default {
                 this.$refs.scrollWrap.scrollTop <= 0
             ) {
                 this.isLoad = true;
-                this.loadText = "加载中...";
+                this.loadText = '加载中...';
                 setTimeout(() => {
                     const items = [];
                     for (let i = 0; i < 15; i++) {
                         items.push({
-                            name: "task" + i,
+                            name: 'task' + i,
                             key: i,
                             active: false,
                             isCollect: false,
                             selected: false,
-                            startTime: "",
-                            endTime: "",
-                            desc: "",
-                            association: ""
+                            startTime: '',
+                            endTime: '',
+                            desc: '',
+                            association: ''
                         });
                     }
                     this.$refs.scrollWrap.scrollTop = 0;
@@ -357,9 +455,10 @@ export default {
                     this.total = 15;
                     this.pageIndex = 1;
                     this.isLoad = false;
-                    this.$refs.down_section.style.transform = `translateY(0px)`;
-                    this.$refs.down_tip_section.style.transform = `translateY(0px)`;
-                    this.loadText = "下拉刷新";
+                    this.$refs.down_section.style.transform = 'translateY(0px)';
+                    this.$refs.down_tip_section.style.transform =
+                        'translateY(0px)';
+                    this.loadText = '下拉刷新';
                     // if(this.$refs.scrollWrap){
                     //     this.$router.push({
                     //     path: "/task/mine?pageIndex=" + this.pageIndex
@@ -367,9 +466,9 @@ export default {
                     // }
                 }, 1000);
             } else {
-                this.$refs.down_section.style.transform = `translateY(0px)`;
-                this.$refs.down_tip_section.style.transform = `translateY(0px)`;
-                this.loadText = "下拉刷新";
+                this.$refs.down_section.style.transform = 'translateY(0px)';
+                this.$refs.down_tip_section.style.transform = 'translateY(0px)';
+                this.loadText = '下拉刷新';
             }
         },
         handleScoll(e) {
@@ -378,7 +477,7 @@ export default {
             const cardOffsetHeight = this.total * 56 + 8;
             if (scrollTop > cardOffsetHeight - offsetHeight && !this.isLoad) {
                 if (this.total > 75) {
-                    this.tips = "没有更多数据了";
+                    this.tips = '没有更多数据了';
                     this.dialog = true;
                     return;
                 }
@@ -408,15 +507,15 @@ export default {
             // });
             for (let i = this.total; i < this.total + 15; i++) {
                 this.items.push({
-                    name: "task" + i,
+                    name: 'task' + i,
                     key: i,
                     active: false,
                     selected: false,
                     isCollect: false,
-                    startTime: "",
-                    endTime: "",
-                    desc: "",
-                    association: ""
+                    startTime: '',
+                    endTime: '',
+                    desc: '',
+                    association: ''
                 });
             }
             this.total += 15;
