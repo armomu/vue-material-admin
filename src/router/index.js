@@ -11,7 +11,7 @@ export default new Router({
         //首页
         {
             path: '/',
-            redirect: '/dashboard',
+            redirect: '/task/mine',
             name: '/',
             hidden: false,
             component: layout,

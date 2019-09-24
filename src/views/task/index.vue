@@ -17,7 +17,6 @@
             class="list_wrap"
             ref="down_section"
             :class="{ slider: slider }"
-            @click.stop="detailStatus = true"
         >
             <div class="inner-head">
                 <div class="title">{{ $t("task.title") }}</div>
@@ -41,7 +40,6 @@
                         <template v-for="(item,key) in items">
                             <v-list-tile
                                 :key="key + 2"
-                                v-ripple
                                 avatar
                                 :class="{active: item.active}"
                                 @click.stop="handleShowDetail(item,key)"
@@ -74,6 +72,7 @@
             class="right_section"
             ref="right_section"
             :class="{ hidetaskdetail:detailStatus }"
+            @click.stop="()=>{}"
         >
             <!-- <div class="toolbar">
                 <v-btn fab dark small :color="detail.iconClass">
@@ -498,6 +497,11 @@ export default {
             this.items[this.detail.key].active = false;
             this.detail = item;
             this.detailStatus = false;
+            document.onclick = ()=> {
+                this.detailStatus = true;
+                this.items[key].active = false;
+                document.onclick = null;
+            }
         },
         loadPages() {
             this.isLoad = true;
