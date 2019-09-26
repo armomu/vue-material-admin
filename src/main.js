@@ -17,7 +17,7 @@ import '../src/assets/style/index.scss';
 Vue.use(VCharts);
 Vue.use(Vuetify, {
     theme: {
-        primary: '#323259'
+        primary: '#1890ff'
     },
     lang: {
         locales: { zhHans },

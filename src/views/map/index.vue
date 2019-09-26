@@ -7,6 +7,7 @@
                 :zoom="zoom"
                 class="amap-demo"
                 :events="events"
+                :viewMode="'3D'"
                 :amap-manager="amapManager"
             >
                 <el-amap-marker
@@ -27,7 +28,7 @@ export default {
     data() {
         // let self = this;
         return {
-            zoom: 1,
+            zoom: 15,
             center: [114.22951, 22.720603],
             markers: [],
             amapManager,
@@ -35,7 +36,7 @@ export default {
             events: {
                 init(amp) {
                     amp.setMapStyle(
-                        'amap://styles/5a5b5154506719b871666675766b9035'
+                        'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
                     );
                     // setTimeout(() => {
                     //     let cluster = new AMap.MarkerClusterer(
@@ -78,7 +79,6 @@ export default {
         }
     },
     mounted() {
-        this.$vuetify.theme.primary = '#323259';
         setTimeout(() => {
             console.log(this.map.getCenter());
         }, 2000);

@@ -140,7 +140,6 @@ export default {
     },
     created: function() {},
     mounted() {
-        this.$vuetify.theme.primary = '#1890ff';
     },
     methods: {
         handleFileChange(e) {

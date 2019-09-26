@@ -377,7 +377,6 @@ export default {
         }
     },
     mounted() {
-        this.$vuetify.theme.primary = '#1890ff';
         setTimeout(() => {
             this.slider = false;
             for (let i = 0; i < 15; i++) {
