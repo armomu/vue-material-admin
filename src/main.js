@@ -1,30 +1,19 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router';
+import router from './plugins/router';
 import store from './plugins/store';
 import VueAMap from 'vue-amap';
-import Vuetify from 'vuetify';
-import zhHans from 'vuetify/es5/locale/zh-Hans';
+import vuetify from './plugins/vuetify';
+
 import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
 
-import 'vuetify/src/stylus/main.styl';
 // import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '../src/assets/style/index.scss';
 
 
 
 Vue.use(VCharts);
-Vue.use(Vuetify, {
-    theme: {
-        primary: '#1890ff'
-    },
-    lang: {
-        locales: { zhHans },
-        current: 'zhHans'
-    }
-});
-
 Vue.use(VueAMap);
 
 VueAMap.initAMapApiLoader({
@@ -37,5 +26,6 @@ new Vue({
     router,
     i18n,
     store,
+    vuetify,
     render: (h) => h(App)
 }).$mount('#app');

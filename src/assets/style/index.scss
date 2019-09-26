@@ -5,6 +5,8 @@ $cp: #323259;
 body {
     font-family: "Roboto", "sans-serif", "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
         "Hiragino Sans GB", "WenQuanYi Micro Hei", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     &::-webkit-scrollbar {
         width: 0;
         height: 0;
@@ -465,7 +467,7 @@ body {
 }
 @media screen and (max-width: 1024px) {
     .dashboard_container {
-        
+
         .card_box {
             .left {
                 width: 100%;

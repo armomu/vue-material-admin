@@ -73,11 +73,11 @@
         >
             <router-view />
         </transition>
-        <v-bottom-nav
+        <v-bottom-navigation
             color="primary"
             :value="true"
-            absolute
             dark
+            fixed
             shift
         >
             <v-btn
@@ -115,7 +115,7 @@
                 <span>Image</span>
                 <v-icon>image</v-icon>
             </v-btn>
-        </v-bottom-nav>
+        </v-bottom-navigation>
     </div>
 </template>
 

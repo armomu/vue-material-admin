@@ -1,9 +1,9 @@
 <template>
     <v-toolbar
         dark
-        fixed
+        absolute
         color="primary"
-        style="z-index:10"
+        style="z-index:10; width: 100%"
         class="header"
     >
         <v-btn
@@ -13,7 +13,6 @@
         >
             <v-icon>apps</v-icon>
         </v-btn>
-
         <router-link
             :to=" '/' + item.path"
             class="nav-link"
@@ -24,16 +23,15 @@
             {{$t("header."+item.name)}}
         </router-link>
         <v-spacer></v-spacer>
-        <v-text-field
-            class="mx-3"
-            flat
-            label="Search"
-            prepend-inner-icon="search"
-            solo-inverted
-        ></v-text-field>
-        <!-- <v-btn icon href="mailto:894620576@qq.com">
-            <v-icon title="894620576@qq.com">email</v-icon>
-        </v-btn>-->
+        <v-toolbar-items>
+            <v-text-field
+                class="mx-3"
+                flat
+                label="Search"
+                prepend-inner-icon="search"
+                solo-inverted
+            ></v-text-field>
+        </v-toolbar-items>
         <v-btn
             icon
             target="_blank"
@@ -242,7 +240,7 @@ export default {
             this.$store.commit('handleChangeYmlmlh');
         },
         handleChangeColor(calor, key) {
-            this.$vuetify.theme.primary = calor;
+            this.$vuetify.theme.themes.light.primary = calor;
             this.colors = this.colors.map((item, index) => {
                 item.active = index === key;
                 return item;
