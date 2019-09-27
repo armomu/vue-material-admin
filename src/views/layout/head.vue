@@ -11,50 +11,73 @@
             style="margin-right:18px;"
             @click="handleChangeMenuVisible(true)"
         >
-            <v-icon>apps</v-icon>
+            <v-icon>mdi-apps</v-icon>
         </v-btn>
-        <router-link
+        <!-- <router-link
             :to=" '/' + item.path"
             class="nav-link"
             v-for="(item,index) in menus"
             :key="index"
+            v-ripple
         >
             <span>·</span>
             {{$t("header."+item.name)}}
-        </router-link>
-        <v-spacer></v-spacer>
+        </router-link> -->
         <v-toolbar-items>
-            <v-text-field
-                class="mx-3"
-                flat
-                label="Search"
-                prepend-inner-icon="search"
-                solo-inverted
-            ></v-text-field>
+            <v-btn
+                text
+                v-for="(item,index) in menus"
+                :key="index"
+                :to="'/' + item.path"
+                dark
+            >
+                {{$t("header."+item.name)}}
+            </v-btn>
         </v-toolbar-items>
+        <v-spacer></v-spacer>
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    text
+                    v-on="on"
+                    href="mailto:contact@akveo.com"
+                >
+                    <v-icon left>mdi-email</v-icon>894620576@qq.com
+                </v-btn>
+            </template>
+            <span>Contact email</span>
+        </v-tooltip>
+        <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+        </v-btn>
         <v-btn
             icon
             target="_blank"
-            href="https://github.com/Groundhog-Chen/Vuetify-todo"
+            href="https://github.com/Groundhog-Chen/vue-material-admin"
         >
-            <v-icon title="894620576@qq.com">email</v-icon>
+            <v-icon title="https://github.com/Groundhog-Chen/vue-material-admin">mdi-github-circle</v-icon>
         </v-btn>
         <v-btn
             icon
             @click="settingsVisible = true"
         >
-            <v-icon>settings</v-icon>
+            <v-icon>mdi-settings</v-icon>
         </v-btn>
-        <v-btn
-            icon
-            href="https://v15.vuetifyjs.com/zh-Hans/"
-            target="_blank"
-            title="Vuetifyjs components-ui"
-            style="background-image: url(&quot;https://cdn.vuetifyjs.com/images/logos/v-alt.svg&quot;); background-position: center center;"
-        ></v-btn>
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    icon
+                    v-on="on"
+                    href="https://vuetifyjs.com"
+                    target="_blank"
+                >
+                    <v-icon>mdi-vuetify</v-icon>
+                </v-btn>
+            </template>
+            <span>Vuetifyjs UI Components</span>
+        </v-tooltip>
         <v-navigation-drawer
             v-model="muneVisible"
-            color="primary"
             fixed
             temporary
             hide-overlay
@@ -69,55 +92,22 @@
 
                 <v-spacer></v-spacer>
             </v-toolbar>
-            <v-list>
-                <v-list-tile
-                    exact
-                    to="/dashboard"
-                    v-ripple
+            <v-list rounded>
+                <v-list-item-group
+                    color="primary"
                 >
-                    <v-list-tile-action>
-                        <v-icon color="primary">dashboard</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Dashboard</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    exact
-                    to="/task"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="amber lighten-1">build</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Task</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    exact
-                    to="/flies"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="teal darken-2">backup</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Flies</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    exact
-                    to="/map"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="orange darken-2">map</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Map</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
+                    <v-list-item
+                        exact
+                        v-ripple
+                        v-for="(item,index) in menus"
+                        :key="index"
+                        :to="'/' + item.path"
+                    >
+                        <v-list-item-content>
+                            <v-list-item-title>{{$t("header."+item.name)}}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer
@@ -143,19 +133,19 @@
                 style="margin: 0 20px;"
             >
                 <template v-for="(item,key) in colors">
-                    <v-list-tile
+                    <v-list-item
                         :key="key + 2"
                         dark
                         :style="{background: item.color}"
                         @click="handleChangeColor(item.color, key)"
                     >
-                        <v-list-tile-action>
+                        <v-list-item-action>
                             <v-checkbox v-model="item.active"></v-checkbox>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>{{ item.name }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                     <v-divider
                         v-if="key + 1 < colors.length"
                         :key="`divider-${key}`"
@@ -266,12 +256,15 @@ export default {
         margin: 0 12px;
         text-decoration: none;
         transition: all 0.3s;
-        line-height: 30px;
+        line-height: 60px;
         padding: 0 12px;
         opacity: 0.8;
+        &:first-child {
+            margin-left: 0;
+        }
         &:hover {
             background: rgba($color: #fff, $alpha: 0.1);
-            border-radius: 6px;
+            // border-radius: 6px;
             opacity: 1;
         }
         span {

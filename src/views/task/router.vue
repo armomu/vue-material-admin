@@ -3,68 +3,26 @@
         <v-card class="left_nav">
             <v-text-field
                 label="Search"
-                prepend-inner-icon="search"
+                prepend-inner-icon="mdi-magnify"
             ></v-text-field>
-            <v-list>
-                <v-list-tile
-                    exact
-                    to="/task/mine"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="primary">bookmark</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Mine</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    exact
-                    to="/task/star"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="amber lighten-1">star</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Star</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    exact
-                    to="/task/book"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="teal darken-2">book</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Book</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile
-                    exact
-                    to="/task/image"
-                    v-ripple
-                >
-                    <v-list-tile-action>
-                        <v-icon color="orange darken-2">image</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Image</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list>
-            <v-layout
-                align-end
-                justify-center
-            >
-                <v-btn
-                    round
+            <v-list rounded>
+                <v-list-item-group
                     color="primary"
-                    outline
-                >create menu</v-btn>
-            </v-layout>
+                >
+                    <v-list-item
+                        v-for="(item, i) in menus"
+                        :key="i"
+                        :to="item.url"
+                    >
+                        <v-list-item-icon>
+                            <v-icon v-text="item.icon"></v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title v-text="item.title"></v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item-group>
+            </v-list>
         </v-card>
 
         <transition
@@ -73,10 +31,12 @@
         >
             <router-view />
         </transition>
-        <v-bottom-navigation
+
+        <!-- <v-bottom-navigation
+            class="v-bottom-nav"
             color="primary"
             :value="true"
-            dark
+            light
             fixed
             shift
         >
@@ -115,7 +75,7 @@
                 <span>Image</span>
                 <v-icon>image</v-icon>
             </v-btn>
-        </v-bottom-navigation>
+        </v-bottom-navigation> -->
     </div>
 </template>
 
@@ -123,7 +83,29 @@
 export default {
     data() {
         return {
-            muneVisible: false
+            muneVisible: false,
+            menus: [
+                {
+                    icon: 'mdi-account',
+                    url: 'mine',
+                    title: 'Mine'
+                },
+                {
+                    icon: 'mdi-star',
+                    url: 'star',
+                    title: 'Star'
+                },
+                {
+                    icon: 'mdi-book',
+                    url: 'book',
+                    title: 'Book'
+                },
+                {
+                    icon: 'mdi-image',
+                    url: 'image',
+                    title: 'Image'
+                }
+            ]
         };
     }
     // created() {
@@ -137,7 +119,7 @@ export default {
 };
 </script>
 
-<style lang="scss" soped>
+<style lang="scss">
 .task_router {
     display: flex;
     height: calc(100vh - 64px);
@@ -166,7 +148,7 @@ export default {
             }
         }
     }
-    .v-bottom-nav {
+    .v-bottom-navigation {
         display: none;
         z-index: 2;
     }

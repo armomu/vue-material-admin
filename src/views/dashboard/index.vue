@@ -28,7 +28,7 @@
                                 <div class="t">
                                     <div class="i">Daily Income</div>
                                     <div class="r">
-                                        <v-icon>arrow_drop_up</v-icon>38%
+                                        <v-icon>mdi-arrow-up</v-icon>38%
                                     </div>
                                 </div>
                                 <div class="v">584</div>
@@ -54,43 +54,43 @@
                                 <div class="city wd">31℃</div>
                             </div>
                             <div class="weather_header_right">
-                                <v-icon>wb_sunny</v-icon>
+                                <v-icon>mdi-spin mdi-weather-sunny</v-icon>
                             </div>
                         </div>
                         <div class="weather_week">
                             <div class="day_item">
                                 <div class="lb">Sun</div>
-                                <v-icon>wb_sunny</v-icon>
+                                <v-icon>mdi-weather-sunny</v-icon>
                                 <div class="wd">31℃</div>
                             </div>
                             <div class="day_item">
                                 <div class="lb">Mon</div>
-                                <v-icon>cloud_queue</v-icon>
+                                <v-icon>mdi-weather-hazy</v-icon>
                                 <div class="wd">35℃</div>
                             </div>
                             <div class="day_item">
                                 <div class="lb">Tues</div>
-                                <v-icon>cloud_queue</v-icon>
+                                <v-icon>mdi-weather-partly-snowy</v-icon>
                                 <div class="wd">25℃</div>
                             </div>
                             <div class="day_item">
                                 <div class="lb">Wed</div>
-                                <v-icon>ac_unit</v-icon>
+                                <v-icon>mdi-weather-partly-snowy-rainy</v-icon>
                                 <div class="wd">10℃</div>
                             </div>
                             <div class="day_item">
                                 <div class="lb">Thur</div>
-                                <v-icon>wb_sunny</v-icon>
+                                <v-icon>mdi-weather-night-partly-cloudy</v-icon>
                                 <div class="wd">31℃</div>
                             </div>
                             <div class="day_item">
                                 <div class="lb">Fri</div>
-                                <v-icon>timelapse</v-icon>
+                                <v-icon>mdi-weather-pouring</v-icon>
                                 <div class="wd">31℃</div>
                             </div>
                             <div class="day_item">
                                 <div class="lb">Sat</div>
-                                <v-icon>wb_sunny</v-icon>
+                                <v-icon>mdi-weather-sunset-down</v-icon>
                                 <div class="wd">31℃</div>
                             </div>
 
@@ -105,8 +105,8 @@
                         @click="handlePieBoxVisibleStatus"
                     >
                         <v-btn icon>
-                            <v-icon v-if="pieBoxVisible">arrow_back</v-icon>
-                            <v-icon v-else>arrow_forward</v-icon>
+                            <v-icon v-if="pieBoxVisible">mdi-arrow-left-thick</v-icon>
+                            <v-icon v-else>mdi-arrow-right-thick</v-icon>
                         </v-btn>
 
                     </div>
@@ -181,7 +181,7 @@
                             icon
                             @click="handleRunReversal"
                         >
-                            <v-icon>view_agenda</v-icon>
+                            <v-icon>mdi-camera-retake</v-icon>
                         </v-btn>
                     </div>
                     <div class="camera_content">
@@ -222,7 +222,7 @@
                             icon
                             @click="handleRunReversal"
                         >
-                            <v-icon>dashboard</v-icon>
+                            <v-icon>mdi-camera-retake-outline</v-icon>
                         </v-btn>
                     </div>
                     <div
@@ -260,10 +260,10 @@
                     </div>
                     <div class="btn_g">
                         <v-btn icon>
-                            <v-icon>repeat_one</v-icon>
+                            <v-icon>mdi-incognito</v-icon>
                         </v-btn>
                         <v-btn icon>
-                            <v-icon>skip_previous</v-icon>
+                            <v-icon>mdi-skip-previous</v-icon>
                         </v-btn>
                         <v-btn
                             icon
@@ -271,13 +271,13 @@
                             fab
                             class="py"
                         >
-                            <v-icon>play_circle_filled</v-icon>
+                            <v-icon>mdi-play-circle-outline</v-icon>
                         </v-btn>
                         <v-btn icon>
-                            <v-icon>skip_next</v-icon>
+                            <v-icon>mdi-skip-next</v-icon>
                         </v-btn>
                         <v-btn icon>
-                            <v-icon>volume_off</v-icon>
+                            <v-icon>mdi-music-off</v-icon>
                         </v-btn>
                     </div>
                 </div>
@@ -305,7 +305,7 @@ export default {
     },
     mixins: [echartMixins],
     mounted() {
-        this.$vuetify.theme.primary = '#323259';
+        // this.$vuetify.theme.themes.light.primary = '#323259';
     },
     methods: {
         handlePieBoxVisibleStatus() {

@@ -27,7 +27,7 @@
                     color="primary"
                     @click="createTaskmDialogVisible = true"
                 >
-                    <v-icon dark>add</v-icon>
+                    <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </div>
             <div
@@ -38,69 +38,62 @@
                 <v-card ref="cardSection">
                     <v-list subheader>
                         <template v-for="(item,key) in items">
-                            <v-list-tile
-                                :key="key + 2"
-                                avatar
-                                :class="{active: item.active}"
-                                @click.stop="handleShowDetail(item,key)"
-                            >
-                                <v-list-tile-avatar @click.stop.native="handleCheckbox(key)">
-                                    <v-checkbox v-model="item.selected"></v-checkbox>
-                                </v-list-tile-avatar>
-                                <v-list-tile-content>
-                                    <v-list-tile-title :title="item.title">{{ item.name }}</v-list-tile-title>
-                                </v-list-tile-content>
-                                <v-list-tile-action @click.stop="handleCollect(key)">
-                                    <v-btn
-                                        icon
-                                        ripple
-                                    >
-                                        <v-icon :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'">star</v-icon>
-                                    </v-btn>
-                                </v-list-tile-action>
-                            </v-list-tile>
-                            <v-divider
-                                v-if="key + 1 < items.length"
-                                :key="`divider-${key}`"
-                            ></v-divider>
-                        </template>
+                                <v-list-item
+                                    :key="key + 2"
+                                    :class="{active: item.active}"
+                                    @click.stop="()=>{}"
+                                    :ripple="false"
+                                >
+                                    <v-list-item-action @click.stop.native="handleCheckbox(key)">
+                                        <v-checkbox v-model="item.selected" color="primary"></v-checkbox>
+                                    </v-list-item-action>
+                                    <v-list-item-content @click.stop="handleShowDetail(item,key)">
+                                        <v-list-item-title :title="item.title">{{ item.name }}</v-list-item-title>
+                                    </v-list-item-content>
+                                    <v-list-item-action @click.stop="handleCollect(key)">
+                                        <v-btn
+                                            icon
+                                            ripple
+                                        >
+                                            <v-icon :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'">mdi-star</v-icon>
+                                        </v-btn>
+                                    </v-list-item-action>
+                                </v-list-item>
+                                <v-divider
+                                    v-if="key + 1 < items.length"
+                                    :key="`divider-${key}`"
+                                ></v-divider>
+                            </template>
                     </v-list>
                 </v-card>
             </div>
         </div>
-        <v-card
+        <div
             class="right_section"
             ref="right_section"
             :class="{ hidetaskdetail:detailStatus }"
+            :ripple="false"
             @click.stop="()=>{}"
         >
-            <!-- <div class="toolbar">
-                <v-btn fab dark small :color="detail.iconClass">
-                    <v-icon dark>{{ detail.icon }}</v-icon>
-                </v-btn>
-                <div class="title">
-                    <span>{{detail.title}}</span>
-                </div>
-            </div>-->
-
             <v-toolbar
                 color="white"
+                style="width: 100%"
                 absolute
             >
                 <v-btn
-                    round
+                    rounded
                     :color="detail.selected ? 'green darken-1' : 'primary'"
-                    outline
+                    outlined
                     @click.stop="handleCheckbox(detail.key)"
                 >
-                    <v-icon dark>check</v-icon>Complete
+                    <v-icon dark>mdi-check</v-icon>Complete
                 </v-btn>
                 <v-btn
                     icon
                     ripple
                     @click.stop="handleCollect(detail.key)"
                 >
-                    <v-icon :color="detail.isCollect ? 'amber lighten-1' : 'grey darken-1'">star</v-icon>
+                    <v-icon :color="detail.isCollect ? 'amber lighten-1' : 'grey darken-1'">mdi-star</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
                 <!-- <v-btn icon>
@@ -114,7 +107,7 @@
                     icon
                     @click="detailStatus = true"
                 >
-                    <v-icon color="grey darken-1">delete</v-icon>
+                    <v-icon color="grey darken-1">mdi-close</v-icon>
                 </v-btn>
             </v-toolbar>
             <div class="content-wrap">
@@ -131,7 +124,7 @@
                             <v-icon
                                 color="primary"
                                 large
-                            >alarm</v-icon>
+                            >mdi-run</v-icon>
                         </v-flex>
                         <v-flex xs5>
                             <v-menu offset-y>
@@ -191,10 +184,8 @@
                     </v-card>
                     <v-tabs
                         v-model="tab"
-                        color="transparent"
-                        style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px"
+                        style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px; background: #fff"
                     >
-                        <v-tabs-slider color="primary"></v-tabs-slider>
                         <v-tab
                             v-for="item in tabs"
                             :key="item"
@@ -205,14 +196,14 @@
                             v-for="item in tabs"
                             :key="item"
                         >
-                            <v-card flat>
+                            <v-card flat style="margin: 0;">
                                 <v-card-text>{{ item }}</v-card-text>
                             </v-card>
                         </v-tab-item>
                     </v-tabs-items>
                 </div>
             </div>
-        </v-card>
+        </div>
         <v-snackbar
             v-model="dialog"
             multi-line
@@ -496,11 +487,11 @@ export default {
             this.items[this.detail.key].active = false;
             this.detail = item;
             this.detailStatus = false;
-            document.onclick = ()=> {
+            document.onclick = () => {
                 this.detailStatus = true;
                 this.items[key].active = false;
                 document.onclick = null;
-            }
+            };
         },
         loadPages() {
             this.isLoad = true;
@@ -600,11 +591,15 @@ export default {
     }
     .right_section {
         flex: 0 0 700px;
+        width: 700px;
         height: calc(100vh - 64px);
         overflow-y: auto;
         z-index: 1;
         padding: 64px 0;
         overflow-y: auto;
+        transition: all 0.3s;
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        position: relative;
         .toolbar {
             background: #ffffff;
             height: 80px;
@@ -640,6 +635,7 @@ export default {
     }
     .hidetaskdetail.right_section {
         flex: 0 0 0;
+        width: 0;
     }
     .slider.v-card {
         .v-list {

@@ -142,7 +142,7 @@ body {
                         }
                         .weather_header_right {
                             margin-right: 50px;
-                            animation: tyggxh 10s infinite;
+                            // animation: tyggxh 10s infinite;
                             i {
                                 font-size: 130px;
                                 color: #f7de1f;
@@ -232,7 +232,7 @@ body {
                     }
                 }
                 .inner_item_hide {
-                    right: -43%;
+                    right: -60%;
                     .item_header {
                         transform: translate(30%, 0);
                     }
@@ -424,7 +424,7 @@ body {
         .left_nav {
             display: none !important;
         }
-        .v-bottom-nav {
+        .v-bottom-navigation {
             display: flex !important;
         }
     }
