@@ -6,9 +6,7 @@
                 prepend-inner-icon="mdi-magnify"
             ></v-text-field>
             <v-list rounded>
-                <v-list-item-group
-                    color="primary"
-                >
+                <v-list-item-group color="primary">
                     <v-list-item
                         v-for="(item, i) in menus"
                         :key="i"
@@ -31,51 +29,26 @@
         >
             <router-view />
         </transition>
-
-        <!-- <v-bottom-navigation
-            class="v-bottom-nav"
-            color="primary"
-            :value="true"
-            light
-            fixed
-            shift
-        >
-            <v-btn
-                dark
-                exact
-                to="/task/mine"
+        <div class="v-bottom-nav">
+            <v-bottom-navigation
+                class="primary"
+                :value="true"
+                fixed
+                shift
             >
-                <span>Mine</span>
-                <v-icon>bookmark</v-icon>
-            </v-btn>
+                <v-btn
+                    dark
+                    exact
+                    v-for="(item, i) in menus"
+                    :key="i"
+                    :to="item.url"
+                >
+                    <span style="color: #fff">{{item.title}}</span>
+                    <v-icon color="white">{{item.icon}}</v-icon>
+                </v-btn>
+            </v-bottom-navigation>
+        </div>
 
-            <v-btn
-                dark
-                exact
-                to="/task/star"
-            >
-                <span>Star</span>
-                <v-icon>star</v-icon>
-            </v-btn>
-
-            <v-btn
-                dark
-                exact
-                to="/task/book"
-            >
-                <span>Book</span>
-                <v-icon>book</v-icon>
-            </v-btn>
-
-            <v-btn
-                dark
-                exact
-                to="/task/image"
-            >
-                <span>Image</span>
-                <v-icon>image</v-icon>
-            </v-btn>
-        </v-bottom-navigation> -->
     </div>
 </template>
 
@@ -107,10 +80,11 @@ export default {
                 }
             ]
         };
+    },
+    mounted() {
+        // con
+        // this.$vuetify.theme.themes.light.primary)
     }
-    // created() {
-    //     // console.log(this.$router)
-    // },
     // computed: {
     //     menus() {
     //         return this.$route;
@@ -148,7 +122,7 @@ export default {
             }
         }
     }
-    .v-bottom-navigation {
+    .v-bottom-nav {
         display: none;
         z-index: 2;
     }

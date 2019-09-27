@@ -3,7 +3,7 @@
         <div class="card_box">
             <div class="left">
                 <div class="card_wrap">
-                    <div class="r_card">
+                    <div class="r_card primary">
                         <div class="item_header">
                             <div class="title">$ Histogram</div>
                             <!-- <v-icon>keyboard_arrow_right</v-icon> -->
@@ -18,7 +18,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="r_card">
+                    <div class="r_card  primary">
                         <div class="item_header">
                             <div class="title">Ve-line</div>
                             <!-- <v-icon>keyboard_arrow_right</v-icon> -->
@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="r_card">
+                <div class="r_card  primary">
                     <div class="item_weather">
                         <div class="weather_header">
                             <div class="weather_header_left">
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="right">
-                <div class="r_card">
+                <div class="r_card  primary">
                     <div
                         class="arrow"
                         @click="handlePieBoxVisibleStatus"
@@ -174,7 +174,7 @@
         </div>
         <div class="camera_play_row">
             <div class="camera_wrap" :class="{ reversal: reversal }">
-                <div class="r_card reversal_before">
+                <div class="r_card reversal_before primary">
                     <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
@@ -215,7 +215,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="r_card reversal_after">
+                <div class="r_card reversal_after primary">
                     <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
@@ -239,7 +239,7 @@
                     </div>
                 </div>
             </div>
-            <div class="r_card play_item">
+            <div class="r_card play_item primary">
                 <div class="item_header">
                     <div class="title">My Playlist</div>
                 </div>
@@ -305,7 +305,7 @@ export default {
     },
     mixins: [echartMixins],
     mounted() {
-        // this.$vuetify.theme.themes.light.primary = '#323259';
+        this.$vuetify.theme.themes.light.primary = '#323259';
     },
     methods: {
         handlePieBoxVisibleStatus() {

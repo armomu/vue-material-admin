@@ -209,10 +209,12 @@
             multi-line
             top
             left
+            absolute
         >
             {{ tips }}
             <v-btn
                 color="primary"
+                text
                 @click="dialog = false"
             >Close</v-btn>
         </v-snackbar>
@@ -226,7 +228,7 @@
                 color="primary"
                 dark
             >
-                <v-card-text>
+                <v-card-text style="padding: 20px 24px">
                     Please stand by
                     <v-progress-linear
                         indeterminate
@@ -261,6 +263,7 @@
                     <v-layout
                         row
                         wrap
+                        style="margin: 0;"
                     >
                         <v-flex xs6>
                             <v-menu offset-y>
@@ -307,6 +310,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                         color="primary"
+                        text
                         flat
                         @click="createTaskmDialogVisible = false"
                     >cancel</v-btn>
@@ -600,6 +604,7 @@ export default {
         transition: all 0.3s;
         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         position: relative;
+        background: #fafafa;
         .toolbar {
             background: #ffffff;
             height: 80px;
@@ -610,7 +615,6 @@ export default {
             z-index: 2;
         }
         .content-wrap {
-            background: #fafafa;
             &:hover::-webkit-scrollbar-thumb {
                 background: #bdbdbd;
             }

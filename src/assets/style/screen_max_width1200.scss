@@ -1,0 +1,36 @@
+@media screen and (max-width: 1200px) {
+    .task_router {
+        .task_router_content {
+            .down_tip_section {
+                width: 100% !important;
+            }
+            .list_wrap {
+                margin: 0 2px 50px 5px !important;
+                .inner-head {
+                    position: absolute !important;
+                    width: auto !important;
+                    right: 0;
+                    bottom: 56px;
+                    z-index: 2;
+                    .title {
+                        display: none;
+                    }
+                }
+                .scroll_wrap {
+                    height: calc(100vh - 74px) !important;
+                }
+            }
+            .right_section {
+                width: 100% !important;
+                position: fixed !important;
+                bottom: 0;
+                height: 60vh !important;
+                transition:  all 0.5s;
+                transform: translateY(0);
+            }
+            .hidetaskdetail.right_section {
+                transform: translateY(100%);
+            }
+        }
+    }
+}

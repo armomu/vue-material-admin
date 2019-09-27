@@ -18,6 +18,9 @@ body {
 .task_form {
     padding: 0 20px;
 }
+.v-dialog .v-card__actions {
+    padding: 20px !important;
+}
 .dashboard_container {
     background: #1b1b38;
     max-height: calc(100vh - 64px);
@@ -300,9 +303,7 @@ body {
                 left: 0;
                 top: 0;
                 width: 100%;
-                transform-style: preserve-3d;
-                backface-visibility: hidden;
-                transition: all 0.3s;
+                transition: all 0.5s;
                 .item_header {
                     i {
                         color: #fff;
@@ -350,19 +351,20 @@ body {
             }
             .reversal_before {
                 position: relative;
+                transform: rotateY(0);
                 opacity: 1;
                 z-index: 2;
             }
             .reversal_after {
-                transform: rotateY(360deg);
-                opacity: 0;
+                transform: rotateY(180deg);
+                opacity: 1;
                 z-index: 1;
             }
         }
         .reversal {
             .reversal_before {
-                transform: rotateY(-360deg);
-                opacity: 0;
+                transform: rotateY(-180deg);
+                opacity: 1;
                 z-index: 1;
             }
             .reversal_after {
@@ -424,8 +426,8 @@ body {
         .left_nav {
             display: none !important;
         }
-        .v-bottom-navigation {
-            display: flex !important;
+        .v-bottom-nav {
+            display: block !important;
         }
     }
 }
@@ -452,8 +454,8 @@ body {
                 }
             }
             .right_section {
-                width: 100%;
-                position: fixed;
+                width: 100% !important;
+                position: fixed !important;
                 bottom: 0;
                 height: 60vh !important;
                 transition:  all 0.5s;

@@ -28,6 +28,7 @@
                 text
                 v-for="(item,index) in menus"
                 :key="index"
+                class="nav-link-btn"
                 :to="'/' + item.path"
                 dark
             >
@@ -41,6 +42,7 @@
                     text
                     v-on="on"
                     href="mailto:contact@akveo.com"
+                    class="icon_mine_email"
                 >
                     <v-icon left>mdi-email</v-icon>894620576@qq.com
                 </v-btn>
@@ -199,6 +201,11 @@ export default {
                     name: 'teal',
                     color: '#009688',
                     active: false
+                },
+                {
+                    name: 'navy',
+                    color: '#323259',
+                    active: false
                 }
             ]
         };
@@ -317,6 +324,12 @@ export default {
         }
         .nav-link {
             display: none;
+        }
+        .nav-link-btn {
+            display: none;
+        }
+        .icon_mine_email {
+            display: none !important;
         }
     }
 }

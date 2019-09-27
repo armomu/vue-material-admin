@@ -1,0 +1,10 @@
+@media screen and (max-width: 1300px) {
+    .task_router {
+        .left_nav {
+            display: none !important;
+        }
+        .v-bottom-nav {
+            display: block !important;
+        }
+    }
+}
