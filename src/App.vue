@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-    mounted() {
+    updated() {
         document.getElementById('loading').remove();
     }
 };

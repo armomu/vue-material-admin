@@ -99,7 +99,6 @@
                     color="primary"
                 >
                     <v-list-item
-                        exact
                         v-ripple
                         v-for="(item,index) in menus"
                         :key="index"
