@@ -35,35 +35,34 @@
                 @scroll="handleScoll"
                 ref="scrollWrap"
             >
-                <v-card ref="cardSection">
-                    <v-list subheader>
-                        <template v-for="(item,key) in items">
-                                <v-list-item
-                                    :key="key + 2"
-                                    :class="{active: item.active}"
-                                    @click.stop="()=>{}"
-                                    :ripple="false"
-                                >
-                                    <v-list-item-action @click.stop.native="handleCheckbox(key)">
-                                        <v-checkbox v-model="item.selected" color="primary"></v-checkbox>
-                                    </v-list-item-action>
-                                    <v-list-item-content @click.stop="handleShowDetail(item,key)">
-                                        <v-list-item-title :title="item.title">{{ item.name }}</v-list-item-title>
-                                    </v-list-item-content>
-                                    <v-list-item-action @click.stop="handleCollect(key)">
-                                        <v-btn
-                                            icon
-                                            ripple
-                                        >
-                                            <v-icon :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'">mdi-star</v-icon>
-                                        </v-btn>
-                                    </v-list-item-action>
-                                </v-list-item>
-                                <v-divider
-                                    v-if="key + 1 < items.length"
-                                    :key="`divider-${key}`"
-                                ></v-divider>
-                            </template>
+                <v-card ref="cardSection" style="background: none">
+                    <v-list subheader style="background: none">
+                        <div class="v-list-item-pro" v-for="(item,key) in items" :key="key" :class="'v-list-item-' + item.className ">
+                            <v-list-item
+                                :class="{active: item.active}"
+                                @click.stop="()=>{}"
+                                :ripple="false"
+                            >
+                                <v-list-item-action @click.stop.native="handleCheckbox(key)">
+                                    <v-checkbox
+                                        v-model="item.selected"
+                                        color="primary"
+                                    ></v-checkbox>
+                                </v-list-item-action>
+                                <v-list-item-content @click.stop="handleShowDetail(item,key)">
+                                    <v-list-item-title :title="item.title">{{ item.name }}</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-action @click.stop="handleCollect(key)">
+                                    <v-btn
+                                        icon
+                                        ripple
+                                    >
+                                        <v-icon :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'">mdi-star</v-icon>
+                                    </v-btn>
+                                </v-list-item-action>
+                            </v-list-item>
+                            <v-divider></v-divider>
+                        </div>
                     </v-list>
                 </v-card>
             </div>
@@ -196,7 +195,10 @@
                             v-for="item in tabs"
                             :key="item"
                         >
-                            <v-card flat style="margin: 0;">
+                            <v-card
+                                flat
+                                style="margin: 0;"
+                            >
                                 <v-card-text>{{ item }}</v-card-text>
                             </v-card>
                         </v-tab-item>
@@ -378,6 +380,7 @@ export default {
                 this.items.push({
                     name: 'task' + i,
                     key: i,
+                    className: i,
                     active: false,
                     isCollect: false,
                     selected: false,
@@ -434,6 +437,7 @@ export default {
                         items.push({
                             name: 'task' + i,
                             key: i,
+                            className: i,
                             active: false,
                             isCollect: false,
                             selected: false,
@@ -507,6 +511,7 @@ export default {
                 this.items.push({
                     name: 'task' + i,
                     key: i,
+                    className: i,
                     active: false,
                     selected: false,
                     isCollect: false,
@@ -590,6 +595,20 @@ export default {
             }
             .v-card {
                 margin-bottom: 20px;
+                .v-list-item-pro {
+
+                }
+                @for $i from 1 through 15 {
+                    .v-list-item-#{$i} {
+                        opacity: 0;
+                        background: #fff;
+                        animation: itemSlideIn 0.5s linear #{$i / 20}s;
+                        animation-fill-mode: forwards;
+                    }
+                }
+                .v-list-item {
+                    background: #fff;
+                }
             }
         }
     }
@@ -602,7 +621,9 @@ export default {
         padding: 64px 0;
         overflow-y: auto;
         transition: all 0.3s;
-        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         position: relative;
         background: #fafafa;
         .toolbar {
@@ -641,12 +662,6 @@ export default {
         flex: 0 0 0;
         width: 0;
     }
-    .slider.v-card {
-        .v-list {
-            > div {
-                padding: 30px 0;
-            }
-        }
-    }
 }
+
 </style>

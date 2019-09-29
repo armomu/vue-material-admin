@@ -420,7 +420,18 @@ body {
         transform: rotate(360deg);
     }
 }
+@keyframes itemSlideIn {
+    from {
+        transform: translate3d(0, 150%, 0);
+        visibility: visible;
+        opacity: 0;
+    }
 
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
 @media screen and (max-width: 1300px) {
     .task_router {
         .left_nav {
@@ -458,7 +469,7 @@ body {
                 position: fixed !important;
                 bottom: 0;
                 height: 60vh !important;
-                transition:  all 0.5s;
+                transition: all 0.5s;
                 transform: translateY(0);
             }
             .hidetaskdetail.right_section {
@@ -469,7 +480,6 @@ body {
 }
 @media screen and (max-width: 1024px) {
     .dashboard_container {
-
         .card_box {
             .left {
                 width: 100%;

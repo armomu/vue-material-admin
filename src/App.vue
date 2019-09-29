@@ -6,7 +6,10 @@
 <script>
 export default {
     updated() {
-        document.getElementById('loading').remove();
+        const dom = document.getElementById('loading');
+        if(dom){
+            dom.remove()
+        }
     }
 };
 </script>

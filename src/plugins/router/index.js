@@ -11,7 +11,7 @@ export default new Router({
         //首页
         {
             path: '/',
-            redirect: '/task/mine',
+            redirect: '/login',
             name: '/',
             hidden: false,
             component: layout,
@@ -78,6 +78,12 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "map" */ '@/views/map/index.vue')
                 },
             ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            title: '登录',
+            component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue')
         },
     ]
 });
