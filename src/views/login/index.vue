@@ -24,7 +24,7 @@
                             prepend-icon="mdi-account-lock-outline"
                         ></v-text-field>
                     </div>
-                    <div class="row">
+                    <div class="row row_f">
                         <v-btn
                             large
                             color="primary"
@@ -114,6 +114,10 @@ export default {
                 .row {
                     margin-top: 30px;
                 }
+                .row_f {
+                   display: flex;
+                    align-items: center;
+                }
             }
             .right {
                 height: 400px;
@@ -122,6 +126,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
                 .icon {
                     width: 150px;
                     height: 150px;
