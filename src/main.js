@@ -18,6 +18,7 @@ Vue.use(VueAMap);
 
 VueAMap.initAMapApiLoader({
     key: '527a03c5d37f26c924d83b3c68f9ac5c',
+    plugin: ['MarkerClusterer', 'AMap.ControlBar']
 });
 
 Vue.config.productionTip = false;

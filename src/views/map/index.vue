@@ -7,6 +7,7 @@
                 :zoom="zoom"
                 class="amap-demo"
                 :events="events"
+                :plugin="plugins"
                 :viewMode="'3D'"
                 :amap-manager="amapManager"
             >
@@ -26,49 +27,52 @@ import VueMap from 'vue-amap';
 const amapManager = new VueMap.AMapManager();
 export default {
     data() {
-        // let self = this;
+        const self = this;
         return {
             zoom: 15,
             center: [114.22951, 22.720603],
             markers: [],
             amapManager,
             markerRefs: [],
+            plugins: ['AMap.ControlBar'],
             events: {
                 init(amp) {
                     amp.setMapStyle(
                         'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
                     );
-                    // setTimeout(() => {
-                    //     let cluster = new AMap.MarkerClusterer(
-                    //         o,
-                    //         self.markerRefs,
-                    //         {
-                    //             gridSize: 80,
-                    //             renderCluserMarker: self._renderCluserMarker
-                    //         }
-                    //     );
-                    // }, 1000);
+                    setTimeout(() => {
+                        console.log(self.markerRefs);
+                        let cluster = new AMap.MarkerClusterer(
+                            amp,
+                            self.markerRefs,
+                            {
+                                gridSize: 80,
+                                renderCluserMarker: self._renderCluserMarker
+                            }
+                        );
+                        console.log(cluster);
+                    }, 1000);
                 }
             }
         };
     },
     created() {
-        // let self = this;
-        // let markers = [];
-        // let index = 0;
-        // while (++index <= 40) {
-        //     markers.push({
-        //         position: [114.22951 + 0.001 * index, 22.720603],
-        //         content:
-        //             '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
-        //         events: {
-        //             init(o) {
-        //                 self.markerRefs.push(o);
-        //             }
-        //         }
-        //     });
-        // }
-        // this.markers = markers;
+        let self = this;
+        let markers = [];
+        let index = 0;
+        while (++index <= 40) {
+            markers.push({
+                position: [114.22951 + 0.001 * index, 22.720603],
+                content:
+                    '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
+                events: {
+                    init(o) {
+                        self.markerRefs.push(o);
+                    }
+                }
+            });
+        }
+        this.markers = markers;
     },
     computed: {
         map() {
@@ -80,13 +84,12 @@ export default {
     },
     mounted() {
         setTimeout(() => {
-            console.log(this.map.getCenter());
+            // console.log(this.map.getCenter());
         }, 2000);
     },
     methods: {
         _renderCluserMarker(context) {
             const count = this.markers.length;
-
             let factor = Math.pow(context.count / count, 1 / 18);
             let div = document.createElement('div');
             let Hue = 180 - factor * 180;

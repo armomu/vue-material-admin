@@ -4,7 +4,7 @@
         :class="{login_mlmlh: mlmlh}"
     >
         <div class="wrap">
-            <div class="wrap_title">MATERIAL DESIGN</div>
+            <div class="wrap_title">Material Design</div>
             <div class="inner_card">
                 <div class="left">
                     <div class="title">
@@ -46,7 +46,7 @@
                             title="https://github.com/Groundhog-Chen/vue-material-admin"
                             href="https://github.com/Groundhog-Chen/vue-material-admin"
                         >
-                            <v-icon >mdi-github-circle</v-icon>
+                            <v-icon>mdi-github-circle</v-icon>
                         </v-btn>
                     </div>
                 </div>
@@ -79,9 +79,9 @@ export default {
     methods: {
         handleSignBtn() {
             this.mlmlh = true;
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.$router.push('/task/mine');
-            },300);
+            }, 300);
         }
     }
 };
@@ -89,6 +89,7 @@ export default {
 <style lang="scss" scoped>
 .login_container {
     height: 100vh;
+    overflow-y: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,7 +116,7 @@ export default {
                     margin-top: 30px;
                 }
                 .row_f {
-                   display: flex;
+                    display: flex;
                     align-items: center;
                 }
             }
@@ -143,5 +144,27 @@ export default {
 .login_mlmlh {
     transform: scale(5);
     opacity: 0;
+}
+
+@media screen and (max-width: 960px) and (min-width: 320px) {
+    .login_container {
+        .wrap {
+            .wrap_title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+            .inner_card {
+                width: auto;
+                margin: 30px;
+                .left {
+                    width: auto;
+                    padding: 30px;
+                }
+                .right {
+                    display: none;
+                }
+            }
+        }
+    }
 }
 </style>

@@ -7,8 +7,8 @@
 export default {
     updated() {
         const dom = document.getElementById('loading');
-        if(dom){
-            dom.remove()
+        if (dom) {
+            dom.remove();
         }
     }
 };
