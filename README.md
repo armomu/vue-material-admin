@@ -51,7 +51,7 @@ yarn build
 
 + [http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
 
-## 截图
+## Screenshot
 
 ![Task](https://raw.githubusercontent.com/894620576/Vuetify-todo/master/src/assets/dashboard.png)
 
