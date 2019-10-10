@@ -107,7 +107,7 @@ export default {
             display: flex;
             align-items: center;
             border-radius: 3px;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 50px rgba(145, 144, 144, 0.1);
             .left {
                 width: 500px;
                 padding: 0 40px;
