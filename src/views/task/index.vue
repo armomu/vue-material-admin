@@ -9,15 +9,11 @@
         <div
             class="down_tip_section"
             ref="down_tip_section"
-            :class="{hisDetail: detailStatus}"
+            :class="{ hisDetail: detailStatus }"
         >
             <span>{{ loadText }}</span>
         </div>
-        <div
-            class="list_wrap"
-            ref="down_section"
-            :class="{ slider: slider }"
-        >
+        <div class="list_wrap" ref="down_section" :class="{ slider: slider }">
             <div class="inner-head">
                 <div class="title">{{ $t("task.title") }}</div>
                 <v-btn
@@ -30,34 +26,47 @@
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </div>
-            <div
-                class="scroll_wrap"
-                @scroll="handleScoll"
-                ref="scrollWrap"
-            >
+            <div class="scroll_wrap" @scroll="handleScoll" ref="scrollWrap">
                 <v-card ref="cardSection" style="background: none">
                     <v-list subheader style="background: none">
-                        <div class="v-list-item-pro" v-for="(item,key) in items" :key="key" :class="'v-list-item-' + item.className ">
+                        <div
+                            class="v-list-item-pro"
+                            v-for="(item, key) in items"
+                            :key="key"
+                            :class="'v-list-item-' + item.className"
+                        >
                             <v-list-item
-                                :class="{active: item.active}"
-                                @click.stop="()=>{}"
+                                :class="{ active: item.active }"
+                                @click.stop="() => {}"
                                 :ripple="false"
                             >
-                                <v-list-item-action @click.stop.native="handleCheckbox(key)">
+                                <v-list-item-action
+                                    @click.stop.native="handleCheckbox(key)"
+                                >
                                     <v-checkbox
                                         v-model="item.selected"
                                         color="primary"
                                     ></v-checkbox>
                                 </v-list-item-action>
-                                <v-list-item-content @click.stop="handleShowDetail(item,key)">
-                                    <v-list-item-title :title="item.title">{{ item.name }}</v-list-item-title>
+                                <v-list-item-content
+                                    @click.stop="handleShowDetail(item, key)"
+                                >
+                                    <v-list-item-title :title="item.title">{{
+                                        item.name
+                                    }}</v-list-item-title>
                                 </v-list-item-content>
-                                <v-list-item-action @click.stop="handleCollect(key)">
-                                    <v-btn
-                                        icon
-                                        ripple
-                                    >
-                                        <v-icon :color="item.isCollect ? 'amber lighten-1' : 'grey lighten-1'">mdi-star</v-icon>
+                                <v-list-item-action
+                                    @click.stop="handleCollect(key)"
+                                >
+                                    <v-btn icon ripple>
+                                        <v-icon
+                                            :color="
+                                                item.isCollect
+                                                    ? 'amber lighten-1'
+                                                    : 'grey lighten-1'
+                                            "
+                                            >mdi-star</v-icon
+                                        >
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
@@ -70,166 +79,135 @@
         <div
             class="right_section"
             ref="right_section"
-            :class="{ hidetaskdetail:detailStatus }"
-            :ripple="false"
-            @click.stop="()=>{}"
+            :class="{ hidetaskdetail: detailStatus }"
+            @click.stop="() => {}"
         >
-            <v-toolbar
-                color="white"
-                style="width: 100%"
-                absolute
-            >
-                <v-btn
-                    rounded
-                    :color="detail.selected ? 'green darken-1' : 'primary'"
-                    outlined
-                    @click.stop="handleCheckbox(detail.key)"
-                >
-                    <v-icon dark>mdi-check</v-icon>Complete
-                </v-btn>
-                <v-btn
-                    icon
-                    ripple
-                    @click.stop="handleCollect(detail.key)"
-                >
-                    <v-icon :color="detail.isCollect ? 'amber lighten-1' : 'grey darken-1'">mdi-star</v-icon>
-                </v-btn>
-                <v-spacer></v-spacer>
-                <!-- <v-btn icon>
+            <div class="inner_wrap" v-if="!detailStatus">
+                <v-toolbar color="white" style="width: 100%" absolute>
+                    <v-btn
+                        rounded
+                        :color="detail.selected ? 'green darken-1' : 'primary'"
+                        outlined
+                        @click.stop="handleCheckbox(detail.key)"
+                    >
+                        <v-icon dark>mdi-check</v-icon>Complete
+                    </v-btn>
+                    <v-btn icon ripple @click.stop="handleCollect(detail.key)">
+                        <v-icon
+                            :color="
+                                detail.isCollect
+                                    ? 'amber lighten-1'
+                                    : 'grey darken-1'
+                            "
+                            >mdi-star</v-icon
+                        >
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <!-- <v-btn icon>
                     <v-icon color="grey darken-1">search</v-icon>
                 </v-btn>
                 <v-btn icon>
                     <v-icon color="grey darken-1">favorite</v-icon>
                 </v-btn>-->
 
-                <v-btn
-                    icon
-                    @click="detailStatus = true"
-                >
-                    <v-icon color="grey darken-1">mdi-close</v-icon>
-                </v-btn>
-            </v-toolbar>
-            <div class="content-wrap">
-                <div class="content">
-                    <v-layout
-                        row
-                        wrap
-                        style="margin: 20px 20px 0 0"
-                    >
-                        <v-flex
-                            xs2
-                            style="display: flex; align-items: center; justify-content: center"
-                        >
-                            <v-icon
-                                color="primary"
-                                large
-                            >mdi-run</v-icon>
-                        </v-flex>
-                        <v-flex xs5>
-                            <v-menu offset-y>
-                                <template v-slot:activator="{ on }">
-                                    <v-text-field
-                                        v-model="detail.startTime"
-                                        v-on="on"
-                                        label="Start time"
-                                        required
-                                        style="margin-right: 10px"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker v-model="detail.startTime"></v-date-picker>
-                            </v-menu>
-                        </v-flex>
-                        <v-flex xs5>
-                            <v-menu offset-y>
-                                <template v-slot:activator="{ on }">
-                                    <v-text-field
-                                        v-model="detail.endTime"
-                                        v-on="on"
-                                        label="End time"
-                                        required
-                                        style="margin-left: 10px"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker v-model="detail.endTime"></v-date-picker>
-                            </v-menu>
-                        </v-flex>
-                    </v-layout>
-                    <v-card>
-                        <v-form
-                            ref="form"
-                            v-model="valid"
-                            lazy-validation
-                            class="task_form"
-                        >
-                            <v-text-field
-                                v-model="detail.name"
-                                :counter="10"
-                                :rules="nameRules"
-                                label="Task name"
-                                required
-                            ></v-text-field>
-                            <v-select
-                                v-model="detail.association"
-                                :items="selects"
-                                label="Association"
-                                required
-                            ></v-select>
-                            <v-textarea
-                                name="desc"
-                                label="Descption"
-                                v-model="detail.desc"
-                            ></v-textarea>
-                        </v-form>
-                    </v-card>
-                    <v-tabs
-                        v-model="tab"
-                        style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px; background: #fff"
-                    >
-                        <v-tab
-                            v-for="item in tabs"
-                            :key="item"
-                        >{{ item }}</v-tab>
-                    </v-tabs>
-                    <v-tabs-items v-model="tab">
-                        <v-tab-item
-                            v-for="item in tabs"
-                            :key="item"
-                        >
-                            <v-card
-                                flat
-                                style="margin: 0;"
+                    <v-btn icon @click="detailStatus = true">
+                        <v-icon color="grey darken-1">mdi-close</v-icon>
+                    </v-btn>
+                </v-toolbar>
+                <div class="content-wrap">
+                    <div class="content">
+                        <v-layout row wrap style="margin: 20px 20px 0 0">
+                            <v-flex
+                                xs2
+                                style="display: flex; align-items: center; justify-content: center"
                             >
-                                <v-card-text>{{ item }}</v-card-text>
-                            </v-card>
-                        </v-tab-item>
-                    </v-tabs-items>
+                                <v-icon color="primary" large>mdi-run</v-icon>
+                            </v-flex>
+                            <v-flex xs5>
+                                <v-menu offset-y>
+                                    <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                            v-model="detail.startTime"
+                                            v-on="on"
+                                            label="Start time"
+                                            required
+                                            style="margin-right: 10px"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="detail.startTime"
+                                    ></v-date-picker>
+                                </v-menu>
+                            </v-flex>
+                            <v-flex xs5>
+                                <v-menu offset-y>
+                                    <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                            v-model="detail.endTime"
+                                            v-on="on"
+                                            label="End time"
+                                            required
+                                            style="margin-left: 10px"
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="detail.endTime"
+                                    ></v-date-picker>
+                                </v-menu>
+                            </v-flex>
+                        </v-layout>
+                        <v-card>
+                            <v-form
+                                ref="form"
+                                v-model="valid"
+                                lazy-validation
+                                class="task_form"
+                            >
+                                <v-text-field
+                                    v-model="detail.name"
+                                    :counter="10"
+                                    :rules="nameRules"
+                                    label="Task name"
+                                    required
+                                ></v-text-field>
+                                <v-select
+                                    v-model="detail.association"
+                                    :items="selects"
+                                    label="Association"
+                                    required
+                                ></v-select>
+                                <v-textarea
+                                    name="desc"
+                                    label="Descption"
+                                    v-model="detail.desc"
+                                ></v-textarea>
+                            </v-form>
+                        </v-card>
+                        <v-tabs
+                            v-model="tab"
+                            style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px; background: #fff"
+                        >
+                            <v-tab v-for="item in tabs" :key="item">{{
+                                item
+                            }}</v-tab>
+                        </v-tabs>
+                        <v-tabs-items v-model="tab">
+                            <v-tab-item v-for="item in tabs" :key="item">
+                                <v-card flat style="margin: 0;">
+                                    <v-card-text>{{ item }}</v-card-text>
+                                </v-card>
+                            </v-tab-item>
+                        </v-tabs-items>
+                    </div>
                 </div>
             </div>
         </div>
-        <v-snackbar
-            v-model="dialog"
-            multi-line
-            top
-            left
-            absolute
-        >
+        <v-snackbar v-model="dialog" multi-line top left absolute>
             {{ tips }}
-            <v-btn
-                color="primary"
-                text
-                @click="dialog = false"
-            >Close</v-btn>
+            <v-btn color="primary" text @click="dialog = false">Close</v-btn>
         </v-snackbar>
-        <v-dialog
-            v-model="isLoad"
-            hide-overlay
-            persistent
-            width="300"
-        >
-            <v-card
-                color="primary"
-                dark
-            >
+        <v-dialog v-model="isLoad" hide-overlay persistent width="300">
+            <v-card color="primary" dark>
                 <v-card-text style="padding: 20px 24px">
                     Please stand by
                     <v-progress-linear
@@ -262,11 +240,7 @@
                         label="Task name"
                         required
                     ></v-text-field>
-                    <v-layout
-                        row
-                        wrap
-                        style="margin: 0;"
-                    >
+                    <v-layout row wrap style="margin: 0;">
                         <v-flex xs6>
                             <v-menu offset-y>
                                 <template v-slot:activator="{ on }">
@@ -278,7 +252,9 @@
                                         style="margin-right: 10px"
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker v-model="detail.startTime"></v-date-picker>
+                                <v-date-picker
+                                    v-model="detail.startTime"
+                                ></v-date-picker>
                             </v-menu>
                         </v-flex>
                         <v-flex xs6>
@@ -292,7 +268,9 @@
                                         style="margin-left: 10px"
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker v-model="detail.endTime"></v-date-picker>
+                                <v-date-picker
+                                    v-model="detail.endTime"
+                                ></v-date-picker>
                             </v-menu>
                         </v-flex>
                     </v-layout>
@@ -315,11 +293,13 @@
                         text
                         flat
                         @click="createTaskmDialogVisible = false"
-                    >cancel</v-btn>
+                        >cancel</v-btn
+                    >
                     <v-btn
                         color="primary"
                         @click="createTaskmDialogVisible = false"
-                    >Save</v-btn>
+                        >Save</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -496,7 +476,7 @@ export default {
             this.detail = item;
             this.detailStatus = false;
             document.onclick = () => {
-                this.detailStatus = true;
+                this.detailStatus = !this.detailStatus;
                 this.items[key].active = false;
                 document.onclick = null;
             };
@@ -596,7 +576,6 @@ export default {
             .v-card {
                 margin-bottom: 20px;
                 .v-list-item-pro {
-
                 }
                 @for $i from 1 through 15 {
                     .v-list-item-#{$i} {
@@ -614,7 +593,6 @@ export default {
     }
     .right_section {
         flex: 0 0 700px;
-        width: 700px;
         height: calc(100vh - 64px);
         overflow-y: auto;
         z-index: 1;
@@ -626,42 +604,42 @@ export default {
             0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         position: relative;
         background: #fafafa;
-        .toolbar {
-            background: #ffffff;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0px 5px 5px #efefef;
-            position: relative;
-            z-index: 2;
-        }
-        .content-wrap {
-            &:hover::-webkit-scrollbar-thumb {
-                background: #bdbdbd;
+        .inner_wrap {
+            .toolbar {
+                background: #ffffff;
+                height: 80px;
+                display: flex;
+                align-items: center;
+                box-shadow: 0px 5px 5px #efefef;
+                position: relative;
+                z-index: 2;
             }
-            &::-webkit-scrollbar {
-                // 定义了滚动条整体的样式；
-                width: 8px;
-            }
+            .content-wrap {
+                &:hover::-webkit-scrollbar-thumb {
+                    background: #bdbdbd;
+                }
+                &::-webkit-scrollbar {
+                    // 定义了滚动条整体的样式；
+                    width: 8px;
+                }
 
-            &::-webkit-scrollbar-thumb {
-                width: 8px;
-                border-radius: 4px;
-                background: transparent;
-            }
+                &::-webkit-scrollbar-thumb {
+                    width: 8px;
+                    border-radius: 4px;
+                    background: transparent;
+                }
 
-            .content {
-                .v-card {
-                    margin: 20px;
-                    padding-top: 10px;
+                .content {
+                    .v-card {
+                        margin: 20px;
+                        padding-top: 10px;
+                    }
                 }
             }
         }
     }
     .hidetaskdetail.right_section {
         flex: 0 0 0;
-        width: 0;
     }
 }
-
 </style>

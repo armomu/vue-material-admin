@@ -1,25 +1,10 @@
 // 替换echart表样式
 const ecrows1 = [];
-let count = -20;
-let count2 = -10;
-for (let eli = 0; eli < 100; eli++) {
-    if (eli > 0 && eli <= 60) {
-        count += 1; // 50
-        count2 += 1;
-    } else if (eli > 60 && eli <= 75) {
-        count -= 1; // 8
-        count2 -= 1;
-    } else if (eli > 75 && eli <= 90) {
-        count += 1; // 50
-        count2 += 1;
-    } else if (eli > 90 && eli <= 100) {
-        count -= 1; // 50
-        count2 -= 1;
-    }
+for (var i = 0; i < 100; i++) {
     ecrows1.push({
-        value: '$',
-        orders: count,
-        profit: count2
+        value: 'value',
+        orders: (Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5,
+        profit: (Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5
     });
 }
 export default {

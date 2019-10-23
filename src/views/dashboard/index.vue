@@ -5,7 +5,7 @@
                 <div class="card_wrap">
                     <div class="r_card primary">
                         <div class="item_header">
-                            <div class="title">$ Histogram</div>
+                            <div class="title">Ve-histogram</div>
                             <!-- <v-icon>keyboard_arrow_right</v-icon> -->
                         </div>
                         <div class="item_content">
