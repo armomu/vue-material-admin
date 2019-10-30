@@ -82,7 +82,7 @@
             :class="{ hidetaskdetail: detailStatus }"
             @click.stop="() => {}"
         >
-            <div class="inner_wrap" v-if="!detailStatus">
+            <div class="inner_wrap">
                 <v-toolbar color="white" style="width: 100%" absolute>
                     <v-btn
                         rounded
@@ -204,7 +204,7 @@
         </div>
         <v-snackbar v-model="dialog" multi-line top left absolute>
             {{ tips }}
-            <v-btn color="primary" text @click="dialog = false">Close</v-btn>
+            <v-btn color="primary" @click="dialog = false">Close</v-btn>
         </v-snackbar>
         <v-dialog v-model="isLoad" hide-overlay persistent width="300">
             <v-card color="primary" dark>
@@ -213,7 +213,7 @@
                     <v-progress-linear
                         indeterminate
                         color="white"
-                        class="mb-0"
+                        class="mt-2"
                     ></v-progress-linear>
                 </v-card-text>
             </v-card>
@@ -343,7 +343,7 @@ export default {
             pageIndex: 1,
             pageSize: 15,
             total: 0,
-            isLoad: false,
+            isLoad: true,
             tab: null,
             tabs: ['comment', 'Flies']
         };
@@ -372,7 +372,8 @@ export default {
             }
             this.detail = this.items[0];
             this.total = 15;
-        }, 200);
+            this.isLoad =false;
+        }, 1000);
     },
     methods: {
         click() {},

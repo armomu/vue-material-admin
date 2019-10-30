@@ -164,7 +164,7 @@ export default {
                 },
                 legend: {
                     borderColor: '#fff',
-                    show: false,
+                    show: true,
                     textStyle: {
                         color: '#fff',
                         fontWeight: 'bold'

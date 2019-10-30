@@ -59,17 +59,19 @@ export default new Router({
                         },
                     ]
                 },
-                // {
-                //     path: 'schedule',
-                //     name: 'schedule',
-                //     title: '日程',
-                //     component: () => import(/* webpackChunkName: "schedule" */ '@/views/schedule/index.vue')
-                // },
                 {
-                    path: 'flies',
-                    name: 'flies',
-                    title: '文件',
-                    component: () => import(/* webpackChunkName: "flies" */ '@/views/flies/index.vue')
+                    path: 'componnets',
+                    name: 'componnets',
+                    title: '组件',
+                    component: () => import(/* webpackChunkName: "component" */ '@/views/component/router.vue'),
+                    children: [
+                        {
+                            path: '',
+                            name: 'xxx',
+                            title: '我的任务',
+                            component: () => import(/* webpackChunkName: "xxx" */ '@/views/task/image.vue')
+                        }
+                    ]
                 },
                 {
                     path: 'map',

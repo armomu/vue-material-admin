@@ -144,7 +144,7 @@ body {
                             }
                         }
                         .weather_header_right {
-                            margin-right: 50px;
+                            margin-right: 10px;
                             // animation: tyggxh 10s infinite;
                             i {
                                 font-size: 130px;
@@ -399,6 +399,10 @@ body {
                     }
                 }
                 .btn_g {
+                    display: flex;
+                    align-items: center;
+                    padding: 30px 30px;
+                    justify-content: space-around;
                     i {
                         color: #fff;
                     }

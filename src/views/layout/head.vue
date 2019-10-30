@@ -49,9 +49,9 @@
             </template>
             <span>Contact email</span>
         </v-tooltip>
-        <v-btn icon>
+        <!-- <v-btn icon>
             <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+        </v-btn> -->
         <v-btn
             icon
             target="_blank"
@@ -95,9 +95,7 @@
                 <v-spacer></v-spacer>
             </v-toolbar>
             <v-list rounded>
-                <v-list-item-group
-                    color="primary"
-                >
+                <v-list-item-group color="primary">
                     <v-list-item
                         v-ripple
                         v-for="(item,index) in menus"
@@ -179,34 +177,7 @@ export default {
         return {
             Language: 'en_US',
             muneVisible: false,
-            settingsVisible: false,
-            colors: [
-                {
-                    name: 'default',
-                    color: '#1890ff',
-                    active: true
-                },
-                {
-                    name: 'deep-purple',
-                    color: '#673AB7',
-                    active: false
-                },
-                {
-                    name: 'pink',
-                    color: '#E91E63',
-                    active: false
-                },
-                {
-                    name: 'teal',
-                    color: '#009688',
-                    active: false
-                },
-                {
-                    name: 'navy',
-                    color: '#323259',
-                    active: false
-                }
-            ]
+            settingsVisible: false
         };
     },
     created() {},
@@ -220,6 +191,9 @@ export default {
                 item['active'] = false;
                 return item;
             });
+        },
+        colors() {
+            return this.$store.state.colors;
         }
     },
     mounted() {
@@ -235,12 +209,13 @@ export default {
         tmlx() {
             this.$store.commit('handleChangeYmlmlh');
         },
-        handleChangeColor(calor, key) {
-            this.$vuetify.theme.themes.light.primary = calor;
-            this.colors = this.colors.map((item, index) => {
-                item.active = index === key;
-                return item;
-            });
+        handleChangeColor(color, key) {
+            this.$vuetify.theme.themes.light.primary = color;
+            // this.colors = this.colors.map((item, index) => {
+            //     item.active = index === key;
+            //     return item;
+            // });
+            this.$store.commit('handleSetColor', key);
         },
         handleCutover(val) {
             this.$i18n.locale = val;

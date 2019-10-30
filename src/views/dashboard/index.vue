@@ -114,11 +114,11 @@
                         class="inner_item"
                         :class="{inner_item_hide: pieBoxVisible}"
                     >
-                        <div class="item_header">
+                        <!-- <div class="item_header">
                             <div class="total">4,734</div>
                             <div class="min_title">Today Visitors</div>
-                        </div>
-                        <div class="inner_item_content">
+                        </div> -->
+                        <div class="inner_item_content"  style="margin-top: 140px">
                             <ve-ring
                                 :data="pieData"
                                 :settings="pieSettings"
@@ -126,7 +126,7 @@
                                 height="460px"
                             ></ve-ring>
                         </div>
-                        <div class="c">
+                        <!-- <div class="c">
                             <div class="row">
                                 <div class="bfb">25.43%</div>
                                 <div class="row_inner">
@@ -141,7 +141,7 @@
                                     <div class="c2">Payment</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item_header">
                         <div
@@ -150,7 +150,7 @@
                         >Visitors Analytics</div>
                     </div>
                     <div class="item_content">
-                        <p class="min_title">Consumption</p>
+                        <!-- <p class="min_title">Consumption</p>
                         <div class="chart_header">
                             <div class="c">
                                 <div class="cb cb1"></div>
@@ -159,13 +159,13 @@
                                 <div class="c">Canceled</div>
                             </div>
                             <div class="r"></div>
-                        </div>
-                        <div class="chart_wrap">
+                        </div> -->
+                        <div class="chart_wrap" style="margin-top: 30px">
                             <ve-line
                                 :data="chartData3"
                                 :extend="chartExtend3"
                                 :settings="chartSettings3"
-                                height="460px"
+                                height="560px"
                             ></ve-line>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                     </div>
                     <div class="btn_g">
                         <v-btn icon>
-                            <v-icon>mdi-incognito</v-icon>
+                            <v-icon>mdi-repeat-once</v-icon>
                         </v-btn>
                         <v-btn icon>
                             <v-icon>mdi-skip-previous</v-icon>
@@ -277,7 +277,7 @@
                             <v-icon>mdi-skip-next</v-icon>
                         </v-btn>
                         <v-btn icon>
-                            <v-icon>mdi-music-off</v-icon>
+                            <v-icon>mdi-volume-off</v-icon>
                         </v-btn>
                     </div>
                 </div>
@@ -306,6 +306,7 @@ export default {
     mixins: [echartMixins],
     mounted() {
         this.$vuetify.theme.themes.light.primary = '#323259';
+        this.$store.commit('handleSetColor', '#323259');
     },
     methods: {
         handlePieBoxVisibleStatus() {
