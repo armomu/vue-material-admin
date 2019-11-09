@@ -28,6 +28,16 @@ export default new Vuex.Store({
                 active: false
             },
             {
+                name: 'amber',
+                color: '#FFC107',
+                active: false
+            },
+            {
+                name: 'deep-orange',
+                color: '#FF5722',
+                active: false
+            },
+            {
                 name: 'navy',
                 color: '#323259',
                 active: false

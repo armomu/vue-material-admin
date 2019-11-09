@@ -47,17 +47,19 @@ yarn build
 
 >目前只有仪表盘、任务和简单地图展示
 
-## Preview
+## Preview address
 
 + [http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
++ Angular 版 [http://chenhuajie.gitee.io/ng-material-admin/](http://chenhuajie.gitee.io/ng-material-admin/)
 
 ## Screenshot
 
-![Task](https://raw.githubusercontent.com/894620576/Vuetify-todo/master/src/assets/dashboard.png)
+![home](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/vue-material-admin.png)
+![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/login.png)
 
 
 ## Emmm~
 
-+ 喜欢就帮忙点个赞啦！
++ 如果喜欢或者对你有帮助就帮忙点个赞吧！
 
 
