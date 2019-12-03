@@ -13,9 +13,89 @@
         >
             <span>{{ loadText }}</span>
         </div>
-        <div class="list_wrap" ref="down_section" :class="{ slider: slider }">
+        <div
+            class="list_wrap"
+            ref="down_section"
+            :class="{ slider: slider }"
+        >
             <div class="inner-head">
-                <div class="title">{{ $t("task.title") }}</div>
+                <div
+                    class="title">{{ $t("task.title") }}</div>
+                <v-menu
+                    v-model="filterVisible"
+                    :close-on-content-click="false"
+                    offset-y
+                    left
+                >
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            small
+                            fab
+                            dark
+                            color="primary"
+                            style="margin-right:20px"
+                            v-on="on"
+                        >
+                            <v-icon dark>mdi-filter-variant-plus</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-card
+                        class="mx-auto"
+                        min-height="350"
+                        min-width="350"
+                    >
+                        <v-subheader>Filter option</v-subheader>
+                        <v-text-field
+                            label="Search"
+                            prepend-inner-icon="mdi-magnify"
+                            style="margin: 0 20px"
+                        ></v-text-field>
+                        <v-row style="margin: 0 8px">
+                            <v-col>
+                                <v-btn-toggle v-model="toggle_exclusive">
+                                    <v-btn>
+                                        <v-icon>mdi-format-align-left</v-icon>
+                                    </v-btn>
+
+                                    <v-btn>
+                                        <v-icon>mdi-format-align-center</v-icon>
+                                    </v-btn>
+
+                                    <v-btn>
+                                        <v-icon>mdi-format-align-right</v-icon>
+                                    </v-btn>
+
+                                    <v-btn>
+                                        <v-icon>mdi-format-align-justify</v-icon>
+                                    </v-btn>
+                                </v-btn-toggle>
+                            </v-col>
+                        </v-row>
+                        <v-select
+                            v-model="detail.association"
+                            :items="selects"
+                            label="Association"
+                            required
+                            style="margin: 0 20px"
+                        ></v-select>
+                        <v-radio-group
+                            v-model="radioGroup"
+                            style="margin: 0 20px"
+                        >
+                            <v-radio
+                                v-for="n in 3"
+                                :key="n"
+                                :label="`Radio ${n}`"
+                                :value="n"
+                            ></v-radio>
+                        </v-radio-group>
+                        <v-switch
+                            v-model="switch1"
+                            label="Switch"
+                            style="margin: 0 20px"
+                        ></v-switch>
+                    </v-card>
+                </v-menu>
                 <v-btn
                     small
                     fab
@@ -26,9 +106,19 @@
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </div>
-            <div class="scroll_wrap" @scroll="handleScoll" ref="scrollWrap">
-                <v-card ref="cardSection" style="background: none">
-                    <v-list subheader style="background: none">
+            <div
+                class="scroll_wrap"
+                @scroll="handleScoll"
+                ref="scrollWrap"
+            >
+                <v-card
+                    ref="cardSection"
+                    style="background: none"
+                >
+                    <v-list
+                        subheader
+                        style="background: none"
+                    >
                         <div
                             class="v-list-item-pro"
                             v-for="(item, key) in items"
@@ -40,33 +130,27 @@
                                 @click.stop="() => {}"
                                 :ripple="false"
                             >
-                                <v-list-item-action
-                                    @click.stop.native="handleCheckbox(key)"
-                                >
+                                <v-list-item-action @click.stop.native="handleCheckbox(key)">
                                     <v-checkbox
                                         v-model="item.selected"
                                         color="primary"
                                     ></v-checkbox>
                                 </v-list-item-action>
-                                <v-list-item-content
-                                    @click.stop="handleShowDetail(item, key)"
-                                >
+                                <v-list-item-content @click.stop="handleShowDetail(item, key)">
                                     <v-list-item-title :title="item.title">{{
                                         item.name
                                     }}</v-list-item-title>
                                 </v-list-item-content>
-                                <v-list-item-action
-                                    @click.stop="handleCollect(key)"
-                                >
-                                    <v-btn icon ripple>
-                                        <v-icon
-                                            :color="
+                                <v-list-item-action @click.stop="handleCollect(key)">
+                                    <v-btn
+                                        icon
+                                        ripple
+                                    >
+                                        <v-icon :color="
                                                 item.isCollect
                                                     ? 'amber lighten-1'
                                                     : 'grey lighten-1'
-                                            "
-                                            >mdi-star</v-icon
-                                        >
+                                            ">mdi-star</v-icon>
                                     </v-btn>
                                 </v-list-item-action>
                             </v-list-item>
@@ -83,7 +167,11 @@
             @click.stop="() => {}"
         >
             <div class="inner_wrap">
-                <v-toolbar color="white" style="width: 100%" absolute>
+                <v-toolbar
+                    color="white"
+                    style="width: 100%"
+                    absolute
+                >
                     <v-btn
                         rounded
                         :color="detail.selected ? 'green darken-1' : 'primary'"
@@ -92,15 +180,16 @@
                     >
                         <v-icon dark>mdi-check</v-icon>Complete
                     </v-btn>
-                    <v-btn icon ripple @click.stop="handleCollect(detail.key)">
-                        <v-icon
-                            :color="
+                    <v-btn
+                        icon
+                        ripple
+                        @click.stop="handleCollect(detail.key)"
+                    >
+                        <v-icon :color="
                                 detail.isCollect
                                     ? 'amber lighten-1'
                                     : 'grey darken-1'
-                            "
-                            >mdi-star</v-icon
-                        >
+                            ">mdi-star</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
                     <!-- <v-btn icon>
@@ -110,18 +199,28 @@
                     <v-icon color="grey darken-1">favorite</v-icon>
                 </v-btn>-->
 
-                    <v-btn icon @click="detailStatus = true">
+                    <v-btn
+                        icon
+                        @click="detailStatus = true"
+                    >
                         <v-icon color="grey darken-1">mdi-close</v-icon>
                     </v-btn>
                 </v-toolbar>
                 <div class="content-wrap">
                     <div class="content">
-                        <v-layout row wrap style="margin: 20px 20px 0 0">
+                        <v-layout
+                            row
+                            wrap
+                            style="margin: 20px 20px 0 0"
+                        >
                             <v-flex
                                 xs2
                                 style="display: flex; align-items: center; justify-content: center"
                             >
-                                <v-icon color="primary" large>mdi-run</v-icon>
+                                <v-icon
+                                    color="primary"
+                                    large
+                                >mdi-run</v-icon>
                             </v-flex>
                             <v-flex xs5>
                                 <v-menu offset-y>
@@ -134,9 +233,7 @@
                                             style="margin-right: 10px"
                                         ></v-text-field>
                                     </template>
-                                    <v-date-picker
-                                        v-model="detail.startTime"
-                                    ></v-date-picker>
+                                    <v-date-picker v-model="detail.startTime"></v-date-picker>
                                 </v-menu>
                             </v-flex>
                             <v-flex xs5>
@@ -150,9 +247,7 @@
                                             style="margin-left: 10px"
                                         ></v-text-field>
                                     </template>
-                                    <v-date-picker
-                                        v-model="detail.endTime"
-                                    ></v-date-picker>
+                                    <v-date-picker v-model="detail.endTime"></v-date-picker>
                                 </v-menu>
                             </v-flex>
                         </v-layout>
@@ -187,13 +282,22 @@
                             v-model="tab"
                             style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px; background: #fff"
                         >
-                            <v-tab v-for="item in tabs" :key="item">{{
+                            <v-tab
+                                v-for="item in tabs"
+                                :key="item"
+                            >{{
                                 item
                             }}</v-tab>
                         </v-tabs>
                         <v-tabs-items v-model="tab">
-                            <v-tab-item v-for="item in tabs" :key="item">
-                                <v-card flat style="margin: 0;">
+                            <v-tab-item
+                                v-for="item in tabs"
+                                :key="item"
+                            >
+                                <v-card
+                                    flat
+                                    style="margin: 0;"
+                                >
                                     <v-card-text>{{ item }}</v-card-text>
                                 </v-card>
                             </v-tab-item>
@@ -202,12 +306,29 @@
                 </div>
             </div>
         </div>
-        <v-snackbar v-model="dialog" multi-line top left absolute>
+        <v-snackbar
+            v-model="dialog"
+            multi-line
+            top
+            left
+            absolute
+        >
             {{ tips }}
-            <v-btn color="primary" @click="dialog = false">Close</v-btn>
+            <v-btn
+                color="primary"
+                @click="dialog = false"
+            >Close</v-btn>
         </v-snackbar>
-        <v-dialog v-model="isLoad" hide-overlay persistent width="300">
-            <v-card color="primary" dark>
+        <v-dialog
+            v-model="isLoad"
+            hide-overlay
+            persistent
+            width="300"
+        >
+            <v-card
+                color="primary"
+                dark
+            >
                 <v-card-text style="padding: 20px 24px">
                     Please stand by
                     <v-progress-linear
@@ -240,7 +361,11 @@
                         label="Task name"
                         required
                     ></v-text-field>
-                    <v-layout row wrap style="margin: 0;">
+                    <v-layout
+                        row
+                        wrap
+                        style="margin: 0;"
+                    >
                         <v-flex xs6>
                             <v-menu offset-y>
                                 <template v-slot:activator="{ on }">
@@ -252,9 +377,7 @@
                                         style="margin-right: 10px"
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker
-                                    v-model="detail.startTime"
-                                ></v-date-picker>
+                                <v-date-picker v-model="detail.startTime"></v-date-picker>
                             </v-menu>
                         </v-flex>
                         <v-flex xs6>
@@ -268,9 +391,7 @@
                                         style="margin-left: 10px"
                                     ></v-text-field>
                                 </template>
-                                <v-date-picker
-                                    v-model="detail.endTime"
-                                ></v-date-picker>
+                                <v-date-picker v-model="detail.endTime"></v-date-picker>
                             </v-menu>
                         </v-flex>
                     </v-layout>
@@ -291,15 +412,12 @@
                     <v-btn
                         color="primary"
                         text
-                        flat
                         @click="createTaskmDialogVisible = false"
-                        >cancel</v-btn
-                    >
+                    >cancel</v-btn>
                     <v-btn
                         color="primary"
                         @click="createTaskmDialogVisible = false"
-                        >Save</v-btn
-                    >
+                    >Save</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -312,7 +430,9 @@ export default {
         return {
             items: [],
             slider: true,
+            filterVisible: false,
             detailStatus: true,
+            toggle_exclusive: 2,
             detail: {
                 name: '',
                 key: 0,
@@ -345,7 +465,10 @@ export default {
             total: 0,
             isLoad: true,
             tab: null,
-            tabs: ['comment', 'Flies']
+            tabs: ['comment', 'Flies'],
+            checkbox: true,
+            radioGroup: 1,
+            switch1: true
         };
     },
     computed: {
@@ -372,7 +495,7 @@ export default {
             }
             this.detail = this.items[0];
             this.total = 15;
-            this.isLoad =false;
+            this.isLoad = false;
         }, 1000);
     },
     methods: {
