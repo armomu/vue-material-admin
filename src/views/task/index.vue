@@ -81,17 +81,20 @@
                         <v-radio-group
                             v-model="radioGroup"
                             style="margin: 0 20px"
+
                         >
                             <v-radio
                                 v-for="n in 3"
                                 :key="n"
                                 :label="`Radio ${n}`"
                                 :value="n"
+                                color="primary"
                             ></v-radio>
                         </v-radio-group>
                         <v-switch
                             v-model="switch1"
                             label="Switch"
+                            color="primary"
                             style="margin: 0 20px"
                         ></v-switch>
                     </v-card>
@@ -453,8 +456,7 @@ export default {
             ],
             loadText: '下拉刷新',
             valid: true,
-            tips:
-                '本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) """ >>>',
+            tips: '本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) """ >>>',
             dialog: true,
             createTaskmDialogVisible: false,
             touchStart: false,
@@ -468,7 +470,8 @@ export default {
             tabs: ['comment', 'Flies'],
             checkbox: true,
             radioGroup: 1,
-            switch1: true
+            switch1: true,
+            noData: false
         };
     },
     computed: {
@@ -576,10 +579,11 @@ export default {
             const { scrollTop } = e.srcElement;
             const { offsetHeight } = this.$refs.scrollWrap;
             const cardOffsetHeight = this.total * 56 + 8;
-            if (scrollTop > cardOffsetHeight - offsetHeight && !this.isLoad) {
+            if (scrollTop > cardOffsetHeight - offsetHeight && !this.isLoad && !this.noData) {
                 if (this.total > 75) {
                     this.tips = '没有更多数据了';
                     this.dialog = true;
+                    this.noData = true;
                     return;
                 }
                 this.loadPages();
@@ -600,7 +604,7 @@ export default {
             this.detail = item;
             this.detailStatus = false;
             document.onclick = () => {
-                this.detailStatus = !this.detailStatus;
+                this.detailStatus = true;
                 this.items[key].active = false;
                 document.onclick = null;
             };
@@ -626,6 +630,7 @@ export default {
                 });
             }
             this.total += 15;
+            this.scrollTop = this.$refs.scrollWrap.scrollTop;
             setTimeout(() => {
                 this.isLoad = false;
             }, 1000);
@@ -665,7 +670,7 @@ export default {
         margin: 0 20px 50px 20px;
         transition: transform 0ms;
         .inner-head {
-            padding: 0 5px 0 10px;
+            padding: 0 15px 0 10px;
             height: 80px;
             position: relative;
             display: flex;
@@ -699,9 +704,7 @@ export default {
             }
             .v-card {
                 margin-bottom: 20px;
-                .v-list-item-pro {
-                }
-                @for $i from 1 through 15 {
+                @for $i from 1 through 14 {
                     .v-list-item-#{$i} {
                         opacity: 0;
                         background: #fff;
