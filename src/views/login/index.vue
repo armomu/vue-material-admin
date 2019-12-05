@@ -79,9 +79,12 @@ export default {
     methods: {
         handleSignBtn() {
             this.mlmlh = true;
-            setTimeout(() => {
-                this.$router.push('/task/mine');
-            }, 300);
+            try {
+                this.$store.commit('handleSignIn');
+                setTimeout(() => {
+                    this.$router.push('/task/mine');
+                }, 300);
+            } catch {}
         }
     }
 };
@@ -100,6 +103,7 @@ export default {
             color: #fff;
             text-align: center;
             margin-bottom: 90px;
+            animation: fadeInUp 0.3s linear;
         }
         .inner_card {
             background: #fff;
@@ -108,6 +112,7 @@ export default {
             align-items: center;
             border-radius: 3px;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.3s linear;
             .left {
                 width: 500px;
                 padding: 0 40px;

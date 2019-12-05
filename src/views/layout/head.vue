@@ -168,6 +168,10 @@
                     color="primary"
                 ></v-radio>
             </v-radio-group>
+            <v-subheader>Sign out</v-subheader>
+            <div style="margin: 0 20px;">
+                <v-btn color="error" block @click="handleSignOut">Sign out</v-btn>
+            </div>
         </v-navigation-drawer>
     </v-toolbar>
 </template>
@@ -219,6 +223,15 @@ export default {
         },
         handleCutover(val) {
             this.$i18n.locale = val;
+        },
+        handleSignOut() {
+            try {
+                this.$store.commit('handleSignOut');
+                setTimeout(() => {
+                    this.$router.push('/login');
+                }, 300);
+            } catch {}
+
         }
     }
 };
