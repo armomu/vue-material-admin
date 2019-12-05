@@ -38,7 +38,6 @@
             >
                 <v-btn
                     dark
-                    exact
                     v-for="(item, i) in menus"
                     :key="i"
                     :to="item.url"

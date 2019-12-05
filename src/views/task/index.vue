@@ -2,8 +2,8 @@
     <div
         class="task_router_content"
         @touchstart.stop="testDown"
-        @touchend.stop="testUp"
-        @touchmove.stop="testMove"
+        @touchend.stop="touchtUp"
+        @touchmove.stop="touchMove"
         @mouseout.stop="touchStart = false"
     >
         <div
@@ -16,11 +16,9 @@
         <div
             class="list_wrap"
             ref="down_section"
-            :class="{ slider: slider }"
         >
             <div class="inner-head">
-                <div
-                    class="title">{{ $t("task.title") }}</div>
+                <div class="title">{{ $t("task.title") }}</div>
                 <v-menu
                     v-model="filterVisible"
                     :close-on-content-click="false"
@@ -81,7 +79,6 @@
                         <v-radio-group
                             v-model="radioGroup"
                             style="margin: 0 20px"
-
                         >
                             <v-radio
                                 v-for="n in 3"
@@ -169,7 +166,10 @@
             :class="{ hidetaskdetail: detailStatus }"
             @click.stop="() => {}"
         >
-            <div class="inner_wrap">
+            <div
+                class="inner_wrap"
+                v-if="!detailStatus"
+            >
                 <v-toolbar
                     color="white"
                     style="width: 100%"
@@ -195,13 +195,6 @@
                             ">mdi-star</v-icon>
                     </v-btn>
                     <v-spacer></v-spacer>
-                    <!-- <v-btn icon>
-                    <v-icon color="grey darken-1">search</v-icon>
-                </v-btn>
-                <v-btn icon>
-                    <v-icon color="grey darken-1">favorite</v-icon>
-                </v-btn>-->
-
                     <v-btn
                         icon
                         @click="detailStatus = true"
@@ -432,7 +425,6 @@ export default {
     data() {
         return {
             items: [],
-            slider: true,
             filterVisible: false,
             detailStatus: true,
             toggle_exclusive: 2,
@@ -456,7 +448,8 @@ export default {
             ],
             loadText: '下拉刷新',
             valid: true,
-            tips: '本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) """ >>>',
+            tips:
+                '本页面支持滚动底部加载分页，下拉刷新只支持手机端 (￣▽￣) """ >>>',
             dialog: true,
             createTaskmDialogVisible: false,
             touchStart: false,
@@ -481,7 +474,6 @@ export default {
     },
     mounted() {
         setTimeout(() => {
-            this.slider = false;
             for (let i = 0; i < 15; i++) {
                 this.items.push({
                     name: 'task' + i,
@@ -507,12 +499,12 @@ export default {
             this.touchStart = true;
             this.panelStartOffsetY = e.targetTouches[0].clientY;
         },
-        testMove(e) {
+        touchMove(e) {
             // console.log(this.$refs)
             if (this.touchStart && this.$refs.scrollWrap.scrollTop <= 0) {
                 const offsetY = e.changedTouches[0].clientY;
                 this.panelMoveOffsetY = offsetY;
-                if (offsetY > this.panelStartOffsetY) {
+                if (offsetY > this.panelStartOffsetY && this.detailStatus) {
                     const translateY = offsetY - this.panelStartOffsetY;
                     this.$refs.down_section.style.transform = `translateY(${translateY}px)`;
                     // this.$refs.down_tip_section.style.transform = `translateY(${0 - translateY}px)`;
@@ -529,12 +521,13 @@ export default {
                 }
             }
         },
-        testUp(e) {
+        touchtUp(e) {
             this.touchStart = false;
             const offsetY = e.changedTouches[0].clientY;
             if (
                 offsetY - this.panelStartOffsetY >= 80 &&
-                this.$refs.scrollWrap.scrollTop <= 0
+                this.$refs.scrollWrap.scrollTop <= 0 &&
+                this.detailStatus
             ) {
                 this.isLoad = true;
                 this.loadText = '加载中...';
@@ -579,7 +572,11 @@ export default {
             const { scrollTop } = e.srcElement;
             const { offsetHeight } = this.$refs.scrollWrap;
             const cardOffsetHeight = this.total * 56 + 8;
-            if (scrollTop > cardOffsetHeight - offsetHeight && !this.isLoad && !this.noData) {
+            if (
+                scrollTop > cardOffsetHeight - offsetHeight &&
+                !this.isLoad &&
+                !this.noData
+            ) {
                 if (this.total > 75) {
                     this.tips = '没有更多数据了';
                     this.dialog = true;
@@ -612,9 +609,11 @@ export default {
         loadPages() {
             this.isLoad = true;
             this.pageIndex += 1;
-            // this.$router.push({
-            //     path: "/task/mine?pageIndex=" + this.pageIndex
-            // });
+            // this.$router.history.current.params.pageIndex = this.pageIndex;
+            // console.log(this.$router)
+            this.$router.push({
+                path: '/task/mine?pageIndex=' + this.pageIndex
+            });
             for (let i = this.total; i < this.total + 15; i++) {
                 this.items.push({
                     name: 'task' + i,
@@ -718,20 +717,24 @@ export default {
             }
         }
     }
+    .list_wrap_am {
+        transition: all 0.3s;
+    }
     .right_section {
+        width: 700px;
         flex: 0 0 700px;
         height: calc(100vh - 64px);
-        overflow-y: auto;
         z-index: 1;
-        padding: 64px 0;
-        overflow-y: auto;
         transition: all 0.3s;
         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
             0px 2px 2px 0px rgba(0, 0, 0, 0.14),
             0px 1px 5px 0px rgba(0, 0, 0, 0.12);
         position: relative;
-        background: #fafafa;
         .inner_wrap {
+            width: 700px;
+            padding: 64px 0;
+            animation: fadeIn 0.3s linear;
+            background: #fafafa;
             .toolbar {
                 background: #ffffff;
                 height: 80px;
@@ -742,6 +745,8 @@ export default {
                 z-index: 2;
             }
             .content-wrap {
+                height: calc(100vh - 128px);
+                overflow-y: auto;
                 &:hover::-webkit-scrollbar-thumb {
                     background: #bdbdbd;
                 }
@@ -757,6 +762,7 @@ export default {
                 }
 
                 .content {
+                    height: 2000px;
                     .v-card {
                         margin: 20px;
                         padding-top: 10px;
@@ -766,6 +772,7 @@ export default {
         }
     }
     .hidetaskdetail.right_section {
+        width: 0;
         flex: 0 0 0;
     }
 }

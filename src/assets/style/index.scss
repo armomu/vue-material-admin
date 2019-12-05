@@ -475,6 +475,15 @@ body {
                 height: 60vh !important;
                 transition: all 0.5s;
                 transform: translateY(0);
+                .inner_wrap {
+                    width: 100% !important;
+                    background: #fafafa;
+                    animation: fadeInUp 0.3s linear !important;
+                    .content-wrap {
+                        height: calc(60vh - 64px);
+                        overflow-y: auto;
+                    }
+                }
             }
             .hidetaskdetail.right_section {
                 transform: translateY(100%);
