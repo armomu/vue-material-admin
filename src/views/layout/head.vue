@@ -49,21 +49,11 @@
             </template>
             <span>Contact email</span>
         </v-tooltip>
-        <!-- <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-        </v-btn> -->
         <v-btn
             icon
-            target="_blank"
-            href="https://github.com/Groundhog-Chen/vue-material-admin"
+            @click="fullScreen"
         >
-            <v-icon title="https://github.com/Groundhog-Chen/vue-material-admin">mdi-github-circle</v-icon>
-        </v-btn>
-        <v-btn
-            icon
-            @click="settingsVisible = true"
-        >
-            <v-icon>mdi-settings</v-icon>
+            <v-icon>mdi-arrow-expand-all</v-icon>
         </v-btn>
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -78,6 +68,20 @@
             </template>
             <span>Vuetifyjs UI Components</span>
         </v-tooltip>
+        <v-btn
+            icon
+            target="_blank"
+            href="https://github.com/Groundhog-Chen/vue-material-admin"
+        >
+            <v-icon title="https://github.com/Groundhog-Chen/vue-material-admin">mdi-github-circle</v-icon>
+        </v-btn>
+        <v-btn
+            icon
+            @click="settingsVisible = true"
+        >
+            <v-icon>mdi-settings</v-icon>
+        </v-btn>
+
         <v-navigation-drawer
             v-model="muneVisible"
             fixed
@@ -170,7 +174,11 @@
             </v-radio-group>
             <v-subheader>Sign out</v-subheader>
             <div style="margin: 0 20px;">
-                <v-btn color="error" block @click="handleSignOut">Sign out</v-btn>
+                <v-btn
+                    color="error"
+                    block
+                    @click="handleSignOut"
+                >Sign out</v-btn>
             </div>
         </v-navigation-drawer>
     </v-toolbar>
@@ -181,7 +189,8 @@ export default {
         return {
             Language: 'en_US',
             muneVisible: false,
-            settingsVisible: false
+            settingsVisible: false,
+            isFullScreen: false
         };
     },
     created() {},
@@ -231,7 +240,19 @@ export default {
                     this.$router.push('/login');
                 }, 300);
             } catch {}
-
+        },
+        fullScreen() {
+            const el = document.documentElement;
+            const rfs =
+                el.requestFullScreen ||
+                el.webkitRequestFullScreen ||
+                el.mozRequestFullScreen ||
+                el.msRequestFullscreen;
+            if (typeof rfs != 'undefined' && rfs) {
+                rfs.call(el);
+            }
+            this.isFullScreen = true;
+            return;
         }
     }
 };
