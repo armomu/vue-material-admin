@@ -11,7 +11,7 @@ export default new Router({
         //首页
         {
             path: '/',
-            redirect: '/login',
+            redirect: '/dashboard',
             name: '/',
             hidden: false,
             component: layout,
@@ -23,14 +23,22 @@ export default new Router({
                 {
                     path: 'dashboard',
                     name: 'dashboard',
-                    title: '动态',
+                    meta: {
+                        title: '仪表盘',
+                        icon: 'mdi-vector-circle',
+                        keepAlive: false
+                    },
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue')
                 },
                 {
                     path: 'task',
                     name: 'task',
                     redirect: '/task/mine',
-                    title: '任务',
+                    meta: {
+                        title: '任务',
+                        icon: 'mdi-vector-circle',
+                        keepAlive: false
+                    },
                     component: () => import(/* webpackChunkName: "task" */ '@/views/task/router.vue'),
                     children: [
                         {
@@ -62,7 +70,11 @@ export default new Router({
                 {
                     path: 'componnets',
                     name: 'componnets',
-                    title: '组件',
+                    meta: {
+                        title: '组件',
+                        icon: 'mdi-vector-circle',
+                        keepAlive: false
+                    },
                     component: () => import(/* webpackChunkName: "component" */ '@/views/component/router.vue'),
                     children: [
                         {
@@ -76,7 +88,11 @@ export default new Router({
                 {
                     path: 'map',
                     name: 'map',
-                    title: '地图',
+                    meta: {
+                        title: '地图',
+                        icon: 'mdi-vector-circle',
+                        keepAlive: false
+                    },
                     component: () => import(/* webpackChunkName: "map" */ '@/views/map/index.vue')
                 },
             ]

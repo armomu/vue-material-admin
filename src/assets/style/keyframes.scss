@@ -1,0 +1,20 @@
+@keyframes tyggxh {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes itemSlideIn {
+    from {
+        transform: translate3d(0, 150%, 0);
+        visibility: visible;
+        opacity: 0;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}

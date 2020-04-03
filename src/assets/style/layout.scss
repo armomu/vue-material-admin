@@ -1,0 +1,122 @@
+@import "./variable.scss";
+.page_layout {
+    animation: page_layout_animate 0.3s;
+    display: flex;
+    .v-navigation-drawer__content {
+        height: 100vh;
+        .v-image__image {
+
+        }
+    }
+    .page_right_content {
+        margin-left: 256px;
+        flex: 1;
+        .header {
+            width: calc(100vw - 256px);
+        }
+    }
+}
+@keyframes page_layout_animate {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.zwf {
+    height: 64px;
+}
+@media screen and (min-width: 860px) and (max-width: 960px) {
+    .zwf {
+        height: 48px;
+    }
+}
+@media screen and (max-width: 860px) {
+    .zwf {
+        height: 56px;
+    }
+}
+.header {
+    .v-input__control {
+        min-height: 40px !important;
+    }
+    .v-input__slot {
+        margin-bottom: 0;
+    }
+    .nav-link {
+        font-size: 16px;
+        color: #ffffff;
+        margin: 0 12px;
+        text-decoration: none;
+        transition: all 0.3s;
+        line-height: 60px;
+        padding: 0 12px;
+        opacity: 0.8;
+        &:first-child {
+            margin-left: 0;
+        }
+        &:hover {
+            background: rgba($color: #fff, $alpha: 0.1);
+            // border-radius: 6px;
+            opacity: 1;
+        }
+        span {
+            display: none;
+            font-weight: 900;
+        }
+    }
+    .left_menu {
+        display: block;
+        position: fixed;
+        width: 65%;
+        height: 100vh;
+        z-index: 901;
+        left: -65%;
+        top: 0;
+        background: #ffffff;
+        .menu_btn {
+            position: absolute;
+            right: -42px;
+            top: 60px;
+        }
+        .menu_list {
+            .nav-link {
+                line-height: 45px;
+                color: #fff;
+                padding-left: 20px;
+                margin: 0;
+                display: block;
+            }
+            .nav-link.router-link-active {
+                color: #a16eff;
+            }
+        }
+    }
+    .left_menu.show_menu {
+        left: 0;
+    }
+    .nav-link.router-link-active {
+        opacity: 1;
+        span {
+            display: inline-block;
+        }
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .header {
+        .v-input__control {
+            min-height: 30px !important;
+        }
+        .nav-link {
+            display: none;
+        }
+        .nav-link-btn {
+            display: none;
+        }
+        .icon_mine_email {
+            display: none !important;
+        }
+    }
+}
