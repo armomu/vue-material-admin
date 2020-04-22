@@ -25,7 +25,7 @@ export default new Router({
                     name: 'dashboard',
                     meta: {
                         title: '仪表盘',
-                        icon: 'mdi-monitor-dashboard',
+                        icon: 'mdi-gauge',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue')
@@ -36,7 +36,7 @@ export default new Router({
                     redirect: '/task/mine',
                     meta: {
                         title: '任务',
-                        icon: 'mdi-vector-circle',
+                        icon: 'mdi-checkbox-multiple-marked-circle',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "task" */ '@/views/task/router.vue'),
@@ -45,24 +45,44 @@ export default new Router({
                             path: 'mine',
                             name: 'myTask',
                             title: '我的任务',
+                            meta: {
+                                title: 'mine',
+                                icon: 'M',
+                                keepAlive: false
+                            },
                             component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/index.vue')
                         },
                         {
                             path: 'star',
                             name: 'starTask',
                             title: '星标任务',
+                            meta: {
+                                title: 'star',
+                                icon: 'S',
+                                keepAlive: false
+                            },
                             component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/star.vue')
                         },
                         {
                             path: 'book',
                             name: 'bookTask',
                             title: '星标任务',
+                            meta: {
+                                title: 'book',
+                                icon: 'B',
+                                keepAlive: false
+                            },
                             component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/book.vue')
                         },
                         {
                             path: 'image',
                             name: 'imageTask',
                             title: '星标任务',
+                            meta: {
+                                title: 'image',
+                                icon: 'I',
+                                keepAlive: false
+                            },
                             component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/image.vue')
                         },
                     ]
@@ -70,9 +90,10 @@ export default new Router({
                 {
                     path: 'componnets',
                     name: 'componnets',
+                    redirect: '/componnets/table',
                     meta: {
                         title: '组件',
-                        icon: 'mdi-vector-circle',
+                        icon: 'mdi-view-dashboard-variant',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "component" */ '@/views/component/router.vue'),
@@ -80,7 +101,11 @@ export default new Router({
                         {
                             path: 'table',
                             name: 'table',
-                            title: '表格',
+                            meta: {
+                                title: 'table',
+                                icon: 'T',
+                                keepAlive: false
+                            },
                             component: () => import(/* webpackChunkName: "table" */ '@/views/task/image.vue')
                         }
                     ]
@@ -90,7 +115,7 @@ export default new Router({
                     name: 'map',
                     meta: {
                         title: '地图',
-                        icon: 'mdi-vector-circle',
+                        icon: 'mdi-map-marker-distance',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "map" */ '@/views/map/index.vue')

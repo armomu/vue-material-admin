@@ -31,18 +31,21 @@
                     v-for="(item, index) in menus"
                 >
                     <template v-if="item.children">
-                        <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" :value="loadPaths.includes(item.name)">
+                        <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" active-class="v_list_group_active" :value="loadPaths.includes(item.name)">
                             <template v-slot:activator>
                                 <v-list-item-content>
                                     <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
                                 </v-list-item-content>
                             </template>
-                            <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }">
-                                <v-list-item-title>{{child.title}}</v-list-item-title>
+                            <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }" active-class="primary">
+								<v-list-item-icon>
+									<v-icon x-small>{{child.meta.icon}}</v-icon>
+								</v-list-item-icon>
+                                <v-list-item-title>{{child.meta.title}}</v-list-item-title>	
                             </v-list-item>
                         </v-list-group>
                     </template>
-                    <v-list-item v-else :key="index" :to="{ name: item.name }">
+                    <v-list-item v-else :key="index" :to="{ name: item.name }" active-class="primary">
                         <v-list-item-icon>
                             <v-icon>{{item.meta.icon}}</v-icon>
                         </v-list-item-icon>
@@ -110,26 +113,13 @@
 			</div>
 		</v-navigation-drawer>
 		<div class="page_right_content">
-			<v-toolbar dark absolute color="primary" class="header">
+			<v-toolbar absolute class="header">
 				<v-btn
 					icon
 					style="margin-right:18px;"
-					@click="handleChangeMenuVisible(true)"
 				>
 					<v-icon>mdi-apps</v-icon>
 				</v-btn>
-				<v-toolbar-items>
-					<v-btn
-						text
-						v-for="(item, index) in menus"
-						:key="index"
-						class="nav-link-btn"
-						:to="'/' + item.path"
-						dark
-					>
-						{{ $t("header." + item.name) }}
-					</v-btn>
-				</v-toolbar-items>
 				<v-spacer></v-spacer>
 				<v-tooltip bottom>
 					<template v-slot:activator="{ on }">
@@ -197,7 +187,6 @@ export default {
             },
             miniVariant: false,
             Language: 'en_US',
-            muneVisible: false,
             settingsVisible: false,
             isFullScreen: false,
             name: '',
@@ -236,6 +225,7 @@ export default {
     },
     created() {
         console.log(this.menus, this.$route);
+        this.$vuetify.theme.dark = true;
         // console.log(this.$route);
         // axios.request({
         //     url: '/news',
@@ -267,9 +257,6 @@ export default {
                 }
             });
         },
-        handleChangeMenuVisible(status) {
-            this.muneVisible = status;
-        },
         tmyx() {
             this.$store.commit('handleChangeMlmlh');
         },
@@ -278,10 +265,6 @@ export default {
         },
         handleChangeColor(color, key) {
             this.$vuetify.theme.themes.light.primary = color;
-            // this.colors = this.colors.map((item, index) => {
-            //     item.active = index === key;
-            //     return item;
-            // });
             this.$store.commit('handleSetColor', key);
         },
         handleCutover(val) {

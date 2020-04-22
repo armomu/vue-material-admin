@@ -14,6 +14,25 @@
             contain: strict;
             width: 100%;
         }
+        .v-list {
+            .v-list-item--active.primary {
+                color: #ffffff;
+                // &::before {
+                //     opacity: 1;
+                //     color: #ffffff;
+                //     background-color: inherit;
+                // }
+            }
+            .v_list_group_active {
+                background: rgba($color: #fff, $alpha: 0.3);
+                color: #ffffff;
+            }
+            .v-list-item--link {
+                // &::before {
+                //     background-color: inherit;
+                // }
+            }
+        }
     }
     .page_right_content {
         margin-left: 256px;

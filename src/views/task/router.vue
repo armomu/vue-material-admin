@@ -1,28 +1,5 @@
 <template>
     <div class="task_router">
-        <v-card class="left_nav">
-            <v-text-field
-                label="Search"
-                prepend-inner-icon="mdi-magnify"
-            ></v-text-field>
-            <v-list rounded>
-                <v-list-item-group color="primary">
-                    <v-list-item
-                        v-for="(item, i) in menus"
-                        :key="i"
-                        :to="item.url"
-                    >
-                        <v-list-item-icon>
-                            <v-icon v-text="item.icon"></v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title v-text="item.title"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item-group>
-            </v-list>
-        </v-card>
-
         <transition
             name="fade-transform"
             mode="out-in"
