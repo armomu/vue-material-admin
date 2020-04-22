@@ -26,6 +26,6 @@ module.exports = {
     },
     globals: {
         "AMap": true,
-        "$t()": true,
+        "$t": true,
     }
 }

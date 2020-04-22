@@ -4,8 +4,15 @@
     display: flex;
     .v-navigation-drawer__content {
         height: 100vh;
-        .v-image__image {
-
+        .v-responsive {
+            border-radius: inherit;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            contain: strict;
+            width: 100%;
         }
     }
     .page_right_content {
@@ -103,7 +110,6 @@
         }
     }
 }
-
 @media screen and (max-width: 930px) {
     .header {
         .v-input__control {

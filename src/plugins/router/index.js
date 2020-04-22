@@ -25,7 +25,7 @@ export default new Router({
                     name: 'dashboard',
                     meta: {
                         title: '仪表盘',
-                        icon: 'mdi-vector-circle',
+                        icon: 'mdi-monitor-dashboard',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue')
@@ -78,10 +78,10 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "component" */ '@/views/component/router.vue'),
                     children: [
                         {
-                            path: '',
-                            name: 'xxx',
-                            title: '我的任务',
-                            component: () => import(/* webpackChunkName: "xxx" */ '@/views/task/image.vue')
+                            path: 'table',
+                            name: 'table',
+                            title: '表格',
+                            component: () => import(/* webpackChunkName: "table" */ '@/views/task/image.vue')
                         }
                     ]
                 },

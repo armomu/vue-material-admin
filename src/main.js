@@ -24,10 +24,13 @@ VueAMap.initAMapApiLoader({
 
 Vue.config.productionTip = false;
 
-new Vue({
+const vm = new Vue({
     router,
     i18n,
     store,
     vuetify,
     render: (h) => h(App)
 }).$mount('#app');
+vm.$nextTick(function () {
+    console.log('update');
+});

@@ -11,11 +11,13 @@ module.exports = {
         /* 使用代理 */
         proxy: {
             '/api': {
-                /* 目标代理服务器地址 */
-                target: 'http://47.100.47.3/',
-                /* 允许跨域 */
-                changeOrigin: true,
-            },
-        },
+                target: 'http://127.0.0.1:7001',
+                changeOrigin: true,  //开启代理
+                ws: false,
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        }
     },
 };

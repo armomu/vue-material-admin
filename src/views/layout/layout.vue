@@ -7,11 +7,13 @@
 			absolute
 			dark
 		>
-			<v-img v-slot:img style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-            url(https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg);
-            background-position: center center;" />
-			<v-list dense nav class="py-0">
-				<v-list-item two-line>
+			<v-img
+				v-slot:img
+				src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg"
+				gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
+			/>
+			<v-list nav class="py-0">
+				<v-list-item two-line @click="onAxios">
 					<v-list-item-avatar>
 						<img
 							src="https://randomuser.me/api/portraits/men/81.jpg"
@@ -19,12 +21,34 @@
 					</v-list-item-avatar>
 
 					<v-list-item-content>
-						<v-list-item-title>Application</v-list-item-title>
-						<v-list-item-subtitle>Subtext</v-list-item-subtitle>
+						<v-list-item-title>Groundhog</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
-
 				<v-divider></v-divider>
+			</v-list>
+			<v-list nav class="py-0">
+                <template
+                    v-for="(item, index) in menus"
+                >
+                    <template v-if="item.children">
+                        <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" :value="loadPaths.includes(item.name)">
+                            <template v-slot:activator>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
+                                </v-list-item-content>
+                            </template>
+                            <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }">
+                                <v-list-item-title>{{child.title}}</v-list-item-title>
+                            </v-list-item>
+                        </v-list-group>
+                    </template>
+                    <v-list-item v-else :key="index" :to="{ name: item.name }">
+                        <v-list-item-icon>
+                            <v-icon>{{item.meta.icon}}</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
+                    </v-list-item>
+                </template>
 			</v-list>
 		</v-navigation-drawer>
 		<v-navigation-drawer
@@ -158,20 +182,44 @@
 	</div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
             drawer: true,
             expandOnHover: false,
-            bg: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
+            bg: {
+                'src':
+					'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
+                'linear-gradient':
+					'to top right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)'
+            },
             miniVariant: false,
             Language: 'en_US',
             muneVisible: false,
             settingsVisible: false,
-            isFullScreen: false
+            isFullScreen: false,
+            name: '',
+            desc: '',
+            token: '',
+            news: [],
+            admins: [
+                ['Management', 'people_outline'],
+                ['Settings', 'settings'],
+            ],
+            cruds: [
+                ['Create', 'add'],
+                ['Read', 'insert_drive_file'],
+                ['Update', 'update'],
+                ['Delete', 'delete'],
+            ],
         };
     },
     computed: {
+        loadPaths() {
+            return this.$route.path.split('/');
+        },
         locale(key) {
             return this.$t('header.' + key);
         },
@@ -187,9 +235,38 @@ export default {
         }
     },
     created() {
-        console.log(this.$route);
+        console.log(this.menus, this.$route);
+        // console.log(this.$route);
+        // axios.request({
+        //     url: '/news',
+        //     method: 'get',
+        //     baseURL: 'http://127.0.0.1:7001'
+        // }).then((res) => {
+        //     console.log(res);
+        //     this.news = res.data.result;
+        // });
     },
     methods: {
+
+        onAxios() {
+            const data = {
+                title: this.name,
+                desc: this.desc
+            };
+            // axios.get(url,AxiosRequestConfig).then((res) => {
+            //     console.log(res);
+            // });
+            const token = this.token;
+            axios.request({
+                url: '/news/create',
+                method: 'post',
+                baseURL: 'http://127.0.0.1:7001',
+                data: data,
+                headers: {
+                    'x-csrf-token': token
+                }
+            });
+        },
         handleChangeMenuVisible(status) {
             this.muneVisible = status;
         },
