@@ -2,43 +2,82 @@
 .page_layout {
     animation: page_layout_animate 0.3s;
     display: flex;
-    .v-navigation-drawer__content {
-        height: 100vh;
-        .v-responsive {
-            border-radius: inherit;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            z-index: -1;
-            contain: strict;
-            width: 100%;
+    .v-navigation-drawer {
+        &:hover::-webkit-scrollbar-thumb {
+            background: $cp;
         }
-        .v-list {
-            .v-list-item--active.primary {
-                color: #ffffff;
-                // &::before {
-                //     opacity: 1;
-                //     color: #ffffff;
-                //     background-color: inherit;
-                // }
+        &::-webkit-scrollbar {
+            // 定义了滚动条整体的样式；
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            width: 8px;
+            border-radius: 4px;
+            background: transparent;
+        }
+        .v-navigation-drawer__content {
+            height: 100vh;
+            z-index: 2;
+            &:hover::-webkit-scrollbar-thumb {
+                background: $cp;
             }
-            .v_list_group_active {
-                background: rgba($color: #fff, $alpha: 0.3);
-                color: #ffffff;
+            &::-webkit-scrollbar {
+                // 定义了滚动条整体的样式；
+                width: 8px;
             }
-            .v-list-item--link {
-                // &::before {
-                //     background-color: inherit;
-                // }
+
+            &::-webkit-scrollbar-thumb {
+                width: 8px;
+                border-radius: 4px;
+                background: transparent;
+            }
+            .v-responsive {
+                border-radius: inherit;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                z-index: -1;
+                contain: strict;
+                width: 100%;
+            }
+            .v-list {
+                .v-list-item--active.primary {
+                    color: #ffffff;
+                    &::before {
+                        opacity: 0;
+                    }
+                }
+                .v_list_group_active {
+                    background: rgba($color: #fff, $alpha: 0.3);
+                    color: #ffffff;
+                }
             }
         }
     }
+
     .page_right_content {
         margin-left: 256px;
         flex: 1;
+        background-color: #eee;
         .header {
             width: calc(100vw - 256px);
+            background: #eee;
+        }
+    }
+    .page_right_content.miniVariant {
+        margin-left: 74px;
+        .header {
+            width: calc(100vw - 74px);
+        }
+    }
+    .page_right_content.darkMode {
+        background: #121212;
+        color: #ffffff;
+        .header {
+            background: #121212;
+            color: #ffffff;
         }
     }
 }
@@ -142,6 +181,17 @@
         }
         .icon_mine_email {
             display: none !important;
+        }
+    }
+}
+@media screen and (max-width: 1250px) {
+    .page_layout {
+        .page_right_content {
+            margin-left: 0;
+            flex: 1;
+            .header {
+                width: 100%;
+            }
         }
     }
 }

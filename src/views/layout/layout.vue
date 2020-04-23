@@ -1,19 +1,34 @@
 <template>
 	<div class="page_layout">
+    <!--菜单开始-->
 		<v-navigation-drawer
-			v-model="drawer"
-			:expand-on-hover="expandOnHover"
+			v-model="menuDrawer"
 			:mini-variant="miniVariant"
+            disable-resize-watcher
+            mini-variant-width="74"
 			absolute
 			dark
+            style="z-index: 2;"
 		>
 			<v-img
 				v-slot:img
 				src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg"
 				gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
 			/>
+
 			<v-list nav class="py-0">
-				<v-list-item two-line @click="onAxios">
+                <v-list-item  @click="a=>a" style="margin-top:8px" target="_blank" href="https://vuetifyjs.com">
+                    <v-list-item-avatar>
+                        <img
+							src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png"
+						/>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <v-list-item-title class="headline">Material-UI</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+				<v-list-item two-line @click="onAxios" style="margin-top:8px">
 					<v-list-item-avatar>
 						<img
 							src="https://randomuser.me/api/portraits/men/81.jpg"
@@ -26,7 +41,7 @@
 				</v-list-item>
 				<v-divider></v-divider>
 			</v-list>
-			<v-list nav class="py-0">
+			<v-list nav class="py-0" style="margin-top: 20px">
                 <template
                     v-for="(item, index) in menus"
                 >
@@ -41,7 +56,9 @@
 								<v-list-item-icon>
 									<v-icon x-small>{{child.meta.icon}}</v-icon>
 								</v-list-item-icon>
-                                <v-list-item-title>{{child.meta.title}}</v-list-item-title>	
+                                <v-list-item-content>
+                                    <v-list-item-title>{{child.meta.title}}</v-list-item-title>
+                                </v-list-item-content>
                             </v-list-item>
                         </v-list-group>
                     </template>
@@ -49,23 +66,25 @@
                         <v-list-item-icon>
                             <v-icon>{{item.meta.icon}}</v-icon>
                         </v-list-item-icon>
-                        <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
+                        <v-list-item-content>
+                            <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
+                        </v-list-item-content>
                     </v-list-item>
                 </template>
 			</v-list>
 		</v-navigation-drawer>
+    <!--菜单结束-->
+    <!--设置侧栏开始-->
 		<v-navigation-drawer
 			v-model="settingsVisible"
 			fixed
 			temporary
 			hide-overlay
 			right
-			light
-			style="height: 100vh"
+			style="height: 100vh; z-index: 20;"
 		>
 			<v-toolbar dark color="primary">
 				<v-toolbar-title class="white--text">Settings</v-toolbar-title>
-
 				<v-spacer></v-spacer>
 			</v-toolbar>
 			<v-subheader>Color Option</v-subheader>
@@ -105,6 +124,8 @@
 					color="primary"
 				></v-radio>
 			</v-radio-group>
+			<v-subheader>Dark Mode Option</v-subheader>
+			<v-switch v-model="darkMode" @change="onDarkModeChange" :label="darkMode+''" style="margin-left: 20px" ></v-switch>
 			<v-subheader>Sign out</v-subheader>
 			<div style="margin: 0 20px;">
 				<v-btn color="error" block @click="handleSignOut"
@@ -112,35 +133,50 @@
 				>
 			</div>
 		</v-navigation-drawer>
-		<div class="page_right_content">
-			<v-toolbar absolute class="header">
+    <!--设置侧栏结束-->
+    <!--主体开始-->
+		<v-content class="page_right_content" :class="{miniVariant: miniVariant, darkMode: darkMode}">
+			<v-toolbar absolute class="header" flat>
+                <!--处理显示导航菜单-->
 				<v-btn
-					icon
+                    fab
+                    small
 					style="margin-right:18px;"
+                    @click="handleMenuDrawer"
+                    v-if="!menuDrawer"
 				>
-					<v-icon>mdi-apps</v-icon>
+                    <v-icon v-if="menuDrawer">mdi-menu-open</v-icon>
+					<v-icon v-else>mdi-menu</v-icon>
 				</v-btn>
+                <!--处理导航菜单mini样式-->
+				<v-btn
+                    fab
+                    small
+					style="margin-right:18px;"
+                    @click="handleMiniMenu"
+                    v-else
+				>
+                    <v-icon v-if="!miniVariant">mdi-menu-open</v-icon>
+					<v-icon v-else>mdi-menu</v-icon>
+				</v-btn>
+                <v-btn small text disabled>{{pageTitle}}</v-btn>
 				<v-spacer></v-spacer>
-				<v-tooltip bottom>
+				<!-- <v-tooltip bottom>
 					<template v-slot:activator="{ on }">
 						<v-btn
 							text
 							v-on="on"
 							href="mailto:contact@akveo.com"
-							class="icon_mine_email"
 						>
-							<v-icon left>mdi-email</v-icon>894620576@qq.com
+							<v-icon>mdi-email</v-icon>
 						</v-btn>
 					</template>
 					<span>Contact email</span>
-				</v-tooltip>
-				<v-btn icon @click="fullScreen">
-					<v-icon>mdi-arrow-expand-all</v-icon>
-				</v-btn>
-				<v-tooltip bottom>
+				</v-tooltip> -->
+				<!-- <v-tooltip bottom>
 					<template v-slot:activator="{ on }">
 						<v-btn
-							icon
+							text
 							v-on="on"
 							href="https://vuetifyjs.com"
 							target="_blank"
@@ -149,9 +185,9 @@
 						</v-btn>
 					</template>
 					<span>Vuetifyjs UI Components</span>
-				</v-tooltip>
+				</v-tooltip> -->
 				<v-btn
-					icon
+					text
 					target="_blank"
 					href="https://github.com/Groundhog-Chen/vue-material-admin"
 				>
@@ -160,7 +196,10 @@
 						>mdi-github-circle</v-icon
 					>
 				</v-btn>
-				<v-btn icon @click="settingsVisible = true">
+                <v-btn text @click="fullScreen">
+					<v-icon>mdi-arrow-expand-all</v-icon>
+				</v-btn>
+				<v-btn text @click="settingsVisible = true">
 					<v-icon>mdi-settings</v-icon>
 				</v-btn>
 			</v-toolbar>
@@ -168,7 +207,8 @@
 			<transition name="fade-transform" mode="out-in">
 				<router-view />
 			</transition>
-		</div>
+		</v-content>
+    <!--主体结束-->
 	</div>
 </template>
 <script>
@@ -177,7 +217,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            drawer: true,
+            menuDrawer: true,
             expandOnHover: false,
             bg: {
                 'src':
@@ -209,8 +249,19 @@ export default {
         loadPaths() {
             return this.$route.path.split('/');
         },
+        pageTitle() {
+            return this.$route.meta.title;
+        },
         locale(key) {
             return this.$t('header.' + key);
+        },
+        darkMode: {
+            get:function() {
+                return this.$store.state.darkMode;
+            },
+            set: function(newValue) {
+                this.$store.state.darkMode = newValue;
+            }
         },
         menus() {
             const { options } = this.$router;
@@ -225,7 +276,6 @@ export default {
     },
     created() {
         console.log(this.menus, this.$route);
-        this.$vuetify.theme.dark = true;
         // console.log(this.$route);
         // axios.request({
         //     url: '/news',
@@ -237,7 +287,16 @@ export default {
         // });
     },
     methods: {
-
+        onDarkModeChange(val) {
+            this.$vuetify.theme.dark = val;
+            this.$store.commit('handleDarkMode', val);
+        },
+        handleMenuDrawer() {
+            this.menuDrawer = !this.menuDrawer;
+        },
+        handleMiniMenu() {
+            this.miniVariant = !this.miniVariant;
+        },
         onAxios() {
             const data = {
                 title: this.name,

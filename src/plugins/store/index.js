@@ -10,12 +10,12 @@ export default new Vuex.Store({
             {
                 name: 'default',
                 color: '#1890ff',
-                active: true
+                active: false
             },
             {
                 name: 'pink',
                 color: '#E91E63',
-                active: false
+                active: true
             },
             {
                 name: 'navy',
@@ -41,7 +41,6 @@ export default new Vuex.Store({
                     state.colors[i].active = true;
                 }
             }
-
         },
         handleDarkMode(state, status) {
             state.darkMode = status;

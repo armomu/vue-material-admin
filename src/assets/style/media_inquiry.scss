@@ -6,20 +6,20 @@
                 width: 100% !important;
             }
             .list_wrap {
-                margin: 0 2px 50px 5px !important;
-                .inner-head {
-                    position: absolute !important;
-                    width: auto !important;
-                    right: 0;
-                    bottom: 56px;
-                    z-index: 2;
-                    .title {
-                        display: none;
-                    }
-                }
-                .scroll_wrap {
-                    height: calc(100vh - 74px) !important;
-                }
+                // margin: 0 2px 50px 5px !important;
+                // .inner-head {
+                //     position: absolute !important;
+                //     width: auto !important;
+                //     right: 0;
+                //     bottom: 56px;
+                //     z-index: 2;
+                //     .title {
+                //         display: none;
+                //     }
+                // }
+                // .scroll_wrap {
+                //     height: calc(100vh - 74px) !important;
+                // }
             }
             .right_section {
                 width: 100% !important;
@@ -54,19 +54,19 @@
             }
             .list_wrap {
                 margin: 0 2px 50px 5px !important;
-                .inner-head {
-                    position: absolute !important;
-                    width: auto !important;
-                    right: 0;
-                    bottom: 56px;
-                    z-index: 2;
-                    .title {
-                        display: none;
-                    }
-                }
-                .scroll_wrap {
-                    height: calc(100vh - 74px) !important;
-                }
+                // .inner-head {
+                //     position: absolute !important;
+                //     width: auto !important;
+                //     right: 0;
+                //     bottom: 56px;
+                //     z-index: 2;
+                //     .title {
+                //         display: none;
+                //     }
+                // }
+                // .scroll_wrap {
+                //     height: calc(100vh - 74px) !important;
+                // }
             }
             .right_section {
                 width: 100% !important;
@@ -121,9 +121,9 @@
         .task_router_content {
             height: calc(100vh - 56px) !important;
             .list_wrap {
-                .scroll_wrap {
-                    height: calc(100vh - 56px) !important;
-                }
+                // .scroll_wrap {
+                //     height: calc(100vh - 56px) !important;
+                // }
             }
         }
     }

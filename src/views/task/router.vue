@@ -6,7 +6,7 @@
         >
             <router-view />
         </transition>
-        <div class="v-bottom-nav">
+        <!-- <div class="v-bottom-nav">
             <v-bottom-navigation
                 class="primary"
                 :value="true"
@@ -23,8 +23,7 @@
                     <v-icon color="white">{{item.icon}}</v-icon>
                 </v-btn>
             </v-bottom-navigation>
-        </div>
-
+        </div> -->
     </div>
 </template>
 

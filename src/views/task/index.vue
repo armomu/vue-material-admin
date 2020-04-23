@@ -18,7 +18,44 @@
             ref="down_section"
         >
             <div class="inner-head">
-                <div class="title">{{ $t("task.title") }}</div>
+                <!-- <div class="title">{{ $t("task.title") }}</div> -->
+                <v-btn-toggle v-model="toggle_exclusive" >
+                    <v-btn>
+                        <v-icon>mdi-format-align-left</v-icon>
+                    </v-btn>
+
+                    <v-btn>
+                        <v-icon>mdi-format-align-center</v-icon>
+                    </v-btn>
+
+                    <v-btn>
+                        <v-icon>mdi-format-align-right</v-icon>
+                    </v-btn>
+
+                    <v-btn>
+                        <v-icon>mdi-format-align-justify</v-icon>
+                    </v-btn>
+                </v-btn-toggle>
+                <v-switch
+                    v-model="switch1"
+                    label="Switch"
+                    color="primary"
+                    style="margin: 0 20px"
+                ></v-switch>
+                <v-text-field
+                    label="Search"
+                    clearable
+                    prepend-inner-icon="mdi-magnify"
+                    style="margin-left: auto; flex:300px 0 0"
+                ></v-text-field>
+                <v-select
+                    v-model="detail.association"
+                    :items="selects"
+                    clearable
+                    label="Association"
+                    required
+                    style="margin: 0 20px; flex:300px 0 0"
+                ></v-select>
                 <v-menu
                     v-model="filterVisible"
                     :close-on-content-click="false"
@@ -29,8 +66,6 @@
                         <v-btn
                             small
                             fab
-                            dark
-                            color="primary"
                             style="margin-right:20px"
                             v-on="on"
                         >
@@ -43,39 +78,11 @@
                         min-width="350"
                     >
                         <v-subheader>Filter option</v-subheader>
-                        <v-text-field
-                            label="Search"
-                            prepend-inner-icon="mdi-magnify"
-                            style="margin: 0 20px"
-                        ></v-text-field>
+
                         <v-row style="margin: 0 8px">
-                            <v-col>
-                                <v-btn-toggle v-model="toggle_exclusive">
-                                    <v-btn>
-                                        <v-icon>mdi-format-align-left</v-icon>
-                                    </v-btn>
 
-                                    <v-btn>
-                                        <v-icon>mdi-format-align-center</v-icon>
-                                    </v-btn>
-
-                                    <v-btn>
-                                        <v-icon>mdi-format-align-right</v-icon>
-                                    </v-btn>
-
-                                    <v-btn>
-                                        <v-icon>mdi-format-align-justify</v-icon>
-                                    </v-btn>
-                                </v-btn-toggle>
-                            </v-col>
                         </v-row>
-                        <v-select
-                            v-model="detail.association"
-                            :items="selects"
-                            label="Association"
-                            required
-                            style="margin: 0 20px"
-                        ></v-select>
+
                         <v-radio-group
                             v-model="radioGroup"
                             style="margin: 0 20px"
@@ -88,12 +95,7 @@
                                 color="primary"
                             ></v-radio>
                         </v-radio-group>
-                        <v-switch
-                            v-model="switch1"
-                            label="Switch"
-                            color="primary"
-                            style="margin: 0 20px"
-                        ></v-switch>
+
                     </v-card>
                 </v-menu>
                 <v-btn
@@ -106,6 +108,7 @@
                     <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
             </div>
+        <!--主体部分-->
             <div
                 class="scroll_wrap"
                 @scroll="handleScoll"
@@ -113,7 +116,6 @@
             >
                 <v-card
                     ref="cardSection"
-                    style="background: none"
                 >
                     <v-list
                         subheader
@@ -130,7 +132,7 @@
                                 @click.stop="() => {}"
                                 :ripple="false"
                             >
-                                <v-list-item-action @click.stop.native="handleCheckbox(key)">
+                                <v-list-item-action @click.stop="handleCheckbox(key)">
                                     <v-checkbox
                                         v-model="item.selected"
                                         color="primary"
@@ -159,19 +161,20 @@
                     </v-list>
                 </v-card>
             </div>
+         <!--主体部分-->
         </div>
+    <!--右边部分开始-->
         <div
             class="right_section"
             ref="right_section"
             :class="{ hidetaskdetail: detailStatus }"
             @click.stop="() => {}"
         >
-            <div
+            <v-card
                 class="inner_wrap"
                 v-if="!detailStatus"
             >
                 <v-toolbar
-                    color="white"
                     style="width: 100%"
                     absolute
                 >
@@ -276,7 +279,7 @@
                         </v-card>
                         <v-tabs
                             v-model="tab"
-                            style="padding-left: 21px; border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px; background: #fff"
+                            style="border-bottom: 1px solid rgba(0,0,0,0.12); min-width: 320px; background: #fff"
                         >
                             <v-tab
                                 v-for="item in tabs"
@@ -300,8 +303,9 @@
                         </v-tabs-items>
                     </div>
                 </div>
-            </div>
+            </v-card>
         </div>
+    <!--右边部分结束-->
         <v-snackbar
             v-model="dialog"
             multi-line
@@ -706,13 +710,9 @@ export default {
                 @for $i from 1 through 14 {
                     .v-list-item-#{$i} {
                         opacity: 0;
-                        background: #fff;
                         animation: itemSlideIn 0.5s linear #{$i / 20}s;
                         animation-fill-mode: forwards;
                     }
-                }
-                .v-list-item {
-                    background: #fff;
                 }
             }
         }
@@ -734,7 +734,6 @@ export default {
             width: 700px;
             padding: 64px 0;
             animation: fadeIn 0.3s linear;
-            background: #fafafa;
             .toolbar {
                 background: #ffffff;
                 height: 80px;

@@ -23,8 +23,9 @@ export default {
                     width: 0,
                     splitNumber: 6,
                     splitLine: {
+                        show: false,
                         lineStyle: {
-                            color: '#1b1b38'
+                            color: '#efefef'
                         }
                     }
                 },
@@ -35,6 +36,7 @@ export default {
                 },
                 legend: {
                     borderColor: '#fff',
+                    show: false,
                     textStyle: {
                         color: '#fff',
                         fontWeight: 'bold'

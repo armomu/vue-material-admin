@@ -93,7 +93,7 @@ export default new Router({
                     redirect: '/componnets/table',
                     meta: {
                         title: '组件',
-                        icon: 'mdi-view-dashboard-variant',
+                        icon: 'mdi-vuetify',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "component" */ '@/views/component/router.vue'),
@@ -115,7 +115,7 @@ export default new Router({
                     name: 'map',
                     meta: {
                         title: '地图',
-                        icon: 'mdi-map-marker-distance',
+                        icon: 'mdi-map-marker-radius',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "map" */ '@/views/map/index.vue')

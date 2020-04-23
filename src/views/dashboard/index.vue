@@ -3,11 +3,11 @@
         <div class="card_box">
             <div class="left">
                 <div class="card_wrap">
-                    <div class="r_card primary">
-                        <div class="item_header">
+                    <v-card class="r_card">
+                        <!-- <div class="item_header">
                             <div class="title">Ve-histogram</div>
-                            <!-- <v-icon>keyboard_arrow_right</v-icon> -->
-                        </div>
+                        </div> -->
+                        <v-card-title>Ve-histogram</v-card-title>
                         <div class="item_content">
                             <div class="chart_wrap">
                                 <ve-histogram
@@ -17,12 +17,9 @@
                                 ></ve-histogram>
                             </div>
                         </div>
-                    </div>
-                    <div class="r_card  primary">
-                        <div class="item_header">
-                            <div class="title">Ve-line</div>
-                            <!-- <v-icon>keyboard_arrow_right</v-icon> -->
-                        </div>
+                    </v-card>
+                    <v-card class="r_card">
+                        <v-card-title>Ve-line</v-card-title>
                         <div class="item_content">
                             <div class="tool">
                                 <div class="t">
@@ -42,10 +39,10 @@
                                 ></ve-line>
                             </div>
                         </div>
-                    </div>
+                    </v-card>
                 </div>
 
-                <div class="r_card  primary">
+                <v-card class="r_card">
                     <div class="item_weather">
                         <div class="weather_header">
                             <div class="weather_header_left">
@@ -96,10 +93,10 @@
 
                         </div>
                     </div>
-                </div>
+                </v-card>
             </div>
             <div class="right">
-                <div class="r_card  primary">
+                <v-card class="r_card">
                     <div
                         class="arrow"
                         @click="handlePieBoxVisibleStatus"
@@ -143,12 +140,7 @@
                             </div>
                         </div> -->
                     </div>
-                    <div class="item_header">
-                        <div
-                            class="title"
-                            @click="handlePieBoxVisibleStatus"
-                        >Visitors Analytics</div>
-                    </div>
+                    <v-card-title @click="handlePieBoxVisibleStatus">Visitors Analytics</v-card-title>
                     <div class="item_content">
                         <!-- <p class="min_title">Consumption</p>
                         <div class="chart_header">
@@ -169,13 +161,14 @@
                             ></ve-line>
                         </div>
                     </div>
-                </div>
+                </v-card>
             </div>
         </div>
         <div class="camera_play_row">
             <div class="camera_wrap" :class="{ reversal: reversal }">
-                <div class="r_card reversal_before primary">
-                    <div class="item_header">
+                <v-card class="r_card reversal_before">
+                    <v-card-title>📹 Camera</v-card-title>
+                    <!-- <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
                             icon
@@ -183,7 +176,7 @@
                         >
                             <v-icon>mdi-camera-retake</v-icon>
                         </v-btn>
-                    </div>
+                    </div> -->
                     <div class="camera_content">
                         <div
                             class="camera_item"
@@ -214,9 +207,10 @@
                             <span class="camera_name">Camera #4</span>
                         </div>
                     </div>
-                </div>
-                <div class="r_card reversal_after primary">
-                    <div class="item_header">
+                </v-card>
+                <v-card class="r_card reversal_after">
+                    <v-card-title>📹 Camera</v-card-title>
+                    <!-- <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
                             icon
@@ -224,11 +218,11 @@
                         >
                             <v-icon>mdi-camera-retake-outline</v-icon>
                         </v-btn>
-                    </div>
+                    </div> -->
                     <div
                         class="reversal"
                     >
-                        <div class="camera_content camera_content2">
+                        <div class="camera_content camera_content2" @click="handleRunReversal">
                             <div
                                 class="camera_item"
                                 :style="{ backgroundImage: 'url('+ url +')' }"
@@ -237,12 +231,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </v-card>
             </div>
-            <div class="r_card play_item primary">
-                <div class="item_header">
-                    <div class="title">My Playlist</div>
-                </div>
+            <v-card class="r_card play_item">
+                <v-card-title>My Playlist</v-card-title>
                 <div class="item_content">
                     <div
                         class="image"
@@ -281,9 +273,9 @@
                         </v-btn>
                     </div>
                 </div>
-            </div>
+            </v-card>
         </div>
-        <v-footer class="pa-3" dark color="primary">
+        <v-footer class="pa-3">
             <v-spacer></v-spacer>
             <div>&copy; {{ new Date().getFullYear() }} Created with by Groundhog.chen</div>
         </v-footer>

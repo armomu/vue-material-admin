@@ -1,6 +1,5 @@
 @import "./variable.scss";
 .dashboard_container {
-    background: #1b1b38;
     max-height: calc(100vh - 64px);
     padding: 30px;
     color: #fff;
@@ -21,9 +20,6 @@
         background: transparent;
     }
     .r_card {
-        background: $cp;
-        border-radius: 4px;
-        box-shadow: 0 0.5rem 1rem 0 #1a1f33;
         margin-bottom: 30px;
         .item_header {
             display: flex;
@@ -38,7 +34,6 @@
             border-bottom: 1px solid #1b1b38;
         }
         > i {
-            color: #fff;
             cursor: pointer;
         }
     }
@@ -131,7 +126,6 @@
                         }
                     }
                     .weather_week {
-                        border-top: 1px #1a1f33 solid;
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
@@ -144,7 +138,6 @@
                             }
                             i {
                                 font-size: 35px;
-                                color: #fff;
                                 margin: 15px 0;
                             }
                         }
@@ -163,7 +156,7 @@
                     position: absolute;
                     right: 0;
                     top: 0;
-                    background: rgba($color: #000, $alpha: 0.2);
+                    background: rgba($color: #000, $alpha: 0.1);
                     z-index: 8;
                     transition: all 0.3s;
                     .item_header {
@@ -228,7 +221,6 @@
                     z-index: 9;
                     cursor: pointer;
                     i {
-                        color: #fff;
                         font-size: 30px;
                     }
                 }
@@ -381,9 +373,6 @@
                     align-items: center;
                     padding: 30px 30px;
                     justify-content: space-around;
-                    i {
-                        color: #fff;
-                    }
                     .py {
                         i {
                             font-size: 50px;
