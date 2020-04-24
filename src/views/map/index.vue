@@ -12,7 +12,7 @@
                 :amap-manager="amapManager"
             >
                 <el-amap-marker
-                    v-for="(marker,index) in markers"
+                    v-for="(marker, index) in markers"
                     :position="marker.position"
                     :content="marker.content"
                     :events="marker.events"
@@ -36,10 +36,7 @@ export default {
             markerRefs: [],
             plugins: ['AMap.ControlBar'],
             events: {
-                init(amp) {
-                    amp.setMapStyle(
-                        'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
-                    );
+                init: (amp) => {
                     setTimeout(() => {
                         console.log(self.markerRefs);
                         let cluster = new AMap.MarkerClusterer(
@@ -55,6 +52,22 @@ export default {
                 }
             }
         };
+    },
+    computed: {
+        map() {
+            return this.amapManager.getMap();
+        },
+        locale(key) {
+            return this.$t('header.' + key);
+        },
+        darkMode: {
+            get: function() {
+                return this.$store.state.darkMode;
+            },
+            set: function(newValue) {
+                this.$store.state.darkMode = newValue;
+            }
+        }
     },
     created() {
         let self = this;
@@ -74,17 +87,18 @@ export default {
         }
         this.markers = markers;
     },
-    computed: {
-        map() {
-            return this.amapManager.getMap();
-        },
-        locale(key) {
-            return this.$t('header.' + key);
-        }
-    },
     mounted() {
         setTimeout(() => {
-            // console.log(this.map.getCenter());
+            console.log(this.map.getCenter());
+            if (this.darkMode) {
+                this.map.setMapStyle(
+                    'amap://styles/92b032a559e7a161c4fc47ffc02e6991'
+                );
+            } else {
+                this.map.setMapStyle(
+                    'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
+                );
+            }
         }, 2000);
     },
     methods: {
@@ -112,6 +126,19 @@ export default {
             div.style.textAlign = 'center';
             context.marker.setOffset(new AMap.Pixel(-size / 2, -size / 2));
             context.marker.setContent(div);
+        }
+    },
+    watch: {
+        darkMode: function(val) {
+            if (val) {
+                this.map.setMapStyle(
+                    'amap://styles/92b032a559e7a161c4fc47ffc02e6991'
+                );
+            } else {
+                this.map.setMapStyle(
+                    'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
+                );
+            }
         }
     }
 };

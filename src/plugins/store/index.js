@@ -8,9 +8,14 @@ export default new Vuex.Store({
         isLogin: false,
         colors: [
             {
-                name: 'default',
+                name: 'blue',
                 color: '#1890ff',
                 active: false
+            },
+            {
+                name: 'green',
+                color: '#4CAF50',
+                active: true
             },
             {
                 name: 'pink',

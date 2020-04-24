@@ -17,18 +17,18 @@
 			/>
 
 			<v-list nav class="py-0">
-                <v-list-item  @click="a=>a" style="margin-top:8px" target="_blank" href="https://vuetifyjs.com">
+                <v-list-item  @click="a=>a" style="padding-top:8px; margin-bottom: 0" target="_blank" href="https://vuetifyjs.com">
                     <v-list-item-avatar>
                         <img
 							src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png"
 						/>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title class="headline">Material-UI</v-list-item-title>
+                        <v-list-item-title class="headline">Material-UI</v-list-item-title>                        
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>
-				<v-list-item two-line @click="onAxios" style="margin-top:8px">
+				<v-list-item  @click="onAxios" style="margin-top:8px">
 					<v-list-item-avatar>
 						<img
 							src="https://randomuser.me/api/portraits/men/81.jpg"
@@ -37,6 +37,7 @@
 
 					<v-list-item-content>
 						<v-list-item-title>Groundhog</v-list-item-title>
+                        <v-list-item-subtitle >Huajie.Chen</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 				<!-- <v-divider></v-divider> -->
@@ -50,7 +51,6 @@
                             <template v-slot:activator>
                                 <v-list-item-content>
                                     <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
-                                    <v-list-item-title>{{$emit('change')}}</v-list-item-title>
                                 </v-list-item-content>
                             </template>
                             <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }" active-class="primary">
@@ -239,7 +239,7 @@ export default {
             return this.$t('header.' + key);
         },
         darkMode: {
-            get:function() {
+            get: function() {
                 return this.$store.state.darkMode;
             },
             set: function(newValue) {

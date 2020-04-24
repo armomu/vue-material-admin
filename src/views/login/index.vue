@@ -5,106 +5,92 @@
     >
 
         <v-img
-            src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg"
+            src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg"
             gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
-            contain
         />
         <v-toolbar absolute flat dark color="transparent" min-width="100%">
                 <v-btn text disabled>Login Page</v-btn>
 				<v-spacer></v-spacer>
                 <v-btn
 					text
-                    small
                     :to="{ name: 'charts' }"
 				>
 					<v-icon style="margin-right: 10px">mdi-chart-areaspline</v-icon>charts
 				</v-btn>
                 <v-btn
 					text
-                    small
                     :to="{ name: 'login' }"
+                    style="margin: 0 20px"
 				>
 					<v-icon style="margin-right: 10px">mdi-fingerprint</v-icon>Login
 				</v-btn>
                 <v-btn
 					text
-                    small
 					target="_blank"
 					href="https://github.com/Groundhog-Chen/vue-material-admin"
 				>
-					<v-icon
-						title="https://github.com/Groundhog-Chen/vue-material-admin"
-						>mdi-github-circle</v-icon>
+					<v-icon style="margin-right: 10px" >mdi-github-circle</v-icon> github
 				</v-btn>
 			</v-toolbar>
         <div class="wrap">
-            <div class="wrap_title">Material Design</div>
             <v-card class="inner_card">
+                <v-card
+                    class="right"
+                    color="red"
+                    href="https://vuetifyjs.com"
+                    target="_blank"
+                >
+                   <v-icon large color="white">mdi-vuetify</v-icon>
+                    <div class="title" color="white">
+                        Material UI
+                    </div>                        
+                </v-card>
                 <div class="left">
-                    <div class="title">
-                        Sign in to vue-material-admin
+                    <div class="row">
+                        <v-text-field
+                            label="Gorup"
+                            min-width="100%"
+                            dense
+                            hint="Niubility Gorup"
+                            persistent-hint
+                            value="Javascript Flutter"
+                            prepend-icon="mdi-incognito"
+                        ></v-text-field>
                     </div>
                     <div class="row">
                         <v-text-field
                             label="Account"
                             min-width="100%"
+                            dense
+                            hint="Niubility Account"
+                            persistent-hint
+                            value="Groundhog.chen"
                             prepend-icon="mdi-account-outline"
                         ></v-text-field>
                     </div>
                     <div class="row">
                         <v-text-field
+                            persistent-hint
                             label="Password"
                             min-width="100%"
-                            prepend-icon="mdi-account-lock-outline"
+                            hint="Niubility Password"
+                            value="Groundhog.chen"
+                            type="password"
+                            prepend-icon="mdi-lock-outline"
                         ></v-text-field>
                     </div>
                     <div class="row row_f">
                         <v-btn
-                            large
+                            x-large
+                            rounded
                             color="primary"
                             style="margin-left: 30px"
                             @click="handleSignBtn"
-                        >Sign in</v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            icon
-                            href="mailto:894620576@qq.com"
-                            class="icon_mine_email"
-                            title="mailto:894620576@qq.com"
-                        >
-                            <v-icon>mdi-email</v-icon>
-                        </v-btn>
-                        <v-btn
-                            icon
-                            target="_blank"
-                            title="https://github.com/Groundhog-Chen/vue-material-admin"
-                            href="https://github.com/Groundhog-Chen/vue-material-admin"
-                        >
-                            <v-icon>mdi-github-circle</v-icon>
-                        </v-btn>
+                        >let's go</v-btn>                        
                     </div>
-                </div>
-                <a
-                    class="right primary"
-                    href="https://vuetifyjs.com"
-                    target="_blank"
-                >
-                    <div>
-                        <div
-                            class="icon"
-                            style="background-image: url('https://cdn.vuetifyjs.com/images/logos/v-alt.svg'); background-position: center center;"
-                        ></div>
-                        <div class="title">
-                            Material UI Component
-                        </div>
-                    </div>
-                </a>
+                </div>                
             </v-card>
         </div>
-        <v-footer class="login_footer" dark color="transparent">
-            <v-spacer></v-spacer>
-            <div>&copy; {{ new Date().getFullYear() }} Created with by Groundhog.chen</div>
-        </v-footer>
     </div>
 </template>
 <script>
@@ -119,7 +105,7 @@ export default {
             this.mlmlh = true;
             this.$store.commit('handleSignIn');
             setTimeout(() => {
-                this.$router.push('/task/mine');
+                this.$router.push('/components/charts');
             }, 300);
         }
     }
@@ -157,23 +143,13 @@ export default {
     .wrap {
         position: relative;
         z-index: 1;
-        .wrap_title {
-            font-size: 50px;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 90px;
-            animation: fadeInUp 0.3s linear;
-        }
         .inner_card {
-            background: #fff;
-            width: 900px;
-            display: flex;
-            align-items: center;
-            border-radius: 3px;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
             animation: fadeInUp 0.3s linear;
+            padding-top: 100px;
+            padding-bottom: 30px;
             .left {
-                width: 500px;
+                width: 400px;
                 padding: 0 40px;
                 margin: 0 10px;
                 .row {
@@ -182,24 +158,22 @@ export default {
                 .row_f {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
                 }
             }
             .right {
-                height: 400px;
+                position: absolute;
+                width: 86%;
+                padding: 20px 0;
+                left: 7%;
+                top: -30px;
                 text-align: center;
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
                 .icon {
-                    width: 150px;
-                    height: 150px;
                     margin: 0 auto;
                 }
                 .title {
+                    margin-top: 10px;
                     color: #fff;
-                    margin-top: 30px;
                 }
             }
         }
