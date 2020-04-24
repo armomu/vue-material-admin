@@ -1,11 +1,45 @@
 <template>
     <div
-        class="primary login_container"
+        class="login_container"
         :class="{login_mlmlh: mlmlh}"
     >
+
+        <v-img
+            src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg"
+            gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
+            contain
+        />
+        <v-toolbar absolute flat dark color="transparent" min-width="100%">
+                <v-btn text disabled>Login Page</v-btn>
+				<v-spacer></v-spacer>
+                <v-btn
+					text
+                    small
+                    :to="{ name: 'charts' }"
+				>
+					<v-icon style="margin-right: 10px">mdi-chart-areaspline</v-icon>charts
+				</v-btn>
+                <v-btn
+					text
+                    small
+                    :to="{ name: 'login' }"
+				>
+					<v-icon style="margin-right: 10px">mdi-fingerprint</v-icon>Login
+				</v-btn>
+                <v-btn
+					text
+                    small
+					target="_blank"
+					href="https://github.com/Groundhog-Chen/vue-material-admin"
+				>
+					<v-icon
+						title="https://github.com/Groundhog-Chen/vue-material-admin"
+						>mdi-github-circle</v-icon>
+				</v-btn>
+			</v-toolbar>
         <div class="wrap">
             <div class="wrap_title">Material Design</div>
-            <div class="inner_card">
+            <v-card class="inner_card">
                 <div class="left">
                     <div class="title">
                         Sign in to vue-material-admin
@@ -65,8 +99,12 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </v-card>
         </div>
+        <v-footer class="login_footer" dark color="transparent">
+            <v-spacer></v-spacer>
+            <div>&copy; {{ new Date().getFullYear() }} Created with by Groundhog.chen</div>
+        </v-footer>
     </div>
 </template>
 <script>
@@ -79,12 +117,10 @@ export default {
     methods: {
         handleSignBtn() {
             this.mlmlh = true;
-            try {
-                this.$store.commit('handleSignIn');
-                setTimeout(() => {
-                    this.$router.push('/task/mine');
-                }, 300);
-            } catch {}
+            this.$store.commit('handleSignIn');
+            setTimeout(() => {
+                this.$router.push('/task/mine');
+            }, 300);
         }
     }
 };
@@ -97,7 +133,30 @@ export default {
     align-items: center;
     justify-content: center;
     transition: all 0.5s;
+    position: relative;
+
+    .v-image {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        .v-image__image {
+            background-position: center center;
+            background-size: 100vh auto;
+        }
+    }
+    .login_footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        line-height: 50px;
+        width: 100%;
+    }
     .wrap {
+        position: relative;
+        z-index: 1;
         .wrap_title {
             font-size: 50px;
             color: #fff;

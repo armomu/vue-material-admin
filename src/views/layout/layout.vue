@@ -39,7 +39,7 @@
 						<v-list-item-title>Groundhog</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
-				<v-divider></v-divider>
+				<!-- <v-divider></v-divider> -->
 			</v-list>
 			<v-list nav class="py-0" style="margin-top: 20px">
                 <template
@@ -50,12 +50,13 @@
                             <template v-slot:activator>
                                 <v-list-item-content>
                                     <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
+                                    <v-list-item-title>{{$emit('change')}}</v-list-item-title>
                                 </v-list-item-content>
                             </template>
                             <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }" active-class="primary">
-								<v-list-item-icon>
-									<v-icon x-small>{{child.meta.icon}}</v-icon>
-								</v-list-item-icon>
+								<v-list-item-avatar>
+									<v-icon v-text="child.meta.icon"></v-icon>
+								</v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title>{{child.meta.title}}</v-list-item-title>
                                 </v-list-item-content>
@@ -71,69 +72,17 @@
                         </v-list-item-content>
                     </v-list-item>
                 </template>
+                <v-list-item :to="{ name: 'login' }" >
+                    <v-list-item-icon>
+                        <v-icon>mdi-fingerprint</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Login Page</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
 			</v-list>
 		</v-navigation-drawer>
     <!--菜单结束-->
-    <!--设置侧栏开始-->
-		<v-navigation-drawer
-			v-model="settingsVisible"
-			fixed
-			temporary
-			hide-overlay
-			right
-			style="height: 100vh; z-index: 20;"
-		>
-			<v-toolbar dark color="primary">
-				<v-toolbar-title class="white--text">Settings</v-toolbar-title>
-				<v-spacer></v-spacer>
-			</v-toolbar>
-			<v-subheader>Color Option</v-subheader>
-			<v-list subheader style="margin: 0 20px;">
-				<template v-for="(item, key) in colors">
-					<v-list-item
-						:key="key + 2"
-						dark
-						:style="{ background: item.color }"
-						@click="handleChangeColor(item.color, key)"
-					>
-						<v-list-item-action>
-							<v-checkbox v-model="item.active"></v-checkbox>
-						</v-list-item-action>
-						<v-list-item-content>
-							<v-list-item-title>{{
-								item.name
-							}}</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
-					<v-divider
-						v-if="key + 1 < colors.length"
-						:key="`divider-${key}`"
-					></v-divider>
-				</template>
-			</v-list>
-			<v-subheader>Language Option</v-subheader>
-			<v-radio-group
-				v-model="Language"
-				@change="handleCutover"
-				style="margin: 0 20px;"
-			>
-				<v-radio label="中文" value="zh_CN" color="primary"></v-radio>
-				<v-radio
-					label="English"
-					value="en_US"
-					color="primary"
-				></v-radio>
-			</v-radio-group>
-			<v-subheader>Dark Mode Option</v-subheader>
-			<v-switch v-model="darkMode" @change="onDarkModeChange" :label="darkMode+''" style="margin-left: 20px" ></v-switch>
-			<v-subheader>Sign out</v-subheader>
-			<div style="margin: 0 20px;">
-				<v-btn color="error" block @click="handleSignOut"
-					>Sign out</v-btn
-				>
-			</div>
-		</v-navigation-drawer>
-    <!--设置侧栏结束-->
     <!--主体开始-->
 		<v-content class="page_right_content" :class="{miniVariant: miniVariant, darkMode: darkMode}">
 			<v-toolbar absolute class="header" flat>
@@ -145,8 +94,8 @@
                     @click="handleMenuDrawer"
                     v-if="!menuDrawer"
 				>
-                    <v-icon v-if="menuDrawer">mdi-menu-open</v-icon>
-					<v-icon v-else>mdi-menu</v-icon>
+                    <v-icon v-if="menuDrawer">mdi-drag</v-icon>
+					<v-icon v-else>mdi-drag-horizontal</v-icon>
 				</v-btn>
                 <!--处理导航菜单mini样式-->
 				<v-btn
@@ -156,56 +105,90 @@
                     @click="handleMiniMenu"
                     v-else
 				>
-                    <v-icon v-if="!miniVariant">mdi-menu-open</v-icon>
-					<v-icon v-else>mdi-menu</v-icon>
+                    <v-icon v-if="!miniVariant">mdi-drag</v-icon>
+					<v-icon v-else>mdi-drag-horizontal</v-icon>
 				</v-btn>
                 <v-btn small text disabled>{{pageTitle}}</v-btn>
 				<v-spacer></v-spacer>
-				<!-- <v-tooltip bottom>
-					<template v-slot:activator="{ on }">
-						<v-btn
-							text
-							v-on="on"
-							href="mailto:contact@akveo.com"
-						>
-							<v-icon>mdi-email</v-icon>
-						</v-btn>
-					</template>
-					<span>Contact email</span>
-				</v-tooltip> -->
-				<!-- <v-tooltip bottom>
-					<template v-slot:activator="{ on }">
-						<v-btn
-							text
-							v-on="on"
-							href="https://vuetifyjs.com"
-							target="_blank"
-						>
-							<v-icon>mdi-vuetify</v-icon>
-						</v-btn>
-					</template>
-					<span>Vuetifyjs UI Components</span>
-				</v-tooltip> -->
+                <v-badge
+                    content="9"
+                    value="9"
+                    :offset-x="30"
+                    :offset-y="20"
+                    overlap
+                >
+                    <v-btn text>
+                        <v-icon>mdi-bell</v-icon>
+                    </v-btn>
+                </v-badge>
 				<v-btn
 					text
 					target="_blank"
 					href="https://github.com/Groundhog-Chen/vue-material-admin"
+                    class="min_hide"
 				>
 					<v-icon
 						title="https://github.com/Groundhog-Chen/vue-material-admin"
-						>mdi-github-circle</v-icon
-					>
+						>mdi-github-circle</v-icon>
 				</v-btn>
-                <v-btn text @click="fullScreen">
+                <v-btn text @click="fullScreen" class="min_hide">
 					<v-icon>mdi-arrow-expand-all</v-icon>
 				</v-btn>
-				<v-btn text @click="settingsVisible = true">
+                <v-menu bottom :close-on-content-click="false">
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            text
+                            v-on="on"
+                        >
+                            <v-icon>mdi-settings</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-card style="min-width:220px; padding-bottom:20px">
+                        <v-subheader>Color Option</v-subheader>
+                        <v-list subheader>
+                            <template v-for="(item, key) in colors">
+                                <v-list-item
+                                    :key="key + 2"
+                                    @click="handleChangeColor(item.color, key)"
+                                >
+                                    <v-list-item-avatar :color="item.color" :size='25'>
+                                    </v-list-item-avatar>
+                                    <v-list-item-content>
+                                        <v-list-item-subtitle>{{item.name}}</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </template>
+                        </v-list>
+                        <v-subheader>Language Option</v-subheader>
+                        <v-radio-group
+                            v-model="Language"
+                            @change="handleCutover"
+                            style="margin: 0 20px;"
+                        >
+                            <v-radio label="中文" value="zh_CN" color="primary"></v-radio>
+                            <v-radio
+                                label="English"
+                                value="en_US"
+                                color="primary"
+                            ></v-radio>
+                        </v-radio-group>
+                        <v-subheader>Dark Mode Option</v-subheader>
+                        <v-switch v-model="darkMode" @change="onDarkModeChange" :label="darkMode+''" style="margin-left: 20px" ></v-switch>
+                        <v-subheader>Sign out</v-subheader>
+                        <div style="margin: 0 20px;">
+                            <v-btn color="error" block @click="handleSignOut"
+                                >Sign out</v-btn
+                            >
+                        </div>
+                    </v-card>
+                </v-menu>
+				<!-- <v-btn text @click="settingsVisible = true">
 					<v-icon>mdi-settings</v-icon>
-				</v-btn>
+				</v-btn> -->
 			</v-toolbar>
 			<div class="zwf"></div>
 			<transition name="fade-transform" mode="out-in">
-				<router-view />
+				<router-view/>
 			</transition>
 		</v-content>
     <!--主体结束-->

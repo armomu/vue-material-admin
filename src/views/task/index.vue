@@ -18,35 +18,13 @@
             ref="down_section"
         >
             <div class="inner-head">
-                <!-- <div class="title">{{ $t("task.title") }}</div> -->
-                <v-btn-toggle v-model="toggle_exclusive" >
-                    <v-btn>
-                        <v-icon>mdi-format-align-left</v-icon>
-                    </v-btn>
-
-                    <v-btn>
-                        <v-icon>mdi-format-align-center</v-icon>
-                    </v-btn>
-
-                    <v-btn>
-                        <v-icon>mdi-format-align-right</v-icon>
-                    </v-btn>
-
-                    <v-btn>
-                        <v-icon>mdi-format-align-justify</v-icon>
-                    </v-btn>
-                </v-btn-toggle>
-                <v-switch
-                    v-model="switch1"
-                    label="Switch"
-                    color="primary"
-                    style="margin: 0 20px"
-                ></v-switch>
+                <div class="title">{{ $t("task.title") }}</div>
                 <v-text-field
                     label="Search"
                     clearable
                     prepend-inner-icon="mdi-magnify"
-                    style="margin-left: auto; flex:300px 0 0"
+                    class="min_hide"
+                    style=" flex:300px 0 0"
                 ></v-text-field>
                 <v-select
                     v-model="detail.association"
@@ -54,8 +32,12 @@
                     clearable
                     label="Association"
                     required
+                    class="min_hide"
                     style="margin: 0 20px; flex:300px 0 0"
                 ></v-select>
+
+                <!--  -->
+
                 <v-menu
                     v-model="filterVisible"
                     :close-on-content-click="false"
@@ -66,7 +48,7 @@
                         <v-btn
                             small
                             fab
-                            style="margin-right:20px"
+                            style="margin-right:20px; margin-left: auto;"
                             v-on="on"
                         >
                             <v-icon dark>mdi-filter-variant-plus</v-icon>
@@ -80,7 +62,31 @@
                         <v-subheader>Filter option</v-subheader>
 
                         <v-row style="margin: 0 8px">
+                            <v-btn-toggle v-model="toggle_exclusive">
+                                <v-btn>
+                                    <v-icon>mdi-format-align-left</v-icon>
+                                </v-btn>
 
+                                <v-btn>
+                                    <v-icon>mdi-format-align-center</v-icon>
+                                </v-btn>
+
+                                <v-btn>
+                                    <v-icon>mdi-format-align-right</v-icon>
+                                </v-btn>
+
+                                <v-btn>
+                                    <v-icon>mdi-format-align-justify</v-icon>
+                                </v-btn>
+                            </v-btn-toggle>
+                        </v-row>
+                        <v-row style="margin: 0 8px">
+                            <v-switch
+                                v-model="switch1"
+                                label="Switch"
+                                color="primary"
+                                style="margin: 0 20px"
+                            ></v-switch>
                         </v-row>
 
                         <v-radio-group

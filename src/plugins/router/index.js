@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import layout from '@/views/layout/layout.vue';
+import treeRoute from '@/views/layout/router.vue';
+
 
 Vue.use(Router);
 
@@ -11,7 +13,7 @@ export default new Router({
         //首页
         {
             path: '/',
-            redirect: '/dashboard',
+            redirect: '/components/charts',
             name: '/',
             hidden: false,
             component: layout,
@@ -39,7 +41,7 @@ export default new Router({
                         icon: 'mdi-checkbox-multiple-marked-circle',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "task" */ '@/views/task/router.vue'),
+                    component: treeRoute,
                     children: [
                         {
                             path: 'mine',
@@ -47,10 +49,10 @@ export default new Router({
                             title: '我的任务',
                             meta: {
                                 title: 'mine',
-                                icon: 'M',
+                                icon: 'mdi-alpha-m',
                                 keepAlive: false
                             },
-                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/index.vue')
+                            component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/index.vue')
                         },
                         {
                             path: 'star',
@@ -58,55 +60,43 @@ export default new Router({
                             title: '星标任务',
                             meta: {
                                 title: 'star',
-                                icon: 'S',
+                                icon: 'mdi-alpha-s',
                                 keepAlive: false
                             },
-                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/star.vue')
-                        },
-                        {
-                            path: 'book',
-                            name: 'bookTask',
-                            title: '星标任务',
-                            meta: {
-                                title: 'book',
-                                icon: 'B',
-                                keepAlive: false
-                            },
-                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/book.vue')
-                        },
-                        {
-                            path: 'image',
-                            name: 'imageTask',
-                            title: '星标任务',
-                            meta: {
-                                title: 'image',
-                                icon: 'I',
-                                keepAlive: false
-                            },
-                            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/task/image.vue')
-                        },
+                            component: () => import(/* webpackChunkName: "starTask" */ '@/views/task/star.vue')
+                        }
                     ]
                 },
                 {
-                    path: 'componnets',
-                    name: 'componnets',
-                    redirect: '/componnets/table',
+                    path: 'components',
+                    name: 'components',
+                    redirect: '/components/table',
                     meta: {
                         title: '组件',
-                        icon: 'mdi-vuetify',
+                        icon: 'mdi-view-comfy',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "component" */ '@/views/component/router.vue'),
+                    component: treeRoute,
                     children: [
                         {
                             path: 'table',
                             name: 'table',
                             meta: {
                                 title: 'table',
-                                icon: 'T',
+                                icon: 'mdi-alpha-t',
                                 keepAlive: false
                             },
                             component: () => import(/* webpackChunkName: "table" */ '@/views/task/image.vue')
+                        },
+                        {
+                            path: 'charts',
+                            name: 'charts',
+                            meta: {
+                                title: 'charts',
+                                icon: 'mdi-alpha-c',
+                                keepAlive: false
+                            },
+                            component: () => import(/* webpackChunkName: "table" */ '@/views/component/charts.vue')
                         }
                     ]
                 },

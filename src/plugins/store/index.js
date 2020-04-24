@@ -23,7 +23,7 @@ export default new Vuex.Store({
                 active: false
             }
         ],
-        darkMode: true
+        darkMode: false
     },
     mutations: {
         handleSignIn(state) {

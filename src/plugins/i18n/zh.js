@@ -3,7 +3,7 @@ module.exports = {
     header: {
         dashboard: '仪表盘',
         task: '任务',
-        componnets: 'UI组件',
+        components: 'UI组件',
         schedule: '日程',
         flies: '文件',
         map: '地图'

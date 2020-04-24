@@ -3,7 +3,7 @@ module.exports = {
     header: {
         dashboard: 'Dashboard',
         task: 'Task',
-        componnets: 'componnets',
+        components: 'components',
         schedule: 'Schedule',
         flies: 'Flies',
         map: 'Map'
