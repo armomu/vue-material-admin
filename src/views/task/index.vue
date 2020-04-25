@@ -18,10 +18,12 @@
             ref="down_section"
         >
             <div class="inner-head">
-                <div class="title">{{ $t("task.title") }}</div>
+                <!-- <div class="title">{{ $t("task.title") }}</div> -->
                 <v-text-field
                     label="Search"
                     clearable
+                    hint="Niubility Keyword"
+                    persistent-hint
                     prepend-inner-icon="mdi-magnify"
                     class="min_hide"
                     style=" flex:300px 0 0"
@@ -32,6 +34,8 @@
                     clearable
                     label="Association"
                     required
+                    hint="Niubility Keyword"
+                    persistent-hint
                     class="min_hide"
                     style="margin: 0 20px; flex:300px 0 0"
                 ></v-select>

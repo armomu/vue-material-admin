@@ -86,7 +86,7 @@ export default new Router({
                                 icon: 'mdi-alpha-t',
                                 keepAlive: false
                             },
-                            component: () => import(/* webpackChunkName: "table" */ '@/views/task/image.vue')
+                            component: () => import(/* webpackChunkName: "table" */ '@/views/component/table.vue')
                         },
                         {
                             path: 'charts',

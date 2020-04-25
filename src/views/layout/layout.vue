@@ -17,22 +17,18 @@
 			/>
 
 			<v-list nav class="py-0">
-                <v-list-item  @click="a=>a" style="padding-top:8px; margin-bottom: 0" target="_blank" href="https://vuetifyjs.com">
-                    <v-list-item-avatar>
-                        <img
-							src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png"
-						/>
-                    </v-list-item-avatar>
+                <!-- <v-list-item  @click="a=>a" style="padding-top:8px; margin-bottom: 0" target="_blank" href="https://vuetifyjs.com">
+                    <v-list-item-avatar size="30">
+                        <img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png" />
+                    </v-list-item-avatar>                     
                     <v-list-item-content>
                         <v-list-item-title class="headline">Material-UI</v-list-item-title>                        
                     </v-list-item-content>
                 </v-list-item>
-                <v-divider></v-divider>
+                <v-divider></v-divider>-->
 				<v-list-item  @click="onAxios" style="margin-top:8px">
 					<v-list-item-avatar>
-						<img
-							src="https://randomuser.me/api/portraits/men/81.jpg"
-						/>
+						<img src="https://randomuser.me/api/portraits/men/81.jpg" />
 					</v-list-item-avatar>
 
 					<v-list-item-content>
@@ -174,12 +170,7 @@
                         </v-radio-group>
                         <v-subheader>Dark Mode Option</v-subheader>
                         <v-switch v-model="darkMode" @change="onDarkModeChange" :label="darkMode+''" style="margin-left: 20px" ></v-switch>
-                        <v-subheader>Sign out</v-subheader>
-                        <div style="margin: 0 20px;">
-                            <v-btn color="error" block @click="handleSignOut"
-                                >Sign out</v-btn
-                            >
-                        </div>
+
                     </v-card>
                 </v-menu>
 				<!-- <v-btn text @click="settingsVisible = true">

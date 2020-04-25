@@ -61,9 +61,27 @@
         margin-left: 256px;
         flex: 1;
         background-color: #eee;
+        .v-content__wrap {
+            height: 100vh;
+            overflow-y: scroll;
+            &:hover::-webkit-scrollbar-thumb {
+                background: #bdbdbd;
+            }
+            &::-webkit-scrollbar {
+                // 定义了滚动条整体的样式；
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                width: 8px;
+                border-radius: 4px;
+                background: transparent;
+            }
+        }
         .header {
             width: calc(100vw - 256px);
             background: #eee;
+            position: fixed;
         }
     }
     .page_right_content.miniVariant {
