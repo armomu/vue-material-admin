@@ -6,7 +6,8 @@ module.exports = {
         components: 'UI组件',
         schedule: '日程',
         flies: '文件',
-        map: '地图'
+        map: '地图',
+        flowchart: '流程图'
     },
     task:{
         title:'我的任务'

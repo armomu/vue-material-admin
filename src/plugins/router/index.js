@@ -110,6 +110,16 @@ export default new Router({
                     },
                     component: () => import(/* webpackChunkName: "map" */ '@/views/map/index.vue')
                 },
+                {
+                    path: 'flowchart',
+                    name: 'flowchart',
+                    meta: {
+                        title: 'flow chart',
+                        icon: 'mdi-vector-triangle',
+                        keepAlive: false
+                    },
+                    component: () => import(/* webpackChunkName: "flowchart" */ '@/views/flowchart/index.vue')
+                }
             ]
         },
         {

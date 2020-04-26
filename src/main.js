@@ -8,11 +8,7 @@ import vuetify from './plugins/vuetify';
 import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
 
-// import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '../src/assets/style/index.scss';
-
-
-
 
 Vue.use(VCharts);
 Vue.use(VueAMap);

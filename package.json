@@ -8,15 +8,19 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@antv/g6": "^3.4.7",
+    "@antv/util": "^2.0.8",
     "axios": "^0.18.0",
     "echarts": "^4.2.1",
+    "element-ui": "^2.12.0",
     "v-charts": "^1.19.0",
     "vue": "^2.6.10",
     "vue-amap": "^0.5.8",
     "vue-i18n": "^8.11.2",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.19",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "xlsx": "^0.15.6"
   },
   "devDependencies": {
     "@mdi/font": "^4.4.95",

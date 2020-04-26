@@ -20,9 +20,9 @@
                 <!-- <v-list-item  @click="a=>a" style="padding-top:8px; margin-bottom: 0" target="_blank" href="https://vuetifyjs.com">
                     <v-list-item-avatar size="30">
                         <img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png" />
-                    </v-list-item-avatar>                     
+                    </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title class="headline">Material-UI</v-list-item-title>                        
+                        <v-list-item-title class="headline">Material-UI</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>-->
