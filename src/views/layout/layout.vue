@@ -249,7 +249,6 @@ export default {
         }
     },
     created() {
-        console.log(this.menus, this.$route);
         // console.log(this.$route);
         // axios.request({
         //     url: '/news',
