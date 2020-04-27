@@ -1,72 +1,133 @@
 <template>
-    <div class="flowchart">
-        <div class="page_title">
-            AntV G6 Graph visualization engine
-            <div class="min_title">
-                Please checkout the full documentation https://g6.antv.vision/zh
-            </div>
-        </div>
-        <v-card id="Graph" :height="700">
-            <v-card-actions>
-                <v-btn text @click="onAddItem">add</v-btn>
-                <v-btn text @click="onEdit">edit</v-btn>
-            </v-card-actions>
-        </v-card>
-    </div>
+	<div class="flowchart">
+		<div class="page_title">
+			AntV G6 Graph visualization engine
+			<div class="min_title">
+				Please checkout the full <a href="https://g6.antv.vision/zh" target="_black">documentation</a>
+			</div>
+		</div>
+		<v-card id="Graph" class="Graph"  ref="Graph">
+            <v-card color="primary" class="icon_panel" dark>
+                <v-icon x-large >mdi-vector-triangle</v-icon>
+            </v-card>
+            <v-card-title style="padding-left: 180px">Simple Flow Editor</v-card-title>
+			<v-card-actions>
+                <v-spacer></v-spacer>
+				<v-btn
+                    v-for="item in nodes"
+                    :key='item.type'
+                    @click="onAddItem(item)"
+                    :color="item.color"
+                    dark
+                ><v-icon>mdi-plus</v-icon> {{item.type}}</v-btn>
+			</v-card-actions>
+		</v-card>
+	</div>
 </template>
 <script>
 import G6 from '@antv/g6';
 export default {
     data() {
-        return {};
+        return {
+            addedCount: 0, // 生成唯一的 id
+            isMove: false, // 是否在移动
+            addConfirm: false, // 是否已经确定增加
+            currentItem: null, // 当前节点实例
+            currentEdge: null, // 当前边线实例
+            graph: null,
+            nodes: [
+                {
+                    type: 'circle',
+                    size: 100,
+                    color: 'primary'
+                },
+                {
+                    type: 'rect',
+                    size: [100, 60],
+                    color: 'blue'
+                },
+                {
+                    type: 'ellipse',
+                    size: [100, 60],
+                    color: 'pink'
+                },
+                {
+                    type: 'diamond',
+                    size: 100,
+                    color: 'primary'
+                },
+            ]
+        };
     },
-    graph: null,
-    addedCount: 0,
     mounted() {
-        const minimap = new G6.Minimap({
-            size: [200, 300],
-            className: 'minimap'
+        const width = this.$refs['Graph'].$el.clientWidth;
+        // 增加节点
+        G6.registerBehavior('addNode', {
+            getEvents: () => {
+                return {
+                    mousemove: 'onMousemove',
+                    mousedown: 'onMousedown'
+                };
+            },
+            onMousedown: () => {
+                this.addConfirm = true;
+                this.graph.setMode('canvasMove');
+            },
+            onMousemove: (e) => {
+                if(this.addConfirm){
+                    return;
+                }
+                this.currentItem.update({
+                    x: e.canvasX,
+                    y: e.canvasY,
+                });
+            }
         });
-        // Register a custom behavior to add node
-        G6.registerBehavior('click-add-node', {
+        G6.registerBehavior('canvasMove', {
             getEvents: () => {
                 return {
                     'node:click': 'onClick',
-                    // eslint-disable-next-line quote-props
-                    mousemove: 'onMousemove',
-                    'edge:click': 'onEdgeClick' // 点击空白处，取消边
+                    'node:mousemove': 'nodeMouseover',
+                    'anchorPoint:mousemove': 'anchorPointMouseover',
                 };
             },
-            onClick: (ev) => {
-                console.log(ev);
-                // this.graph;
-                // this.graph.addItem('node', {
-                //     x: ev.canvasX,
-                //     y: ev.canvasY,
-                //     id: `node-${this.addedCount}` // 生成唯一的 id
-                // });
-                // this.addedCount++;
+            onClick: (e) => {
+                const { item } = e;
+                if(this.currentItem) {
+                    this.graph.setItemState(this.currentItem, 'selected', false);
+                }
+                this.currentItem = item;
+                this.graph.setItemState(item, 'selected', true);
             },
-            onMousemove: (e) => {
+            nodeMouseover: () => {
                 // console.log(e);
-                
             },
-            onEdgeClick: (e) => {
+            anchorPointMouseover: (e) => {
                 console.log(e);
-            }
+            },
         });
+
         this.graph = new G6.Graph({
-            plugins: [minimap],
+            plugins: [],
             container: 'Graph',
-            height: 600,
-            width: 1000,
+            height: 560,
+            width: width,
             groupType: 'circle',
             modes: {
                 default: ['drag-canvas', 'zoom-canvas'],
-                view: [],
-                edit: ['click-add-node', 'click-select'],
+                addNode: ['addNode', 'click-select'],
+                canvasMove: ['canvasMove', 'drag-canvas']
+            },
+            nodeStateStyles: {
+                selected: {
+                    fill: '#FFCC80',
+                    linkPoints: {
+                        lineWidth: 20,
+                    }
+                }
             },
             defaultNode: {
+                type: 'circle',
                 linkPoints: {
                     top: true,
                     bottom: true,
@@ -77,41 +138,25 @@ export default {
                 }
             },
             defaultEdge: {
-                type: 'flow-polyline-round'
+                type: 'polyline'
             }
         });
     },
     methods: {
-        onAddItem() {
-            const data = {
-                nodes: [
-                    {
-                        size: 100,
-                        x: 300,
-                        y: 300,
-                        type: 'circle',
-                        label: 'circle'
-                    },
-                    {
-                        width: 100,
-                        height: 50,
-                        x: 110,
-                        y: 110,
-                        type: 'rect',
-                        label: 'circle'
-                    },
-                    {
-                        width: 100,
-                        height: 50,
-                        x: 110,
-                        y: 250,
-                        type: 'ellipse',
-                        label: 'circle'
-                    }
-                ]
-            };
-            this.graph.data(data);
-            this.graph.render();
+        onAddItem(item) {
+            if(this.currentItem) {
+                this.graph.setItemState(this.currentItem, 'selected', false);
+            }
+            this.currentItem = this.graph.addItem('node', {
+                x: 0,
+                y: 0,
+                size: item.size,
+                type: item.type,
+                id: `node_${this.addedCount}` // 生成唯一的 id
+            });
+            this.addedCount++;
+            this.addConfirm = false;
+            this.graph.setMode('addNode');
         },
         onEdit() {
             this.graph.setMode('edit');
@@ -122,19 +167,30 @@ export default {
 </script>
 <style lang="scss">
 .flowchart {
-    padding: 20px;
-    .page_title {
-        font-size: 25px;
-        text-align: center;
-        margin-bottom: 48px;
-        .min_title {
-            font-size: 13px;
+	padding: 20px;
+	.page_title {
+		font-size: 25px;
+		text-align: center;
+		margin-bottom: 48px;
+		.min_title {
+			font-size: 13px;
+		}
+	}
+    .Graph {
+        canvas {
+            border:1px solid #eeeeee
+        }
+        .icon_panel {
+            position: absolute;
+            left: 30px;
+            top: -50px;
+            padding: 35px 45px;
         }
     }
 }
 .minimap {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 </style>
