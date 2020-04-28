@@ -104,7 +104,8 @@
                     <v-icon v-if="!miniVariant">mdi-drag</v-icon>
 					<v-icon v-else>mdi-drag-horizontal</v-icon>
 				</v-btn>
-                <v-btn small text disabled>{{pageTitle}}</v-btn>
+                <!-- <v-btn small text disabled></v-btn> -->
+                <v-toolbar-title style="text-transform: capitalize;">{{pageTitle}}</v-toolbar-title>
 				<v-spacer></v-spacer>
                 <v-badge
                     content="9"

@@ -12,10 +12,12 @@ export default new Vuetify({
         iconfont: 'mdi',
     },
     theme: {
+        dark: true,
         themes: {
             light: {
                 primary: '#4CAF50'
             },
+
         },
     },
     lang: {
