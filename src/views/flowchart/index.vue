@@ -1,35 +1,35 @@
 <template>
-    <div class="flowchart">
-        <div class="page_title">
-            AntV G6 Graph visualization engine
-            <div class="min_title">
-                Please checkout the full
-                <a href="https://g6.antv.vision/zh" target="_black"
-                    >documentation</a
-                >
-            </div>
-        </div>
-        <v-card id="Graph" class="Graph" ref="Graph">
-            <v-card color="primary" class="icon_panel" dark>
-                <v-icon x-large>mdi-vector-triangle</v-icon>
-            </v-card>
-            <v-card-title style="padding-left: 180px"
-                >Simple Flow Editor</v-card-title
-            >
-            <v-card-actions>
-                <v-btn @click="onSave" ><v-icon>mdi-plus</v-icon> save</v-btn>
-                <v-spacer></v-spacer>
-                <v-btn
-                    v-for="item in nodes"
-                    :key="item.type"
-                    @click="onAddItem(item)"
-                    :color="item.color"
-                    dark
-                    ><v-icon>mdi-plus</v-icon> {{ item.type }}</v-btn
-                >
-            </v-card-actions>
-        </v-card>
-    </div>
+	<div class="flowchart">
+		<div class="page_title">
+			AntV G6 Graph visualization engine
+			<div class="min_title">
+				Please checkout the full
+				<a href="https://g6.antv.vision/zh" target="_black"
+					>documentation</a
+				>
+			</div>
+		</div>
+		<v-card id="Graph" class="Graph" ref="Graph" :class="{isAddEdge: isAddEdge}">
+			<v-card color="primary" class="icon_panel" dark>
+				<v-icon x-large>mdi-vector-triangle</v-icon>
+			</v-card>
+			<v-card-title style="padding-left: 180px"
+				>Simple Flow Editor</v-card-title
+			>
+			<v-card-actions>
+				<v-btn
+					v-for="item in nodes"
+					:key="item.type"
+					@click="onAddItem(item)"
+					:color="item.color"
+					dark
+					><v-icon>mdi-plus</v-icon> {{ item.type }}</v-btn
+				>
+				<v-spacer></v-spacer>
+				<v-btn @click="onSave"><v-icon>mdi-plus</v-icon> save</v-btn>
+			</v-card-actions>
+		</v-card>
+	</div>
 </template>
 <script>
 import G6 from '@antv/g6/lib';
@@ -43,6 +43,7 @@ export default {
             currentItem: null, // 当前节点实例
             currentEdge: null, // 当前边线实例
             graph: null,
+            isAddEdge: false,
             nodes: [
                 {
                     type: 'circle',
@@ -93,26 +94,15 @@ export default {
                 });
             }
         });
+
+        // 根据鼠标所在的节点位置判断modes
         G6.registerBehavior('nodeMove', {
             getEvents: () => {
                 return {
-                    'node:click': 'onClick',
                     'mousemove': 'mousemove',
                     'node:mousemove': 'nodeMousemove',
                     'node:mousedown': 'nodeMousedown'
                 };
-            },
-            onClick: (e) => {
-                const { item } = e;
-                if (this.currentItem) {
-                    this.graph.setItemState(
-                        this.currentItem,
-                        'selected',
-                        false
-                    );
-                }
-                this.currentItem = item;
-                this.graph.setItemState(item, 'selected', true);
             },
             mousemove: (ev) => {
                 const point = {
@@ -125,66 +115,63 @@ export default {
                     });
                 }
             },
-            nodeMousemove: () => {},
+            nodeMousemove: (e) => {
+                this.checkNodePoint(e, 'move');
+            },
             nodeMousedown: (e) => {
-                const { canvasX, canvasY } = e;
-                const { x, y, width, height } = e.item.getBBox();
-                // console.log(type, canvasX, canvasY, x, y, width, height);
-                // 5是四个小圆点的宽高
-                if (
-                    canvasX >= x + width / 2 - 5 &&
-                    canvasX <= x + width / 2 + 5 &&
-                    canvasY >= y &&
-                    canvasY <= y + 5
-                ) {
-                    // console.log('上 1');
-                    this.onAddEdge(e, 1);
-                } else if (
-                    canvasX >= x - 5 &&
-                    canvasX <= x + 5 &&
-                    canvasY >= y + height / 2 - 5 &&
-                    canvasY <= y + height / 2 + 5
-                ) {
-                    // console.log('左 0');
-                    this.onAddEdge(e, 0);
-                } else if (
-                    canvasX >= x + width / 2 - 5 &&
-                    canvasX <= x + width / 2 + 5 &&
-                    canvasY >= y + height - 5 &&
-                    canvasY <= y + height + 5
-                ) {
-                    // console.log('下 3');
-                    this.onAddEdge(e, 3);
-                } else if (
-                    canvasX >= x + width - 5 &&
-                    canvasX <= x + width + 5 &&
-                    canvasY >= y + height / 2 - 5 &&
-                    canvasY <= y + height / 2 + 5
-                ) {
-                    // console.log('右边 2');
-                    this.onAddEdge(e, 2);
+                this.checkNodePoint(e, 'down');
+            }
+        });
+
+        // 节点按下鼠标 && 拖动 && 抬起动作
+        G6.registerBehavior('nodeDrag', {
+            getEvents: () => {
+                return {
+                    drag: 'mousemove',
+                    dragend: 'mouseup'
+                };
+            },
+            mousemove: (e) => {
+                if (this.addConfirm) {
+                    return;
                 }
+                this.currentItem.update({
+                    x: e.canvasX,
+                    y: e.canvasY
+                });
+            },
+            mouseup: () => {
+                this.addConfirm = true;
+                if(this.currentItem) {
+                    this.currentItem.getEdges().map((item) => {
+                        item.refresh();
+                    });
+                }
+                setTimeout(() => {
+                    this.graph.setMode('nodeMove');
+                }, 200);
             }
         });
 
         this.graph = new G6.Graph({
             plugins: [],
             container: 'Graph',
-            height: 560,
+            height: 650,
             width: width,
             groupType: 'circle',
             modes: {
-                default: ['drag-canvas', 'zoom-canvas'],
-                addNode: ['addNode', 'click-select'],
-                nodeMove: ['nodeMove', 'drag-canvas']
-            },
-            nodeStateStyles: {
-                selected: {
-                    fill: '#FFCC80'
-                }
+                default: ['drag-canvas', 'zoom-canvas'], // 默认
+                addNode: ['addNode', 'click-select'], // 增加节点
+                addEdge: ['addEdge', 'click-select'], // 增加线节点
+                nodeMove: ['nodeMove', 'drag-canvas'], // 鼠标移入节点
+                nodeDrag: ['nodeDrag', 'drag-nodes'], // 拖动
+
             },
             defaultNode: {
                 type: 'circle',
+                style: {
+                    cursor: 'move'
+                },
                 linkPoints: {
                     top: true,
                     bottom: true,
@@ -201,17 +188,75 @@ export default {
                 ]
             },
             defaultEdge: {
-                type: 'polyline',
-                // type: 'cubic-horizontal',
+                // type: 'polyline',
+                type: 'cubic-horizontal',
                 style: {
                     lineWidth: 2,
-                    endArrow: true,
-                    startArrow: true
+                    endArrow: true
                 }
             }
         });
     },
     methods: {
+        checkNodePoint(e, type) {
+            const { canvasX, canvasY } = e;
+            const { x, y, width, height } = e.item.getBBox();
+            // 5是四个小圆点的宽高
+            if (
+                canvasX >= x + width / 2 - 5 &&
+				canvasX <= x + width / 2 + 5 &&
+				canvasY >= y &&
+				canvasY <= y + 5
+            ) {
+                // console.log('上 1');
+                type === 'move' ? null : this.onAddEdge(e, 1);
+            } else if (
+                canvasX >= x - 5 &&
+				canvasX <= x + 5 &&
+				canvasY >= y + height / 2 - 5 &&
+				canvasY <= y + height / 2 + 5
+            ) {
+                // console.log('左 0');
+                type === 'move' ? null : this.onAddEdge(e, 0);
+            } else if (
+                canvasX >= x + width / 2 - 5 &&
+				canvasX <= x + width / 2 + 5 &&
+				canvasY >= y + height - 5 &&
+				canvasY <= y + height + 5
+            ) {
+                // console.log('下 3');
+                type === 'move' ? null : this.onAddEdge(e, 3);
+            } else if (
+                canvasX >= x + width - 5 &&
+				canvasX <= x + width + 5 &&
+				canvasY >= y + height / 2 - 5 &&
+				canvasY <= y + height / 2 + 5
+            ) {
+                // console.log('右边 2');
+                type === 'move' ? null : this.onAddEdge(e, 2);
+            }else {
+                // console.log('进入可拖拽状态');
+                // if(type === 'move') {
+                //     this.isAddEdge = false;
+                // }
+                if(type === 'down') {
+                    this.currentItem = e.item;
+                    this.addConfirm = false;
+                    this.graph.setMode('nodeDrag');
+                }
+            }
+        },
+        onSetModeOfAddEdge() {
+            // this.isAddEdge = true;
+            // console.log(startArrow);
+        },
+        onSetNodeCursor(e, cursor) {
+            this.graph.updateItem(e.item, {
+                style: {
+                    cursor
+                }
+            });
+        },
         onSave() {
             console.log(this.graph.save());
         },
@@ -242,21 +287,22 @@ export default {
             } else {
                 this.currentEdge = graph.addItem('edge', {
                     source: model.id,
-                    target: point, 
+                    target: point,
                     sourceAnchor
                 });
                 this.addingEdge = true;
             }
         },
         onAddItem(item) {
-            if (this.currentItem) {
-                this.graph.setItemState(this.currentItem, 'selected', false);
-            }
+            // if (this.currentItem) {
+            //     this.graph.setItemState(this.currentItem, 'selected', false);
+            // }
             this.currentItem = this.graph.addItem('node', {
                 x: 0,
                 y: 0,
                 size: item.size,
                 type: item.type,
+                label: item.type,
                 id: `node_${this.addedCount}` // 生成唯一的 id
             });
             this.addedCount++;
@@ -272,30 +318,39 @@ export default {
 </script>
 <style lang="scss">
 .flowchart {
-    padding: 20px;
-    .page_title {
-        font-size: 25px;
-        text-align: center;
-        margin-bottom: 48px;
-        .min_title {
-            font-size: 13px;
-        }
-    }
-    .Graph {
+	padding: 20px;
+	.page_title {
+		font-size: 25px;
+		text-align: center;
+		margin-bottom: 48px;
+		.min_title {
+			font-size: 13px;
+		}
+	}
+	.v-card__actions {
+		width: 100%;
+		position: absolute;
+		top: 64px;
+		left: 0;
+	}
+	.Graph {
         canvas {
-            border: 1px solid #eeeeee;
+            cursor: grab;
         }
-        .icon_panel {
-            position: absolute;
-            left: 30px;
-            top: -50px;
-            padding: 35px 45px;
-        }
+		.icon_panel {
+			position: absolute;
+			left: 30px;
+			top: -50px;
+			padding: 35px 45px;
+		}
+	}
+    .isAddEdge {
+        cursor: pointer;
     }
 }
 .minimap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 </style>
