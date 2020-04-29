@@ -70,6 +70,14 @@ export default {
     },
     mounted() {
         const width = this.$refs['Graph'].$el.clientWidth;
+        const minimap = new G6.Minimap({
+            size: [100, 100],
+            animate: true, 
+            className: 'minimap',
+            type: 'delegate',
+        });
+        // 实例化 grid 插件
+        const grid = new G6.Grid();
         // 增加节点
         G6.registerBehavior('addNode', {
             getEvents: () => {
@@ -139,24 +147,26 @@ export default {
                     x: e.canvasX,
                     y: e.canvasY
                 });
+                this.currentItem.getEdges().map((item) => {
+                    item.refresh();
+                });
             },
             mouseup: () => {
                 this.addConfirm = true;
-                if(this.currentItem) {
-                    this.currentItem.getEdges().map((item) => {
-                        item.refresh();
-                    });
-                }
+                // if(this.currentItem) {
+                //     this.currentItem.getEdges().map((item) => {
+                //         item.refresh();
+                //     });
+                // }
                 setTimeout(() => {
                     this.graph.setMode('nodeMove');
                 }, 200);
             }
         });
-
-        this.graph = new G6.Graph({
-            plugins: [],
+        
+        this.graph = new G6.Graph({            
             container: 'Graph',
-            height: 650,
+            height: 650,            
             width: width,
             groupType: 'circle',
             modes: {
@@ -188,13 +198,16 @@ export default {
                 ]
             },
             defaultEdge: {
-                // type: 'polyline',
-                type: 'cubic-horizontal',
+                type: 'polyline',
+                // type: 'cubic-horizontal',
                 style: {
+                    radius: 10,
+                    offset: 30,
                     lineWidth: 2,
                     endArrow: true
                 }
-            }
+            },
+            plugins: [minimap, grid]
         });
     },
     methods: {

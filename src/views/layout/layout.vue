@@ -296,9 +296,11 @@ export default {
         tmlx() {
             this.$store.commit('handleChangeYmlmlh');
         },
-        handleChangeColor(color, key) {
+        handleChangeColor(color, key) {            
             this.$vuetify.theme.themes.light.primary = color;
             this.$store.commit('handleSetColor', key);
+            this.$vuetify.theme.dark = false;
+            this.$store.commit('handleDarkMode', false);
         },
         handleCutover(val) {
             this.$i18n.locale = val;
