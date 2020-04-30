@@ -72,7 +72,7 @@ export default {
         const width = this.$refs['Graph'].$el.clientWidth;
         const minimap = new G6.Minimap({
             size: [100, 100],
-            animate: true, 
+            animate: true,
             className: 'minimap',
             type: 'delegate',
         });
@@ -108,7 +108,7 @@ export default {
             getEvents: () => {
                 return {
                     'mousemove': 'mousemove',
-                    'node:mousemove': 'nodeMousemove',
+                    // 'node:mousemove': 'nodeMousemove',
                     'node:mousedown': 'nodeMousedown'
                 };
             },
@@ -123,9 +123,9 @@ export default {
                     });
                 }
             },
-            nodeMousemove: (e) => {
-                this.checkNodePoint(e, 'move');
-            },
+            // nodeMousemove: (e) => {
+            //     this.checkNodePoint(e, 'move');
+            // },
             nodeMousedown: (e) => {
                 this.checkNodePoint(e, 'down');
             }
@@ -163,10 +163,10 @@ export default {
                 }, 200);
             }
         });
-        
-        this.graph = new G6.Graph({            
+
+        this.graph = new G6.Graph({
             container: 'Graph',
-            height: 650,            
+            height: 650,
             width: width,
             groupType: 'circle',
             modes: {
@@ -211,6 +211,7 @@ export default {
         });
     },
     methods: {
+        // 获取鼠标点下所在节点的位置
         checkNodePoint(e, type) {
             const { canvasX, canvasY } = e;
             const { x, y, width, height } = e.item.getBBox();
@@ -252,7 +253,9 @@ export default {
                 // if(type === 'move') {
                 //     this.isAddEdge = false;
                 // }
-                if(type === 'down') {
+                if(this.addingEdge && type === 'down') {
+                    return;
+                }else {
                     this.currentItem = e.item;
                     this.addConfirm = false;
                     this.graph.setMode('nodeDrag');
