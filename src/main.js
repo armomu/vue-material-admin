@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
 import store from './plugins/store';
-import router from './plugins/router';
-import './plugins/router/auth';
+import router from './router';
+import './router/auth';
 import VueAMap from 'vue-amap';
 import vuetify from './plugins/vuetify';
 import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
 
-import '../src/assets/style/index.scss';
+import '../src/styles/index.scss';
 
 Vue.use(VCharts);
 Vue.use(VueAMap);

@@ -1,5 +1,5 @@
 import router from './index';
-import store from '../store';
+import store from '../plugins/store';
 const whiteList = ['/login', '/authredirect'];// 免登录白名单
 
 router.beforeEach((to, from, next) => {
@@ -9,7 +9,6 @@ router.beforeEach((to, from, next) => {
             next('/');
         }
         next();
-
     } else {
         if (whiteList.indexOf(to.path) !== -1) {
             next();

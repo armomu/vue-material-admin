@@ -41,12 +41,12 @@
 			<v-list nav class="py-0" style="margin-top: 20px">
                 <template
                     v-for="(item, index) in menus"
-                >
-                    <template v-if="item.children">
-                        <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" active-class="v_list_group_active" :value="loadPaths.includes(item.name)">
+                >   
+                    <template v-if="item.visible && item.children && item.children.length > 1 ">
+                        <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" active-class="v_list_group_active" :value="checkMenuGroupValue(item.path)">
                             <template v-slot:activator>
                                 <v-list-item-content>
-                                    <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
+                                    <v-list-item-title>{{$t("header." + item.meta.title)}}</v-list-item-title>
                                 </v-list-item-content>
                             </template>
                             <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }" active-class="primary">
@@ -59,23 +59,18 @@
                             </v-list-item>
                         </v-list-group>
                     </template>
-                    <v-list-item v-else :key="index" :to="{ name: item.name }" active-class="primary">
-                        <v-list-item-icon>
-                            <v-icon>{{item.meta.icon}}</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>{{$t("header." + item.name)}}</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
+                    <template v-else>
+                        <v-list-item v-if="item.visible" :key="index" :to="{ path: item.path }" active-class="primary">
+                            <v-list-item-icon>
+                                <v-icon>{{item.meta.icon}}</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>{{$t("header." + item.meta.title)}}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </template>
                 </template>
-                <v-list-item :to="{ name: 'login' }" >
-                    <v-list-item-icon>
-                        <v-icon>mdi-fingerprint</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>Login Page</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                
 			</v-list>
 		</v-navigation-drawer>
     <!--菜单结束-->
@@ -131,7 +126,7 @@
                 <v-btn text @click="fullScreen" class="min_hide">
 					<v-icon>mdi-arrow-expand-all</v-icon>
 				</v-btn>
-                <v-menu bottom :close-on-content-click="false">
+                <v-menu bottom :close-on-content-click="false" :offset-y="true">
                     <template v-slot:activator="{ on }">
                         <v-btn
                             text
@@ -146,6 +141,7 @@
                             <template v-for="(item, key) in colors">
                                 <v-list-item
                                     :key="key + 2"
+                                    :class="{'v-list-item--active': item.active}"
                                     @click="handleChangeColor(item.color, key)"
                                 >
                                     <v-list-item-avatar :color="item.color" :size='25'>
@@ -240,17 +236,18 @@ export default {
         },
         menus() {
             const { options } = this.$router;
-            return options.routes[0].children.map((item) => {
-                item['active'] = false;
-                return item;
-            });
+            // return options.routes[0].children.map((item) => {
+            //     item['active'] = false;
+            //     return item;
+            // });
+            return options.routes;
         },
         colors() {
             return this.$store.state.colors;
         }
     },
-    created() {
-        // console.log(this.$route);
+    created() {      
+        console.log(this.$route);
         // axios.request({
         //     url: '/news',
         //     method: 'get',
@@ -264,6 +261,13 @@ export default {
         onDarkModeChange(val) {
             this.$vuetify.theme.dark = val;
             this.$store.commit('handleDarkMode', val);
+        },
+        checkMenuGroupValue(path) {
+            const arr = path.split('/');
+            if(!arr[1]) {
+                return false;
+            }
+            return this.loadPaths.includes(arr[1]);
         },
         handleMenuDrawer() {
             this.menuDrawer = !this.menuDrawer;

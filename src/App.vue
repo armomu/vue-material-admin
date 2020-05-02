@@ -10,6 +10,9 @@ export default {
         // if (dom) {
         //     dom.remove();
         // }
+    },
+    created() {
+        console.log(this.$router);
     }
 };
 </script>

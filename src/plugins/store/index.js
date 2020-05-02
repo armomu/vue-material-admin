@@ -15,12 +15,12 @@ export default new Vuex.Store({
             {
                 name: 'green',
                 color: '#4CAF50',
-                active: true
+                active: false
             },
             {
                 name: 'pink',
                 color: '#E91E63',
-                active: true
+                active: false
             },
             {
                 name: 'navy',
