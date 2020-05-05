@@ -152,7 +152,7 @@
                                 </v-list-item>
                             </template>
                         </v-list>
-                        <v-subheader>Language Option</v-subheader>
+                        <v-subheader>Language</v-subheader>
                         <v-radio-group
                             v-model="Language"
                             @change="handleCutover"
@@ -165,7 +165,7 @@
                                 color="primary"
                             ></v-radio>
                         </v-radio-group>
-                        <v-subheader>Dark Mode Option</v-subheader>
+                        <v-subheader>Dark Mode</v-subheader>
                         <v-switch v-model="darkMode" @change="onDarkModeChange" :label="darkMode+''" style="margin-left: 20px" ></v-switch>
 
                     </v-card>
