@@ -14,12 +14,13 @@
 ## 预览地址
 
 + [http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
-+ Angular 版 [http://chenhuajie.gitee.io/ng-material-admin/](http://chenhuajie.gitee.io/ng-material-admin/)
 
 ## 截图
 
 ![home](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/vue-material-admin.png)
 ![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/login.png)
+![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/lct.png)
+![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/amap.png)
 
 
 ## 开发 && 打包
