@@ -15,6 +15,7 @@ Vue.use(VueAMap);
 
 VueAMap.initAMapApiLoader({
     key: '527a03c5d37f26c924d83b3c68f9ac5c',
+    mapStyle: 'amap://styles/3822977fb93c74793f501b1f6cc7bf9b',
     plugin: ['MarkerClusterer', 'AMap.ControlBar']
 });
 

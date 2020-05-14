@@ -102,17 +102,61 @@
                 <!-- <v-btn small text disabled></v-btn> -->
                 <v-toolbar-title style="text-transform: capitalize;">{{pageTitle}}</v-toolbar-title>
 				<v-spacer></v-spacer>
-                <v-badge
-                    content="9"
-                    value="9"
-                    :offset-x="30"
-                    :offset-y="20"
-                    overlap
+                <v-menu
+                    v-model="noticeVisible"
+                    :close-on-content-click="false"
+                    max-width="280px"
+                    offset-y
+                    open-on-hover
                 >
-                    <v-btn text>
-                        <v-icon>mdi-bell</v-icon>
-                    </v-btn>
-                </v-badge>
+                    <template v-slot:activator="{ on }">
+                        <v-badge
+                            content="9"
+                            value="9"
+                            :offset-x="30"
+                            :offset-y="20"
+                            overlap
+                        >
+                            <v-btn text v-on="on">
+                                <v-icon>mdi-bell</v-icon>
+                            </v-btn>
+                        </v-badge>
+                    </template>
+
+                    <v-card>
+                        <v-list three-line>
+                            <template v-for="(item, index) in items">
+                                <v-subheader
+                                    v-if="item.header"
+                                    :key="item.header"
+                                    v-text="item.header"
+                                ></v-subheader>
+                                <v-divider
+                                    v-else-if="item.divider"
+                                    :key="index"
+                                    :inset="item.inset"
+                                ></v-divider>
+                                <v-list-item
+                                    v-else
+                                    :key="item.title"
+                                >
+                                <v-list-item-avatar>
+                                    <v-img :src="item.avatar"></v-img>
+                                </v-list-item-avatar>
+                                <v-list-item-content>
+                                    <v-list-item-title v-html="item.title"></v-list-item-title>
+                                    <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                                </v-list-item-content>
+                                </v-list-item>
+                            </template>
+                        </v-list>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" text @click="noticeVisible = false">Clear</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-menu>   
 				<v-btn
 					text
 					target="_blank"
@@ -126,7 +170,7 @@
                 <v-btn text @click="fullScreen" class="min_hide">
 					<v-icon>mdi-arrow-expand-all</v-icon>
 				</v-btn>
-                <v-menu bottom :close-on-content-click="false" :offset-y="true">
+                <v-menu bottom :close-on-content-click="false" :offset-y="true" open-on-hover>
                     <template v-slot:activator="{ on }">
                         <v-btn
                             text
@@ -190,6 +234,7 @@ export default {
         return {
             menuDrawer: true,
             expandOnHover: false,
+            noticeVisible: false,
             bg: {
                 'src':
 					'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
@@ -213,6 +258,20 @@ export default {
                 ['Read', 'insert_drive_file'],
                 ['Update', 'update'],
                 ['Delete', 'delete'],
+            ],
+            items: [
+                { header: 'Today' },
+                {
+                    avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+                    title: 'Birthday gift',
+                    subtitle: '<span class=\'text--primary\'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+                },
+                { divider: true, inset: true },
+                {
+                    avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+                    title: 'Recipe to try',
+                    subtitle: '<span class=\'text--primary\'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+                },
             ],
         };
     },

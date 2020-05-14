@@ -38,8 +38,7 @@ export default {
             events: {
                 init: (amp) => {
                     setTimeout(() => {
-                        console.log(self.markerRefs);
-                        let cluster = new AMap.MarkerClusterer(
+                        new AMap.MarkerClusterer(
                             amp,
                             self.markerRefs,
                             {
@@ -47,8 +46,7 @@ export default {
                                 renderCluserMarker: self._renderCluserMarker
                             }
                         );
-                        console.log(cluster);
-                    }, 1000);
+                    }, 100);
                 }
             }
         };
@@ -89,7 +87,6 @@ export default {
     },
     mounted() {
         setTimeout(() => {
-            console.log(this.map.getCenter());
             if (this.darkMode) {
                 this.map.setMapStyle(
                     'amap://styles/92b032a559e7a161c4fc47ffc02e6991'
@@ -99,7 +96,7 @@ export default {
                     'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
                 );
             }
-        }, 2000);
+        }, 200);
     },
     methods: {
         _renderCluserMarker(context) {

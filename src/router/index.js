@@ -68,12 +68,12 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/index.vue')
                 },
                 {
-                    path: 'star',
+                    path: 'table',
                     name: 'starTask',
                     title: '星标任务',
                     meta: {
-                        title: 'star',
-                        icon: 'mdi-alpha-s',
+                        title: 'table',
+                        icon: 'mdi-alpha-t',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "starTask" */ '@/views/task/star.vue')
