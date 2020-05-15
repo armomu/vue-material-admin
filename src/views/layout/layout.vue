@@ -41,7 +41,7 @@
 			<v-list nav class="py-0" style="margin-top: 20px">
                 <template
                     v-for="(item, index) in menus"
-                >   
+                >
                     <template v-if="item.visible && item.children && item.children.length > 1 ">
                         <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" active-class="v_list_group_active" :value="checkMenuGroupValue(item.path)">
                             <template v-slot:activator>
@@ -70,7 +70,7 @@
                         </v-list-item>
                     </template>
                 </template>
-                
+
 			</v-list>
 		</v-navigation-drawer>
     <!--菜单结束-->
@@ -139,24 +139,25 @@
                                 <v-list-item
                                     v-else
                                     :key="item.title"
+                                    @click="()=>{}"
                                 >
-                                <v-list-item-avatar>
-                                    <v-img :src="item.avatar"></v-img>
-                                </v-list-item-avatar>
-                                <v-list-item-content>
-                                    <v-list-item-title v-html="item.title"></v-list-item-title>
-                                    <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
-                                </v-list-item-content>
+                                    <v-list-item-avatar>
+                                        <v-img :src="item.avatar"></v-img>
+                                    </v-list-item-avatar>
+                                    <v-list-item-content>
+                                        <v-list-item-title v-html="item.title"></v-list-item-title>
+                                        <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                                    </v-list-item-content>
                                 </v-list-item>
                             </template>
                         </v-list>
                         <v-divider></v-divider>
                         <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" text @click="noticeVisible = false">Clear</v-btn>
+                            <v-btn color="primary" text @click="noticeVisible = false">Clear</v-btn>
                         </v-card-actions>
                     </v-card>
-                </v-menu>   
+                </v-menu>
 				<v-btn
 					text
 					target="_blank"
@@ -305,7 +306,7 @@ export default {
             return this.$store.state.colors;
         }
     },
-    created() {      
+    created() {
         console.log(this.$route);
         // axios.request({
         //     url: '/news',
@@ -359,7 +360,7 @@ export default {
         tmlx() {
             this.$store.commit('handleChangeYmlmlh');
         },
-        handleChangeColor(color, key) {            
+        handleChangeColor(color, key) {
             this.$vuetify.theme.themes.light.primary = color;
             this.$store.commit('handleSetColor', key);
             this.$vuetify.theme.dark = false;

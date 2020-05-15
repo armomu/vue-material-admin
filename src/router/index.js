@@ -93,14 +93,14 @@ export default new Router({
             },
             children: [
                 {
-                    path: 'table',
-                    name: 'table',
+                    path: 'widget',
+                    name: 'widget',
                     meta: {
-                        title: 'table',
-                        icon: 'mdi-alpha-t',
+                        title: 'widget',
+                        icon: 'mdi-alpha-w',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "table" */ '@/views/component/table.vue')
+                    component: () => import(/* webpackChunkName: "table" */ '@/views/component/widget.vue')
                 },
                 {
                     path: 'charts',

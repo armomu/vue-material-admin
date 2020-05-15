@@ -15,7 +15,7 @@ export default new Vuex.Store({
             {
                 name: 'green',
                 color: '#4CAF50',
-                active: false
+                active: true
             },
             {
                 name: 'pink',
@@ -28,7 +28,7 @@ export default new Vuex.Store({
                 active: false
             }
         ],
-        darkMode: true
+        darkMode: false
     },
     mutations: {
         handleSignIn(state) {

@@ -12,14 +12,8 @@ body {
         height: 0;
     }
 }
-.v-card__actions {
-    padding: 16px;
-}
 .task_form {
     padding: 0 20px;
-}
-.v-dialog .v-card__actions {
-    padding: 20px !important;
 }
 @import "./keyframes.scss";
 @import "./dashboard.scss";

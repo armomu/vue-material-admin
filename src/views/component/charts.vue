@@ -8,6 +8,7 @@
                             <div class="title">Ve-histogram</div>
                         </div> -->
                         <v-card-title>Ve-histogram</v-card-title>
+                        <v-divider></v-divider>
                         <div class="item_content">
                             <div class="chart_wrap">
                                 <ve-histogram
@@ -20,6 +21,7 @@
                     </v-card>
                     <v-card class="r_card">
                         <v-card-title>Ve-line</v-card-title>
+                        <v-divider></v-divider>
                         <div class="item_content">
                             <div class="tool">
                                 <div class="t">
@@ -141,6 +143,7 @@
                         </div> -->
                     </div>
                     <v-card-title @click="handlePieBoxVisibleStatus">Visitors Analytics</v-card-title>
+                    <v-divider></v-divider>
                     <div class="item_content">
                         <!-- <p class="min_title">Consumption</p>
                         <div class="chart_header">
@@ -168,6 +171,7 @@
             <div class="camera_wrap" :class="{ reversal: reversal }">
                 <v-card class="r_card reversal_before">
                     <v-card-title>📹 Camera</v-card-title>
+                    <v-divider></v-divider>
                     <!-- <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
@@ -210,6 +214,7 @@
                 </v-card>
                 <v-card class="r_card reversal_after">
                     <v-card-title>📹 Camera</v-card-title>
+                    <v-divider></v-divider>
                     <!-- <div class="item_header">
                         <div class="title">📹 Camera</div>
                         <v-btn
@@ -235,6 +240,7 @@
             </div>
             <v-card class="r_card play_item">
                 <v-card-title>My Playlist</v-card-title>
+                <v-divider></v-divider>
                 <div class="item_content">
                     <div
                         class="image"

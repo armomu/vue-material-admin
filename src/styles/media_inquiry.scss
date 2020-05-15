@@ -100,7 +100,12 @@
         }
     }
 }
-
+@media screen and (max-width: 960px) {
+    .col-sm-12 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
 @media screen and (max-width: 650px) {
     .zwf {
         height: 56px;
@@ -123,5 +128,9 @@
                 }
             }
         }
+    }
+    .col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
