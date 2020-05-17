@@ -7,7 +7,7 @@ module.exports = {
         schedule: '日程',
         flies: '文件',
         map: '地图',
-        flowchart: '流程图',
+        flowchart: '流程图编辑器',
         login: '登录页'
     },
     task:{

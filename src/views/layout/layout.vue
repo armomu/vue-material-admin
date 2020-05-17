@@ -6,6 +6,7 @@
 			:mini-variant="miniVariant"
             disable-resize-watcher
             mini-variant-width="74"
+            class="menu_drawer"
 			absolute
 			dark
             style="z-index: 3;"
@@ -28,12 +29,12 @@
                 <v-divider></v-divider>-->
 				<v-list-item  @click="onAxios" style="margin-top:8px">
 					<v-list-item-avatar>
-						<img src="https://randomuser.me/api/portraits/men/81.jpg" />
+						<img :src="tx" />
 					</v-list-item-avatar>
 
 					<v-list-item-content>
-						<v-list-item-title>Groundhog</v-list-item-title>
-                        <v-list-item-subtitle >Huajie.Chen</v-list-item-subtitle>
+						<v-list-item-title  class="title">HuaJie.Chen</v-list-item-title>
+                        <v-list-item-subtitle>想想写点什么好...</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 				<!-- <v-divider></v-divider> -->
@@ -229,11 +230,12 @@
 	</div>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
     data() {
         return {
+            tx: require('../../assets/wx.png'),
             menuDrawer: true,
             expandOnHover: false,
             noticeVisible: false,
@@ -345,23 +347,24 @@ export default {
             this.miniVariant = !this.miniVariant;
         },
         onAxios() {
-            const data = {
-                title: this.name,
-                desc: this.desc
-            };
+            // const data = {
+            //     title: this.name,
+            //     desc: this.desc
+            // };
             // axios.get(url,AxiosRequestConfig).then((res) => {
             //     console.log(res);
             // });
-            const token = this.token;
-            axios.request({
-                url: '/news/create',
-                method: 'post',
-                baseURL: 'http://127.0.0.1:7001',
-                data: data,
-                headers: {
-                    'x-csrf-token': token
-                }
-            });
+            // const token = this.token;
+            // axios.request({
+            //     url: '/news/create',
+            //     method: 'post',
+            //     baseURL: 'http://127.0.0.1:7001',
+            //     data: data,
+            //     headers: {
+            //         'x-csrf-token': token
+            //     }
+            // });
+            window.open('https://github.com/Groundhog-Chen/vue-material-admin'); 
         },
         tmyx() {
             this.$store.commit('handleChangeMlmlh');

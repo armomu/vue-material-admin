@@ -102,6 +102,16 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "charts" */ '@/views/component/charts.vue')
                 },
                 {
+                    path: 'form',
+                    name: 'form',
+                    meta: {
+                        title: 'form',
+                        icon: 'mdi-alpha-f',
+                        keepAlive: false
+                    },
+                    component: () => import(/* webpackChunkName: "charts" */ '@/views/component/form.vue')
+                },
+                {
                     path: 'table',
                     name: 'starTask',
                     meta: {
@@ -143,7 +153,7 @@ export default new Router({
             visible: true,
             component: layout,
             meta: {
-                title: 'flowchart',
+                title: 'Flow Editor',
                 icon: 'mdi-vector-triangle',
                 keepAlive: false
             },
@@ -152,7 +162,7 @@ export default new Router({
                     path: '/flowchart',
                     name: 'flowchart',
                     meta: {
-                        title: 'flow chart',
+                        title: 'Flow Editor',
                         icon: 'mdi-vector-triangle',
                         keepAlive: false
                     },

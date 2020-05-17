@@ -21,7 +21,13 @@
             <v-card-title style="padding-left: 166px"
                 >Simple Flow Editor</v-card-title
             >
-            <v-card-actions class="Graph_actions">
+            <v-card-text class="mt-3">
+                操作说明（*切勿拖拽画布，如果动过节点第二次页面进入必须按F5刷新页面，这里有个bug）：
+                增加节点：点击一下下面带加号的按钮移动鼠标（不是拖拽/拖动鼠标）到画布中点击一下即可添加成功，添加连接边线：点击节点四个方向的小圆点画布上方出现删除按钮或者移动鼠标看到边线即表示
+                添加边线成功，移动鼠标（不是拖拽/拖动鼠标）至另外一个节点四个方向的小圆点点一下连接两个节点，删除节点/边线：点击节点/边线画布上方出现红色删除按钮点击即可删除，编辑：点击节点/边线选中右边出现相关编辑选项，
+                边线变换目标节点：双击边线移动鼠标重新选中即可。
+            </v-card-text>
+            <v-card-actions class="Graph_actions pl-5 pr-5">
                 <v-btn
                     v-for="item in nodes"
                     :key="item.type"
@@ -31,17 +37,28 @@
                     ><v-icon>mdi-plus</v-icon> {{ item.type }}</v-btn
                 >
 
-                <v-btn color="red" dark @click="onDelItem('dode')"  v-if="!addConfirm"
+                <v-btn
+                    color="red"
+                    dark
+                    @click="onDelItem('dode')"
+                    v-if="!addConfirm"
                     ><v-icon>mdi-delete</v-icon> Delete</v-btn
                 >
-                <v-btn color="red" dark @click="onDelItem('edge')" v-if="edgeEdit"
+                <v-btn
+                    color="red"
+                    dark
+                    @click="onDelItem('edge')"
+                    v-if="edgeEdit"
                     ><v-icon>mdi-delete</v-icon> Delete</v-btn
                 >
                 <v-spacer></v-spacer>
+                <v-btn @click="onAddData" color="primary">测试导出数据渲染流程图</v-btn>
+                <v-btn @click="onClear" color="primary">clear</v-btn>
                 <v-btn @click="onSave" color="primary"
                     ><v-icon>mdi-database</v-icon> View Data</v-btn
-                >                
+                >
             </v-card-actions>
+            <v-divider />
             <v-card class="label_wrap" v-if="!addConfirm">
                 <v-card-title>
                     Node
@@ -108,10 +125,10 @@ export default {
             currentItem: null,
             nodeOption: {
                 label: ''
-            }, 
+            },
             edgeOption: {
                 label: ''
-            }, 
+            },
             // 当前节点实例
             currentEdge: null, // 当前边线实例
             graph: null,
@@ -127,7 +144,7 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#FFEE58',
+                            fill: '#FFEE58'
                         }
                     }
                 },
@@ -140,7 +157,7 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#81D4FA',
+                            fill: '#81D4FA'
                         }
                     }
                 },
@@ -153,7 +170,7 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#80CBC4',
+                            fill: '#80CBC4'
                         }
                     }
                 },
@@ -166,7 +183,7 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#FFAB91',
+                            fill: '#FFAB91'
                         }
                     }
                 }
@@ -226,7 +243,7 @@ export default {
                     'edge:click': 'edgeclick',
                     'edge:dblclick': 'edgedblclick',
                     'node:mousedown': 'nodeMousedown',
-                    'drag': 'nodeDrag',
+                    'drag': 'nodeDrag'
                 };
             },
             // 增加边线鼠标移动
@@ -274,15 +291,25 @@ export default {
                 this.edgeEdit = true;
                 // TODO这个地方有点问题
                 try {
-                    this.currentItem && this.graph.setItemState(this.currentItem, 'selected', false);
-                    this.currentEdge && this.graph.setItemState(this.currentEdge, 'selected', false);
+                    this.currentItem &&
+                        this.graph.setItemState(
+                            this.currentItem,
+                            'selected',
+                            false
+                        );
+                    this.currentEdge &&
+                        this.graph.setItemState(
+                            this.currentEdge,
+                            'selected',
+                            false
+                        );
                     this.currentEdge && this.currentEdge.refresh();
                 } catch (err) {
                     console.log(err);
-                }                
+                }
                 this.currentEdge = e.item;
                 this.edgeOption.label = this.currentEdge.defaultCfg.model.label;
-                this.graph.setItemState(this.currentEdge, 'selected', true);                
+                this.graph.setItemState(this.currentEdge, 'selected', true);
             },
             // 边线双击
             edgedblclick: (e) => {
@@ -342,23 +369,16 @@ export default {
                 }, 200);
             }
         });
-        // 测试导出来的数据能重新放进去
-        const dataStr = '{"nodes":[{"x":151,"y":328,"size":100,"type":"circle","label":"开始","style":{"selected":{"fill":"#FFEE58"},"fill":"#FFF9C4","stroke":"#FBC02D"},"stateStyles":{"selected":{"fill":"#FFEE58"}},"id":"node_0","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":380,"y":328,"size":[100,60],"type":"rect","label":"审批","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_1","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":605,"y":328,"size":[100,60],"type":"ellipse","label":"ellipse","style":{"selected":{"fill":"#80CBC4"},"fill":"#B2DFDB","stroke":"#26A69A"},"stateStyles":{"selected":{"fill":"#80CBC4"}},"id":"node_2","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":859,"y":328,"size":[100,60],"type":"rect","label":"rect","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_3","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":604,"y":144,"size":100,"type":"diamond","label":"人事","style":{"selected":{"fill":"#FFAB91"},"fill":"#FFCCBC","stroke":"#FF7043"},"stateStyles":{"selected":{"fill":"#FFAB91"}},"id":"node_4","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":605,"y":513,"size":100,"type":"diamond","label":"厨房","style":{"selected":{"fill":"#FFAB91"},"fill":"#FFCCBC","stroke":"#FF7043"},"stateStyles":{"selected":{"fill":"#FFAB91"}},"id":"node_5","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":1105,"y":328,"size":100,"type":"circle","label":"circle","style":{"selected":{"fill":"#FFEE58"},"fill":"#FFF9C4","stroke":"#FBC02D"},"stateStyles":{"selected":{"fill":"#FFEE58"}},"id":"node_6","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]}],"edges":[{"source":"node_0","target":"node_1","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge17","startPoint":{"x":201.5,"y":328,"index":2,"id":"201.5-328"},"endPoint":{"x":329.5,"y":328,"index":0,"id":"329.5-328"},"targetAnchor":0},{"source":"node_1","target":"node_2","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge18","startPoint":{"x":430.5,"y":328,"index":2,"id":"430.5-328"},"endPoint":{"x":554.5,"y":328,"index":0,"id":"554.5-328"},"targetAnchor":0},{"source":"node_2","target":"node_3","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge19","startPoint":{"x":655.5,"y":328,"index":2,"id":"655.5-328"},"endPoint":{"x":808.5,"y":328,"index":0,"id":"808.5-328"},"targetAnchor":0},{"source":"node_3","target":"node_6","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge20","startPoint":{"x":909.5,"y":328,"index":2,"id":"909.5-328"},"endPoint":{"x":1054.5,"y":328,"index":0,"id":"1054.5-328"},"targetAnchor":0},{"source":"node_4","target":"node_1","sourceAnchor":0,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge21","startPoint":{"x":553.2928932188134,"y":144,"index":0,"id":"553.2928932188134-144"},"endPoint":{"x":380,"y":297.5,"index":1,"id":"380-297.5"},"targetAnchor":1},{"source":"node_5","target":"node_2","sourceAnchor":1,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge23","startPoint":{"x":605,"y":462.29289321881345,"index":1,"id":"605-462.29289321881345"},"endPoint":{"x":605,"y":358.5,"index":3,"id":"605-358.5"},"targetAnchor":3},{"source":"node_4","target":"node_2","sourceAnchor":3,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge24","startPoint":{"x":604,"y":194.70710678118655,"index":3,"id":"604-194.70710678118655"},"endPoint":{"x":605,"y":297.5,"index":1,"id":"605-297.5"},"targetAnchor":1},{"source":"node_4","target":"node_3","sourceAnchor":1,"type":"polyline","label":"奶茶","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge26","startPoint":{"x":604,"y":93.29289321881345,"index":1,"id":"604-93.29289321881345"},"endPoint":{"x":859,"y":297.5,"index":1,"id":"859-297.5"},"targetAnchor":1},{"source":"node_5","target":"node_3","sourceAnchor":3,"type":"polyline","label":"做饭","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge28","startPoint":{"x":605,"y":563.7071067811866,"index":3,"id":"605-563.7071067811866"},"endPoint":{"x":859,"y":358.5,"index":3,"id":"859-358.5"},"targetAnchor":3},{"source":"node_5","target":"node_1","sourceAnchor":0,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge29","startPoint":{"x":554.2928932188134,"y":513,"index":0,"id":"554.2928932188134-513"},"endPoint":{"x":380,"y":358.5,"index":3,"id":"380-358.5"},"targetAnchor":3},{"source":"node_5","target":"node_0","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge30","startPoint":{"x":655.7071067811866,"y":513,"index":2,"id":"655.7071067811866-513"},"endPoint":{"x":100.5,"y":328,"index":0,"id":"100.5-328"},"targetAnchor":0},{"source":"node_4","target":"node_0","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge31","startPoint":{"x":654.7071067811866,"y":144,"index":2,"id":"654.7071067811866-144"},"endPoint":{"x":100.5,"y":328,"index":0,"id":"100.5-328"},"targetAnchor":0},{"source":"node_0","target":"node_6","sourceAnchor":1,"type":"polyline","label":"label","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge32","startPoint":{"x":151,"y":277.5,"index":1,"id":"151-277.5"},"endPoint":{"x":1105,"y":277.5,"index":1,"id":"1105-277.5"},"targetAnchor":1},{"source":"node_6","target":"node_0","sourceAnchor":3,"type":"polyline","label":"labe;l","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge33","startPoint":{"x":1105,"y":378.5,"index":3,"id":"1105-378.5"},"endPoint":{"x":151,"y":378.5,"index":3,"id":"151-378.5"},"targetAnchor":3}],"groups":[]}';
-        const obj = JSON.parse(dataStr);
-        console.log(obj);
-        for(let i = 0; i< obj.nodes.length; i++) {
-            obj.nodes[i].linkPoints.size = 5;
-        }
         this.graph = new G6.Graph({
             container: 'Graph',
-            height: 650,
+            height: 580,
             width: width,
             groupType: 'circle',
             modes: {
                 default: ['nodeMove', 'drag-canvas'],
                 addNode: ['addNode', 'click-select'], // 增加节点
                 addEdge: ['addEdge', 'click-select'], // 增加线节点
-                nodeMove: ['nodeMove', 'drag-canvas'], // 鼠标移入节点
+                nodeMove: ['nodeMove', 'drag-canvas'] // 鼠标移入节点
                 // nodeDrag: ['nodeDrag', 'drag-nodes'] // 拖动
             },
             defaultNode: {
@@ -403,8 +423,6 @@ export default {
                 }
             }
         });
-        this.graph.data(obj);
-        this.graph.render();
     },
     methods: {
         // 获取鼠标点下所在节点的位置
@@ -451,18 +469,28 @@ export default {
                 // }
                 if (this.addingEdge && type === 'down') {
                     return;
-                } else {   
-                    // console.log(this.currentItem, this.currentEdge);    
-                    // TODO这个地方有点问题                               
+                } else {
+                    // console.log(this.currentItem, this.currentEdge);
+                    // TODO这个地方有点问题
                     try {
                         // 取消选中的状态
-                        this.currentItem && this.graph.setItemState(this.currentItem, 'selected', false);
-                        this.currentEdge && this.graph.setItemState(this.currentEdge, 'selected', false);
+                        this.currentItem &&
+                            this.graph.setItemState(
+                                this.currentItem,
+                                'selected',
+                                false
+                            );
+                        this.currentEdge &&
+                            this.graph.setItemState(
+                                this.currentEdge,
+                                'selected',
+                                false
+                            );
                         this.currentEdge && this.currentEdge.refresh();
                     } catch (err) {
                         console.log(err);
-                    }     
-                    // 获得当前选中的节点               
+                    }
+                    // 获得当前选中的节点
                     this.currentItem = e.item;
                     this.nodeOption.label = this.currentItem.defaultCfg.model.label;
                     this.addConfirm = false;
@@ -483,7 +511,8 @@ export default {
         },
         // 增加边线
         onAddEdge(ev, sourceAnchor) {
-            this.currentItem && this.graph.setItemState(this.currentItem, 'selected', false);
+            this.currentItem &&
+                this.graph.setItemState(this.currentItem, 'selected', false);
             const node = ev.item;
             const graph = this.graph;
             const point = {
@@ -498,7 +527,7 @@ export default {
                     targetAnchor: sourceAnchor
                 });
                 this.addingEdge = false;
-            } else {                
+            } else {
                 this.currentEdge = graph.addItem('edge', {
                     source: model.id,
                     target: point,
@@ -510,17 +539,16 @@ export default {
             }
         },
         onDelItem(type) {
-            if(type === 'edge') {
+            if (type === 'edge') {
                 this.graph.removeItem(this.currentEdge);
                 this.edgeEdit = false;
                 this.addingEdge = false;
                 this.currentEdge = null;
-            }else {
+            } else {
                 this.graph.removeItem(this.currentItem);
                 this.addConfirm = true;
                 this.currentItem = null;
             }
-            
         },
         onAddItem(item) {
             if (this.currentItem) {
@@ -559,6 +587,21 @@ export default {
             this.currentEdge.update({
                 label: val
             });
+        },
+        onAddData() {
+            // 测试导出来的数据能重新放进去
+            const dataStr =
+                '{"nodes":[{"x":151,"y":328,"size":100,"type":"circle","label":"开始","style":{"selected":{"fill":"#FFEE58"},"fill":"#FFF9C4","stroke":"#FBC02D"},"stateStyles":{"selected":{"fill":"#FFEE58"}},"id":"node_0","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":380,"y":328,"size":[100,60],"type":"rect","label":"审批","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_1","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":605,"y":328,"size":[100,60],"type":"ellipse","label":"ellipse","style":{"selected":{"fill":"#80CBC4"},"fill":"#B2DFDB","stroke":"#26A69A"},"stateStyles":{"selected":{"fill":"#80CBC4"}},"id":"node_2","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":859,"y":328,"size":[100,60],"type":"rect","label":"rect","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_3","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":604,"y":144,"size":100,"type":"diamond","label":"人事","style":{"selected":{"fill":"#FFAB91"},"fill":"#FFCCBC","stroke":"#FF7043"},"stateStyles":{"selected":{"fill":"#FFAB91"}},"id":"node_4","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":605,"y":513,"size":100,"type":"diamond","label":"厨房","style":{"selected":{"fill":"#FFAB91"},"fill":"#FFCCBC","stroke":"#FF7043"},"stateStyles":{"selected":{"fill":"#FFAB91"}},"id":"node_5","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":1105,"y":328,"size":100,"type":"circle","label":"circle","style":{"selected":{"fill":"#FFEE58"},"fill":"#FFF9C4","stroke":"#FBC02D"},"stateStyles":{"selected":{"fill":"#FFEE58"}},"id":"node_6","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]}],"edges":[{"source":"node_0","target":"node_1","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge17","startPoint":{"x":201.5,"y":328,"index":2,"id":"201.5-328"},"endPoint":{"x":329.5,"y":328,"index":0,"id":"329.5-328"},"targetAnchor":0},{"source":"node_1","target":"node_2","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge18","startPoint":{"x":430.5,"y":328,"index":2,"id":"430.5-328"},"endPoint":{"x":554.5,"y":328,"index":0,"id":"554.5-328"},"targetAnchor":0},{"source":"node_2","target":"node_3","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge19","startPoint":{"x":655.5,"y":328,"index":2,"id":"655.5-328"},"endPoint":{"x":808.5,"y":328,"index":0,"id":"808.5-328"},"targetAnchor":0},{"source":"node_3","target":"node_6","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge20","startPoint":{"x":909.5,"y":328,"index":2,"id":"909.5-328"},"endPoint":{"x":1054.5,"y":328,"index":0,"id":"1054.5-328"},"targetAnchor":0},{"source":"node_4","target":"node_1","sourceAnchor":0,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge21","startPoint":{"x":553.2928932188134,"y":144,"index":0,"id":"553.2928932188134-144"},"endPoint":{"x":380,"y":297.5,"index":1,"id":"380-297.5"},"targetAnchor":1},{"source":"node_5","target":"node_2","sourceAnchor":1,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge23","startPoint":{"x":605,"y":462.29289321881345,"index":1,"id":"605-462.29289321881345"},"endPoint":{"x":605,"y":358.5,"index":3,"id":"605-358.5"},"targetAnchor":3},{"source":"node_4","target":"node_2","sourceAnchor":3,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge24","startPoint":{"x":604,"y":194.70710678118655,"index":3,"id":"604-194.70710678118655"},"endPoint":{"x":605,"y":297.5,"index":1,"id":"605-297.5"},"targetAnchor":1},{"source":"node_4","target":"node_3","sourceAnchor":1,"type":"polyline","label":"奶茶","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge26","startPoint":{"x":604,"y":93.29289321881345,"index":1,"id":"604-93.29289321881345"},"endPoint":{"x":859,"y":297.5,"index":1,"id":"859-297.5"},"targetAnchor":1},{"source":"node_5","target":"node_3","sourceAnchor":3,"type":"polyline","label":"做饭","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge28","startPoint":{"x":605,"y":563.7071067811866,"index":3,"id":"605-563.7071067811866"},"endPoint":{"x":859,"y":358.5,"index":3,"id":"859-358.5"},"targetAnchor":3},{"source":"node_5","target":"node_1","sourceAnchor":0,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge29","startPoint":{"x":554.2928932188134,"y":513,"index":0,"id":"554.2928932188134-513"},"endPoint":{"x":380,"y":358.5,"index":3,"id":"380-358.5"},"targetAnchor":3},{"source":"node_5","target":"node_0","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge30","startPoint":{"x":655.7071067811866,"y":513,"index":2,"id":"655.7071067811866-513"},"endPoint":{"x":100.5,"y":328,"index":0,"id":"100.5-328"},"targetAnchor":0},{"source":"node_4","target":"node_0","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge31","startPoint":{"x":654.7071067811866,"y":144,"index":2,"id":"654.7071067811866-144"},"endPoint":{"x":100.5,"y":328,"index":0,"id":"100.5-328"},"targetAnchor":0},{"source":"node_0","target":"node_6","sourceAnchor":1,"type":"polyline","label":"label","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge32","startPoint":{"x":151,"y":277.5,"index":1,"id":"151-277.5"},"endPoint":{"x":1105,"y":277.5,"index":1,"id":"1105-277.5"},"targetAnchor":1},{"source":"node_6","target":"node_0","sourceAnchor":3,"type":"polyline","label":"labe;l","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge33","startPoint":{"x":1105,"y":378.5,"index":3,"id":"1105-378.5"},"endPoint":{"x":151,"y":378.5,"index":3,"id":"151-378.5"},"targetAnchor":3}],"groups":[]}';
+            const obj = JSON.parse(dataStr);
+            console.log(obj);
+            for (let i = 0; i < obj.nodes.length; i++) {
+                obj.nodes[i].linkPoints.size = 5;
+            }
+            this.graph.data(obj);
+            this.graph.render();
+        },
+        onClear() {
+            this.graph.clear();
         }
     }
 };
@@ -574,10 +617,10 @@ export default {
             font-size: 13px;
         }
     }
-    .Graph_actions{
+    .Graph_actions {
         width: 100%;
         position: absolute;
-        top: 64px;
+        top: 170px;
         left: 0;
     }
     .Graph {
@@ -594,7 +637,7 @@ export default {
             max-width: 250px;
             position: absolute;
             right: 16px;
-            top: 180px;
+            top: 240px;
         }
     }
     .isAddEdge {

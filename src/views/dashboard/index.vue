@@ -187,7 +187,6 @@ export default {
         setTimeout(() => {
             this.tableLoading = false;
             this.desserts = data;
-            console.log(this.desserts);
         }, 1500);
     },
     methods: {

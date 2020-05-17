@@ -2,6 +2,9 @@
 .page_layout {
     animation: page_layout_animate 0.3s;
     display: flex;
+    .menu_drawer {
+        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.35);
+    }
     .v-navigation-drawer {
         &:hover::-webkit-scrollbar-thumb {
             background: $cp;
@@ -16,6 +19,7 @@
             border-radius: 4px;
             background: transparent;
         }
+
         .v-navigation-drawer__content {
             height: 100vh;
             z-index: 2;
