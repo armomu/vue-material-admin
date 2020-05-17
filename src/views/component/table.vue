@@ -22,7 +22,7 @@
                 :footer-props="{showFirstLastPage: true, showCurrentPage: true}"
                 show-current-page
                 :options="{itemsPerPage: 15}"
-                height="calc(100vh - 259px)"
+                height="calc(100vh - 265px)"
                 class="elevation-1"
             >
                 <template v-slot:items="props">

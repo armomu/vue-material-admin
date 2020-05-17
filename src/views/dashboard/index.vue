@@ -12,6 +12,7 @@
 				<v-data-table
 					:headers="headers"
 					:items="desserts"
+                    :loading="tableLoading"
                     hide-default-footer
 				>
 					<template v-slot:item.calories="{ item }">
@@ -170,11 +171,11 @@ export default {
                     sortable: false,
                     value: 'name'
                 },
-                { text: 'Calories', sortable: false, value: 'calories' },
-                { text: 'Fat (g)', sortable: false, value: 'fat' },
-                { text: 'Carbs (g)', sortable: false, value: 'carbs' },
-                { text: 'Protein (g)', sortable: false, value: 'protein' },
-                { text: 'Iron (%)', sortable: false, value: 'iron' }
+                { text: 'Calories', value: 'calories' },
+                { text: 'Fat (g)', value: 'fat' },
+                { text: 'Carbs (g)', value: 'carbs' },
+                { text: 'Protein (g)',value: 'protein' },
+                { text: 'Iron (%)', value: 'iron' }
             ],
             desserts: []
         };

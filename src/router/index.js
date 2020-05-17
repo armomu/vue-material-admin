@@ -66,18 +66,7 @@ export default new Router({
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/index.vue')
-                },
-                {
-                    path: 'table',
-                    name: 'starTask',
-                    title: '星标任务',
-                    meta: {
-                        title: 'table',
-                        icon: 'mdi-alpha-t',
-                        keepAlive: false
-                    },
-                    component: () => import(/* webpackChunkName: "starTask" */ '@/views/task/star.vue')
-                }
+                }               
             ]
         },
         // 组件
@@ -111,6 +100,16 @@ export default new Router({
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "charts" */ '@/views/component/charts.vue')
+                },
+                {
+                    path: 'table',
+                    name: 'starTask',
+                    meta: {
+                        title: 'table',
+                        icon: 'mdi-alpha-t',
+                        keepAlive: false
+                    },
+                    component: () => import(/* webpackChunkName: "starTask" */ '@/views/component/table.vue')
                 }
             ]
         },

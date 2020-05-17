@@ -1,5 +1,5 @@
 <template>
-	<div class="page_layout">
+	<div class="page_layout" v-resize="onResize">
     <!--菜单开始-->
 		<v-navigation-drawer
 			v-model="menuDrawer"
@@ -8,7 +8,7 @@
             mini-variant-width="74"
 			absolute
 			dark
-            style="z-index: 2;"
+            style="z-index: 3;"
 		>
 			<v-img
 				v-slot:img
@@ -116,6 +116,7 @@
                             :offset-x="30"
                             :offset-y="20"
                             overlap
+                            bordered
                         >
                             <v-btn text v-on="on">
                                 <v-icon>mdi-bell</v-icon>
@@ -307,7 +308,7 @@ export default {
         }
     },
     created() {
-        console.log(this.$route);
+        // console.log(this.$route);
         // axios.request({
         //     url: '/news',
         //     method: 'get',
@@ -318,6 +319,14 @@ export default {
         // });
     },
     methods: {
+        onResize(e) {
+            if(!e) return; 
+            const { innerWidth } = e.srcElement;
+            if(innerWidth>1250) {
+                // console.log('BOOM');
+                this.menuDrawer = true;
+            }
+        },
         onDarkModeChange(val) {
             this.$vuetify.theme.dark = val;
             this.$store.commit('handleDarkMode', val);
