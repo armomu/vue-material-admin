@@ -7,7 +7,7 @@ module.exports = {
         schedule: 'Schedule',
         flies: 'Flies',
         map: 'Map',
-        flowchart: 'Flow Editor',
+        flowEditor: 'Flow Editor',
         login: 'Login Page'
     },
     task:{

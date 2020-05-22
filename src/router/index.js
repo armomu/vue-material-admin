@@ -66,7 +66,7 @@ export default new Router({
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/index.vue')
-                }               
+                }
             ]
         },
         // 组件
@@ -149,18 +149,18 @@ export default new Router({
         },
         // 流程图
         {
-            path: '/flowchart',
+            path: '/flow-editor',
             visible: true,
             component: layout,
             meta: {
-                title: 'Flow Editor',
+                title: 'flowEditor',
                 icon: 'mdi-vector-triangle',
                 keepAlive: false
             },
             children: [
                 {
-                    path: '/flowchart',
-                    name: 'flowchart',
+                    path: '/flow-editor',
+                    name: 'FlowEditor',
                     meta: {
                         title: 'Flow Editor',
                         icon: 'mdi-vector-triangle',
