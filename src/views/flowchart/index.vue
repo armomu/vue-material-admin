@@ -1,160 +1,168 @@
 <template>
-	<div class="flowchart">
-		<div class="page_title">
-			AntV G6 Graph visualization engine
-			<div class="min_title">
-				Please checkout the full
-				<a href="https://g6.antv.vision/zh" target="_black"
-					>documentation</a
-				>
-			</div>
-		</div>
-		<v-card
-			id="Graph"
-			class="Graph"
-			ref="Graph"
-			:class="{ isAddEdge: isAddEdge }"
-		>
-			<v-card color="primary" class="icon_panel" dark>
-				<v-icon x-large>mdi-vector-triangle</v-icon>
-			</v-card>
-			<v-card-title style="padding-left: 166px"
-				>Simple Flow Editor</v-card-title
-			>
-			<v-card-text class="mt-3"> </v-card-text>
-			<v-card-actions class="Graph_actions pl-5 pr-5">
-				<v-btn
-					v-for="item in nodes"
-					:key="item.type"
-					@click="onAddItem(item)"
-					:color="item.style.stroke"
-					dark
-					><v-icon>mdi-plus</v-icon> {{ item.type }}</v-btn
-				>
+    <div class="flowchart">
+        <div class="page_title">
+            AntV G6 Graph visualization engine
+            <div class="min_title">
+                Please checkout the full
+                <a href="https://g6.antv.vision/zh" target="_black"
+                    >documentation</a
+                >
+            </div>
+        </div>
+        <v-card
+            id="Graph"
+            class="Graph"
+            ref="Graph"
+            :class="{ isAddEdge: isAddEdge }"
+        >
+            <v-card color="primary" class="icon_panel" dark>
+                <v-icon x-large>mdi-vector-triangle</v-icon>
+            </v-card>
+            <v-card-title style="padding-left: 166px"
+                >Simple Flow Editor</v-card-title
+            >
+            <v-card-text class="mt-3"> </v-card-text>
+            <v-card-actions class="Graph_actions pl-5 pr-5">
+                <v-btn
+                    v-for="item in nodes"
+                    :key="item.type"
+                    @click="onAddItem(item)"
+                    :color="item.style.stroke"
+                    dark
+                    ><v-icon>mdi-plus</v-icon> {{ item.type }}</v-btn
+                >
 
-				<v-btn
-					color="red"
-					dark
-					@click="onDelItem('dode')"
-					v-if="!addConfirm"
-					><v-icon>mdi-delete</v-icon> Delete</v-btn
-				>
-				<v-btn
-					color="red"
-					dark
-					@click="onDelItem('edge')"
-					v-if="edgeEdit"
-					><v-icon>mdi-delete</v-icon> Delete</v-btn
-				>
-				<v-spacer></v-spacer>
-				<v-btn @click="dialog1 = true" color="cyan" dark
-					><v-icon>mdi-database</v-icon> Import Data</v-btn
-				>
-				<v-btn @click="onClear" color="red"  dark><v-icon>mdi-close</v-icon> clear</v-btn>
-				<v-btn @click="onSave" color="primary"
-					><v-icon>mdi-database</v-icon> View Data</v-btn
-				>
-			</v-card-actions>
-			<v-divider />
-			<v-card class="label_wrap" v-if="!addConfirm">
-				<v-card-title>
-					Node
-				</v-card-title>
-				<v-card-text>
-					<v-text-field
-						label="label"
-						v-model="nodeOption.label"
-						@change="currentItemChange"
-					></v-text-field>
-					<!-- <v-select
-						:items="colorOptions"
-						label="Color Options"
-					></v-select> -->
-				</v-card-text>
-			</v-card>
-			<v-card class="label_wrap" v-if="edgeEdit">
-				<v-card-title>
-					Edge
-				</v-card-title>
-				<v-card-text>
-					<v-text-field
-						label="label"
-						v-model="edgeOption.label"
-						@change="currentEdgeChange"
-					></v-text-field>
-					<v-select
-						:items="colorOptions"
-						label="Color Options"
-					></v-select>
-				</v-card-text>
-			</v-card>
-		</v-card>
-		<v-dialog v-model="dialog" max-width="700" scrollable>
-			<v-card>
-				<v-card-title>
-					Data String
-				</v-card-title>
-				<v-divider></v-divider>
-				<v-card-text style="height: 600px;">
-					{{ dataStr }}
-				</v-card-text>
-				<v-divider></v-divider>
-				<v-card-actions>
-					<v-spacer></v-spacer>
-					<v-btn color="primary" text @click="dialog = false"
-						>close</v-btn
-					>
-				</v-card-actions>
-			</v-card>
-		</v-dialog>
-		<v-dialog v-model="dialog1" max-width="700" scrollable>
-			<v-card>
-				<v-card-title>
-					Import Json
-				</v-card-title>
-				<v-divider></v-divider>
-				<v-card-text class="pa-5 pb-0">
-					<v-textarea
+                <v-btn
+                    color="red"
+                    dark
+                    @click="onDelItem('dode')"
+                    v-if="!addConfirm"
+                    ><v-icon>mdi-delete</v-icon> Delete</v-btn
+                >
+                <v-btn
+                    color="red"
+                    dark
+                    @click="onDelItem('edge')"
+                    v-if="edgeEdit"
+                    ><v-icon>mdi-delete</v-icon> Delete</v-btn
+                >
+                <v-spacer></v-spacer>
+                <v-btn @click="dialog1 = true" color="cyan" dark
+                    ><v-icon>mdi-database</v-icon> Import Data</v-btn
+                >
+                <v-btn @click="onClear" color="red" dark
+                    ><v-icon>mdi-close</v-icon> clear</v-btn
+                >
+                <v-btn @click="onSave" color="primary"
+                    ><v-icon>mdi-database</v-icon> View Data</v-btn
+                >
+            </v-card-actions>
+            <v-divider />
+            <v-card class="label_wrap" v-if="!addConfirm">
+                <v-card-text>
+                    <v-text-field
+                        label="label"
+                        v-model="nodeOption.label"
+                        @change="currentItemChange"
+                    ></v-text-field>
+                    <v-sheet class="mt-n5 d-flex align-center">
+                        <span class="mr-5 title">Lock</span>
+                        <v-switch
+                            v-model="switch1"
+                            inset
+                            @change="nodeLockChange"
+                        ></v-switch>
+                    </v-sheet>
+                    <v-color-picker
+                        v-model="color"
+                        :canvas-height="70"
+                        hide-inputs
+                        hide-mode-switch
+                    ></v-color-picker>
+                </v-card-text>
+            </v-card>
+            <v-card class="label_wrap" v-if="edgeEdit">
+                <v-card-text>
+                    <v-text-field
+                        label="label"                        
+                        v-model="edgeOption.label"
+                        @change="currentEdgeChange"
+                    ></v-text-field>
+                    <v-select
+                        :items="edgeTypes"
+                        label="Edge Types"
+                        v-model="edgeOption.type"
+                        @change="edgeChangeType"                        
+                    ></v-select>
+                </v-card-text>
+            </v-card>
+        </v-card>
+        <v-dialog v-model="dialog" max-width="700" scrollable>
+            <v-card>
+                <v-card-title>
+                    Data String
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text style="height: 600px;">
+                    {{ dataStr }}
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" text @click="dialog = false"
+                        >close</v-btn
+                    >
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialog1" max-width="700" scrollable>
+            <v-card>
+                <v-card-title>
+                    Import Json
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text class="pa-5 pb-0">
+                    <v-textarea
                         label="data"
                         outlined
                         type="textarea"
                         :hint="textareaHint"
                         v-model="JsonStr"
                     ></v-textarea>
-				</v-card-text>
-				<v-divider></v-divider>
-				<v-card-actions>
-					<v-spacer></v-spacer>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
                     <v-btn color="red" text @click="dialog1 = false"
-						>close</v-btn
-					>
-					<v-btn color="primary" text @click="onAddData"
-						>Import</v-btn
-					>
-				</v-card-actions>
-			</v-card>
-		</v-dialog>
-		<v-snackbar v-model="snackbar" :timeout="0" right top>
-			操作说明（*如果导入数据渲染成功编辑过节点第二次页面进入必须按F5刷新页面，这里有个bug还没有解决）：
-			增加节点：点击一下下面带加号的按钮移动鼠标（不是拖拽/拖动鼠标）到画布中点击一下即可添加成功，添加连接边线：点击节点四个方向的小圆点画布上方出现删除按钮或者移动鼠标看到边线即表示
-			添加边线成功，移动鼠标（不是拖拽/拖动鼠标）至另外一个节点四个方向的小圆点点一下连接两个节点，删除节点/边线：点击节点/边线画布上方出现红色删除按钮点击即可删除，编辑：点击节点/边线选中右边出现相关编辑选项，
-			边线变换目标节点：双击边线移动鼠标重新选中即可。
-			<v-btn color="white" icon @click="snackbar = false"
-				><v-icon>mdi-close-circle</v-icon></v-btn
-			>
-		</v-snackbar>
-	</div>
+                        >close</v-btn
+                    >
+                    <v-btn color="primary" text @click="onAddData"
+                        >Import</v-btn
+                    >
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-snackbar v-model="snackbar" :timeout="0" right top>
+            增加节点：点击一下下面带加号的按钮移动鼠标（不是拖拽/拖动鼠标）到画布中点击一下即可添加成功。
+            <br />添加连接边线：点击节点四个方向的小圆点画布上方出现删除按钮或者移动鼠标看到边线即表示添加边线成功，移动鼠标（不是拖拽/拖动鼠标）至另外一个节点四个方向的小圆点点一下连接两个节点。
+            <br />边线变换目标节点：双击边线移动鼠标重新选中即可。
+            <br />编辑：点击节点/边线选中右边出现相关编辑选项。
+            <br />删除节点/边线：点击节点/边线画布上方出现红色删除按钮点击即可删除。
+            <v-btn color="white" icon @click="snackbar = false"
+                ><v-icon>mdi-close-circle</v-icon></v-btn
+            >
+        </v-snackbar>
+    </div>
 </template>
 <script>
-import G6 from '@antv/g6/lib';
-import { Grid } from '@antv/g6';
+import G6 from '@antv/g6';
 // /* eslint-disable no-mixed-spaces-and-tabs */
 export default {
     data() {
         return {
+            switch1: false,
             snackbar: true,
             addedCount: 0, // 生成唯一的 id
-            isMove: false, // 当前节点是否在移动
             addingEdge: false, // 是否正在增加边线
             edgeEdit: false, // 是否正在增加边线
             addConfirm: true, // 是否已经确定增加
@@ -163,7 +171,8 @@ export default {
                 label: ''
             },
             edgeOption: {
-                label: ''
+                label: 'edge',
+                type: 'polyline'
             },
             // 当前节点实例
             currentEdge: null, // 当前边线实例
@@ -181,7 +190,15 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#FFEE58'
+                            fill: '#FFEE58',
+                            linkPoints: {
+                                top: true,
+                                bottom: true,
+                                left: true,
+                                right: true,
+                                fill: '#fff',
+                                size: 5
+                            }
                         }
                     }
                 },
@@ -194,7 +211,15 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#81D4FA'
+                            fill: '#81D4FA',
+                            linkPoints: {
+                                top: true,
+                                bottom: true,
+                                left: true,
+                                right: true,
+                                fill: '#fff',
+                                size: 5
+                            }
                         }
                     }
                 },
@@ -207,7 +232,15 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#80CBC4'
+                            fill: '#80CBC4',
+                            linkPoints: {
+                                top: true,
+                                bottom: true,
+                                left: true,
+                                right: true,
+                                fill: '#fff',
+                                size: 5
+                            }
                         }
                     }
                 },
@@ -220,27 +253,62 @@ export default {
                     },
                     stateStyles: {
                         selected: {
-                            fill: '#FFAB91'
+                            fill: '#FFAB91',
+                            linkPoints: {
+                                top: true,
+                                bottom: true,
+                                left: true,
+                                right: true,
+                                fill: '#fff',
+                                size: 5
+                            }
                         }
                     }
                 }
             ],
             colorOptions: ['#FBC02D', '#29B6F6', '#26A69A', '#FF7043'],
+            edgeTypes: [
+                'line',
+                'polyline',
+                'arc',
+                'quadratic',
+                'cubic-vertical',
+                'loop'
+            ],
+            edgeType: '',
             dataStr: '',
-            JsonStr: '{"nodes":[{"x":382,"y":336,"size":[100,60],"type":"rect","label":"rect","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_0","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":620,"y":208,"size":100,"type":"diamond","label":"diamond","style":{"selected":{"fill":"#FFAB91"},"fill":"#FFCCBC","stroke":"#FF7043"},"stateStyles":{"selected":{"fill":"#FFAB91"}},"id":"node_1","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":379,"y":152,"size":[100,60],"type":"ellipse","label":"ellipse","style":{"selected":{"fill":"#80CBC4"},"fill":"#B2DFDB","stroke":"#26A69A"},"stateStyles":{"selected":{"fill":"#80CBC4"}},"id":"node_2","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":197,"y":247,"size":[100,60],"type":"rect","label":"rect","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_3","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]}],"edges":[{"source":"node_3","target":"node_2","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge1","startPoint":{"x":247.5,"y":247,"index":2,"id":"247.5-247"},"endPoint":{"x":328.5,"y":152,"index":0,"id":"328.5-152"},"targetAnchor":0},{"source":"node_2","target":"node_0","sourceAnchor":3,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge2","startPoint":{"x":379,"y":182.5,"index":3,"id":"379-182.5"},"endPoint":{"x":382,"y":305.5,"index":1,"id":"382-305.5"},"targetAnchor":1},{"source":"node_1","target":"node_0","sourceAnchor":3,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge3","startPoint":{"x":620,"y":258.70710678118655,"index":3,"id":"620-258.70710678118655"},"endPoint":{"x":432.5,"y":336,"index":2,"id":"432.5-336"},"targetAnchor":2}],"groups":[]}',
-            textareaHint: ''
+            JsonStr:
+                '{"nodes":[{"x":382,"y":336,"size":[100,60],"type":"rect","label":"rect","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_0","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":620,"y":208,"size":100,"type":"diamond","label":"diamond","style":{"selected":{"fill":"#FFAB91"},"fill":"#FFCCBC","stroke":"#FF7043"},"stateStyles":{"selected":{"fill":"#FFAB91"}},"id":"node_1","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":379,"y":152,"size":[100,60],"type":"ellipse","label":"ellipse","style":{"selected":{"fill":"#80CBC4"},"fill":"#B2DFDB","stroke":"#26A69A"},"stateStyles":{"selected":{"fill":"#80CBC4"}},"id":"node_2","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]},{"x":197,"y":247,"size":[100,60],"type":"rect","label":"rect","style":{"selected":{"fill":"#81D4FA"},"fill":"#E1F5FE","stroke":"#29B6F6"},"stateStyles":{"selected":{"fill":"#81D4FA"}},"id":"node_3","linkPoints":{"size":10,"top":true,"bottom":true,"left":true,"right":true,"fill":"#fff"},"anchorPoints":[[0,0.5],[0.5,0],[1,0.5],[0.5,1]]}],"edges":[{"source":"node_3","target":"node_2","sourceAnchor":2,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge1","startPoint":{"x":247.5,"y":247,"index":2,"id":"247.5-247"},"endPoint":{"x":328.5,"y":152,"index":0,"id":"328.5-152"},"targetAnchor":0},{"source":"node_2","target":"node_0","sourceAnchor":3,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge2","startPoint":{"x":379,"y":182.5,"index":3,"id":"379-182.5"},"endPoint":{"x":382,"y":305.5,"index":1,"id":"382-305.5"},"targetAnchor":1},{"source":"node_1","target":"node_0","sourceAnchor":3,"type":"polyline","label":"","style":{"selected":{"stroke":"#4DD0E1"},"stroke":"#B2EBF2","radius":10,"offset":30,"lineWidth":2,"endArrow":true,"cursor":"pointer"},"id":"edge3","startPoint":{"x":620,"y":258.70710678118655,"index":3,"id":"620-258.70710678118655"},"endPoint":{"x":432.5,"y":336,"index":2,"id":"432.5-336"},"targetAnchor":2}],"groups":[]}',
+            textareaHint: '',
+            color: '#FBC02D'
         };
+    },
+    watch: {
+        color: function(val) {
+            if (!this.addConfirm) {
+                this.graph.updateItem(this.currentItem, {
+                    style: {
+                        fill: val
+                    }
+                });
+            }
+            if (this.addingEdge) {
+                this.currentEdge.update({
+                    style: {
+                        stroke: val
+                    }
+                });
+            }
+        }
     },
     mounted() {
         const width = this.$refs['Graph'].$el.clientWidth;
         const minimap = new G6.Minimap({
-            size: [100, 100],
+            size: [180, 230],
             animate: true,
             className: 'minimap',
             type: 'delegate'
         });
-        // 实例化 grid 插件
-        const grid = new Grid();
         // 增加节点
         G6.registerBehavior('addNode', {
             getEvents: () => {
@@ -259,7 +327,6 @@ export default {
                 if (this.addConfirm) {
                     return;
                 }
-                // const point = this.graph.getPointByCanvas(e.canvasX, e.canvasY);
                 this.currentItem.update({
                     x: e.x,
                     y: e.y,
@@ -284,7 +351,10 @@ export default {
                     'canvas:click': 'canvasclick',
                     'edge:dblclick': 'edgedblclick',
                     'node:mousedown': 'nodeMousedown',
-                    'drag': 'nodeDrag'
+                    'node:mouseenter': 'nodeMouseEnter',
+                    'node:mouseout': 'nodeMouseOut',
+                    'drag': 'nodeDrag',
+                    'anchor:mouseenter': 'onAnchorEnter',
                 };
             },
             // 增加边线鼠标移动
@@ -314,15 +384,15 @@ export default {
                 // const point = this.graph.getCanvasByPoint(e.canvasX, e.canvasY);
                 this.currentItem.update({
                     x: e.x,
-                    y: e.y,
-                    linkPoints: {
-                        size: 10,
-                        top: true,
-                        bottom: true,
-                        left: true,
-                        right: true,
-                        fill: '#fff'
-                    }
+                    y: e.y
+                    // linkPoints: {
+                    //     size: 10,
+                    //     top: true,
+                    //     bottom: true,
+                    //     left: true,
+                    //     right: true,
+                    //     fill: '#fff'
+                    // }
                 });
                 this.currentItem.getEdges().map((item) => {
                     item.refresh();
@@ -335,22 +405,24 @@ export default {
                 // TODO这个地方有点问题
                 try {
                     this.currentItem &&
-                    this.graph.setItemState(
-                        this.currentItem,
-                        'selected',
-                        false
-                    );
+                        this.graph.setItemState(
+                            this.currentItem,
+                            'selected',
+                            false
+                        );
                     this.currentEdge &&
-                    this.graph.setItemState(
-                        this.currentEdge,
-                        'selected',
-                        false
-                    );
+                        this.graph.setItemState(
+                            this.currentEdge,
+                            'selected',
+                            false
+                        );
                     this.currentEdge && this.currentEdge.refresh();
                 } catch (err) {
                     console.log(err);
                 }
+                 
                 this.currentEdge = e.item;
+                this.edgeOption.type = this.currentEdge.defaultCfg.currentShape;
                 this.edgeOption.label = this.currentEdge.defaultCfg.model.label;
                 this.graph.setItemState(this.currentEdge, 'selected', true);
             },
@@ -368,22 +440,50 @@ export default {
                     target: point
                 });
             },
+            onAnchorEnter: (e) => {
+                console.log(e);
+            },
+            // 鼠标移入
+            nodeMouseEnter: (e) => {
+                // console.log(e);
+                // e.item.update({
+                //     linkPoints: {
+                //         size: 10,
+                //         top: true,
+                //         bottom: true,
+                //         left: true,
+                //         right: true,
+                //         fill: '#fff'
+                //     }
+                // });
+            },
+            // 鼠标移出
+            nodeMouseOut: (e) => {
+                // e.item.update({
+                //     linkPoints: {
+                //         top: false,
+                //         bottom: false,
+                //         left: false,
+                //         right: false
+                //     }
+                // });
+            },
             canvasclick: () => {
                 this.addConfirm = true;
                 this.addingEdge = false;
                 try {
                     this.currentItem &&
-                    this.graph.setItemState(
-                        this.currentItem,
-                        'selected',
-                        false
-                    );
+                        this.graph.setItemState(
+                            this.currentItem,
+                            'selected',
+                            false
+                        );
                     this.currentEdge &&
-                    this.graph.setItemState(
-                        this.currentEdge,
-                        'selected',
-                        false
-                    );
+                        this.graph.setItemState(
+                            this.currentEdge,
+                            'selected',
+                            false
+                        );
                     this.currentEdge && this.currentEdge.refresh();
                 } catch (err) {
                     console.log(err);
@@ -406,15 +506,15 @@ export default {
                 }
                 this.currentItem.update({
                     x: e.canvasX,
-                    y: e.canvasY,
-                    linkPoints: {
-                        size: 10,
-                        top: true,
-                        bottom: true,
-                        left: true,
-                        right: true,
-                        fill: '#fff'
-                    }
+                    y: e.canvasY
+                    // linkPoints: {
+                    //     size: 10,
+                    //     top: true,
+                    //     bottom: true,
+                    //     left: true,
+                    //     right: true,
+                    //     fill: '#fff'
+                    // }
                 });
                 this.currentItem.getEdges().map((item) => {
                     item.refresh();
@@ -433,18 +533,18 @@ export default {
                 }, 200);
             }
         });
-        G6.registerBehavior('hoverAnchorActived', {
+        G6.registerBehavior('anchorHover', {
             getEvents() {
                 return {
                     'anchor:mouseenter': 'onAnchorEnter',
                     'anchor:mousemove': 'onAnchorEnter',
-                    'anchor:mouseleave': 'onAnchorLeave',
+                    'anchor:mouseleave': 'onAnchorLeave'
                 };
             },
-            onAnchorEnter(e){
+            onAnchorEnter(e) {
                 console.log(e);
             },
-            onAnchorLeave(e){
+            onAnchorLeave(e) {
                 console.log(e);
             }
         });
@@ -458,8 +558,7 @@ export default {
                 // default: ['nodeMove', 'drag-canvas'],
                 addNode: ['addNode', 'click-select'], // 增加节点
                 addEdge: ['addEdge', 'click-select'], // 增加线节点
-                nodeMove: ['nodeMove', 'drag-canvas', 'hoverAnchorActived'] // 鼠标移入节点
-                // nodeDrag: ['nodeDrag', 'drag-nodes'] // 拖动
+                nodeMove: ['nodeMove', 'drag-canvas'], // 鼠标移入节点
             },
             defaultNode: {
                 type: 'circle',
@@ -469,14 +568,14 @@ export default {
                     fill: '#FFF9C4',
                     stroke: '#FBC02D'
                 },
-                linkPoints: {
-                    top: true,
-                    bottom: true,
-                    left: true,
-                    right: true,
-                    fill: '#fff',
-                    size: 5
-                },
+                // linkPoints: {
+                //     top: true,
+                //     bottom: true,
+                //     left: true,
+                //     right: true,
+                //     fill: '#fff',
+                //     size: 5
+                // },
                 anchorPoints: [
                     [0, 0.5], // 左 0
                     [0.5, 0], // 上 1
@@ -502,8 +601,9 @@ export default {
                     cursor: 'pointer'
                 }
             },
-            plugins: [ minimap, grid ]
+            plugins: [minimap]
         });
+        // this.graph.setMode('anchorHover');
     },
     methods: {
         // 获取鼠标点下所在节点的位置
@@ -515,33 +615,33 @@ export default {
             // 5是四个小圆点的宽高
             if (
                 canvasX >= x + width / 2 - 5 &&
-				canvasX <= x + width / 2 + 5 &&
-				canvasY >= y - 5 &&
-				canvasY <= y + 5
+                canvasX <= x + width / 2 + 5 &&
+                canvasY >= y - 5 &&
+                canvasY <= y + 5
             ) {
                 // console.log('上 1');
                 type === 'move' ? null : this.onAddEdge(e, 1);
             } else if (
                 canvasX >= x - 5 &&
-				canvasX <= x + 5 &&
-				canvasY >= y + height / 2 - 5 &&
-				canvasY <= y + height / 2 + 5
+                canvasX <= x + 5 &&
+                canvasY >= y + height / 2 - 5 &&
+                canvasY <= y + height / 2 + 5
             ) {
                 // console.log('左 0');
                 type === 'move' ? null : this.onAddEdge(e, 0);
             } else if (
                 canvasX >= x + width / 2 - 5 &&
-				canvasX <= x + width / 2 + 5 &&
-				canvasY >= y + height - 5 &&
-				canvasY <= y + height + 5
+                canvasX <= x + width / 2 + 5 &&
+                canvasY >= y + height - 5 &&
+                canvasY <= y + height + 5
             ) {
                 // console.log('下 3');
                 type === 'move' ? null : this.onAddEdge(e, 3);
             } else if (
                 canvasX >= x + width - 5 &&
-				canvasX <= x + width + 5 &&
-				canvasY >= y + height / 2 - 5 &&
-				canvasY <= y + height / 2 + 5
+                canvasX <= x + width + 5 &&
+                canvasY >= y + height / 2 - 5 &&
+                canvasY <= y + height / 2 + 5
             ) {
                 // console.log('右边 2');
                 type === 'move' ? null : this.onAddEdge(e, 2);
@@ -558,28 +658,28 @@ export default {
                     try {
                         // 取消选中的状态
                         this.currentItem &&
-                        this.graph.setItemState(
-                            this.currentItem,
-                            'selected',
-                            false
-                        );
+                            this.graph.setItemState(
+                                this.currentItem,
+                                'selected',
+                                false
+                            );
                         this.currentEdge &&
-                        this.graph.setItemState(
-                            this.currentEdge,
-                            'selected',
-                            false
-                        );
+                            this.graph.setItemState(
+                                this.currentEdge,
+                                'selected',
+                                false
+                            );
                         // this.currentItem.refresh();
-                        this.graph.updateItem(this.currentItem, {
-                            linkPoints: {
-                                size: 10,
-                                top: true,
-                                bottom: true,
-                                left: true,
-                                right: true,
-                                fill: '#fff'
-                            }
-                        });
+                        // this.graph.updateItem(this.currentItem, {
+                        //     linkPoints: {
+                        //         size: 10,
+                        //         top: true,
+                        //         bottom: true,
+                        //         left: true,
+                        //         right: true,
+                        //         fill: '#fff'
+                        //     }
+                        // });
                         this.currentEdge && this.currentEdge.refresh();
                     } catch (err) {
                         console.log(err);
@@ -606,7 +706,7 @@ export default {
         // 增加边线
         onAddEdge(ev, sourceAnchor) {
             this.currentItem &&
-				this.graph.setItemState(this.currentItem, 'selected', false);
+                this.graph.setItemState(this.currentItem, 'selected', false);
             const node = ev.item;
             const graph = this.graph;
             const point = {
@@ -625,6 +725,7 @@ export default {
                 this.currentEdge = graph.addItem('edge', {
                     source: model.id,
                     target: point,
+                    label: 'edge',
                     sourceAnchor
                 });
                 this.addingEdge = true;
@@ -678,9 +779,23 @@ export default {
                 }
             });
         },
+        nodeLockChange(status) {
+            console.log(status);
+            if (status) {
+                this.currentItem.lock();
+            } else {
+                this.currentItem.unlock();
+            }
+            // console.log(this.currentItem.hasLocked());
+        },
         currentEdgeChange(val) {
             this.currentEdge.update({
                 label: val
+            });
+        },
+        edgeChangeType(type) {
+            this.graph.updateItem(this.currentEdge, {
+                type
             });
         },
         onAddData() {
@@ -699,7 +814,7 @@ export default {
                 console.log('非法数据');
                 return;
             }
-            if(!obj) {
+            if (!obj) {
                 return;
             }
             for (let i = 0; i < obj.nodes.length; i++) {
@@ -720,46 +835,47 @@ export default {
 </script>
 <style lang="scss">
 .flowchart {
-	padding: 20px;
-	.page_title {
-		font-size: 25px;
-		text-align: center;
-		margin-bottom: 48px;
-		.min_title {
-			font-size: 13px;
-		}
-	}
-	.Graph_actions {
-		width: 100%;
-		position: absolute;
-		top: 100px;
-		left: 0;
-	}
-	.Graph {
-		canvas {
-			cursor: grab;
-		}
-		.icon_panel {
-			position: absolute;
-			left: 16px;
-			top: -50px;
-			padding: 35px 45px;
-		}
-		.label_wrap {
-			max-width: 250px;
-			position: absolute;
-			right: 16px;
-			top: 160px;
-		}
-	}
-	.isAddEdge {
-		cursor: pointer;
-	}
+    padding: 20px;
+    .page_title {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 48px;
+        .min_title {
+            font-size: 13px;
+        }
+    }
+    .Graph_actions {
+        width: 100%;
+        position: absolute;
+        top: 100px;
+        left: 0;
+    }
+    .Graph {
+        canvas {
+            cursor: grab;
+        }
+        .icon_panel {
+            position: absolute;
+            left: 16px;
+            top: -50px;
+            padding: 35px 45px;
+        }
+        .label_wrap {
+            max-width: 250px;
+            position: absolute;
+            right: 16px;
+            top: 160px;
+            z-index: 1;
+        }
+    }
+    .isAddEdge {
+        cursor: pointer;
+    }
 }
 .minimap {
-	position: absolute;
-	bottom: 0;
-	right: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     border: 1px #efefef solid;
 }
 </style>
