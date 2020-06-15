@@ -8,14 +8,15 @@ module.exports = {
         flies: 'Flies',
         map: 'Map',
         flowEditor: 'Flow Editor',
+        keepAlive: 'Keep Alive',
         login: 'Login Page'
     },
-    task:{
-        title:'My task'
+    task: {
+        title: 'My task'
     },
-    files:{
-        title:'files',
-        btn:'Upload excel '
+    files: {
+        title: 'files',
+        btn: 'Upload excel '
     }
 
 

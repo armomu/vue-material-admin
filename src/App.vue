@@ -6,10 +6,10 @@
 <script>
 export default {
     updated() {
-        // const dom = document.getElementById('loading');
-        // if (dom) {
-        //     dom.remove();
-        // }
+        const dom = document.getElementById('loading');
+        if (dom) {
+            dom.remove();
+        }
     },
     created() {
     }

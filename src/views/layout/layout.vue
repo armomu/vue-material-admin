@@ -1,23 +1,23 @@
 <template>
-	<div class="page_layout" v-resize="onResize">
-    <!--菜单开始-->
-		<v-navigation-drawer
-			v-model="menuDrawer"
-			:mini-variant="miniVariant"
+    <div class="page_layout" v-resize="onResize">
+        <!--菜单开始-->
+        <v-navigation-drawer
+            v-model="menuDrawer"
+            :mini-variant="miniVariant"
             disable-resize-watcher
             mini-variant-width="74"
             class="menu_drawer"
-			absolute
-			dark
+            absolute
+            dark
             style="z-index: 3;"
-		>
-			<v-img
-				v-slot:img
-				src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg"
-				gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
-			/>
+        >
+            <v-img
+                v-slot:img
+                src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg"
+                gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
+            />
 
-			<v-list nav class="py-0">
+            <v-list nav class="py-0">
                 <!-- <v-list-item  @click="a=>a" style="padding-top:8px; margin-bottom: 0" target="_blank" href="https://vuetifyjs.com">
                     <v-list-item-avatar size="30">
                         <img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png" />
@@ -27,33 +27,42 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>-->
-				<v-list-item  @click="onAxios" style="margin-top:8px">
-					<v-list-item-avatar>
-						<img :src="tx" />
-					</v-list-item-avatar>
+                <v-list-item @click="onAxios" style="margin-top:8px">
+                    <v-list-item-avatar>
+                        <img :src="tx" />
+                    </v-list-item-avatar>
 
-					<v-list-item-content>
-						<v-list-item-title  class="title">HuaJie.Chen</v-list-item-title>
+                    <v-list-item-content>
+                        <v-list-item-title class="title">HuaJie.Chen</v-list-item-title>
                         <v-list-item-subtitle>想想写点什么好...</v-list-item-subtitle>
-					</v-list-item-content>
-				</v-list-item>
-				<!-- <v-divider></v-divider> -->
-			</v-list>
-			<v-list nav class="py-0" style="margin-top: 20px">
-                <template
-                    v-for="(item, index) in menus"
-                >
+                    </v-list-item-content>
+                </v-list-item>
+                <!-- <v-divider></v-divider> -->
+            </v-list>
+            <v-list nav class="py-0" style="margin-top: 20px">
+                <template v-for="(item, index) in menus">
                     <template v-if="item.visible && item.children && item.children.length > 1 ">
-                        <v-list-group :key="item.path" :prepend-icon="item.meta.icon" :group="item.name" active-class="v_list_group_active" :value="checkMenuGroupValue(item.path)">
+                        <v-list-group
+                            :key="item.path"
+                            :prepend-icon="item.meta.icon"
+                            :group="item.name"
+                            active-class="v_list_group_active"
+                            :value="checkMenuGroupValue(item.path)"
+                        >
                             <template v-slot:activator>
                                 <v-list-item-content>
                                     <v-list-item-title>{{$t("header." + item.meta.title)}}</v-list-item-title>
                                 </v-list-item-content>
                             </template>
-                            <v-list-item v-for="(child, key) in item.children" :key="key"  :to="{ name: child.name }" active-class="primary">
-								<v-list-item-avatar>
-									<v-icon v-text="child.meta.icon"></v-icon>
-								</v-list-item-avatar>
+                            <v-list-item
+                                v-for="(child, key) in item.children"
+                                :key="key"
+                                :to="{ name: child.name }"
+                                active-class="primary"
+                            >
+                                <v-list-item-avatar>
+                                    <v-icon v-text="child.meta.icon"></v-icon>
+                                </v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title>{{child.meta.title}}</v-list-item-title>
                                 </v-list-item-content>
@@ -61,7 +70,12 @@
                         </v-list-group>
                     </template>
                     <template v-else>
-                        <v-list-item v-if="item.visible" :key="index" :to="{ path: item.path }" active-class="primary">
+                        <v-list-item
+                            v-if="item.visible"
+                            :key="index"
+                            :to="{ path: item.path }"
+                            active-class="primary"
+                        >
                             <v-list-item-icon>
                                 <v-icon>{{item.meta.icon}}</v-icon>
                             </v-list-item-icon>
@@ -71,38 +85,34 @@
                         </v-list-item>
                     </template>
                 </template>
-
-			</v-list>
-		</v-navigation-drawer>
-    <!--菜单结束-->
-    <!--主体开始-->
-		<v-content class="page_right_content" :class="{miniVariant: miniVariant, darkMode: darkMode}">
-			<v-toolbar absolute class="header" flat>
+            </v-list>
+        </v-navigation-drawer>
+        <!--菜单结束-->
+        <!--主体开始-->
+        <v-content
+            class="page_right_content"
+            :class="{miniVariant: miniVariant, darkMode: darkMode}"
+        >
+            <v-toolbar absolute class="header" flat>
                 <!--处理显示导航菜单-->
-				<v-btn
+                <v-btn
                     fab
                     small
-					style="margin-right:18px;"
+                    style="margin-right:18px;"
                     @click="handleMenuDrawer"
                     v-if="!menuDrawer"
-				>
+                >
                     <v-icon v-if="menuDrawer">mdi-drag</v-icon>
-					<v-icon v-else>mdi-drag-horizontal</v-icon>
-				</v-btn>
+                    <v-icon v-else>mdi-drag-horizontal</v-icon>
+                </v-btn>
                 <!--处理导航菜单mini样式-->
-				<v-btn
-                    fab
-                    small
-					style="margin-right:18px;"
-                    @click="handleMiniMenu"
-                    v-else
-				>
+                <v-btn fab small style="margin-right:18px;" @click="handleMiniMenu" v-else>
                     <v-icon v-if="!miniVariant">mdi-drag</v-icon>
-					<v-icon v-else>mdi-drag-horizontal</v-icon>
-				</v-btn>
+                    <v-icon v-else>mdi-drag-horizontal</v-icon>
+                </v-btn>
                 <!-- <v-btn small text disabled></v-btn> -->
                 <v-toolbar-title style="text-transform: capitalize;">{{pageTitle}}</v-toolbar-title>
-				<v-spacer></v-spacer>
+                <v-spacer></v-spacer>
                 <v-menu
                     v-model="noticeVisible"
                     :close-on-content-click="false"
@@ -138,11 +148,7 @@
                                     :key="index"
                                     :inset="item.inset"
                                 ></v-divider>
-                                <v-list-item
-                                    v-else
-                                    :key="item.title"
-                                    @click="()=>{}"
-                                >
+                                <v-list-item v-else :key="item.title" @click="()=>{}">
                                     <v-list-item-avatar>
                                         <v-img :src="item.avatar"></v-img>
                                     </v-list-item-avatar>
@@ -155,30 +161,27 @@
                         </v-list>
                         <v-divider></v-divider>
                         <v-card-actions>
-                        <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
                             <v-btn color="primary" text @click="noticeVisible = false">Clear</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-menu>
-				<v-btn
-					text
-					target="_blank"
-					href="https://github.com/Groundhog-Chen/vue-material-admin"
+                <v-btn
+                    text
+                    target="_blank"
+                    href="https://github.com/Groundhog-Chen/vue-material-admin"
                     class="min_hide"
-				>
-					<v-icon
-						title="https://github.com/Groundhog-Chen/vue-material-admin"
-						>mdi-github-circle</v-icon>
-				</v-btn>
+                >
+                    <v-icon
+                        title="https://github.com/Groundhog-Chen/vue-material-admin"
+                    >mdi-github-circle</v-icon>
+                </v-btn>
                 <v-btn text @click="fullScreen" class="min_hide">
-					<v-icon>mdi-arrow-expand-all</v-icon>
-				</v-btn>
+                    <v-icon>mdi-arrow-expand-all</v-icon>
+                </v-btn>
                 <v-menu bottom :close-on-content-click="false" :offset-y="true" open-on-hover>
                     <template v-slot:activator="{ on }">
-                        <v-btn
-                            text
-                            v-on="on"
-                        >
+                        <v-btn text v-on="on">
                             <v-icon>mdi-settings</v-icon>
                         </v-btn>
                     </template>
@@ -191,8 +194,7 @@
                                     :class="{'v-list-item--active': item.active}"
                                     @click="handleChangeColor(item.color, key)"
                                 >
-                                    <v-list-item-avatar :color="item.color" :size='25'>
-                                    </v-list-item-avatar>
+                                    <v-list-item-avatar :color="item.color" :size="25"></v-list-item-avatar>
                                     <v-list-item-content>
                                         <v-list-item-subtitle>{{item.name}}</v-list-item-subtitle>
                                     </v-list-item-content>
@@ -206,28 +208,33 @@
                             style="margin: 0 20px;"
                         >
                             <v-radio label="中文" value="zh_CN" color="primary"></v-radio>
-                            <v-radio
-                                label="English"
-                                value="en_US"
-                                color="primary"
-                            ></v-radio>
+                            <v-radio label="English" value="en_US" color="primary"></v-radio>
                         </v-radio-group>
                         <v-subheader>Dark Mode</v-subheader>
-                        <v-switch v-model="darkMode" @change="onDarkModeChange" :label="darkMode+''" style="margin-left: 20px" ></v-switch>
-
+                        <v-switch
+                            v-model="darkMode"
+                            @change="onDarkModeChange"
+                            :label="darkMode+''"
+                            style="margin-left: 20px"
+                        ></v-switch>
                     </v-card>
                 </v-menu>
-				<!-- <v-btn text @click="settingsVisible = true">
+                <!-- <v-btn text @click="settingsVisible = true">
 					<v-icon>mdi-settings</v-icon>
-				</v-btn> -->
-			</v-toolbar>
-			<div class="zwf"></div>
-			<transition name="fade-transform" mode="out-in">
-				<router-view/>
-			</transition>
-		</v-content>
-    <!--主体结束-->
-	</div>
+                </v-btn>-->
+            </v-toolbar>
+            <div class="zwf"></div>
+            <transition name="fade-transform" mode="out-in">
+                <keep-alive :key="curTime">
+                    <router-view v-if="$route.meta.keepAlive" />
+                </keep-alive>
+            </transition>
+            <transition name="fade-transform" mode="out-in">
+                <router-view v-if="!$route.meta.keepAlive" :key="curTime"></router-view>
+            </transition>
+        </v-content>
+        <!--主体结束-->
+    </div>
 </template>
 <script>
 // import axios from 'axios';
@@ -283,6 +290,9 @@ export default {
         loadPaths() {
             return this.$route.path.split('/');
         },
+        curTime() {
+            return this.$store.state.curTime;
+        },
         pageTitle() {
             return this.$route.meta.title;
         },
@@ -310,7 +320,7 @@ export default {
         }
     },
     created() {
-        // console.log(this.$route);
+        console.log(this.$route);
         // axios.request({
         //     url: '/news',
         //     method: 'get',
@@ -400,6 +410,11 @@ export default {
             this.isFullScreen = true;
             return;
         }
-    }
+    },
+    // beforeRouteLeave(to, from, next) {
+    //     // to.meta.keepAlive = false;
+    //     // console.log('1')
+    //     next();
+    // }
 };
 </script>

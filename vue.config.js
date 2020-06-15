@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/vue-material-admin' : '/',
+    baseUrl: process.env.NODE_ENV === 'production' ? '/vue-material-admin' : '/',
     devServer: {
         /* 自动打开浏览器 */
         open: true,

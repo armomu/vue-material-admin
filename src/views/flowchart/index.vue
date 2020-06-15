@@ -4,24 +4,18 @@
             AntV G6 Graph visualization engine
             <div class="min_title">
                 Please checkout the full
-                <a href="https://g6.antv.vision/zh" target="_black"
-                    >documentation</a
-                >
+                <a
+                    href="https://g6.antv.vision/zh"
+                    target="_black"
+                >documentation</a>
             </div>
         </div>
-        <v-card
-            id="Graph"
-            class="Graph"
-            ref="Graph"
-            :class="{ isAddEdge: isAddEdge }"
-        >
+        <v-card id="Graph" class="Graph" ref="Graph" :class="{ isAddEdge: isAddEdge }">
             <v-card color="primary" class="icon_panel" dark>
                 <v-icon x-large>mdi-vector-triangle</v-icon>
             </v-card>
-            <v-card-title style="padding-left: 166px"
-                >Simple Flow Editor</v-card-title
-            >
-            <v-card-text class="mt-3"> </v-card-text>
+            <v-card-title style="padding-left: 166px">Simple Flow Editor</v-card-title>
+            <v-card-text class="mt-3"></v-card-text>
             <v-card-actions class="Graph_actions pl-5 pr-5">
                 <v-btn
                     v-for="item in nodes"
@@ -29,33 +23,27 @@
                     @click="onAddItem(item)"
                     :color="item.style.stroke"
                     dark
-                    ><v-icon>mdi-plus</v-icon> {{ item.type }}</v-btn
                 >
+                    <v-icon>mdi-plus</v-icon>
+                    {{ item.type }}
+                </v-btn>
 
-                <v-btn
-                    color="red"
-                    dark
-                    @click="onDelItem('dode')"
-                    v-if="!addConfirm"
-                    ><v-icon>mdi-delete</v-icon> Delete</v-btn
-                >
-                <v-btn
-                    color="red"
-                    dark
-                    @click="onDelItem('edge')"
-                    v-if="edgeEdit"
-                    ><v-icon>mdi-delete</v-icon> Delete</v-btn
-                >
+                <v-btn color="red" dark @click="onDelItem('dode')" v-if="!addConfirm">
+                    <v-icon>mdi-delete</v-icon>Delete
+                </v-btn>
+                <v-btn color="red" dark @click="onDelItem('edge')" v-if="edgeEdit">
+                    <v-icon>mdi-delete</v-icon>Delete
+                </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn @click="dialog1 = true" color="cyan" dark
-                    ><v-icon>mdi-database</v-icon> Import Data</v-btn
-                >
-                <v-btn @click="onClear" color="red" dark
-                    ><v-icon>mdi-close</v-icon> clear</v-btn
-                >
-                <v-btn @click="onSave" color="primary"
-                    ><v-icon>mdi-database</v-icon> View Data</v-btn
-                >
+                <v-btn @click="dialog1 = true" color="cyan" dark>
+                    <v-icon>mdi-database</v-icon>Import Data
+                </v-btn>
+                <v-btn @click="onClear" color="red" dark>
+                    <v-icon>mdi-close</v-icon>clear
+                </v-btn>
+                <v-btn @click="onSave" color="primary">
+                    <v-icon>mdi-database</v-icon>View Data
+                </v-btn>
             </v-card-actions>
             <v-divider />
             <v-card class="label_wrap" v-if="!addConfirm">
@@ -67,11 +55,7 @@
                     ></v-text-field>
                     <v-sheet class="mt-n5 d-flex align-center">
                         <span class="mr-5 title">Lock</span>
-                        <v-switch
-                            v-model="switch1"
-                            inset
-                            @change="nodeLockChange"
-                        ></v-switch>
+                        <v-switch v-model="switch1" inset @change="nodeLockChange"></v-switch>
                     </v-sheet>
                     <v-color-picker
                         v-model="color"
@@ -84,7 +68,7 @@
             <v-card class="label_wrap" v-if="edgeEdit">
                 <v-card-text>
                     <v-text-field
-                        label="label"                        
+                        label="label"
                         v-model="edgeOption.label"
                         @change="currentEdgeChange"
                     ></v-text-field>
@@ -92,34 +76,26 @@
                         :items="edgeTypes"
                         label="Edge Types"
                         v-model="edgeOption.type"
-                        @change="edgeChangeType"                        
+                        @change="edgeChangeType"
                     ></v-select>
                 </v-card-text>
             </v-card>
         </v-card>
         <v-dialog v-model="dialog" max-width="700" scrollable>
             <v-card>
-                <v-card-title>
-                    Data String
-                </v-card-title>
+                <v-card-title>Data String</v-card-title>
                 <v-divider></v-divider>
-                <v-card-text style="height: 600px;">
-                    {{ dataStr }}
-                </v-card-text>
+                <v-card-text style="height: 600px;">{{ dataStr }}</v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="dialog = false"
-                        >close</v-btn
-                    >
+                    <v-btn color="primary" text @click="dialog = false">close</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
         <v-dialog v-model="dialog1" max-width="700" scrollable>
             <v-card>
-                <v-card-title>
-                    Import Json
-                </v-card-title>
+                <v-card-title>Import Json</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text class="pa-5 pb-0">
                     <v-textarea
@@ -133,12 +109,8 @@
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="red" text @click="dialog1 = false"
-                        >close</v-btn
-                    >
-                    <v-btn color="primary" text @click="onAddData"
-                        >Import</v-btn
-                    >
+                    <v-btn color="red" text @click="dialog1 = false">close</v-btn>
+                    <v-btn color="primary" text @click="onAddData">Import</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -148,9 +120,9 @@
             <br />边线变换目标节点：双击边线移动鼠标重新选中即可。
             <br />编辑：点击节点/边线选中右边出现相关编辑选项。
             <br />删除节点/边线：点击节点/边线画布上方出现红色删除按钮点击即可删除。
-            <v-btn color="white" icon @click="snackbar = false"
-                ><v-icon>mdi-close-circle</v-icon></v-btn
-            >
+            <v-btn color="white" icon @click="snackbar = false">
+                <v-icon>mdi-close-circle</v-icon>
+            </v-btn>
         </v-snackbar>
     </div>
 </template>
@@ -384,15 +356,15 @@ export default {
                 // const point = this.graph.getCanvasByPoint(e.canvasX, e.canvasY);
                 this.currentItem.update({
                     x: e.x,
-                    y: e.y
-                    // linkPoints: {
-                    //     size: 10,
-                    //     top: true,
-                    //     bottom: true,
-                    //     left: true,
-                    //     right: true,
-                    //     fill: '#fff'
-                    // }
+                    y: e.y,
+                    linkPoints: {
+                        size: 10,
+                        top: true,
+                        bottom: true,
+                        left: true,
+                        right: true,
+                        fill: '#fff'
+                    }
                 });
                 this.currentItem.getEdges().map((item) => {
                     item.refresh();
@@ -422,8 +394,8 @@ export default {
                 }
                  
                 this.currentEdge = e.item;
-                this.edgeOption.type = this.currentEdge.defaultCfg.currentShape;
-                this.edgeOption.label = this.currentEdge.defaultCfg.model.label;
+                this.edgeOption.type = this.currentEdge.getModel().type;
+                this.edgeOption.label = this.currentEdge.getModel().label;
                 this.graph.setItemState(this.currentEdge, 'selected', true);
             },
             // 边线双击
@@ -444,7 +416,7 @@ export default {
                 console.log(e);
             },
             // 鼠标移入
-            nodeMouseEnter: (e) => {
+            nodeMouseEnter: () => {
                 // console.log(e);
                 // e.item.update({
                 //     linkPoints: {
@@ -458,7 +430,7 @@ export default {
                 // });
             },
             // 鼠标移出
-            nodeMouseOut: (e) => {
+            nodeMouseOut: () => {
                 // e.item.update({
                 //     linkPoints: {
                 //         top: false,
@@ -506,15 +478,15 @@ export default {
                 }
                 this.currentItem.update({
                     x: e.canvasX,
-                    y: e.canvasY
-                    // linkPoints: {
-                    //     size: 10,
-                    //     top: true,
-                    //     bottom: true,
-                    //     left: true,
-                    //     right: true,
-                    //     fill: '#fff'
-                    // }
+                    y: e.canvasY,
+                    linkPoints: {
+                        size: 10,
+                        top: true,
+                        bottom: true,
+                        left: true,
+                        right: true,
+                        fill: '#fff'
+                    }
                 });
                 this.currentItem.getEdges().map((item) => {
                     item.refresh();
@@ -523,29 +495,14 @@ export default {
             // 拖拽完成
             dragend: () => {
                 this.addConfirm = true;
-                // if(this.currentItem) {
-                //     this.currentItem.getEdges().map((item) => {
-                //         item.refresh();
-                //     });
-                // }
+                if(this.currentItem) {
+                    this.currentItem.getEdges().map((item) => {
+                        item.refresh();
+                    });
+                }
                 setTimeout(() => {
                     this.graph.setMode('nodeMove');
                 }, 200);
-            }
-        });
-        G6.registerBehavior('anchorHover', {
-            getEvents() {
-                return {
-                    'anchor:mouseenter': 'onAnchorEnter',
-                    'anchor:mousemove': 'onAnchorEnter',
-                    'anchor:mouseleave': 'onAnchorLeave'
-                };
-            },
-            onAnchorEnter(e) {
-                console.log(e);
-            },
-            onAnchorLeave(e) {
-                console.log(e);
             }
         });
         this.graph = new G6.Graph({
@@ -669,24 +626,24 @@ export default {
                                 'selected',
                                 false
                             );
-                        // this.currentItem.refresh();
-                        // this.graph.updateItem(this.currentItem, {
-                        //     linkPoints: {
-                        //         size: 10,
-                        //         top: true,
-                        //         bottom: true,
-                        //         left: true,
-                        //         right: true,
-                        //         fill: '#fff'
-                        //     }
-                        // });
+                        this.currentItem.refresh();
+                        this.graph.updateItem(this.currentItem, {
+                            linkPoints: {
+                                size: 10,
+                                top: true,
+                                bottom: true,
+                                left: true,
+                                right: true,
+                                fill: '#fff'
+                            }
+                        });
                         this.currentEdge && this.currentEdge.refresh();
                     } catch (err) {
                         console.log(err);
                     }
                     // 获得当前选中的节点
                     this.currentItem = e.item;
-                    this.nodeOption.label = this.currentItem.defaultCfg.model.label;
+                    this.nodeOption.label = this.currentItem.getModel().label;
                     this.addConfirm = false;
                     this.addingEdge = false;
                     this.edgeEdit = false;
@@ -826,6 +783,9 @@ export default {
         },
         onClear() {
             this.graph.clear();
+            this.addConfirm = true;
+            this.addingEdge = false;
+            this.edgeEdit = false;
         }
     },
     destroyed() {

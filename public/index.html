@@ -15,7 +15,7 @@
       height: 100%;
       left: 0;
       top: 0;
-      background: #1890ff;
+      background: #fff;
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -33,7 +33,7 @@
     .la-square-jelly-box {
       display: block;
       font-size: 0;
-      color: #fff
+      color: #1890ff
     }
 
     .la-square-jelly-box.la-dark {
@@ -50,6 +50,12 @@
     .la-square-jelly-box {
       width: 32px;
       height: 32px
+    }
+
+    .la-square-jelly-box .text {
+      position: absolute;
+      width: 100%;
+      top: 100;
     }
 
     .la-square-jelly-box>div:nth-child(1),
@@ -250,12 +256,12 @@
     <strong>We're sorry but vue-material-admin doesn't work properly without JavaScript enabled. Please enable it to
       continue.</strong>
   </noscript>
-  <!-- <div class="item-loader-container"  id="loading">
+  <div class="item-loader-container" id="loading">
     <div class="la-square-jelly-box">
       <div></div>
       <div></div>
     </div>
-  </div> -->
+  </div>
   <div id="app"></div>
   <!-- built files will be auto injected -->
 </body>

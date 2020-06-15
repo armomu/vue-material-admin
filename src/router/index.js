@@ -170,6 +170,52 @@ export default new Router({
                 }
             ]
         },
+        // 测试页面缓存
+        {
+            path: '/keep-alive',
+            visible: true,
+            component: layout,
+            meta: {
+                title: 'keepAlive',
+                icon: 'mdi-archive-arrow-down-outline',
+                keepAlive: false
+            },
+            children: [
+                {
+                    path: '/keep-alive',
+                    name: 'keepAlive',
+                    meta: {
+                        title: 'Keep Alive',
+                        icon: '',
+                        keepAlive: true
+                    },
+                    component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue')
+                }
+            ]
+        },
+        // 测试离开缓存页面
+        {
+            path: '/keep-alive',
+            visible: false,
+            component: layout,
+            meta: {
+                title: 'keepAlive',
+                icon: 'mdi-archive-arrow-down-outline',
+                keepAlive: false
+            },
+            children: [
+                {
+                    path: ':id',
+                    name: 'ddddd',
+                    meta: {
+                        title: 'Keep Alive',
+                        icon: '',
+                        keepAlive: false
+                    },
+                    component: () => import(/* webpackChunkName: "widget22" */ '@/views/keep-alive/inner.vue')
+                }
+            ]
+        },
         {
             path: '/login',
             name: 'login',

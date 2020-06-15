@@ -28,11 +28,15 @@ export default new Vuex.Store({
                 active: false
             }
         ],
+        curTime: new Date().getTime(),
         darkMode: false
     },
     mutations: {
         handleSignIn(state) {
             state.isLogin = true;
+        },
+        handleSetTIme(state) {
+            state.curTime = new Date().getTime();
         },
         handleSignOut(state) {
             state.isLogin = false;
