@@ -345,6 +345,8 @@
         }
         .play_item {
             width: calc(35% - 15px);
+            height: 665px;
+            overflow: hidden;
             .item_content {
                 text-align: center;
                 .image {
@@ -378,6 +380,130 @@
                             font-size: 50px;
                         }
                     }
+                }
+            }
+            .player_inner {
+                position: relative;
+                height: 665px;
+                .v_system_bar {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    z-index: 3;
+                }
+                .image {
+                    height: 0;
+                    padding-top: 260px;
+                    width: 100%;
+                    left: 0;
+                    top: 0;
+                    border-radius: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: 2;
+                    transition: all 0.5s linear 0.6s;
+                    .image_wrap {
+                        position: absolute;
+                        width: 100%;
+                        height: 0;
+                        padding-top: 260px;
+                        top: 0;
+                        left: 0;
+                        .img {
+                            width: 100%;
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                }
+                .slder_bar {
+                    width: 100%;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    top: 210px;
+                    left: 0;
+                    background: rgba($color: #ffffff, $alpha: 0.2);
+                    z-index: 3;
+                    opacity: 1;
+                    transition: all 0.3s;
+                    .mr-30 {
+                        margin-right: 100px;
+                    }
+                }
+                .icon_play {
+                    position: absolute;
+                    right: 20px;
+                    top: 232px;
+                    z-index: 3;
+                    // transition: all 0.3s linear;
+                }
+                .v-list {
+                    padding-top: 260px;
+                    margin-bottom: 20px;
+                }
+                .v_list_in {
+                    @for $i from 1 through 4 {
+                        .v-list-item-#{$i} {
+                            opacity: 0;
+                            animation: itemSlideIn 0.4s linear #{$i / 20}s;
+                            animation-fill-mode: forwards;
+                        }
+                    }
+                }
+                .v_list_out {
+                    @for $i from 1 through 4 {
+                        .v-list-item-#{4 + 1 - $i} {
+                            animation: slideOutDown 0.4s linear #{$i / 35}s;
+                            animation-fill-mode: forwards;
+                        }
+                    }
+                }
+                .icon_play_in {
+                    animation: iconPlay 0.5s linear;
+                    animation-fill-mode: forwards;
+                }
+                .icon_play_out {
+                    animation: iconPlayPause 0.5s linear;
+                    animation-fill-mode: forwards;
+                }
+                .image_in {
+                    animation: imagePlay 0.3s linear;
+                    animation-fill-mode: forwards;
+                }
+                .image_out {
+                    animation: imagePlayPause 0.5s linear;
+                    animation-fill-mode: forwards;
+                }
+            }
+            .play_ing {
+                .image {
+                    top: 50%;
+                    transform: translate(0, -50%) scale(0.6);
+                    border-radius: 50%;
+                    height: 0;
+                    padding-top: 100%;
+                    .image_wrap {
+                        animation: tyggxh 6s linear 0s infinite;
+                        height: 0;
+                        padding-top: 100%;
+                        .img {
+                            height: 100%;
+                            width: auto;
+                        }
+                    }
+                }
+                .slder_bar {
+                    opacity: 0;
+                }
+                .icon_play {
+                    right: calc(100% / 2 - 28px);
+                    top: calc(100% / 2 - 28px);
                 }
             }
         }
