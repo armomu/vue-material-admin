@@ -1,15 +1,52 @@
-# vue-material-admin
+<p align="center">
+  <a href="https://ant.design">
+    <img width="200" src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png">
+  </a>
+</p>
 
-基于 Vue2.6x + Vuex + Vue-router + Vuetify2x 实现的后台管理系统模板，改变了传统分页模式使用了上拉加载数据和左右菜单布局增加上左右式布局以支持响应式移动端,
-支持颜色主题修改，多语言切换，黑白模式切换
+<h1 align="center">
+    Vue Material Admin<br/>
+    <br/>
+</h1>
+
+基于 Vue + Vuetify 实现的后台管理系统模板，使用 Material 设计风格，支持响应式移动端，支持颜色主题修改，多语言切换，黑白模式切换
+
+## 目录结构
+```              　　
+├─ public
+├─ tests
+├─ src
+│  ├─ assets 
+│  ├─ mixins 
+│  ├─ plugins
+│  ├─ router
+│  ├─ styles
+│  ├─ views
+│  ├─ app.Vue 
+│  └─ main.js
+├─ .browserslistrc
+├─ editorconfig
+├─ .eslintrc.js
+├─ .gitignore
+├─ babel.config.js
+├─ cypress.json
+├─ babel.config.js
+├─ LICENSE
+├─ package.json
+├─ README.md 
+├─ vue.config
+└─ webpack.config
+```
 
 ## 功能列表
 
-+ 登录
-+ Ecahrt 仪表盘
++ 简单登录
++ Vuetify 部分组件展示
++ echarts 仪表盘
++ 简单的带动画MP3播放器
 + 任务（上拉加载数据和左右菜单布局增加上左右式布局）
-+ 简单的流程图编辑
-+ 地图点位聚会效果
++ 简单的流程图编辑器
++ 地图点位聚合效果
 
 ## 预览地址
 
@@ -18,44 +55,7 @@
 ## 截图
 
 ![home](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/vue-material-admin.png)
-![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/login.png)
 ![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/lct.png)
-![login](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/amap.png)
-
-
-## 开发 && 打包
-```
-npm install 
- 
-npm run serve
-
-npm run build
-```
-
-## 目录结构
-```              　　
-├─public
-├─src
-│  ├─assets 
-│  ├─mixins
-│  ├─model
-│  ├─plugins
-│  ├─tools
-│  ├─views
-│  ├─app.Vue 
-│  └─main.js
-├─editorconfig
-├─.eslintrc.js
-├─.gitignore
-├─package.json
-├─project.config
-├─README.md 
-├─vue.config
-└─webpack.config
-```
-
-## Emmm~
-
-+ 如果喜欢或者对你有帮助就帮忙点个赞吧！
+![amap](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/amap.png)
 
 
