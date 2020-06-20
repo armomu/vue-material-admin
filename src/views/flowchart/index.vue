@@ -114,7 +114,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-snackbar v-model="snackbar" :timeout="0" right top>
+        <v-snackbar v-model="snackbar" :timeout="-1" right top>
             增加节点：点击一下下面带加号的按钮移动鼠标（不是拖拽/拖动鼠标）到画布中点击一下即可添加成功。
             <br />添加连接边线：点击节点四个方向的小圆点画布上方出现删除按钮或者移动鼠标看到边线即表示添加边线成功，移动鼠标（不是拖拽/拖动鼠标）至另外一个节点四个方向的小圆点点一下连接两个节点。
             <br />边线变换目标节点：双击边线移动鼠标重新选中即可。

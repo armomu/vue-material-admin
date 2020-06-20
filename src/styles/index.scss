@@ -1,19 +1,12 @@
 // @import url("./variable.scss");
 @import "./transition.scss";
 @import "./variable.scss";
-$cp: #323259;
+@import "./mixins.scss";
 body {
     font-family: "Roboto", "sans-serif", "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
         "Hiragino Sans GB", "WenQuanYi Micro Hei", Arial, sans-serif;
     margin: 0;
     padding: 0;
-    &::-webkit-scrollbar {
-        width: 0;
-        height: 0;
-    }
-}
-.task_form {
-    padding: 0 20px;
 }
 @import "./keyframes.scss";
 @import "./dashboard.scss";

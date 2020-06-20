@@ -1,0 +1,13 @@
+@mixin scrollbarTr {
+    &:hover::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+    &::-webkit-scrollbar {
+        // 定义了滚动条整体的样式；
+        width: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 0px;
+        background: transparent;
+    }
+}

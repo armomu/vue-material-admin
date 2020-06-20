@@ -1,41 +1,18 @@
-@import "./variable.scss";
-.page_layout {
+.page_root {
     animation: page_layout_animate 0.3s;
-    display: flex;
-    .menu_drawer {
+    max-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .page_drawer {
         box-shadow: 2px 0 6px rgba(0, 0, 0, 0.35);
-    }
-    .v-navigation-drawer {
-        &:hover::-webkit-scrollbar-thumb {
-            background: $cp;
-        }
-        &::-webkit-scrollbar {
-            // 定义了滚动条整体的样式；
-            width: 8px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            width: 8px;
-            border-radius: 4px;
-            background: transparent;
-        }
-
+        position: fixed;
+        left: 0;
+        top: 0;
         .v-navigation-drawer__content {
             height: 100vh;
-            z-index: 2;
-            &:hover::-webkit-scrollbar-thumb {
-                background: $cp;
-            }
-            &::-webkit-scrollbar {
-                // 定义了滚动条整体的样式；
-                width: 8px;
-            }
 
-            &::-webkit-scrollbar-thumb {
-                width: 8px;
-                border-radius: 4px;
-                background: transparent;
-            }
+            @include scrollbarTr;
             .v-responsive {
                 border-radius: inherit;
                 height: 100%;
@@ -60,32 +37,16 @@
             }
         }
     }
-
     .page_right_content {
         margin-left: 256px;
         flex: 1;
         background-color: #eee;
-        .v-content__wrap {
-            height: 100vh;
-            overflow-y: scroll;
-            &:hover::-webkit-scrollbar-thumb {
-                background: #bdbdbd;
-            }
-            &::-webkit-scrollbar {
-                // 定义了滚动条整体的样式；
-                width: 8px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                width: 8px;
-                border-radius: 4px;
-                background: transparent;
-            }
-        }
+        min-height: 100vh;
         .header {
             width: calc(100vw - 256px);
             background: #eee;
             position: fixed;
+            z-index: 10;
         }
     }
     .page_right_content.miniVariant {
@@ -124,72 +85,6 @@
         height: 56px;
     }
 }
-.header {
-    .v-input__control {
-        min-height: 40px !important;
-    }
-    .v-input__slot {
-        margin-bottom: 0;
-    }
-    .nav-link {
-        font-size: 16px;
-        color: #ffffff;
-        margin: 0 12px;
-        text-decoration: none;
-        transition: all 0.3s;
-        line-height: 60px;
-        padding: 0 12px;
-        opacity: 0.8;
-        &:first-child {
-            margin-left: 0;
-        }
-        &:hover {
-            background: rgba($color: #fff, $alpha: 0.1);
-            // border-radius: 6px;
-            opacity: 1;
-        }
-        span {
-            display: none;
-            font-weight: 900;
-        }
-    }
-    .left_menu {
-        display: block;
-        position: fixed;
-        width: 65%;
-        height: 100vh;
-        z-index: 901;
-        left: -65%;
-        top: 0;
-        background: #ffffff;
-        .menu_btn {
-            position: absolute;
-            right: -42px;
-            top: 60px;
-        }
-        .menu_list {
-            .nav-link {
-                line-height: 45px;
-                color: #fff;
-                padding-left: 20px;
-                margin: 0;
-                display: block;
-            }
-            .nav-link.router-link-active {
-                color: #a16eff;
-            }
-        }
-    }
-    .left_menu.show_menu {
-        left: 0;
-    }
-    .nav-link.router-link-active {
-        opacity: 1;
-        span {
-            display: inline-block;
-        }
-    }
-}
 @media screen and (max-width: 930px) {
     .header {
         .v-input__control {
@@ -210,7 +105,7 @@
     }
 }
 @media screen and (max-width: 1250px) {
-    .page_layout {
+    .page_root {
         .page_right_content {
             margin-left: 0;
             flex: 1;
