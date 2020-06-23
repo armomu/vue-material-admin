@@ -8,9 +8,9 @@
                     v-model="search"
                     append-icon="mdi-magnify"
                     label="Search"
-                    style="flex:205px 0 0;"
+                    style="flex:400px 0 0;"
                     hint="Niubility Keyword"
-                    placeholder="修改这里的值，康康转到其它页面是否缓存了"
+                    placeholder="修改这里的值，点击表格项跳转"
                     persistent-hint
                 ></v-text-field>
             </v-card-title>
@@ -185,6 +185,12 @@ export default {
             this.tableLoading = false;
             this.desserts = data;
         }, 1500);
+    },
+    activated() {
+        console.log('activated');
+    },
+    deactivated() {
+        console.log('deactivated');
     },
     methods: {
         rowClick(row) {

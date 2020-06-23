@@ -9,7 +9,7 @@
             class="page_drawer"
             absolute
             dark
-            style="z-index: 3;"
+            style="z-index: 4;"
         >
             <v-img
                 v-slot:img
@@ -28,13 +28,16 @@
                 </v-list-item>
                 <v-divider></v-divider>-->
                 <v-list-item @click="onAxios" style="margin-top:8px">
-                    <v-list-item-avatar>
+                    <!-- <v-list-item-avatar>
                         <img :src="tx" />
+                    </v-list-item-avatar>-->
+                    <v-list-item-avatar size="40">
+                        <img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png" />
+                        <!-- <img src="https://material-ui.com/static/logo_raw.svg" /> -->
                     </v-list-item-avatar>
-
                     <v-list-item-content>
-                        <v-list-item-title class="title">HuaJie.Chen</v-list-item-title>
-                        <v-list-item-subtitle>想想写点什么好...</v-list-item-subtitle>
+                        <v-list-item-title class="title">MATERIAL-UI</v-list-item-title>
+                        <v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <!-- <v-divider></v-divider> -->
@@ -316,7 +319,7 @@ export default {
         }
     },
     created() {
-        console.log(this.$route);
+        // console.log(this.$route);
         // axios.request({
         //     url: '/news',
         //     method: 'get',

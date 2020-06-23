@@ -4,7 +4,6 @@ import Router from 'vue-router';
 import layout from '@/views/layout/layout.vue';
 // import treeRoute from '@/views/layout/router.vue';
 
-
 Vue.use(Router);
 
 export default new Router({
@@ -61,8 +60,8 @@ export default new Router({
                     path: 'mine',
                     name: 'myTask',
                     meta: {
-                        title: 'mine',
-                        icon: 'mdi-alpha-m',
+                        title: 'Task',
+                        icon: 'mdi-alpha-t',
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/index.vue')
@@ -89,17 +88,17 @@ export default new Router({
                         icon: 'mdi-alpha-w',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "table" */ '@/views/component/widget.vue')
+                    component: () => import(/* webpackChunkName: "table" */ '@/views/components/widget.vue')
                 },
                 {
-                    path: 'charts',
-                    name: 'charts',
+                    path: 'sparklines',
+                    name: 'sparklines',
                     meta: {
-                        title: 'charts',
-                        icon: 'mdi-alpha-c',
+                        title: 'Sparklines',
+                        icon: 'mdi-alpha-s',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "charts" */ '@/views/component/charts.vue')
+                    component: () => import(/* webpackChunkName: "charts" */ '@/views/components/sparklines.vue')
                 },
                 {
                     path: 'form',
@@ -109,7 +108,7 @@ export default new Router({
                         icon: 'mdi-alpha-f',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "charts" */ '@/views/component/form.vue')
+                    component: () => import(/* webpackChunkName: "charts" */ '@/views/components/form.vue')
                 },
                 {
                     path: 'table',
@@ -119,7 +118,7 @@ export default new Router({
                         icon: 'mdi-alpha-t',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "starTask" */ '@/views/component/table.vue')
+                    component: () => import(/* webpackChunkName: "starTask" */ '@/views/components/table.vue')
                 }
             ]
         },

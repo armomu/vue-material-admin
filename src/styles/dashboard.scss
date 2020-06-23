@@ -140,7 +140,7 @@
                     right: 0;
                     top: 0;
                     background: rgba($color: #000, $alpha: 0.1);
-                    z-index: 3;
+                    z-index: 1;
                     transition: all 0.3s;
                     .item_header {
                         display: block;
@@ -201,7 +201,7 @@
                     position: absolute;
                     right: 16px;
                     top: 16px;
-                    z-index: 4;
+                    z-index: 1;
                     cursor: pointer;
                     i {
                         font-size: 30px;

@@ -1,49 +1,27 @@
 <template>
-    <div
-        class="login_container"
-        :class="{login_mlmlh: mlmlh}"
-    >
-
+    <div class="login_container" :class="{login_mlmlh: mlmlh}">
         <v-img
             src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg"
             gradient="rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)"
         />
         <v-toolbar absolute flat dark color="transparent" min-width="100%">
-                <v-btn text disabled>Login Page</v-btn>
-				<v-spacer></v-spacer>
-                <v-btn
-					text
-                    :to="{ name: 'charts' }"
-				>
-					<v-icon style="margin-right: 10px">mdi-chart-areaspline</v-icon>charts
-				</v-btn>
-                <v-btn
-					text
-                    :to="{ name: 'login' }"
-                    style="margin: 0 20px"
-				>
-					<v-icon style="margin-right: 10px">mdi-fingerprint</v-icon>Login
-				</v-btn>
-                <v-btn
-					text
-					target="_blank"
-					href="https://github.com/Groundhog-Chen/vue-material-admin"
-				>
-					<v-icon style="margin-right: 10px" >mdi-github-circle</v-icon> github
-				</v-btn>
-			</v-toolbar>
+            <v-btn text disabled>Login Page</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn text :to="{ name: 'charts' }">
+                <v-icon style="margin-right: 10px">mdi-chart-areaspline</v-icon>charts
+            </v-btn>
+            <v-btn text :to="{ name: 'login' }" style="margin: 0 20px">
+                <v-icon style="margin-right: 10px">mdi-fingerprint</v-icon>Login
+            </v-btn>
+            <v-btn text target="_blank" href="https://github.com/Groundhog-Chen/vue-material-admin">
+                <v-icon style="margin-right: 10px">mdi-github-circle</v-icon>github
+            </v-btn>
+        </v-toolbar>
         <div class="wrap">
             <v-card class="inner_card">
-                <v-card
-                    class="right"
-                    color="red"
-                    href="https://vuetifyjs.com"
-                    target="_blank"
-                >
-                   <v-icon large color="white">mdi-vuetify</v-icon>
-                    <div class="title" color="white">
-                        Material UI
-                    </div>                        
+                <v-card class="right" color="red" href="https://vuetifyjs.com" target="_blank">
+                    <v-icon large color="white">mdi-vuetify</v-icon>
+                    <div class="title" color="white">Material UI</div>
                 </v-card>
                 <div class="left">
                     <div class="row">
@@ -86,9 +64,9 @@
                             color="primary"
                             style="margin-left: 30px"
                             @click="handleSignBtn"
-                        >let's go</v-btn>                        
+                        >let's go</v-btn>
                     </div>
-                </div>                
+                </div>
             </v-card>
         </div>
     </div>
@@ -105,7 +83,7 @@ export default {
             this.mlmlh = true;
             this.$store.commit('handleSignIn');
             setTimeout(() => {
-                this.$router.push('/components/charts');
+                this.$router.push('/dashboard');
             }, 300);
         }
     }

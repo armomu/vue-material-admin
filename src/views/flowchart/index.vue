@@ -389,9 +389,7 @@ export default {
                             false
                         );
                     this.currentEdge && this.currentEdge.refresh();
-                } catch (err) {
-                    console.log(err);
-                }
+                } catch (err) { err; }
                  
                 this.currentEdge = e.item;
                 this.edgeOption.type = this.currentEdge.getModel().type;
