@@ -8,7 +8,8 @@ module.exports = {
         'eslint:recommended'
     ],
     rules: {
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        "no-empty": 'off',
+        'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         "object-curly-newline": ["warn", { "consistent": true }],
         "function-paren-newline": ["warn", "consistent"],
@@ -17,6 +18,7 @@ module.exports = {
         "arrow-parens": ["warn", "always"],
         "indent": ["warn", 4],
         "arrow-spacing": ["warn", { "before": true, "after": true }],
+        "no-unused-vars": 1,
         "semi": ["warn", "always"],
         "quotes": ["warn", "single"],
         "quote-props": ["warn", "consistent-as-needed"]
