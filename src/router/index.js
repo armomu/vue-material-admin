@@ -5,7 +5,6 @@ import layout from '@/views/layout/layout.vue';
 // import treeRoute from '@/views/layout/router.vue';
 
 Vue.use(Router);
-
 export default new Router({
     // mode:'history',
     routes: [
@@ -46,9 +45,8 @@ export default new Router({
         },
         // 任务
         {
-            path: '/task',
+            path: '/tasks',
             visible: true,
-            redirect: '/task/mine',
             component: layout,
             meta: {
                 title: 'task',
@@ -57,10 +55,10 @@ export default new Router({
             },
             children: [
                 {
-                    path: 'mine',
+                    path: '',
                     name: 'myTask',
                     meta: {
-                        title: 'Task',
+                        title: 'Tasks',
                         icon: 'mdi-alpha-t',
                         keepAlive: false
                     },
@@ -81,10 +79,10 @@ export default new Router({
             },
             children: [
                 {
-                    path: 'widget',
+                    path: 'widgets',
                     name: 'widget',
                     meta: {
-                        title: 'widget',
+                        title: 'widgets',
                         icon: 'mdi-alpha-w',
                         keepAlive: false
                     },
@@ -185,10 +183,10 @@ export default new Router({
                     name: 'keepAlive',
                     meta: {
                         title: 'Keep Alive',
-                        icon: '',
+                        strategy: 'keep', // keep,  refresh
                         keepAlive: true
                     },
-                    component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue')
+                    component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue'),
                 }
             ]
         },
@@ -215,6 +213,7 @@ export default new Router({
                 }
             ]
         },
+        // 登录页面
         {
             path: '/login',
             name: 'login',

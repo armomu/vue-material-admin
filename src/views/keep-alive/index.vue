@@ -22,7 +22,7 @@
                 :server-items-length="1000"
                 :footer-props="{showFirstLastPage: true, showCurrentPage: true}"
                 show-current-page
-                :options="{itemsPerPage: 15}"
+                :options.sync="options"
                 @click:row="rowClick"
                 height="calc(100vh - 265px)"
                 class="elevation-1"
@@ -161,6 +161,7 @@ export default {
                 header: null,
                 results: null
             },
+            options: {itemsPerPage: 15, page: 2},
             headers: [
                 {
                     text: 'Dessert (100g serving)',
@@ -177,20 +178,30 @@ export default {
             desserts: []
         };
     },
-    created() {
-        this.tableLoading = true;
+    computed: {
+        strategy: function() {
+            return this.$route.meta.strategy;
+        }
+    },
+    created() {        
     },
     mounted() {
-        setTimeout(() => {
-            this.tableLoading = false;
-            this.desserts = data;
-        }, 1500);
+        
     },
-    activated() {
-        console.log('activated');
+    activated() {        
+        if (this.strategy === 'refresh') {
+            this.search = '';
+            this.options.itemsPerPage = 15;
+            this.options.page = 1;
+            this.tableLoading = true;
+            setTimeout(() => {
+                this.tableLoading = false;
+                this.desserts = data;
+            }, 1500);
+        }
     },
     deactivated() {
-        console.log('deactivated');
+        // console.log('deactivated');
     },
     methods: {
         rowClick(row) {

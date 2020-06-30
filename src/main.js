@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Vue from 'vue';
 import App from './App.vue';
 import store from './plugins/store';
@@ -7,7 +8,6 @@ import VueAMap from 'vue-amap';
 import vuetify from './plugins/vuetify';
 import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
-
 import '../src/styles/index.scss';
 
 Vue.use(VCharts);

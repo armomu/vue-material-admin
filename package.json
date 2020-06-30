@@ -13,9 +13,12 @@
     "@antv/g6": "^3.4.7",
     "@antv/util": "^2.0.8",
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.6.5",
     "echarts": "^4.2.1",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
+    "nprogress": "^0.2.0",
     "sass": "^1.26.8",
     "v-charts": "^1.19.0",
     "vue": "^2.6.11",
@@ -27,6 +30,7 @@
     "xlsx": "^0.15.6"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.10.3",
     "@mdi/font": "^4.4.95",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-e2e-cypress": "~4.4.0",
@@ -46,6 +50,7 @@
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "^0.6.3",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.2.2"
+    "vuetify-loader": "^1.2.2",
+    "webpack-bundle-analyzer": "^3.8.0"
   }
 }

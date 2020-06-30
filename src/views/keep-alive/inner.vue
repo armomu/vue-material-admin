@@ -14,11 +14,11 @@ export default {
             value: ''
         };
     },
-    beforeRouteLeave(to, from, next) {
-        to.meta.keepAlive = true;
-        this.$store.commit('handleSetTIme');
-        console.log(to)
-        next();
-    }
+    // beforeRouteLeave(to, from, next) {
+    //     to.meta.keepAlive = true;
+    //     this.$store.commit('handleSetTIme');
+    //     console.log(to)
+    //     next();
+    // }
 };
 </script>
