@@ -7,7 +7,7 @@
         <v-toolbar absolute flat dark color="transparent" min-width="100%">
             <v-btn text disabled>Login Page</v-btn>
             <v-spacer></v-spacer>
-            <v-btn text :to="{ name: 'charts' }">
+            <v-btn text :to="{ name: 'dashboard' }">
                 <v-icon style="margin-right: 10px">mdi-chart-areaspline</v-icon>charts
             </v-btn>
             <v-btn text :to="{ name: 'login' }" style="margin: 0 20px">

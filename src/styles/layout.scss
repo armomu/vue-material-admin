@@ -1,9 +1,7 @@
 .page_root {
     animation: page_layout_animate 0.3s;
-    max-height: 100vh;
     position: relative;
     overflow-x: hidden;
-    overflow-y: auto;
     .page_drawer {
         box-shadow: 2px 0 6px rgba(0, 0, 0, 0.35);
         position: fixed;

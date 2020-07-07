@@ -368,6 +368,18 @@
             .player_inner {
                 position: relative;
                 height: 665px;
+                .image_bg {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    img {
+                        height: 100%;
+                        transform: translateX(-50%);
+                        filter: blur(30px);
+                    }
+                }
                 .v_system_bar {
                     position: absolute;
                     top: 0;
@@ -482,7 +494,11 @@
                     }
                 }
                 .slder_bar {
-                    opacity: 0;
+                    top: initial;
+                    bottom: 0;
+                    .mr-30 {
+                        margin-right: 20px;
+                    }
                 }
                 .icon_play {
                     right: calc(100% / 2 - 28px);

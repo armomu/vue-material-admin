@@ -12,10 +12,14 @@
         </div>
         <!-- <v-card class="mt-5">
             <v-card-title>提示框</v-card-title>
-            <v-row class="justify-center pl-5 pr-5 pb-5">
-                <v-col cols="6" sm="12" md="6"> </v-col>
-                <v-col cols="6" sm="12" md="6"> </v-col>
-            </v-row>
+            <v-card-text>
+                <test-view v-model="status">
+                    <template v-slot:view="{on}">
+                        <v-btn color="red lighten-2" dark v-on="on">test</v-btn>
+                        <v-btn color="red lighten-2" dark @click="test2(on)">test2</v-btn>
+                    </template>
+                </test-view>
+            </v-card-text>
         </v-card>-->
         <v-card class="mt-5">
             <v-card-title>Alert</v-card-title>
@@ -27,6 +31,7 @@
                     <v-alert type="error">I'm an error alert.</v-alert>
                     <v-dialog v-model="alertDialog" width="350">
                         <template v-slot:activator="{ on }">
+                            <v-btn color="red lighten-2" dark @click="test(on)">Dialog test</v-btn>
                             <v-btn color="red lighten-2" dark v-on="on">Dialog alert</v-btn>
                         </template>
                         <v-alert type="success" class="mb-0">
@@ -814,9 +819,12 @@
     </div>
 </template>
 <script>
+// import TestView from '@/views/components/solt.vue';
 export default {
+    // components: {TestView},
     data() {
         return {
+            status: false,
             labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
             time: 0,
             forecast: [
@@ -959,6 +967,14 @@ export default {
         group() {
             this.drawer = false;
         }
+    },
+    methods: {
+        test(on) {
+            console.log(on);
+        },
+        test2(on) {
+            console.log(on);
+        },
     }
 };
 </script>
