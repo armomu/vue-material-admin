@@ -197,7 +197,7 @@
         </audio>
         <div class="player_inner" :class="{play_ing: play}">
           <div class="image_bg">
-            <img class="img" src="http://akveo.com/ngx-admin/assets/images/cover2.jpg" />
+            <img class="img" :src="img" />
           </div>
           <v-system-bar dark color="transparent" class="v_system_bar" @click="test">
             <v-spacer></v-spacer>
@@ -208,7 +208,7 @@
           </v-system-bar>
           <div class="image" :class="{image_in: listOut, image_out: listIn,}">
             <div class="image_wrap">
-              <img class="img" src="http://akveo.com/ngx-admin/assets/images/cover2.jpg" />
+              <img class="img" :src="img" />
             </div>
           </div>
           <div class="slder_bar">
@@ -280,6 +280,7 @@ export default {
     data() {
         return {
             m: m,
+            img: require('../../assets/cover2.jpg'),
             play: false, // 播放状态
             listVisible: true,
             listIn: false, // 列表进入动画

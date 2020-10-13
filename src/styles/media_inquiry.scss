@@ -1,4 +1,3 @@
-@import "./variable.scss";
 @media screen and (max-width: 1200px) {
     .task_router_content {
         .down_tip_section {
@@ -25,7 +24,7 @@
             position: fixed !important;
             bottom: 0;
             height: 60vh !important;
-            transition:  all 0.5s;
+            transition: all 0.5s;
             transform: translateY(0);
         }
         .hidetaskdetail.right_section {
@@ -52,7 +51,6 @@
                 .min_hide {
                     display: none !important;
                 }
-
             }
             .scroll_wrap {
                 height: calc(100vh - 74px) !important;

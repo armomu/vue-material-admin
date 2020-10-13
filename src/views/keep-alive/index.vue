@@ -1,38 +1,38 @@
 <template>
-    <div class="table_page">
-        <v-card>
-            <v-card-title>
-                Modify search or paging properties
-                <v-spacer></v-spacer>
-                <v-text-field
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    style="flex:400px 0 0;"
-                    hint="Niubility Keyword"
-                    placeholder="修改这里的值，点击表格项跳转"
-                    persistent-hint
-                ></v-text-field>
-            </v-card-title>
-            <v-data-table
-                :headers="headers"
-                :items="desserts"
-                :search="search"
-                :loading="tableLoading"
-                :server-items-length="1000"
-                :footer-props="{showFirstLastPage: true, showCurrentPage: true}"
-                show-current-page
-                :options.sync="options"
-                @click:row="rowClick"
-                height="calc(100vh - 265px)"
-                class="elevation-1"
-            >
-                <template v-slot:items="props">
-                    <td v-for="(tr, index) in headers" :key="index">{{ props.item[tr.value] }}</td>
-                </template>
-            </v-data-table>
-        </v-card>
-    </div>
+  <div class="table_page">
+    <v-card>
+      <v-card-title>
+        Modify search or paging properties
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          style="flex:400px 0 0;"
+          hint="Niubility Keyword"
+          placeholder="修改这里的值，点击表格项跳转"
+          persistent-hint
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="desserts"
+        :search="search"
+        :loading="tableLoading"
+        :server-items-length="1000"
+        :footer-props="{showFirstLastPage: true, showCurrentPage: true}"
+        show-current-page
+        :options.sync="options"
+        @click:row="rowClick"
+        height="calc(100vh - 265px)"
+        class="elevation-1"
+      >
+        <template v-slot:items="props">
+          <td v-for="(tr, index) in headers" :key="index">{{ props.item[tr.value] }}</td>
+        </template>
+      </v-data-table>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -188,7 +188,7 @@ export default {
     mounted() {
         
     },
-    activated() {        
+    activated() {     
         if (this.strategy === 'refresh') {
             this.search = '';
             this.options.itemsPerPage = 15;
@@ -261,7 +261,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .table_page {
-    padding: 20px;
+  padding: 20px;
 }
 </style>
 

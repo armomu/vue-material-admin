@@ -441,6 +441,8 @@
                 .v-list {
                     padding-top: 260px;
                     margin-bottom: 20px;
+                    position: relative;
+                    z-index: 2;
                 }
                 .v_list_in {
                     @for $i from 1 through 4 {

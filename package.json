@@ -13,7 +13,6 @@
     "@antv/g6": "^3.4.7",
     "@antv/util": "^2.0.8",
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.5",
     "echarts": "^4.2.1",
     "html2canvas": "^1.0.0-rc.5",

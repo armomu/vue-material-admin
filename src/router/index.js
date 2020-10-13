@@ -168,28 +168,28 @@ export default new Router({
             ]
         },
         // 测试页面缓存
-        {
-            path: '/keep-alive',
-            visible: true,
-            component: layout,
-            meta: {
-                title: 'keepAlive',
-                icon: 'mdi-archive-arrow-down-outline',
-                keepAlive: false
-            },
-            children: [
-                {
-                    path: '/keep-alive',
-                    name: 'keepAlive',
-                    meta: {
-                        title: 'Keep Alive',
-                        strategy: 'keep', // keep,  refresh
-                        keepAlive: true
-                    },
-                    component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue'),
-                }
-            ]
-        },
+        // {
+        //     path: '/keep-alive',
+        //     visible: true,
+        //     component: layout,
+        //     meta: {
+        //         title: 'keepAlive',
+        //         icon: 'mdi-archive-arrow-down-outline',
+        //         keepAlive: false
+        //     },
+        //     children: [
+        //         {
+        //             path: '/keep-alive',
+        //             name: 'keepAlive',
+        //             meta: {
+        //                 title: 'Keep Alive',
+        //                 strategy: 'keep', // keep,  refresh
+        //                 keepAlive: true
+        //             },
+        //             component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue'),
+        //         }
+        //     ]
+        // },
         // 测试离开缓存页面
         {
             path: '/keep-alive',
@@ -225,6 +225,17 @@ export default new Router({
             },
             component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue')
         },
+        {
+            path: '/404',
+            name: '404',
+            visible: false,
+            component: () => import(/* webpackChunkName: "404page" */ '@/views/exception-page/404.vue'),
+            meta: {
+                title: '404',
+                keepAlive: false
+            }
+        },
+        { path: '*', redirect: '/404' }
     ],
     // scrollBehavior(to, from, savedPosition) {
     //     if (savedPosition) {

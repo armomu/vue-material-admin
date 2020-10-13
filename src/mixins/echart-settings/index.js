@@ -29,11 +29,6 @@ export default {
                         }
                     }
                 },
-                // tooltip: {
-                //     backgroundColor: 'rgba(50,50,89,1)',
-                //     borderColor: '#1b1b38',
-                //     borderWidth: 1
-                // },
                 legend: {
                     borderColor: '#fff',
                     show: false,

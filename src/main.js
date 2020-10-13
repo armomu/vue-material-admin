@@ -1,7 +1,6 @@
-import 'babel-polyfill';
 import Vue from 'vue';
 import App from './App.vue';
-import store from './plugins/store';
+import store from './store';
 import router from './router';
 import './router/auth';
 import VueAMap from 'vue-amap';

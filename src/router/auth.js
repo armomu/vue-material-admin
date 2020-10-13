@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
         } else {
             to.meta.strategy = 'refresh';
         }
-    }    
+    }
     // if (store.state.isLogin) {
     //     if (to.path === '/login') {
     //         next('/');
@@ -30,6 +30,7 @@ router.beforeEach((to, from, next) => {
     //         next();
     //     }
     // }
+    console.log(to, from);
     next();
 });
 router.afterEach(() => {
