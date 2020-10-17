@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         isLogin: false,
         colors: [
@@ -28,12 +28,16 @@ export default new Vuex.Store({
                 active: false
             }
         ],
+        newVersion: false, // 是否有新版本
         curTime: new Date().getTime(),
         darkMode: false
     },
     mutations: {
         handleSignIn(state) {
             state.isLogin = true;
+        },
+        onVersion(state, val) {
+            state.newVersion = val;
         },
         handleSetTIme(state) {
             state.curTime = new Date().getTime();
@@ -56,3 +60,4 @@ export default new Vuex.Store({
         },
     }
 });
+export default store;

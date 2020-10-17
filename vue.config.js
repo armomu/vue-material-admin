@@ -1,4 +1,19 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+if (process.env.NODE_ENV !== 'development') {
+    var fs = require('fs');
+    var version = new Date().getTime();
+    var content = 'getVersion(\'' + version + '\')';
+
+    // console.log('开始创建版本文件...')
+    fs.writeFile('./src/version.js', content, function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log('version.js OK');
+    });
+}
+
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? '/vue-material-admin' : '/',
     devServer: {
