@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import layout from '@/views/layout/layout.vue';
+import layout from '@/layout/layout.vue';
 // import treeRoute from '@/views/layout/router.vue';
 
 Vue.use(Router);

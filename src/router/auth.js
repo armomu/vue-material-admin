@@ -2,7 +2,7 @@ import router from './index';
 import store from '../store';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css'; // progress bar style
-// const whiteList = ['/login', '/authredirect'];// 免登录白名单
+
 // 获取版本更新的jsonp回调函数
 window.getVersion = (version) => {
     if ((localStorage.frontendVersion && version !== localStorage.frontendVersion) || (window.frontendVersion && version !== window.frontendVersion)) {
@@ -48,7 +48,7 @@ router.beforeEach((to, from, next) => {
     //         next();
     //     }
     // }
-    console.log(to, from);
+    // console.log(to, from);
     next();
 });
 router.afterEach(() => {
