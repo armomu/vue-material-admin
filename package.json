@@ -12,7 +12,7 @@
   "dependencies": {
     "@antv/g6": "^3.4.7",
     "@antv/util": "^2.0.8",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "echarts": "^4.2.1",
     "js-cookie": "2.2.0",
