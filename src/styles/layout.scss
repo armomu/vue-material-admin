@@ -7,20 +7,10 @@
         position: fixed;
         left: 0;
         top: 0;
+        transition: all 0.3s;
         .v-navigation-drawer__content {
             height: 100vh;
-
-            @include scrollbarTr;
-            .v-responsive {
-                border-radius: inherit;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                z-index: -1;
-                contain: strict;
-                width: 100%;
-            }
+            @include scrollbarTr;            
             .v-list {
                 .v-list-item--active.primary {
                     color: #ffffff;
@@ -34,32 +24,55 @@
                 }
             }
         }
+        .v-navigation-drawer__image {
+            .v-responsive {
+                border-radius: inherit;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                z-index: -1;
+                contain: strict;
+                width: 100%;
+            }
+        }
     }
     .page_right_content {
         margin-left: 256px;
         flex: 1;
-        background-color: #eee;
+        background-color: #F2F5F8;
         min-height: 100vh;
         .header {
             width: calc(100vw - 256px);
-            background: #eee;
+            background: #fff;
             position: fixed;
             z-index: 3;
+            .v-input__slot {
+                background-color: #F2F5F8 !important;
+            }
         }
-    }
-    .page_right_content.miniVariant {
-        margin-left: 74px;
-        .header {
-            width: calc(100vw - 74px);
-        }
-    }
+    }    
     .page_right_content.darkMode {
         background: #121212;
         color: #ffffff;
         .header {
-            background: #121212;
+            background: #1e1e1e;
             color: #ffffff;
+            .v-input__slot {
+                background-color: #121212 !important;
+            }
         }
+    }
+}
+.page_root.miniVariant {
+    .page_right_content {
+        margin-left: 0;
+        .header {
+            width: 100%;
+        }
+    }
+    .page_drawer {
+        left: -256px;
     }
 }
 @keyframes page_layout_animate {

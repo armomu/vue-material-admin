@@ -16,7 +16,6 @@ window.getVersion = (version) => {
 NProgress.configure({ showSpinner: false });// NProgress configuration
 router.beforeEach((to, from, next) => {
     NProgress.start();
-
     // 发起jsonp：
     // eslint-disable-next-line no-unreachable
     var versionScript = document.createElement('script');
@@ -35,20 +34,6 @@ router.beforeEach((to, from, next) => {
             to.meta.strategy = 'refresh';
         }
     }
-    // if (store.state.isLogin) {
-    //     if (to.path === '/login') {
-    //         next('/');
-
-    //     }
-    //     next();
-    // } else {
-    //     if (whiteList.indexOf(to.path) !== -1) {
-    //         next();
-    //     } else {
-    //         next();
-    //     }
-    // }
-    // console.log(to, from);
     next();
 });
 router.afterEach(() => {

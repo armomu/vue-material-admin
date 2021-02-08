@@ -1,0 +1,32 @@
+.v-menu__content {
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03);
+}
+.v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03);
+}
+.v-item-group.v-bottom-navigation {
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03) !important;
+}
+.v-sheet.v-toolbar:not(.v-sheet--outlined) {
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03);
+}
+.v-sheet.v-alert:not(.v-sheet--outlined) {
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03) !important;
+}
+.v-btn--fab.v-btn--contained {
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03);
+}
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: #fff;
+    box-shadow: 0 3px 10px -2px rgba(85, 85, 85, 0.08), 0 2px 20px 0 rgba(85, 85, 85, 0.06),
+        0 1px 30px 0 rgba(85, 85, 85, 0.03);
+}
+.theme--light.v-divider {
+    border-color: hsla(0,0%,39.2%,.1);
+}

@@ -132,18 +132,17 @@
                 show-current-page
                 height="calc(100vh - 365px)"
                 :options.sync="options"
-                class="elevation-1"
             >
-                <template v-slot:item.name="{ item }">
+                <template v-slot:name="{ item }">
                     <router-link to="/">{{ item.name }}</router-link>
                 </template>
-                <template v-slot:item.calories="{ item }">
+                <template v-slot:calories="{ item }">
                     <router-link to="/">{{ item.calories }}</router-link>
                 </template>
-                <template v-slot:item.status="{ item }">
+                <template v-slot:status="{ item }">
                     <v-chip dark small color="teal">{{ item.status }}</v-chip>
                 </template>
-                <template v-slot:item.iron3>
+                <template v-slot:iron3>
                     <v-btn depressed x-small fab color="primary" dark>
                         <v-icon x-small>mdi-pencil</v-icon>
                     </v-btn>
@@ -165,9 +164,7 @@ const data = [
         iron2: '1',
         status: '2',
         iron3: '3',
-    },
-   
-    
+    }    
 ];
 export default {
     data() {

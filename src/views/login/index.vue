@@ -20,7 +20,7 @@
     <div class="wrap">
       <v-card class="inner_card">
         <v-card class="right" color="red" href="https://vuetifyjs.com" target="_blank">
-          <v-icon large color="white">mdi-vuetify</v-icon>
+          <v-icon large color="white" style="font-size: 61px;">mdi-vuetify</v-icon>
           <div class="title" color="white">Material UI</div>
         </v-card>
         <div class="left">
@@ -53,6 +53,7 @@
           </div>
           <div class="row row_f">
             <v-btn
+              block
               x-large
               rounded
               color="primary"
@@ -118,10 +119,10 @@ export default {
     .inner_card {
       box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
       animation: fadeInUp 0.3s linear;
-      padding-top: 100px;
+      padding-top: 130px;
       padding-bottom: 30px;
       .left {
-        width: 400px;
+        width: 500px;
         padding: 0 40px;
         margin: 0 10px;
         .row {
@@ -131,6 +132,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
+          margin-top: 10px;
         }
       }
       .right {

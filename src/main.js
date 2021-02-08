@@ -19,7 +19,6 @@ VueAMap.initAMapApiLoader({
 });
 
 Vue.config.productionTip = false;
-
 new Vue({
     router,
     i18n,
