@@ -1,0 +1,20 @@
+.task_list {
+    display: flex;
+    margin: 30px;
+    .v-card {
+        height: calc(100vh - 124px);
+    }
+    .left_card {
+        width: 260px;
+        flex: 0 0 260px;
+        margin-right: 30px;
+    }
+    .center_list_card {
+        flex: 1;
+        overflow-y: auto;
+    }
+    .right_card {
+        margin-left: 30px;
+        flex: 0 0 400px;
+    }
+}

@@ -49,6 +49,9 @@
             z-index: 3;
             .v-input__slot {
                 background-color: #F2F5F8 !important;
+                &:hover {
+                    background-color: #e7e7e7 !important;
+                }
             }
         }
     }    

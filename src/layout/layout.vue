@@ -112,8 +112,8 @@
           @click="handleMiniMenu"
           v-else
         >
-          <v-icon v-if="!miniVariant">mdi-drag</v-icon>
-          <v-icon v-else>mdi-drag-horizontal</v-icon>
+          <v-icon v-if="!miniVariant">mdi-view-headline</v-icon>
+          <v-icon v-else>mdi-view-headline</v-icon>
         </v-btn>
         <!-- <v-btn small text disabled></v-btn> -->
         <v-toolbar-title style="text-transform: capitalize;">{{

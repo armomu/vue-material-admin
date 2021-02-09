@@ -2,6 +2,7 @@
 @import "./transition.scss";
 @import "./variable.scss";
 @import "./mixins.scss";
+@import "./reset.scss";
 body {
     font-family: "Roboto", "sans-serif", "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
         "Hiragino Sans GB", "WenQuanYi Micro Hei", Arial, sans-serif;
@@ -11,5 +12,5 @@ body {
 @import "./keyframes.scss";
 @import "./dashboard.scss";
 @import "./layout.scss";
-@import "./reset.scss";
+@import "./task.scss";
 @import "./media_inquiry.scss";

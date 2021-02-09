@@ -5,7 +5,7 @@ import layout from '@/layout/layout.vue';
 // import treeRoute from '@/views/layout/router.vue';
 
 Vue.use(Router);
-export default new Router({
+const router = new Router({
     // mode:'history',
     routes: [
         //首页
@@ -48,6 +48,7 @@ export default new Router({
             path: '/tasks',
             visible: true,
             component: layout,
+            redirect: '/tasks/list',
             meta: {
                 title: 'task',
                 icon: 'mdi-checkbox-multiple-marked-circle',
@@ -55,14 +56,14 @@ export default new Router({
             },
             children: [
                 {
-                    path: '',
+                    path: ':label',
                     name: 'myTask',
                     meta: {
                         title: 'Tasks',
                         icon: 'mdi-alpha-t',
                         keepAlive: false
                     },
-                    component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/index.vue')
+                    component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/list.vue')
                 }
             ]
         },
@@ -168,28 +169,28 @@ export default new Router({
             ]
         },
         // 测试页面缓存
-        // {
-        //     path: '/keep-alive',
-        //     visible: true,
-        //     component: layout,
-        //     meta: {
-        //         title: 'keepAlive',
-        //         icon: 'mdi-archive-arrow-down-outline',
-        //         keepAlive: false
-        //     },
-        //     children: [
-        //         {
-        //             path: '/keep-alive',
-        //             name: 'keepAlive',
-        //             meta: {
-        //                 title: 'Keep Alive',
-        //                 strategy: 'keep', // keep,  refresh
-        //                 keepAlive: true
-        //             },
-        //             component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue'),
-        //         }
-        //     ]
-        // },
+        {
+            path: '/keep-alive',
+            visible: true,
+            component: layout,
+            meta: {
+                title: 'keepAlive',
+                icon: 'mdi-archive-arrow-down-outline',
+                keepAlive: false
+            },
+            children: [
+                {
+                    path: '/keep-alive',
+                    name: 'keepAlive',
+                    meta: {
+                        title: 'Keep Alive',
+                        strategy: 'keep', // keep,  refresh
+                        keepAlive: true
+                    },
+                    component: () => import(/* webpackChunkName: "keepAlive" */ '@/views/keep-alive/index.vue'),
+                }
+            ]
+        },
         // 测试离开缓存页面
         {
             path: '/keep-alive',
@@ -246,3 +247,4 @@ export default new Router({
     // }
 });
 
+export default router;
