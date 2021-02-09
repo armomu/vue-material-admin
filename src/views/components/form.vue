@@ -1,5 +1,5 @@
 <template>
-	<v-container class="widget_page pa-5">
+	<div class="widget_page pa-5">
         <div class="page_title">
             Material Design Component Framework
             <div class="min_title">
@@ -10,7 +10,7 @@
                 >documentation</a>
             </div>
         </div>
-        <v-card class="ma-5 pa-5">
+        <v-card class="mt-5 pa-5">
             <v-row justify="space-between">
                 <v-col cols="12" md="4">
                     <v-form ref="form">
@@ -38,7 +38,7 @@
                 </v-col>
             </v-row>
         </v-card>
-		<v-card class="ma-5 pa-5">
+		<v-card class="mt-5 pa-5">
 			<v-form ref="form" v-model="valid" lazy-validation>
 				<v-text-field
 					v-model="name"
@@ -88,7 +88,7 @@
 				</v-btn>
 			</v-form>
 		</v-card>
-	</v-container>
+	</div>
 </template>
 <script>
 export default {
