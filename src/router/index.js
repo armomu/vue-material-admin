@@ -171,7 +171,7 @@ const router = new Router({
         // 测试页面缓存
         {
             path: '/keep-alive',
-            visible: true,
+            visible: false,
             component: layout,
             meta: {
                 title: 'keepAlive',

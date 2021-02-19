@@ -2,7 +2,7 @@
     display: flex;
     margin: 30px;
     position: relative;
-    .v-card {
+    .left_card，.left_card, .center_list_card {
         height: calc(100vh - 124px);
     }
     .left_card {
@@ -40,15 +40,15 @@
         }
     }
     .center_list_card.hasRight {
-        margin-right: 430px;
+        margin-right: 330px;
     }
     .right_card {
         height: calc(100vh - 124px);
         position: absolute;
-        width: 400px;
+        width: 300px;
         padding: 16px;
         top: 0;
-        right: -440px;
+        right: -340px;
         transition: right 0.3s;
     }
     .right_card.hasRight {

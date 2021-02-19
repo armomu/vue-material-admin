@@ -54,21 +54,16 @@
             class="center_list_card"
             :class="{hasRight: hasRight}"
         >
-            <div class="input_wrap">
+            <v-card class="input_wrap">
                 <v-icon color="primary">mdi-magnify</v-icon>
                 <input type="text" name="kerword" placeholder="Filter task" class="input" />
-            </div>
+            </v-card>
             <v-list>
-                <div
-                    class="v-list-item-pro"
-                    v-for="(item, key) in items"
-                    :key="key"
-                    :class="'v-list-item-' + (key+1)"
-                >
+                <v-list-item-group v-model="curItem" color="primary">
                     <v-list-item
-                        :class="{ active: item.active }"
-                        @click.stop="() => {}"
-                        :ripple="false"
+                        v-for="(item, key) in items"
+                        :key="key"
+                        :class="'v-list-item-' + (key+1)"
                     >
                         <v-list-item-action>
                             <v-checkbox
@@ -113,7 +108,7 @@
                         </v-list-item-action>
                     </v-list-item>
                     <v-divider></v-divider>
-                </div>
+                </v-list-item-group>
             </v-list>
         </v-card>
         <v-card 
@@ -135,6 +130,7 @@
     </div>
 </template>
 <script>
+const strs = ['🤘 get marshmallows for camping', '🏄‍♀️ book surf lessons for September' ,'Choose a pool 🏊‍♂️ from the catalog'];
 export default {
     data() {
         return {
@@ -166,14 +162,15 @@ export default {
                 { text: 'Red', icon: 'mdi-invert-colors', to: { path: '/tasks/red' }, color: 'red' },
                 { text: 'Yellow', icon: 'mdi-invert-colors', to: { path: '/tasks/yellow' }, color: 'yellow' },
             ],
-            hasRight: false            
+            hasRight: false,    
+            curItem: ''        
         };
     },
     created() {
         setTimeout(() => {   
             for (let i = 0; i < 4; i++) {
                 this.items.push({
-                    name: 'find the report on one winged airplanes',
+                    name: strs[i] || 'find the report on one winged airplanes',
                     active: false,
                     isCollect: false,
                     selected: false,
