@@ -19,7 +19,7 @@ router.beforeEach((to, from, next) => {
     // 发起jsonp：
     // eslint-disable-next-line no-unreachable
     var versionScript = document.createElement('script');
-    versionScript.src = location.origin + '/version.js?v=' + new Date().getTime();
+    versionScript.src = location.origin + '/vue-material-admin/version.js?v=' + new Date().getTime();
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(versionScript, s);
 
