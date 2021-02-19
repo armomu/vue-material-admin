@@ -385,7 +385,7 @@
                     top: 0;
                     left: 0;
                     width: 100%;
-                    z-index: 3;
+                    z-index: 4;
                 }
                 .image {
                     height: 0;
@@ -396,7 +396,7 @@
                     border-radius: 0;
                     overflow: hidden;
                     position: absolute;
-                    z-index: 2;
+                    z-index: 3;
                     transition: all 0.5s linear 0.6s;
                     .image_wrap {
                         position: absolute;
@@ -443,6 +443,7 @@
                     margin-bottom: 20px;
                     position: relative;
                     z-index: 2;
+                    background: transparent !important;
                 }
                 .v_list_in {
                     @for $i from 1 through 4 {
