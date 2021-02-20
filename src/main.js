@@ -7,10 +7,14 @@ import VueAMap from 'vue-amap';
 import vuetify from './plugins/vuetify';
 import i18n from './plugins/i18n';
 import VCharts from 'v-charts';
+import VueApexCharts from 'vue-apexcharts';
 import '../src/styles/index.scss';
 
 Vue.use(VCharts);
 Vue.use(VueAMap);
+Vue.use(VueApexCharts);
+
+Vue.component('apexchart', VueApexCharts);
 
 VueAMap.initAMapApiLoader({
     key: '527a03c5d37f26c924d83b3c68f9ac5c',

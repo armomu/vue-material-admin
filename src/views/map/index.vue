@@ -38,6 +38,7 @@ export default {
             events: {
                 init: (amp) => {
                     setTimeout(() => {
+                        // eslint-disable-next-line no-undef
                         new AMap.MarkerClusterer(
                             amp,
                             self.markerRefs,
@@ -60,10 +61,10 @@ export default {
         },
         darkMode: {
             get: function() {
-                return this.$store.state.darkMode;
+                return this.$store.state.app.darkMode;
             },
             set: function(newValue) {
-                this.$store.state.darkMode = newValue;
+                this.$store.state.app.darkMode = newValue;
             }
         }
     },
@@ -121,6 +122,7 @@ export default {
             div.style.color = fontColor;
             div.style.fontSize = '14px';
             div.style.textAlign = 'center';
+            // eslint-disable-next-line no-undef
             context.marker.setOffset(new AMap.Pixel(-size / 2, -size / 2));
             context.marker.setContent(div);
         }

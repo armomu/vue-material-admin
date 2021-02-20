@@ -40,7 +40,6 @@
                         </div>
                     </v-card>
                 </div>
-
                 <v-card class="r_card">
                     <div class="item_weather">
                         <div class="weather_header">
@@ -93,54 +92,8 @@
                     </div>
                 </v-card>
             </div>
-            <div class="right">
-                <v-card class="r_card">
-                    <div class="arrow" @click="handlePieBoxVisibleStatus">
-                        <v-btn icon>
-                            <v-icon v-if="pieBoxVisible"
-                                >mdi-arrow-left-thick</v-icon
-                            >
-                            <v-icon v-else>mdi-arrow-right-thick</v-icon>
-                        </v-btn>
-                    </div>
-                    <div
-                        class="inner_item"
-                        :class="{ inner_item_hide: pieBoxVisible }"
-                    >
-                        <!-- <div class="item_header">
-                            <div class="total">4,734</div>
-                            <div class="min_title">Today Visitors</div>
-            </div>-->
-                        <div
-                            class="inner_item_content"
-                            style="margin-top: 140px"
-                        >
-                            <ve-ring
-                                :data="pieData"
-                                :settings="pieSettings"
-                                :extend="pieExtend"
-                                height="460px"
-                            ></ve-ring>
-                        </div>
-                    </div>
-                    <v-card-title @click="handlePieBoxVisibleStatus"
-                        >Visitors Analytics</v-card-title
-                    >
-                    <v-divider></v-divider>
-                    <div class="item_content">
-                        <div class="chart_wrap" style="margin-top: 30px">
-                            <ve-line
-                                :data="chartData3"
-                                :extend="chartExtend3"
-                                :settings="chartSettings3"
-                                height="560px"
-                            ></ve-line>
-                        </div>
-                    </div>
-                </v-card>
-            </div>
+            <BubbleCharts />            
         </div>
-
         <div class="camera_play_row">
             <div class="camera_wrap" :class="{ reversal: reversal }">
                 <v-card class="r_card reversal_before">
@@ -237,8 +190,9 @@
 // import QRCode from 'qrcode';
 import echartMixins from '@/mixins/echart-settings';
 import Player from '@/components/player';
+import BubbleCharts from '@/components/bubble-charts';
 export default {
-    components: {Player},
+    components: {Player, BubbleCharts},
     data() {
         return {
             url: 'http://akveo.com/ngx-admin/assets/images/camera1.jpg',
