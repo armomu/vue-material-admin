@@ -1,15 +1,14 @@
 
 module.exports = {
     header: {
-        dashboard: '仪表盘',
-        task: '任务',
-        components: 'UI组件',
-        schedule: '日程',
-        flies: '文件',
-        map: '地图',
-        flowEditor: '流程图编辑器',
-        keepAlive: '页面缓存',
-        login: '登录页'
+        Home: '首页',
+        Dashboard: '仪表盘',
+        Task: '任务',
+        Components: 'UI组件',
+        Map: '地图',
+        FlowEditor: '流程图编辑器',
+        KeepAlive: '页面缓存',
+        Login: '登录页'
     },
     task: {
         title: '我的任务'

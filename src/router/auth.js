@@ -1,17 +1,15 @@
 import router from './index';
-import store from '../store';
+// import store from '../store';
 import NProgress from 'nprogress'; // progress bar
+import Cookies from 'js-cookie';
 import 'nprogress/nprogress.css'; // progress bar style
 
 // 获取版本更新的jsonp回调函数
 window.getVersion = (version) => {
-    if ((localStorage.frontendVersion && version !== localStorage.frontendVersion) || (window.frontendVersion && version !== window.frontendVersion)) {
-        // location.reload(); // 刷新页面
-        store.commit('onVersion', true);
-        console.log(store.state);
+    if (Cookies.get('app_version') !== version) {
+        location.reload(); // 刷新页面
     }
-    localStorage.frontendVersion = version; // 保存 以便下次使用判断
-    window.frontendVersion = version; // 保存 以便下次使用判断
+    Cookies.set('app_version', version);
 };
 NProgress.configure({ showSpinner: false });// NProgress configuration
 router.beforeEach((to, from, next) => {

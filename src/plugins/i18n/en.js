@@ -1,15 +1,14 @@
 
 module.exports = {
     header: {
-        dashboard: 'Dashboard',
-        task: 'Tasks',
-        components: 'components',
-        schedule: 'Schedule',
-        flies: 'Flies',
-        map: 'Map',
-        flowEditor: 'Flow Editor',
-        keepAlive: 'Keep Alive',
-        login: 'Login Page'
+        Home: 'Home',
+        Dashboard: 'Dashboard',
+        Task: 'Tasks',
+        Components: 'Components',
+        Map: 'Map',
+        FlowEditor: 'Flow Editor',
+        KeepAlive: 'Keep Alive',
+        Login: 'Login Page'
     },
     task: {
         title: 'My task'

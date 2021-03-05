@@ -26,7 +26,7 @@ const router = new Router({
             visible: true,
             component: layout,
             meta: {
-                title: 'dashboard',
+                title: 'Dashboard',
                 icon: 'mdi-gauge',
                 keepAlive: false
             },
@@ -35,7 +35,8 @@ const router = new Router({
                     path: '',
                     name: 'dashboard',
                     meta: {
-                        title: 'dashboard',
+                        title: 'Dashboard',
+                        hideNav: true,
                         icon: 'mdi-gauge',
                         keepAlive: false
                     },
@@ -50,7 +51,7 @@ const router = new Router({
             component: layout,
             redirect: '/tasks/list',
             meta: {
-                title: 'task',
+                title: 'Task',
                 icon: 'mdi-checkbox-multiple-marked-circle',
                 keepAlive: false
             },
@@ -60,6 +61,7 @@ const router = new Router({
                     name: 'myTask',
                     meta: {
                         title: 'Tasks',
+                        hideNav: true,
                         icon: 'mdi-alpha-t',
                         keepAlive: false
                     },
@@ -74,7 +76,7 @@ const router = new Router({
             redirect: '/components/table',
             component: layout,
             meta: {
-                title: 'components',
+                title: 'Components',
                 icon: 'mdi-view-comfy',
                 keepAlive: false
             },
@@ -83,8 +85,9 @@ const router = new Router({
                     path: 'widgets',
                     name: 'widget',
                     meta: {
-                        title: 'widgets',
+                        title: 'Widgets',
                         icon: 'mdi-alpha-w',
+                        hideNav: false,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "table" */ '@/views/components/widget.vue')
@@ -95,6 +98,7 @@ const router = new Router({
                     meta: {
                         title: 'Sparklines',
                         icon: 'mdi-alpha-s',
+                        hideNav: false,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "charts" */ '@/views/components/sparklines.vue')
@@ -103,8 +107,9 @@ const router = new Router({
                     path: 'form',
                     name: 'form',
                     meta: {
-                        title: 'form',
+                        title: 'Form',
                         icon: 'mdi-alpha-f',
+                        hideNav: false,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "charts" */ '@/views/components/form.vue')
@@ -113,8 +118,9 @@ const router = new Router({
                     path: 'table',
                     name: 'starTask',
                     meta: {
-                        title: 'table',
+                        title: 'Table',
                         icon: 'mdi-alpha-t',
+                        hideNav: false,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "starTask" */ '@/views/components/table.vue')
@@ -128,17 +134,18 @@ const router = new Router({
             redirect: '/map',
             component: layout,
             meta: {
-                title: 'map',
+                title: 'Map',
                 icon: 'mdi-map-marker-radius',
                 keepAlive: false
             },
             children: [
                 {
-                    path: '/map',
+                    path: '',
                     name: 'map',
                     meta: {
-                        title: 'map',
+                        title: 'Map',
                         icon: 'mdi-map-marker-radius',
+                        hideNav: true,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "map" */ '@/views/map/index.vue')
@@ -151,7 +158,7 @@ const router = new Router({
             visible: true,
             component: layout,
             meta: {
-                title: 'flowEditor',
+                title: 'FlowEditor',
                 icon: 'mdi-vector-triangle',
                 keepAlive: false
             },
@@ -162,6 +169,7 @@ const router = new Router({
                     meta: {
                         title: 'Flow Editor',
                         icon: 'mdi-vector-triangle',
+                        hideNav: false,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "flowchart" */ '@/views/flowchart/index.vue')
@@ -180,10 +188,11 @@ const router = new Router({
             },
             children: [
                 {
-                    path: '/keep-alive',
+                    path: '',
                     name: 'keepAlive',
                     meta: {
                         title: 'Keep Alive',
+                        hideNav: true,
                         strategy: 'keep', // keep,  refresh
                         keepAlive: true
                     },
@@ -207,7 +216,7 @@ const router = new Router({
                     name: 'ddddd',
                     meta: {
                         title: 'Keep Alive',
-                        icon: '',
+                        hideNav: true,
                         keepAlive: false
                     },
                     component: () => import(/* webpackChunkName: "widget22" */ '@/views/keep-alive/inner.vue')
@@ -220,7 +229,7 @@ const router = new Router({
             name: 'login',
             visible: true,
             meta: {
-                title: 'login',
+                title: 'Login',
                 icon: 'mdi-fingerprint',
                 keepAlive: false
             },

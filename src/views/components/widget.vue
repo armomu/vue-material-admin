@@ -980,6 +980,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .widget_page {
+    overflow-y: hidden;
     .page_title {
         font-size: 25px;
         text-align: center;

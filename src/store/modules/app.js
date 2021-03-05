@@ -28,9 +28,9 @@ const app = {
         ],
     },
     mutations: {
-        onVersion(state, val) {
-            state.newVersion = val;
-        },
+        // onVersion(state, val) {
+        //     state.newVersion = val;
+        // },
         handleSetColor(state, val) {
             for (let i = 0; i < state.colors.length; i++) {
                 if (state.colors[i].active) {

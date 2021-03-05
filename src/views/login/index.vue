@@ -57,7 +57,6 @@
               x-large
               rounded
               color="primary"
-              style="margin-left: 30px"
               @click="handleSignBtn"
             >let's go</v-btn>
           </div>
@@ -120,19 +119,18 @@ export default {
       box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
       animation: fadeInUp 0.3s linear;
       padding-top: 130px;
-      padding-bottom: 30px;
+      padding-bottom: 50px;
       .left {
         width: 500px;
         padding: 0 40px;
         margin: 0 10px;
         .row {
-          margin-top: 30px;
+          margin-top: 40px;
         }
         .row_f {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-top: 10px;
         }
       }
       .right {

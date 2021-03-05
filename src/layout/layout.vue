@@ -126,9 +126,7 @@
 					<v-icon v-else>mdi-view-headline</v-icon>
 				</v-btn>
 				<!-- <v-btn small text disabled></v-btn> -->
-				<v-toolbar-title style="text-transform: capitalize">{{
-					pageTitle
-				}}</v-toolbar-title>
+				
 				<v-spacer></v-spacer>
 				<v-text-field
 					label="Search"
@@ -140,7 +138,7 @@
 					dense
 					solo
 					prepend-inner-icon="mdi-magnify"
-                    style="max-width:400px; margin-right:16px"
+					style="max-width:400px; margin-right:16px"
 				></v-text-field>
 				<v-menu
 					v-model="noticeVisible"
@@ -227,6 +225,7 @@
 				</v-btn>
 			</v-toolbar>
 			<div class="zwf"></div>
+            <Breadcrumbs />
 			<transition name="fade-transform" mode="out-in">
 				<keep-alive :key="curTime">
 					<router-view v-if="$route.meta.keepAlive" />
@@ -276,19 +275,15 @@
 				></v-radio>
 			</v-radio-group>
 			<v-subheader>Dark Mode</v-subheader>
-			<v-switch
-				v-model="darkMode"
-				@change="onDarkModeChange"
-				style="margin-left: 20px"
-			></v-switch>
+			<v-switch v-model="darkMode" style="margin-left: 20px"></v-switch>
 		</v-navigation-drawer>
 		<!--主体结束-->
 	</div>
 </template>
 <script>
-// import axios from 'axios';
-
+import Breadcrumbs from '../components/breadcrumbs';
 export default {
+    components: {Breadcrumbs},
     data() {
         return {
             tx: require('../assets/wx.png'),
@@ -308,11 +303,6 @@ export default {
             name: '',
             desc: '',
             token: '',
-            news: [],
-            admins: [
-                ['Management', 'people_outline'],
-                ['Settings', 'settings'],
-            ],
             cruds: [
                 ['Create', 'add'],
                 ['Read', 'insert_drive_file'],
@@ -332,7 +322,7 @@ export default {
                     title: 'Recipe to try',
                     subtitle: '<span class=\'text--primary\'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
                 },
-            ],
+            ]
         };
     },
     computed: {
@@ -341,19 +331,16 @@ export default {
         },
         curTime() {
             return this.$store.state.curTime;
-        },
-        pageTitle() {
-            return this.$route.meta.title;
-        },
+        },        
         locale(key) {
             return this.$t('header.' + key);
         },
         darkMode: {
             get: function() {
-                return this.$store.state.app.darkMode;
+                return this.$vuetify.theme.dark;
             },
-            set: function(newValue) {
-                this.$store.state.app.darkMode = newValue;
+            set: function(val) {
+                this.$vuetify.theme.dark = val;
             }
         },
         menus() {
@@ -374,9 +361,9 @@ export default {
         // }).then((res) => {
         //     console.log(res);
         //     this.news = res.data.result;
-        // });
+        // });       
     },
-    methods: {
+    methods: {        
         onResize(e) {
             if(!e) return; 
             const { innerWidth } = e.srcElement;
@@ -384,10 +371,6 @@ export default {
                 // console.log('BOOM');
                 this.menuDrawer = true;
             }
-        },
-        onDarkModeChange(val) {
-            this.$vuetify.theme.dark = val;
-            this.$store.commit('handleDarkMode', val);
         },
         checkMenuGroupValue(path) {
             const arr = path.split('/');
