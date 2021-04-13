@@ -1154,10 +1154,10 @@ export default {
     },
     methods: {
         test(on) {
-            console.log(on);
+            // console.log(on);
         },
         test2(on) {
-            console.log(on);
+            // console.log(on);
         },
     }
 };

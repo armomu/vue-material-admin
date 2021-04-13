@@ -39,14 +39,14 @@
     }
     .page_right_content {
         margin-left: 256px;
-        flex: 1;
         background-color: #F2F5F8;
         min-height: 100vh;
         .header {
-            width: calc(100vw - 256px);
+            // width: calc(100vw - 256px);
+            width: 100%;
             background: #fff;
-            position: fixed;
-            z-index: 3;
+            // position: fixed;
+            // z-index: 3;
             .v-input__slot {
                 background-color: #F2F5F8 !important;
                 &:hover {
@@ -75,7 +75,7 @@
     .page_right_content {
         margin-left: 0;
         .header {
-            width: 100%;
+            // width: 100%;
         }
     }
     .page_drawer {
