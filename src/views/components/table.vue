@@ -1,66 +1,6 @@
 <template>
-    <div class="table_page">
-        <v-row>
-            <v-col cols="4" xl="4" md="4" sm="12">
-                <v-card>
-                    <v-card-actions>
-                        <v-card
-                            color="teal"
-                            class="ml-2 d-flex justify-center align-center pa-2"
-                            elevation="0"
-                        >
-                            <v-icon dark large
-                                >mdi-clipboard-list-outline</v-icon
-                            >
-                        </v-card>
-                        <v-spacer></v-spacer>
-                        <div class="ml-auto">
-                            <div class="grey--text text-right mr-2">count</div>
-                            <p class="title text-right mr-2">854</p>
-                        </div>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-            <v-col cols="4" xl="4" md="4" sm="12">
-                <v-card>
-                    <v-card-actions>
-                        <v-card
-                            color="cyan"
-                            class="ml-2 d-flex justify-center align-center pa-2"
-                            elevation="0"
-                        >
-                            <v-icon dark large>mdi-motion-sensor</v-icon>
-                        </v-card>
-                        <v-spacer></v-spacer>
-                        <div class="ml-auto">
-                            <div class="grey--text text-right mr-2">online</div>
-                            <p class="title text-right mr-2">800</p>
-                        </div>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-            <v-col cols="4" xl="4" md="4" sm="12">
-                <v-card>
-                    <v-card-actions>
-                        <v-card
-                            color="purple"
-                            class="ml-2 d-flex justify-center align-center pa-2"
-                            elevation="0"
-                        >
-                            <v-icon dark large>mdi-bug</v-icon>
-                        </v-card>
-                        <v-spacer></v-spacer>
-                        <div class="ml-auto">
-                            <div class="grey--text text-right mr-2">
-                                off-line
-                            </div>
-                            <p class="title text-right mr-2">54</p>
-                        </div>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-card class="mt-2">
+    <div class="table_page">        
+        <v-card>
             <v-card-title>
                 <v-chip close class="mr-3">filter1</v-chip>
                 <v-chip close>filter2</v-chip>
@@ -118,6 +58,68 @@
                     <span>New</span>
                 </v-tooltip>
             </v-card-title>
+            <div class="pa-5">
+                <v-row>
+                    <v-col cols="4" xl="4" md="4" sm="12">
+                        <v-card>
+                            <v-card-actions>
+                                <v-card
+                                    color="teal"
+                                    class="ml-2 d-flex justify-center align-center pa-2"
+                                    elevation="0"
+                                >
+                                    <v-icon dark large
+                                        >mdi-clipboard-list-outline</v-icon
+                                    >
+                                </v-card>
+                                <v-spacer></v-spacer>
+                                <div class="ml-auto">
+                                    <div class="grey--text text-right mr-2">count</div>
+                                    <p class="title text-right mr-2">854</p>
+                                </div>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="4" xl="4" md="4" sm="12">
+                        <v-card>
+                            <v-card-actions>
+                                <v-card
+                                    color="cyan"
+                                    class="ml-2 d-flex justify-center align-center pa-2"
+                                    elevation="0"
+                                >
+                                    <v-icon dark large>mdi-motion-sensor</v-icon>
+                                </v-card>
+                                <v-spacer></v-spacer>
+                                <div class="ml-auto">
+                                    <div class="grey--text text-right mr-2">online</div>
+                                    <p class="title text-right mr-2">800</p>
+                                </div>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="4" xl="4" md="4" sm="12">
+                        <v-card>
+                            <v-card-actions>
+                                <v-card
+                                    color="purple"
+                                    class="ml-2 d-flex justify-center align-center pa-2"
+                                    elevation="0"
+                                >
+                                    <v-icon dark large>mdi-bug</v-icon>
+                                </v-card>
+                                <v-spacer></v-spacer>
+                                <div class="ml-auto">
+                                    <div class="grey--text text-right mr-2">
+                                        off-line
+                                    </div>
+                                    <p class="title text-right mr-2">54</p>
+                                </div>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </div>
             <v-data-table
                 fixed-header
                 :headers="headers"
@@ -130,7 +132,7 @@
                     showCurrentPage: true
                 }"
                 show-current-page
-                height="calc(100vh - 365px)"
+                height="calc(100vh - 514px)"
                 :options.sync="options"
             >
                 <template v-slot:name="{ item }">

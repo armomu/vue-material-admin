@@ -3,6 +3,9 @@
 @import "./variable.scss";
 @import "./mixins.scss";
 @import "./reset.scss";
+html {
+    overflow-y: initial;    
+}
 body {
     font-family: "Roboto", "sans-serif", "Open Sans", "PingFang SC", "Microsoft YaHei", "Helvetica Neue",
         "Hiragino Sans GB", "WenQuanYi Micro Hei", Arial, sans-serif;

@@ -6,7 +6,7 @@ import layout from '@/layout/layout.vue';
 
 Vue.use(Router);
 const router = new Router({
-    // mode:'history',
+    // mode:'history', 
     routes: [
         //首页
         {

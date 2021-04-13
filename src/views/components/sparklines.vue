@@ -1,97 +1,95 @@
 <template>
-	<div class="dashboard__page">
-		<v-card class="ma-5 d-flex flex-wrap">
-            <v-col cols="12" class=" pa-0">
-                <v-card-actions>
-                    <v-card-title>Sales Last 24h</v-card-title>
-                    <v-spacer></v-spacer>
+	<div class="pa-5">
+		<v-card>
+            <v-card-title>Sales Last 24h</v-card-title>
+            <v-row>
+                <v-col cols="12" sm="12" md="8">
+                    <v-data-table
+                        :headers="headers"
+                        :items="desserts"
+                        :loading="tableLoading"
+                        hide-default-footer
+                    >
+                        <template v-slot:item.calories="{ item }">
+                            <v-chip :color="getColor(item.calories)" dark>{{
+                                item.calories
+                            }}</v-chip>
+                        </template>
+                    </v-data-table>
+                </v-col>
+                <v-col cols="4" sm="12" md="4">
+                    <v-card class="text-center" color="green" dark style="width: 100%">
+                        <v-card-text>
+                            <v-sheet color="rgba(0, 0, 0, .12)">
+                                <v-sparkline
+                                    :value="value"
+                                    color="rgba(255, 255, 255, .7)"
+                                    height="100"
+                                    padding="24"
+                                    stroke-linecap="round"
+                                    smooth
+                                >
+                                    <template v-slot:label="item">
+                                        ${{ item.value }}
+                                    </template>
+                                </v-sparkline>
+                            </v-sheet>
+                        </v-card-text>
 
-                </v-card-actions>
-            </v-col>
-			<v-col cols="12" sm="12" md="8">
-				<v-data-table
-					:headers="headers"
-					:items="desserts"
-                    :loading="tableLoading"
-                    hide-default-footer
-				>
-					<template v-slot:item.calories="{ item }">
-						<v-chip :color="getColor(item.calories)" dark>{{
-							item.calories
-						}}</v-chip>
-					</template>
-				</v-data-table>
-			</v-col>
-			<v-col cols="4" sm="12" md="4">
-				<v-card class="text-center" color="green" dark style="width: 100%">
-					<v-card-text>
-						<v-sheet color="rgba(0, 0, 0, .12)">
-							<v-sparkline
-								:value="value"
-								color="rgba(255, 255, 255, .7)"
-								height="100"
-								padding="24"
-								stroke-linecap="round"
-								smooth
-							>
-								<template v-slot:label="item">
-									${{ item.value }}
-								</template>
-							</v-sparkline>
-						</v-sheet>
-					</v-card-text>
+                        <v-card-text>
+                            <div class="display-1 font-weight-thin">
+                                Sales Last 24h
+                            </div>
+                        </v-card-text>
 
-					<v-card-text>
-						<div class="display-1 font-weight-thin">
-							Sales Last 24h
-						</div>
-					</v-card-text>
+                        <v-divider></v-divider>
 
-					<v-divider></v-divider>
-
-					<v-card-actions class="justify-center">
-						<v-btn block text>Go to Report</v-btn>
-					</v-card-actions>
-				</v-card>
-			</v-col>
+                        <v-card-actions class="justify-center">
+                            <v-btn block text>Go to Report</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
 		</v-card>
-		<v-row class="justify-center px-5">
-			<v-col cols="4" md="4" sm="12" v-for="(item, i) in row1" :key="i">
-				<v-card>
-					<v-sheet
-						class="v-sheet--offset mx-auto"
-						:color="item.color"
-						elevation="8"
-						max-width="calc(100% - 32px)"
-					>
-						<v-sparkline
-							:labels="labels"
-							:value="value"
-							height="150px"
-							color="white"
-							line-width="2"
-							:padding="16"
-						></v-sparkline>
-					</v-sheet>
-
-					<v-card-text class="pt-0">
-						<div class="title font-weight-light mb-2">
-							User {{ item.title }}
-						</div>
-						<div class="subheading font-weight-light grey--text">
-							Last Campaign Performance
-						</div>
-						<v-divider class="my-2"></v-divider>
-						<v-icon class="mr-2" small>
-							mdi-clock
-						</v-icon>
-						<span class="caption grey--text font-weight-light"
-							>last registration 26 minutes ago</span
-						>
-					</v-card-text>
-				</v-card>
-			</v-col>
-		</v-row>
+        <div class="mt-5">
+            <v-row class="justify-center">
+                <v-col cols="4" md="4" sm="12" v-for="(item, i) in row1" :key="i">
+                    <v-card>
+                        <v-sheet
+                            class="v-sheet--offset mx-auto"
+                            :color="item.color"
+                            elevation="8"
+                            max-width="calc(100% - 32px)"
+                        >
+                            <v-sparkline
+                                :labels="labels"
+                                :value="value"
+                                height="150px"
+                                color="white"
+                                line-width="2"
+                                :padding="16"
+                            ></v-sparkline>
+                        </v-sheet>
+                        <v-card-text class="pt-0">
+                            <div class="title font-weight-light mb-2 pt-2">
+                                User {{ item.title }}
+                            </div>
+                            <div class="subheading font-weight-light grey--text">
+                                Last Campaign Performance
+                            </div>
+                            <v-divider class="my-2"></v-divider>
+                            <v-icon class="mr-2" small>
+                                mdi-clock
+                            </v-icon>
+                            <span class="caption grey--text font-weight-light"
+                                >last registration 26 minutes ago</span
+                            >
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </div>
+		
 	</div>
 </template>
 

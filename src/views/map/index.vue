@@ -56,15 +56,20 @@ export default {
         map() {
             return this.amapManager.getMap();
         },
-        locale(key) {
-            return this.$t('header.' + key);
-        },
-        darkMode: {
-            get: function() {
-                return this.$store.state.app.darkMode;
-            },
-            set: function(newValue) {
-                this.$store.state.app.darkMode = newValue;
+        darkMode() {
+            return this.$vuetify.theme.dark;
+        }
+    },
+    watch: {
+        darkMode: function(val) {
+            if (val) {
+                this.map.setMapStyle(
+                    'amap://styles/92b032a559e7a161c4fc47ffc02e6991'
+                );
+            } else {
+                this.map.setMapStyle(
+                    'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
+                );
             }
         }
     },
@@ -125,19 +130,6 @@ export default {
             // eslint-disable-next-line no-undef
             context.marker.setOffset(new AMap.Pixel(-size / 2, -size / 2));
             context.marker.setContent(div);
-        }
-    },
-    watch: {
-        darkMode: function(val) {
-            if (val) {
-                this.map.setMapStyle(
-                    'amap://styles/92b032a559e7a161c4fc47ffc02e6991'
-                );
-            } else {
-                this.map.setMapStyle(
-                    'amap://styles/3822977fb93c74793f501b1f6cc7bf9b'
-                );
-            }
         }
     }
 };

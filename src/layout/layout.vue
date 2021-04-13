@@ -1,5 +1,5 @@
 <template>
-	<div
+	<v-main
 		class="page_root"
 		v-resize="onResize"
 		:class="{ miniVariant: miniVariant }"
@@ -22,19 +22,15 @@
 			</template>
 
 			<v-list nav class="py-0">
-				<v-list-item @click="onAxios" style="margin-top: 8px">
+				<v-list-item @click="window.open('https://github.com/Groundhog-Chen/vue-material-admin')" style="margin-top: 8px">
 					<v-list-item-avatar size="40">
 						<img
 							src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png"
 						/>
 					</v-list-item-avatar>
 					<v-list-item-content>
-						<v-list-item-title class="title"
-							>MATERIAL-UI</v-list-item-title
-						>
-						<v-list-item-subtitle
-							>vue-material-admin</v-list-item-subtitle
-						>
+						<v-list-item-title class="title" >MATERIAL-UI</v-list-item-title>
+						<v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 				<!-- <v-divider></v-divider> -->
@@ -101,7 +97,7 @@
 		</v-navigation-drawer>
 		<!--菜单结束-->
 		<!--主体开始-->
-		<v-main class="page_right_content" :class="{ darkMode: darkMode }">
+		<div class="page_right_content" :class="{ darkMode: darkMode }">
 			<v-toolbar absolute class="header">
 				<!--处理显示导航菜单-->
 				<v-btn
@@ -227,58 +223,77 @@
 			<div class="zwf"></div>
             <Breadcrumbs />
 			<transition name="fade-transform" mode="out-in">
-				<keep-alive :key="curTime">
+				<keep-alive >
 					<router-view v-if="$route.meta.keepAlive" />
 				</keep-alive>
 			</transition>
 			<transition name="fade-transform" mode="out-in">
-				<router-view
-					v-if="!$route.meta.keepAlive"
-					:key="curTime"
-				></router-view>
+				<router-view v-if="!$route.meta.keepAlive" />
 			</transition>
-		</v-main>
+		</div>
 		<v-navigation-drawer v-model="settingsVisible" absolute temporary right>
-			<v-subheader>Color Option</v-subheader>
-			<v-list subheader>
-				<template v-for="(item, key) in colors">
-					<v-list-item
-						:key="key + 2"
-						:class="{
-							'v-list-item--active': item.active
-						}"
-						@click="handleChangeColor(item.color, key)"
-					>
-						<v-list-item-avatar
-							:color="item.color"
-							:size="25"
-						></v-list-item-avatar>
-						<v-list-item-content>
-							<v-list-item-subtitle>{{
-								item.name
-							}}</v-list-item-subtitle>
-						</v-list-item-content>
-					</v-list-item>
-				</template>
-			</v-list>
+            <div class="d-flex align-center">
+                <v-card-title>Settings</v-card-title>
+                <v-spacer></v-spacer>
+                <v-btn
+                    icon
+                    class="mr-2"
+                    @click="settingsVisible = !settingsVisible"
+                >
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </div>			
 			<v-subheader>Language</v-subheader>
-			<v-radio-group
-				v-model="Language"
-				@change="handleCutover"
-				style="margin: 0 20px"
-			>
-				<v-radio label="中文" value="zh_CN" color="primary"></v-radio>
-				<v-radio
-					label="English"
-					value="en_US"
-					color="primary"
-				></v-radio>
-			</v-radio-group>
+            <v-btn-toggle
+                v-model="language"
+                borderless
+                class="mx-4"
+            >
+                <v-btn value="zh_CN">
+                中文
+                </v-btn>
+                <v-btn value="en_US">
+                English
+                </v-btn>
+            </v-btn-toggle>
 			<v-subheader>Dark Mode</v-subheader>
-			<v-switch v-model="darkMode" style="margin-left: 20px"></v-switch>
+            <v-btn-toggle
+                v-model="darkMode"
+                borderless
+                class="mx-4"
+            >
+                <v-btn :value="false">
+                light
+                </v-btn>
+                <v-btn :value="true">
+                dark
+                </v-btn>
+            </v-btn-toggle>
+            <v-subheader>Header Tags</v-subheader>
+            <v-btn-toggle
+                v-model="darkMode"
+                borderless
+                class="mx-4"
+            >
+                <v-btn :value="false">
+                Show
+                </v-btn>
+                <v-btn :value="true">
+                hide
+                </v-btn>
+            </v-btn-toggle>
+            <v-subheader>Color Option</v-subheader>
+			<div class="px-4">
+                <v-color-picker
+                    v-model="primary"
+                    :swatches="swatches"
+                    mode="hexa"
+                    show-swatches
+                />
+            </div>
 		</v-navigation-drawer>
 		<!--主体结束-->
-	</div>
+	</v-main>
 </template>
 <script>
 import Breadcrumbs from '../components/breadcrumbs';
@@ -296,8 +311,7 @@ export default {
                 'linear-gradient':
 					'to top right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)'
             },
-            miniVariant: false,
-            Language: 'en_US',
+            miniVariant: false,            
             settingsVisible: false,
             isFullScreen: false,
             name: '',
@@ -322,18 +336,28 @@ export default {
                     title: 'Recipe to try',
                     subtitle: '<span class=\'text--primary\'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
                 },
-            ]
+            ],
+            swatches: [
+                ['#1890ff', '#4CAF50', '#E91E63', '#323259'],
+                ['#0096C7', '#EE4F12', '#EE44AA', '#46BBB1'],
+                ['#55BB46', '#AAAA00', '#555500', '#005500']
+            ],
         };
     },
     computed: {
         loadPaths() {
             return this.$route.path.split('/');
         },
-        curTime() {
-            return this.$store.state.curTime;
-        },        
-        locale(key) {
-            return this.$t('header.' + key);
+        primary: {
+            get: function() {
+                return this.$vuetify.theme.themes.light.primary;
+            },
+            set: function(val) {
+                this.$vuetify.theme.themes.light.primary = val;            
+                if (this.darkMode) {
+                    this.$vuetify.theme.dark = false;
+                }
+            }            
         },
         darkMode: {
             get: function() {
@@ -347,21 +371,23 @@ export default {
             const { options } = this.$router;
             return options.routes;
         },
-        colors() {
-            return this.$store.state.app.colors;
+        language: {
+            get: function() {
+                return 'en_US';
+            },
+            set: function(val) {
+                this.$i18n.locale = val;
+            }
+
+        } 
+    },
+    watch: {
+        primary(val) {
+            console.log(val);
         }
     },
     created() {
-        // console.log(this.$store.state);
-        // console.log(this.$route);
-        // axios.request({
-        //     url: '/news',
-        //     method: 'get',
-        //     baseURL: 'http://127.0.0.1:7001'
-        // }).then((res) => {
-        //     console.log(res);
-        //     this.news = res.data.result;
-        // });       
+        console.log(this.$i18n.locale);
     },
     methods: {        
         onResize(e) {
@@ -385,40 +411,17 @@ export default {
         handleMiniMenu() {
             this.miniVariant = !this.miniVariant;
         },
-        onAxios() {
-            // const data = {
-            //     title: this.name,
-            //     desc: this.desc
-            // };
-            // axios.get(url,AxiosRequestConfig).then((res) => {
-            //     console.log(res);
-            // });
-            // const token = this.token;
-            // axios.request({
-            //     url: '/news/create',
-            //     method: 'post',
-            //     baseURL: 'http://127.0.0.1:7001',
-            //     data: data,
-            //     headers: {
-            //         'x-csrf-token': token
-            //     }
-            // });
-            window.open('https://github.com/Groundhog-Chen/vue-material-admin'); 
-        },
         tmyx() {
             this.$store.commit('handleChangeMlmlh');
         },
         tmlx() {
             this.$store.commit('handleChangeYmlmlh');
         },
-        handleChangeColor(color, key) {
-            this.$vuetify.theme.themes.light.primary = color;
-            this.$store.commit('handleSetColor', key);
-            this.$vuetify.theme.dark = false;
-            this.$store.commit('handleDarkMode', false);
-        },
-        handleCutover(val) {
-            this.$i18n.locale = val;
+        handleChangeColor(color) {
+            this.$vuetify.theme.themes.light.primary = color;            
+            if (this.darkMode) {
+                this.$vuetify.theme.dark = false;
+            }
         },
         handleSignOut() {
             this.$store.commit('handleSignOut');

@@ -53,6 +53,10 @@
                     background-color: #e7e7e7 !important;
                 }
             }
+            .setting_drawer {
+                height: 100vh;
+                z-index: 13;
+            }
         }
     }    
     .page_right_content.darkMode {
