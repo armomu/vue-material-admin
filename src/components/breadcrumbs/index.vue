@@ -1,11 +1,11 @@
 <template>
 	<div v-if="!$route.meta.hideNav" class="layout_title">
-		<v-toolbar-title style="padding: 30px 30px 0 30px">{{
+		<v-toolbar-title style="padding: 20px 20px 0 20px">{{
 			pageTitle
 		}}</v-toolbar-title>
 		<v-breadcrumbs
 			:items="routeItems"
-			style="padding: 30px;"
+			style="padding: 12px 20px 20px 20px;"
 		>
         </v-breadcrumbs>
 	</div>
@@ -28,7 +28,6 @@ export default {
         }
     },
     created() {
-        console.log(this.$route);
         this.getBreadcrumb();
     },
     methods: {

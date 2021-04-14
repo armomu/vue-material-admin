@@ -132,8 +132,6 @@
                     <v-icon v-if="!miniVariant">mdi-view-headline</v-icon>
                     <v-icon v-else>mdi-view-headline</v-icon>
                 </v-btn>
-                <!-- <v-btn small text disabled></v-btn> -->
-
                 <v-spacer></v-spacer>
                 <v-text-field
                     label="Search"
@@ -168,7 +166,6 @@
                             </v-btn>
                         </v-badge>
                     </template>
-
                     <v-card>
                         <v-list three-line>
                             <template v-for="(item, index) in items">
@@ -244,7 +241,7 @@
                 <router-view v-if="!$route.meta.keepAlive" />
             </transition>
         </div>
-        <v-navigation-drawer v-model="settingsVisible" fixed temporary right>
+        <v-navigation-drawer v-model="settingsVisible" fixed temporary right width="260">
             <div class="d-flex align-center">
                 <v-card-title>Settings</v-card-title>
                 <v-spacer></v-spacer>
@@ -257,17 +254,17 @@
                 </v-btn>
             </div>
             <v-subheader>Language</v-subheader>
-            <v-btn-toggle v-model="language" borderless class="mx-4">
+            <v-btn-toggle v-model="language" borderless class="mx-4 mb-4">
                 <v-btn value="zh_CN"> 中文 </v-btn>
                 <v-btn value="en_US"> English </v-btn>
             </v-btn-toggle>
-            <v-subheader>Dark Mode</v-subheader>
-            <v-btn-toggle v-model="darkMode" borderless class="mx-4">
+            <v-subheader>Global Theme</v-subheader>
+            <v-btn-toggle v-model="darkMode" borderless class="mx-4 mb-4">
                 <v-btn :value="false"> light </v-btn>
                 <v-btn :value="true"> dark </v-btn>
             </v-btn-toggle>
-            <v-subheader>Header Tags</v-subheader>
-            <v-btn-toggle v-model="darkMode" borderless class="mx-4">
+            <v-subheader>Tags View</v-subheader>
+            <v-btn-toggle v-model="darkMode" borderless class="mx-4 mb-4">
                 <v-btn :value="false"> Show </v-btn>
                 <v-btn :value="true"> hide </v-btn>
             </v-btn-toggle>
@@ -330,7 +327,8 @@ export default {
             swatches: [
                 ['#1890ff', '#4CAF50', '#E91E63', '#323259'],
                 ['#0096C7', '#EE4F12', '#EE44AA', '#46BBB1'],
-                ['#55BB46', '#AAAA00', '#555500', '#005500']
+                ['#55BB46', '#AAAA00', '#555500', '#005500'],
+                ['#FF0000', '#AA0000', '#550000', '#000055'],
             ],
         };
     },

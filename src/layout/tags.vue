@@ -1,6 +1,24 @@
 <template>
     <v-tabs v-model="curTab" @change="change">
-        <v-tab v-for="(item, i) in tabs" :key="i">{{ item.meta.title }}</v-tab>
+        <v-tab v-for="(item, i) in tabs" :key="i">
+            {{ item.meta.title }}            
+            <v-btn
+                v-if="curTab === i"
+                small
+                icon
+                class="ml-1"
+            >
+                <v-icon small>mdi-cached</v-icon>
+            </v-btn>
+            <v-btn
+                v-if="tabs.length > 1"
+                small
+                icon
+                @click.stop="onClose(i)"
+            >
+                <v-icon small>mdi-close</v-icon>
+            </v-btn>
+        </v-tab>
     </v-tabs>
 </template>
 
@@ -14,12 +32,12 @@ export default {
     },
     watch: {
         $route(val) {
-            console.log(val);
+            // console.log(val);
             let has = false;
             this.tabs.forEach((item, index) => {
                 if (item.name === val.name) {
                     has = true;
-                    this.curTab = index - 1;
+                    this.curTab = index;
                 }
             });
             if (!has) {
@@ -33,10 +51,16 @@ export default {
     },
     methods: {
         change(val) {
-            const { fullPath } = this.tabs[val];
-            this.$router.push({
-                path: fullPath
-            });
+            const { fullPath, path, name } = this.tabs[val];
+            this.$router.replace({ fullPath, path, name });
+        },
+        onClose(i) {
+            if(this.curTab.length === 1) return;
+            this.tabs.splice(i, 1);
+            const item = this.tabs[i] || this.tabs[i - 1];
+            if (this.curTab !== i) return; 
+            const { fullPath, path, name } = item;
+            this.$router.replace({ fullPath, path, name });
         }
     }
 };

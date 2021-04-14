@@ -38,9 +38,10 @@
         }
     }
     .page_right_content {
-        margin-left: 256px;
         background-color: #F2F5F8;
         min-height: 100vh;
+        margin-left: 256px;
+        transition: margin 0.3s;
         .header {
             // width: calc(100vw - 256px);
             width: 100%;
@@ -74,9 +75,7 @@
 .page_root.miniVariant {
     .page_right_content {
         margin-left: 0;
-        .header {
-            // width: 100%;
-        }
+        width: 100%;
     }
     .page_drawer {
         left: -256px;
