@@ -118,8 +118,8 @@
                     @click="handleMenuDrawer"
                     v-if="!menuDrawer"
                 >
-                    <v-icon v-if="menuDrawer">mdi-drag</v-icon>
-                    <v-icon v-else>mdi-drag-horizontal</v-icon>
+                    <v-icon v-if="menuDrawer">mdi-view-headline</v-icon>
+                    <v-icon v-else>mdi-view-headline</v-icon>
                 </v-btn>
                 <!--处理导航菜单mini样式-->
                 <v-btn
@@ -142,6 +142,7 @@
                     hide-details
                     dense
                     solo
+                    class="search_input"
                     prepend-inner-icon="mdi-magnify"
                     style="max-width: 400px; margin-right: 16px"
                 ></v-text-field>
@@ -227,7 +228,7 @@
                 <v-btn text @click="settingsVisible = true">
                     <v-icon>mdi-settings</v-icon>
                 </v-btn>
-                <template v-slot:extension>
+                <template v-if="tagsView" v-slot:extension>
                     <Tags />
                 </template>
             </v-toolbar>
@@ -254,19 +255,19 @@
                 </v-btn>
             </div>
             <v-subheader>Language</v-subheader>
-            <v-btn-toggle v-model="language" borderless class="mx-4 mb-4">
-                <v-btn value="zh_CN"> 中文 </v-btn>
+            <v-btn-toggle v-model="language" borderless class="mx-4 mb-4" color="primary">
                 <v-btn value="en_US"> English </v-btn>
+                <v-btn value="zh_CN"> 中文 </v-btn>                
             </v-btn-toggle>
             <v-subheader>Global Theme</v-subheader>
-            <v-btn-toggle v-model="darkMode" borderless class="mx-4 mb-4">
+            <v-btn-toggle v-model="darkMode" borderless class="mx-4 mb-4" color="primary">
                 <v-btn :value="false"> light </v-btn>
                 <v-btn :value="true"> dark </v-btn>
             </v-btn-toggle>
             <v-subheader>Tags View</v-subheader>
-            <v-btn-toggle v-model="darkMode" borderless class="mx-4 mb-4">
-                <v-btn :value="false"> Show </v-btn>
-                <v-btn :value="true"> hide </v-btn>
+            <v-btn-toggle v-model="tagsView" borderless class="mx-4 mb-4" color="primary">
+                <v-btn :value="true"> Show </v-btn>
+                <v-btn :value="false"> hide </v-btn>
             </v-btn-toggle>
             <v-subheader>Color Option</v-subheader>
             <div class="px-4">
@@ -366,11 +367,18 @@ export default {
             set: function(val) {
                 this.$i18n.locale = val;
             }
-
-        } 
+        },
+        tagsView: {
+            get: function() {
+                return this.$store.state.app.tagsView;
+            },
+            set: function(val) {
+                this.$store.commit('onChangeTagsView', val);
+            }
+        }
     },
     created() {
-        // console.log(this.$i18n.locale);
+        console.log(this);
     },
     methods: {        
         onResize(e) {
