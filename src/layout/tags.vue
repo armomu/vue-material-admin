@@ -7,6 +7,7 @@
                 small
                 icon
                 class="ml-1"
+                @click.stop="onUpdate"
             >
                 <v-icon small>mdi-cached</v-icon>
             </v-btn>
@@ -53,6 +54,10 @@ export default {
         change(val) {
             const { fullPath, path, name } = this.tabs[val];
             this.$router.replace({ fullPath, path, name });
+        },
+        onUpdate() {
+            this.$emit('update');
+            console.log(222);
         },
         onClose(i) {
             if(this.curTab.length === 1) return;

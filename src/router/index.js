@@ -38,7 +38,7 @@ const router = new Router({
                         title: 'Dashboard',
                         hideNav: true,
                         icon: 'mdi-gauge',
-                        keepAlive: false
+                        keepAlive: true
                     },
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue')
                 },
@@ -63,7 +63,7 @@ const router = new Router({
                         title: 'Tasks',
                         hideNav: true,
                         icon: 'mdi-alpha-t',
-                        keepAlive: false
+                        keepAlive: true
                     },
                     component: () => import(/* webpackChunkName: "myTask" */ '@/views/task/list.vue')
                 }

@@ -229,17 +229,17 @@
                     <v-icon>mdi-settings</v-icon>
                 </v-btn>
                 <template v-if="tagsView" v-slot:extension>
-                    <Tags />
+                    <Tags @update="onUpdate" />
                 </template>
             </v-toolbar>
             <Breadcrumbs />
             <transition name="fade-transform" mode="out-in">
-                <keep-alive>
+                <keep-alive v-if="update">
                     <router-view v-if="$route.meta.keepAlive" />
                 </keep-alive>
             </transition>
             <transition name="fade-transform" mode="out-in">
-                <router-view v-if="!$route.meta.keepAlive" />
+                <router-view v-if="!$route.meta.keepAlive && update" />
             </transition>
         </div>
         <v-navigation-drawer v-model="settingsVisible" fixed temporary right width="260">
@@ -331,6 +331,7 @@ export default {
                 ['#55BB46', '#AAAA00', '#555500', '#005500'],
                 ['#FF0000', '#AA0000', '#550000', '#000055'],
             ],
+            update: true
         };
     },
     computed: {
@@ -377,10 +378,14 @@ export default {
             }
         }
     },
-    created() {
-        console.log(this);
-    },
-    methods: {        
+    created() {},
+    methods: {     
+        onUpdate() {
+            this.update = false;
+            setTimeout(() => {
+                this.update = true;
+            },50);
+        },   
         onResize(e) {
             if(!e) return; 
             const { innerWidth } = e.srcElement;
