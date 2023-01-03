@@ -14,7 +14,7 @@ module.exports = {
         ecmaVersion: 'latest',
     },
     rules: {
-        'prettier/prettier': 'error',
+        'prettier/prettier': 1,
         'vue/max-attributes-per-line': [
             0,
             {
@@ -111,7 +111,7 @@ module.exports = {
         'new-parens': 2,
         'no-array-constructor': 2,
         'no-caller': 2,
-        'no-console': 'off',
+        'no-console': 2,
         'no-class-assign': 2,
         'no-cond-assign': 2,
         'no-const-assign': 2,
@@ -219,7 +219,7 @@ module.exports = {
                 allowTemplateLiterals: true,
             },
         ],
-        semi: 2,
+        semi: 1,
         'semi-spacing': [
             2,
             {

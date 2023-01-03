@@ -1,10 +1,10 @@
 {
-    "prettier/prettier": "error",
+    "prettier/prettier": 1,
     "printWidth": 100,
     "useTabs": false,
     "tabWidth": 4,
     "tabSize": 4,
-    "semi": false,
+    "semi": true,
     "singleQuote": true,
     "quoteProps": "as-needed",
     "quotes": true,
