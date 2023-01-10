@@ -1,11 +1,9 @@
 <template>
-    <RouterView />
+    <v-app>
+        <router-view />
+    </v-app>
 </template>
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue';
-(function () {
-    console.log(111111);
-})();
+import { RouterView } from 'vue-router';
 </script>
 <style scoped lang="scss"></style>

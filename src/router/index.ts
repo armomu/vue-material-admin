@@ -1,22 +1,53 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import Layout from '@/layout/layout.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
+    scrollBehavior() {
+        return { top: 0 };
+    },
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: HomeView,
+            redirect: '/dashboard',
+            name: 'index',
+            component: Layout,
+            children: [],
+            meta: {
+                visible: false,
+                title: 'home',
+                keepAlive: false,
+            },
         },
         {
-            path: '/about',
-            name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import('../views/AboutView.vue'),
+            path: '/login',
+            name: 'login',
+            meta: {
+                title: 'Login',
+                icon: 'mdi-fingerprint',
+                visible: true,
+            },
+            component: () => import('@/views/login/login.vue'),
         },
+        {
+            path: '/dashboard',
+            component: Layout,
+            children: [
+                {
+                    path: '',
+                    name: 'dashboard',
+                    meta: {
+                        title: 'Dashboard',
+                        icon: 'mdi-gauge',
+                        keepAlive: false,
+                    },
+                    component: () => import('@/views/dashboard/dashboard.vue'),
+                    children: [],
+                },
+            ],
+        },
+        { path: '/:pathMatch(.*)', name: 'Match', redirect: '/404' },
+        { path: '/404', name: '404', component: () => import('@/views/feedback/404.vue') },
     ],
 });
 

@@ -33,6 +33,7 @@ module.exports = {
         'vue/singleline-html-element-content-newline': 'off',
         'vue/multiline-html-element-content-newline': 'off',
         'vue/name-property-casing': 'off',
+        'vue/multi-word-component-names': 'off',
         'vue/no-v-html': 'off',
         'vue/html-self-closing': 'off',
         'vue/no-unused-components': [
@@ -111,7 +112,7 @@ module.exports = {
         'new-parens': 2,
         'no-array-constructor': 2,
         'no-caller': 2,
-        'no-console': 2,
+        'no-console': 'off',
         'no-class-assign': 2,
         'no-cond-assign': 2,
         'no-const-assign': 2,
