@@ -7,18 +7,14 @@
             theme="dark"
             rail
             expand-on-hover
-            rail-width="76"
+            rail-width="77"
             @update:rail="navigationRail"
             permanent
-            style="height: calc(100% - 2rem); border-radius: 16px"
+            style="height: calc(100% - 2rem)"
         >
             <v-list class="py-4 mx-2 logo" nav>
-                <v-list-item
-                    @click="window.open('https://github.com/Groundhog-Chen/vue-material-admin')"
-                    prepend-avatar="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.png"
-                    class="mx-1"
-                >
-                    <v-list-item-title class="title">MATERIAL-UI</v-list-item-title>
+                <v-list-item :prepend-avatar="logo" class="mx-1">
+                    <v-list-item-title class="title">Material UI</v-list-item-title>
                     <v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
                 </v-list-item>
                 <!-- <v-divider></v-divider> -->
@@ -38,7 +34,7 @@
                     <template v-slot:activator="{ props }">
                         <v-list-item
                             v-bind="props"
-                            prepend-icon="mdi-account-circle"
+                            prepend-icon="fa:fas mdi-account-circle"
                             title="Users"
                         ></v-list-item>
                     </template>
@@ -58,30 +54,29 @@
             <header class="header">
                 <Breadcrumbs />
                 <v-spacer></v-spacer>
-                <v-btn
-                    text
-                    target="_blank"
-                    href="https://github.com/Groundhog-Chen/vue-material-admin"
-                    class="min_hide"
-                >
-                    <v-icon title="https://github.com/Groundhog-Chen/vue-material-admin"
-                        >mdi-github-circle</v-icon
-                    >
-                </v-btn>
-                <v-btn text class="min_hide">
-                    <v-icon>mdi-arrow-expand-all</v-icon>
-                </v-btn>
-                <v-btn>
-                    <v-badge content="2" color="error">
-                        <v-icon>mdi-bell-outline</v-icon>
-                    </v-badge>
-                </v-btn>
+                <div style="width: 180px">
+                    <v-text-field
+                        label="Search here"
+                        model-value="vue"
+                        variant="outlined"
+                        hide-details
+                        density="compact"
+                        clearable
+                        focused
+                    ></v-text-field>
+                </div>
+                <v-icon class="mx-3" icon="mdi-github" />
+                <v-icon class="mr-3" icon="mdi-cog" />
+                <v-badge content="2" class="mr-5" color="error">
+                    <v-icon icon="mdi-bell-outline" />
+                </v-badge>
             </header>
             <RouterView />
         </main>
     </v-layout>
 </template>
 <script setup lang="ts">
+import logo from '@/assets/admin-logo.png';
 import { RouterView } from 'vue-router';
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs.vue';
 import { reactive } from 'vue';

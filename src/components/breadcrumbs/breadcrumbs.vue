@@ -1,11 +1,13 @@
 <template>
-    <div v-if="!$route.meta.hideNav" class="layout_title">
-        <v-breadcrumbs :items="routeItems">
-            <template v-slot:prepend>
-                <v-icon size="small" icon="mdi-vuetify"></v-icon>
-            </template>
-        </v-breadcrumbs>
-        <v-toolbar-title>{{ pageTitle }}</v-toolbar-title>
+    <div v-if="!$route.meta.hideNav" class="header_title ml-4">
+        <div>
+            <v-breadcrumbs :items="routeItems">
+                <template v-slot:prepend>
+                    <v-icon size="small" icon="mdi-vuetify"></v-icon>
+                </template>
+            </v-breadcrumbs>
+        </div>
+        <div class="page_title">{{ pageTitle }}</div>
     </div>
 </template>
 <script>
@@ -32,7 +34,7 @@ export default {
         getBreadcrumb() {
             const _$route = this.$route;
             const { matched } = this.$route;
-            console.log(matched);
+            // console.log(matched);
             if (matched[0].path === '/dashboard') {
                 this.routeItems = [
                     {
@@ -45,14 +47,14 @@ export default {
             }
             if (matched[0].path === matched[1].path) {
                 this.routeItems = [
-                    // {
-                    //     text: 'Home',
-                    //     disabled: false,
-                    //     to: '/dashboard',
-                    // },
+                    {
+                        text: 'Index',
+                        disabled: false,
+                        to: '/dashboard',
+                    },
                     {
                         text: matched[0].meta.title,
-                        disabled: false,
+                        disabled: true,
                         to: matched[0].path,
                     },
                 ];

@@ -30,7 +30,9 @@ const router = createRouter({
             component: () => import('@/views/login/login.vue'),
         },
         {
-            path: '/dashboard',
+            path: '/',
+            redirect: '/dashboard',
+            name: 'index',
             component: Layout,
             children: [
                 {
@@ -40,6 +42,19 @@ const router = createRouter({
                         title: 'Dashboard',
                         icon: 'mdi-gauge',
                         keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/dashboard/dashboard.vue'),
+                    children: [],
+                },
+                {
+                    path: '',
+                    name: 'dashboard',
+                    meta: {
+                        title: 'Dashboard',
+                        icon: 'D',
+                        keepAlive: false,
+                        visible: true,
                     },
                     component: () => import('@/views/dashboard/dashboard.vue'),
                     children: [],
