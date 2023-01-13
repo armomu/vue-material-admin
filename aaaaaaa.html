@@ -7,7 +7,7 @@
         body {
             background: #131115;
         }
-        #c1 {
+        #canvas {
             background: #fbf7fe;
         }
         #btn {
@@ -20,7 +20,7 @@
             left: 0px;
             top: 0px;
         }
-        #main {
+        #canvas_wrap {
             transform-origin: 0px 0px;
             position: fixed;
             left: 0px;
@@ -35,11 +35,10 @@
     </style>
 </head>
 <body style="overflow-x:hidden;overflow-y:hidden">
-<div id="main">
-    <canvas id="c1" width="1024" height="1024">
+<div id="canvas_wrap">
+    <canvas id="canvas" width="1024" height="800">
         <span>目前不支持canvas浏览器</span>
     </canvas>
-</div>
     <button id="btn">配置</button>
     <div id="config">
         <textarea name="" id="kernel" cols="30" rows="10"></textarea>
@@ -47,6 +46,8 @@
         <button id="apply">应用</button>
         <button id="cancel">取消</button>
     </div>
+</div>
+
     <script>
     var cx, cy;
     var glposition;
@@ -248,9 +249,9 @@
         else{
             cy=cx;
         }
-        document.getElementById("main").style.width=1024+"px";
-        document.getElementById("main").style.height=1024+"px";
-        document.getElementById("main").style.transform="scale("+cx/1024+","+cy/1024+")";
+        document.getElementById("canvas_wrap").style.width=1024+"px";
+        document.getElementById("canvas_wrap").style.height=800+"px";
+        document.getElementById("canvas_wrap").style.transform="scale("+cx/1024+","+cy/800+")";
     }
     window.onload = function () {
         cx = document.body.clientWidth;
@@ -261,9 +262,9 @@
         else{
             cy=cx;
         }
-        document.getElementById("main").style.width=1024+"px";
-        document.getElementById("main").style.height=1024+"px";
-        document.getElementById("main").style.transform="scale("+cx/1024+","+cy/1024+")";
+        document.getElementById("canvas_wrap").style.width=1024+"px";
+        document.getElementById("canvas_wrap").style.height=800+"px";
+        document.getElementById("canvas_wrap").style.transform="scale("+cx/1024+","+cy/800+")";
         var positions = [-1.0, -1.0, 0.0, 1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, 1.0, 0.0];
         var VSHADER_SOURCE =
             "#version 100 \n"+
@@ -425,7 +426,7 @@
             "   }\n" +
             "   gl_FragColor = vec4(color.x, color.y, color.z, 1.0);" +
             "}";
-        canvas = document.getElementById('c1');
+        canvas = document.getElementById('canvas');
         gl = canvas.getContext('webgl');
         vertshader = gl.createShader(gl.VERTEX_SHADER);
         fragshader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -458,7 +459,7 @@
         gl.vertexAttribPointer(glposition, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(glposition);
 
-        gl.viewport(0, 0, 1024, 1024);
+        gl.viewport(0, 0, 1024, 800);
         draw();
         window.requestAnimationFrame(ontimer);
         document.getElementById("kernel").value = KERNEL;

@@ -3,7 +3,9 @@
         <div>
             <v-breadcrumbs :items="routeItems">
                 <template v-slot:prepend>
-                    <v-icon size="small" icon="mdi-vuetify"></v-icon>
+                    <!-- <img :src="logo" class="imglogo" /> -->
+                    <v-icon size="small" icon="mdi-home-circle"></v-icon>
+                    <li class="v-breadcrumbs-divider">/</li>
                 </template>
             </v-breadcrumbs>
         </div>
@@ -11,9 +13,11 @@
     </div>
 </template>
 <script>
+import logo from '@/assets/admin-logo.png';
 export default {
     data() {
         return {
+            logo,
             routeItems: null,
         };
     },
@@ -60,27 +64,20 @@ export default {
                 ];
                 return;
             }
-            this.routeItems = [
-                {
-                    text: 'Home',
-                    disabled: false,
-                    exact: true,
-                    to: '/dashboard',
-                },
-            ];
+            this.routeItems = [];
             matched.forEach((route, index) => {
                 if (index === matched.length - 1) {
                     this.routeItems.push({
                         text: route.meta.title,
                         exact: true,
-                        disabled: true,
+                        disabled: false,
                         to: _$route.path,
                     });
                 } else {
                     this.routeItems.push({
                         text: route.meta.title,
-                        exact: true,
-                        disabled: false,
+                        exact: false,
+                        disabled: true,
                         to: route.path,
                     });
                 }

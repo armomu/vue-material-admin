@@ -29,37 +29,13 @@
                     ></v-text-field>
                 </div>
                 <div class="row row_f">
-                    <v-btn
-                        block
-                        color="primary"
-                        size="large"
-                        type="submit"
-                        :to="{ name: 'dashboard' }"
-                        >Sign in</v-btn
-                    >
+                    <v-btn block color="primary" size="large" type="submit" href="/">Sign in</v-btn>
                 </div>
             </div>
         </div>
     </div>
 </template>
-<script lang="ts" setup>
-// export default {
-//     data() {
-//         return {
-//             mlmlh: false,
-//         };
-//     },
-//     methods: {
-//         handleSignBtn() {
-//             this.mlmlh = true;
-//             this.$store.commit('handleSignIn');
-//             setTimeout(() => {
-//                 this.$router.push('/dashboard');
-//             }, 300);
-//         },
-//     },
-// };
-</script>
+<script lang="ts" setup></script>
 <style lang="scss" scoped>
 .login_container {
     height: 100vh;
@@ -74,7 +50,7 @@
     .left {
         flex: 1;
         .form {
-            width: 500px;
+            width: 400px;
             margin: 0 auto;
             .title {
                 font-size: 36px;
