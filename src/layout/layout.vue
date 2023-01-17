@@ -60,6 +60,16 @@
                     <v-list-subheader v-if="item.name === 'Dashboard'">Group</v-list-subheader>
                     <v-list-subheader v-if="item.name === 'map'">Other</v-list-subheader>
                 </template>
+                <v-list-item prepend-icon="mdi-microsoft-word" class="mx-1">
+                    <v-list-item-title
+                        ><a
+                            target="_blank"
+                            href="https://next.vuetifyjs.com/en/"
+                            style="color: #ffffff"
+                            >Document</a
+                        ></v-list-item-title
+                    >
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <!-- class="elevation-0" -->

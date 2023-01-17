@@ -13,8 +13,8 @@
         </div> -->
     </div>
 </template>
-<script setup lang="ts">
-// return;
+<script setup>
+// return false;
 // var cx, cy;
 // var glposition;
 // var glright;
@@ -27,11 +27,6 @@
 // var canvas;
 // var gl;
 // var date = new Date();
-// var md = 0;
-// var mx;
-// var my;
-// var t2;
-// var t1 = date.getTime();
 // var mx = 0;
 // var my = 0;
 // var mx1 = 0;
@@ -76,10 +71,12 @@
 //     'mousedown',
 //     function (ev) {
 //         var oEvent = ev || event;
+//         // eslint-disable-next-line eqeqeq
 //         if (oEvent.button == 0) {
 //             ml = 1;
 //             mm = 0;
 //         }
+//         // eslint-disable-next-line eqeqeq
 //         if (oEvent.button == 2) {
 //             mr = 1;
 //             mm = 0;
@@ -93,9 +90,11 @@
 //     'mouseup',
 //     function (ev) {
 //         var oEvent = ev || event;
+//         // eslint-disable-next-line eqeqeq
 //         if (oEvent.button == 0) {
 //             ml = 0;
 //         }
+//         // eslint-disable-next-line eqeqeq
 //         if (oEvent.button == 2) {
 //             mr = 0;
 //         }
@@ -106,14 +105,14 @@
 //     'mousemove',
 //     function (ev) {
 //         var oEvent = ev || event;
-//         if (ml == 1) {
+//         if (ml === 1) {
 //             ang1 += (oEvent.clientX - mx) * 0.002;
 //             ang2 += (oEvent.clientY - my) * 0.002;
-//             if (oEvent.clientX != mx || oEvent.clientY != my) {
+//             if (oEvent.clientX !== mx || oEvent.clientY !== my) {
 //                 mm = 1;
 //             }
 //         }
-//         if (mr == 1) {
+//         if (mr === 1) {
 //             var l = (len * 4.0) / (cx + cy);
 //             cenx +=
 //                 l *
@@ -124,7 +123,7 @@
 //                 l *
 //                 ((oEvent.clientX - mx) * Math.cos(ang1) -
 //                     (oEvent.clientY - my) * Math.sin(ang2) * Math.sin(ang1));
-//             if (oEvent.clientX != mx || oEvent.clientY != my) {
+//             if (oEvent.clientX !== mx || oEvent.clientY !== my) {
 //                 mm = 1;
 //             }
 //         }
@@ -146,11 +145,12 @@
 //     'touchstart',
 //     function (ev) {
 //         var n = ev.touches.length;
-//         if (n == 1) {
+//         if (n === 1) {
 //             var oEvent = ev.touches[0];
 //             mx = oEvent.clientX;
 //             my = oEvent.clientY;
-//         } else if (n == 2) {
+//         } else if (n === 2) {
+//             // eslint-disable-next-line no-redeclare
 //             var oEvent = ev.touches[0];
 //             mx = oEvent.clientX;
 //             my = oEvent.clientY;
@@ -166,11 +166,12 @@
 //     'touchend',
 //     function (ev) {
 //         var n = ev.touches.length;
-//         if (n == 1) {
+//         if (n === 1) {
 //             var oEvent = ev.touches[0];
 //             mx = oEvent.clientX;
 //             my = oEvent.clientY;
-//         } else if (n == 2) {
+//         } else if (n === 2) {
+//             // eslint-disable-next-line no-redeclare
 //             var oEvent = ev.touches[0];
 //             mx = oEvent.clientX;
 //             my = oEvent.clientY;
@@ -187,13 +188,14 @@
 //     function (ev) {
 //         ev.preventDefault();
 //         var n = ev.touches.length;
-//         if (n == 1 && lasttimen == 1) {
+//         if (n === 1 && lasttimen === 1) {
 //             var oEvent = ev.touches[0];
 //             ang1 += (oEvent.clientX - mx) * 0.002;
 //             ang2 += (oEvent.clientY - my) * 0.002;
 //             mx = oEvent.clientX;
 //             my = oEvent.clientY;
-//         } else if (n == 2) {
+//         } else if (n === 2) {
+//             // eslint-disable-next-line no-redeclare
 //             var oEvent = ev.touches[0];
 //             var oEvent1 = ev.touches[1];
 //             var l = (len * 2.0) / (cx + cy);
@@ -224,7 +226,7 @@
 //     false
 // );
 // document.oncontextmenu = function (event) {
-//     if (mm == 1) {
+//     if (mm === 1) {
 //         event.preventDefault();
 //     }
 // };
@@ -450,7 +452,7 @@
 //         '}';
 //     canvas = document.getElementById('canvas');
 //     gl = canvas.getContext('webgl');
-//     vertshader = gl.createShader(gl.VERTEX_SHADER);
+//     var vertshader = gl.createShader(gl.VERTEX_SHADER);
 //     fragshader = gl.createShader(gl.FRAGMENT_SHADER);
 //     shaderProgram = gl.createProgram();
 //     gl.shaderSource(vertshader, VSHADER_SOURCE);
@@ -465,6 +467,7 @@
 //     gl.useProgram(shaderProgram);
 //     if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
 //         var info = gl.getProgramInfoLog(shaderProgram);
+//         // eslint-disable-next-line no-throw-literal
 //         throw 'Could not compile WebGL program. \n\n' + infov + infof + info;
 //     }
 //     glposition = gl.getAttribLocation(shaderProgram, 'position');
@@ -486,7 +489,7 @@
 //     window.requestAnimationFrame(ontimer);
 //     document.getElementById('kernel').value = KERNEL;
 //     document.getElementById('btn').addEventListener('click', function () {
-//         var state = this.innerText == '配置';
+//         var state = this.innerText === '配置';
 //         this.innerText = state ? '隐藏' : '配置';
 //         document.getElementById('config').style.display = state ? 'inline' : 'none';
 //     });
@@ -517,6 +520,7 @@
 </script>
 <style scoped lang="scss">
 #canvas_wrap {
+    position: relative;
     transform-origin: 0px 0px;
     // position: fixed;
     // left: 0px;
@@ -527,18 +531,15 @@
     }
 
     #btn {
-        position: fixed;
         left: 0px;
         top: 0px;
     }
 
     #canvas {
-        position: fixed;
         left: 0px;
         top: 0px;
     }
     #config {
-        position: fixed;
         left: 0px;
         top: 30px;
         display: none;

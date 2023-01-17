@@ -54,7 +54,7 @@
         padding-right: 16px;
         transition: all 0.2s;
         margin-top: 92px;
-        header {
+        .header {
             background: #ffffff;
             height: 76px;
             transition: all 0.2s;
@@ -123,7 +123,7 @@
     }
     .app_main {
         margin-left: 108px;
-        header {
+        .header {
             left: 108px;
             width: calc(100vw - 132px);
         }

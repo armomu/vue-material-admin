@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout/layout.vue';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(),
     scrollBehavior() {
         return { top: 0 };
     },
@@ -32,30 +32,30 @@ const router = createRouter({
                     component: () => import('@/views/carSystem/teslaModelS.vue'),
                     children: [],
                 },
-                {
-                    path: '/dashboard/apexcharts',
-                    name: 'apexcharts',
-                    meta: {
-                        title: 'Apexcharts',
-                        icon: 'mdi-alpha-a',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/dashboard/apexcharts.vue'),
-                    children: [],
-                },
-                {
-                    path: '/dashboard/sparklines',
-                    name: 'sparklines',
-                    meta: {
-                        title: 'Sparklines',
-                        icon: 'mdi-alpha-s',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/dashboard/sparklines.vue'),
-                    children: [],
-                },
+                // {
+                //     path: '/dashboard/apexcharts',
+                //     name: 'apexcharts',
+                //     meta: {
+                //         title: 'Apexcharts',
+                //         icon: 'mdi-alpha-a',
+                //         keepAlive: false,
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/dashboard/apexcharts.vue'),
+                //     children: [],
+                // },
+                // {
+                //     path: '/dashboard/sparklines',
+                //     name: 'sparklines',
+                //     meta: {
+                //         title: 'Sparklines',
+                //         icon: 'mdi-alpha-s',
+                //         keepAlive: false,
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/dashboard/sparklines.vue'),
+                //     children: [],
+                // },
             ],
         },
         {
@@ -80,18 +80,18 @@ const router = createRouter({
                     component: () => import('@/views/componets/sample.vue'),
                     children: [],
                 },
-                {
-                    path: 'table',
-                    name: 'table',
-                    meta: {
-                        title: 'Table',
-                        icon: 'mdi-alpha-t',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/componets/table.vue'),
-                    children: [],
-                },
+                // {
+                //     path: 'table',
+                //     name: 'table',
+                //     meta: {
+                //         title: 'Table',
+                //         icon: 'mdi-alpha-t',
+                //         keepAlive: false,
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/componets/table.vue'),
+                //     children: [],
+                // },
             ],
         },
         {
@@ -115,17 +115,17 @@ const router = createRouter({
                     },
                     component: () => import('@/views/graphics/mushroom.vue'),
                 },
-                {
-                    path: 'canvas',
-                    name: 'canvas',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Canvas',
-                        icon: 'mdi-alpha-c',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/canvas.vue'),
-                },
+                // {
+                //     path: 'canvas',
+                //     name: 'canvas',
+                //     meta: {
+                //         keepAlive: false,
+                //         title: 'Canvas',
+                //         icon: 'mdi-alpha-c',
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/graphics/canvas.vue'),
+                // },
             ],
         },
         {
@@ -138,18 +138,18 @@ const router = createRouter({
             },
             component: Layout,
             children: [
-                {
-                    path: 'baidu-map',
-                    name: 'baiduMap',
-                    meta: {
-                        title: 'Baidu map',
-                        icon: 'mdi-alpha-b',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/map/baiduMap.vue'),
-                    children: [],
-                },
+                // {
+                //     path: 'baidu-map',
+                //     name: 'baiduMap',
+                //     meta: {
+                //         title: 'Baidu map',
+                //         icon: 'mdi-alpha-b',
+                //         keepAlive: false,
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/map/baiduMap.vue'),
+                //     children: [],
+                // },
                 {
                     path: 'amap',
                     name: 'amap',
@@ -181,17 +181,17 @@ const router = createRouter({
             meta: { keepAlive: false, title: 'Not found', icon: 'mdi-paw-off', visible: true },
             component: () => import('@/views/feedback/no.vue'),
         },
-        {
-            path: '/document',
-            name: 'document',
-            meta: {
-                keepAlive: false,
-                title: 'Document',
-                icon: 'mdi-microsoft-word',
-                visible: true,
-            },
-            component: () => import('@/views/feedback/no.vue'),
-        },
+        // {
+        //     path: '/document',
+        //     name: 'document',
+        //     meta: {
+        //         keepAlive: false,
+        //         title: 'Document',
+        //         icon: 'mdi-microsoft-word',
+        //         visible: true,
+        //     },
+        //     component: () => import('@/views/feedback/no.vue'),
+        // },
     ],
 });
 

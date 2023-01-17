@@ -168,7 +168,12 @@
                         </div>
                         <div class="text-h6" style="text-align: center">Lil Mama</div>
                         <div style="text-align: center">To Sing Jain</div>
-                        <v-slider class="slider mx-4" color="#fff" label="0" style="color: white">
+                        <v-slider
+                            class="slider mx-4 mt-3"
+                            color="#fff"
+                            label="0"
+                            style="color: white"
+                        >
                             <template #append>4:35</template>
                         </v-slider>
 
@@ -255,16 +260,7 @@ const initMap = async () => {
         },
     });
     AMap = amap_;
-    // moveAnimation();
     test();
-    // map.value = new AMap.Map('amap', {
-    //     // 设置地图容器id
-    //     // mapStyle: 'amap://styles/dark',
-    //     // pitch: 65,
-    //     // viewMode: '3D', // 是否为3D地图模式
-    //     // zoom: 18, // 初始化地图级别
-    //     center: [116.480784, 39.998302], // 初始化地图中心点位置
-    // });
 };
 initMap();
 var marker: any;
@@ -549,7 +545,7 @@ setTimeout(() => {
                 }
                 .zjbg {
                     width: 150px;
-                    margin: 50px auto 30px auto;
+                    margin: 30px auto 30px auto;
                     position: relative;
                     .zj_img {
                         position: relative;

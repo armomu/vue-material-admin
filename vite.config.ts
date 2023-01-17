@@ -7,6 +7,7 @@ import vuetify from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: '/vue-material-admin',
     plugins: [vue(), vueJsx(), vuetify() as any],
     server: {
         open: true,
