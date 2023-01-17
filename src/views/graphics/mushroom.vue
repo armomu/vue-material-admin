@@ -13,7 +13,7 @@
         </div> -->
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 // return;
 // var cx, cy;
 // var glposition;

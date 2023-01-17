@@ -1,7 +1,7 @@
 
 .v-layout {
     color: #344767!important;
-    background: #f9f9f9;
+    background: #F7FAFC;
     .layout_navigation {
         border-radius: 12px;
         overflow: hidden;
@@ -49,17 +49,23 @@
         }
     }
     .app_main {
-        margin-top: 16px;
         flex: 1;
         margin-left: 288px;
         padding-right: 16px;
         transition: all 0.2s;
+        margin-top: 92px;
         header {
             background: #ffffff;
             height: 76px;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             border-radius: 10px;
+            position: fixed;
+            top: 16px;
+            left: 288px;
+            width: calc(100vw - 312px);
+            z-index: 2;
             .header_title {
                 .v-breadcrumbs {
                     padding: 0 !important;
@@ -97,6 +103,9 @@
                 align-self: flex-start
             }
         }
+        .router {
+            padding-top: 16px;
+        }
     }
 }
 
@@ -114,8 +123,9 @@
     }
     .app_main {
         margin-left: 108px;
-        .router {
-            padding-top: 16px;
+        header {
+            left: 108px;
+            width: calc(100vw - 132px);
         }
     }
 }

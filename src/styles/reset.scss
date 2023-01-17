@@ -252,12 +252,12 @@ body {
     font-size: 14px;
     &::-webkit-scrollbar {
         // 定义了滚动条整体的样式；
-        background: #f9f9f9;
+        background: #F7FAFC;
         width: 8px;
     }
     &::-webkit-scrollbar-thumb {
         width: 8px;
-        background: rgb(209, 209, 209);
+        background: rgb(222, 222, 222);
         border-radius: 4px;
     }
 }

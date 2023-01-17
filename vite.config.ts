@@ -22,6 +22,7 @@ export default defineConfig({
         //     }
         // }
     },
+    assetsInclude: ['**/*.gltf'],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),

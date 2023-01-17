@@ -11,7 +11,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/dashboard/apexcharts',
+            redirect: '/dashboard/tesla-model-s',
             name: 'Dashboard',
             meta: {
                 visible: true,
@@ -20,6 +20,18 @@ const router = createRouter({
             },
             component: Layout,
             children: [
+                {
+                    path: '/dashboard/tesla-model-s',
+                    name: 'teslaModelS',
+                    meta: {
+                        title: 'Tesla Model S',
+                        icon: 'mdi-alpha-t',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/carSystem/teslaModelS.vue'),
+                    children: [],
+                },
                 {
                     path: '/dashboard/apexcharts',
                     name: 'apexcharts',
@@ -113,42 +125,6 @@ const router = createRouter({
                         visible: true,
                     },
                     component: () => import('@/views/graphics/canvas.vue'),
-                },
-            ],
-        },
-        {
-            path: '/car-system',
-            name: 'vehicleMachineSystem',
-            meta: {
-                visible: true,
-                title: 'Car system',
-                icon: 'mdi-view-module',
-            },
-            component: Layout,
-            children: [
-                {
-                    path: 'byd-han',
-                    name: 'BYDhan',
-                    meta: {
-                        title: 'Byd han',
-                        icon: 'mdi-alpha-b',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/carSystem/carSystem.vue'),
-                    children: [],
-                },
-                {
-                    path: 'tesla-model-s',
-                    name: 'teslaModelS',
-                    meta: {
-                        title: 'Tesla Model S',
-                        icon: 'mdi-alpha-t',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/carSystem/teslaModelS.vue'),
-                    children: [],
                 },
             ],
         },

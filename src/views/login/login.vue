@@ -1,9 +1,9 @@
 <template>
     <div class="login_container">
-        <div class="right">
-            <img src="../../assets/login.png" />
-        </div>
         <div class="left">
+            <div class="logo">
+                <img src="../../assets/Material-admin-logo.png" />
+            </div>
             <div class="form">
                 <div class="title">Welcome back</div>
                 <div class="row">
@@ -33,6 +33,9 @@
                 </div>
             </div>
         </div>
+        <div class="right">
+            <img src="../../assets/login.png" />
+        </div>
     </div>
 </template>
 <script lang="ts" setup></script>
@@ -49,6 +52,19 @@
     overflow: hidden;
     .left {
         flex: 1;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        .logo {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            img {
+                height: 38px;
+            }
+        }
         .form {
             width: 400px;
             margin: 0 auto;
