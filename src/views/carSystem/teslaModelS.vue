@@ -534,7 +534,7 @@ setTimeout(() => {
                 margin-left: 150px;
                 transform: translate(-50%, 0);
                 filter: blur(25px);
-                opacity: 0.8;
+                opacity: 0.6;
             }
             .music_wrap {
                 position: relative;
@@ -545,22 +545,47 @@ setTimeout(() => {
                 }
                 .zjbg {
                     width: 150px;
-                    margin: 30px auto 30px auto;
+                    margin: 40px auto 20px auto;
                     position: relative;
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 16px;
+                        height: 16px;
+                        background: #1a1a1a;
+                        border-radius: 50%;
+                        position: absolute;
+                        z-index: 4;
+                        top: 42px;
+                        left: 92px;
+                        box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2);
+                    }
                     .zj_img {
                         position: relative;
-                        z-index: 2;
+                        z-index: 3;
+                        border-radius: 4px;
                     }
                     .zj_y {
                         position: absolute;
                         right: 0;
                         top: 0;
+                        animation: zzzzz 5s linear infinite;
+                        @keyframes zzzzz {
+                            0% {
+                                transform: rotateZ(0deg);
+                            }
+                            100% {
+                                transform: rotateZ(360deg);
+                            }
+                        }
                         .zj_cd_fm {
                             border-radius: 50%;
                             position: absolute;
                             top: 19px;
                             left: 19px;
                             z-index: 2;
+                        }
+                        .zj_cd_bg {
                         }
                     }
                 }

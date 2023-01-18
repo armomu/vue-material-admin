@@ -1,46 +1,75 @@
-# vite3
+<p align="center">
+  <img width="200" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/admin-logo.png">
+</p>
 
-This template should help get you started developing with Vue 3 in Vite.
+<h1 align="center">
+    Vue Material Admin<br/>
+    <br/>
+</h1>
 
-## Recommended IDE Setup
+基于 Vue3 + Vuetify + TS 实现的后台管理系统模板，原先的的项目是基于 Vue2 + Vuetify 实现的，现在正在持续更新中，如有改进及优化建议，请发送本人邮箱894620576@qq.com
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+>dev、master 分支为正在升级到Vue3的开发代码，v2分支为旧版本，v1应该是>Vuetify1.x的老版本的备份
 
-## Type Support for `.vue` Imports in TS
+## 目录结构
+```              　　
+┌  public
+├─ tests
+├─ src
+│ ├─ assets
+│ ├─ components
+│ ├─ layout
+│ ├─ plugins
+│ ├─ router
+│ ├─ store
+│ ├─ styles
+│ ├─ views
+│ ├─ app.vue│
+└─ main.ts
+├─ .editorconfig
+├─ .env.development
+├─ .env.production
+├─ .eslintrc.cjs
+├─ .gitignore
+├─ .prettierrc.json
+├─ env.d.ts
+├─ index.html
+├─ package.json
+├─ README.md
+├─ tsconfig.config.json
+├─ tsconfig.json
+└─ vite.config.ts
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## 预览地址
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
++ [旧版的：http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
++ 新版：还没有发布
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 开发
 
-## Customize configuration
+```
+# 克隆项目
+git clone https://github.com/Groundhog-Chen/vue-material-admin.git
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+# 打开文件目录
+cd vue-material-admin
 
-## Project Setup
-
-```sh
+# 安装依赖
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# 本地运行
 npm run dev
+
 ```
+## 截图
+<p align="center">
+  <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
+</p>
 
-### Type-Check, Compile and Minify for Production
+## 截图（旧版的）
 
-```sh
-npm run build
-```
+![home](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/vue-material-admin.png)
+![tasks](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/tasks.png)
+![lct](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/lct.png)
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
