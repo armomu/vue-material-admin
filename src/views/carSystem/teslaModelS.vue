@@ -149,6 +149,9 @@
 
                     <div class="music_wrap">
                         <!-- <div class="text-h6 pa-2">Music</div> -->
+                        <audio controls ref="audio" preload="auto" id="audio" hidden>
+                            <source :src="LilMama" type="audio/mpeg" />
+                        </audio>
                         <div class="zjbg">
                             <img
                                 src="../../assets/cover2.jpg"
@@ -156,7 +159,12 @@
                                 width="100"
                                 height="100"
                             />
-                            <div class="zj_y">
+                            <div
+                                class="zj_y"
+                                :class="{
+                                    zj_y_zzz: audioData.play,
+                                }"
+                            >
                                 <img
                                     src="../../assets/cover2.jpg"
                                     class="zj_cd_fm"
@@ -174,7 +182,9 @@
                             label="0"
                             style="color: white"
                         >
-                            <template #append>4:35</template>
+                            <template #append>{{
+                                audioData.duration ? audioData.duration : ''
+                            }}</template>
                         </v-slider>
 
                         <div
@@ -183,7 +193,20 @@
                         >
                             <v-btn variant="text" color="#fff" icon="mdi-volume-high" />
                             <v-btn variant="text" color="#fff" icon="mdi-skip-previous" />
-                            <v-btn variant="text" class="play_btn" icon="mdi-play-circle" />
+                            <v-btn
+                                v-if="audioData.play"
+                                variant="text"
+                                class="play_btn"
+                                icon="mdi-pause"
+                                @click="onPlay"
+                            />
+                            <v-btn
+                                v-else
+                                variant="text"
+                                class="play_btn"
+                                icon="mdi-play-circle"
+                                @click="onPlay"
+                            />
                             <v-btn variant="text" color="#fff" icon="mdi-skip-next" />
                             <v-btn variant="text" color="#fff" icon="mdi-playlist-music-outline" />
                         </div>
@@ -246,8 +269,27 @@
 </template>
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
-import { shallowRef } from 'vue';
+import LilMama from '@/assets/Jain - Lil Mama.mp3';
+import { shallowRef, ref, onMounted, reactive } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
+const audio = ref<HTMLAudioElement>(null);
+const audioData = reactive({
+    play: false,
+    duration: 0,
+    curTime: 0,
+});
+onMounted(() => {
+    // audio.value.addEventListener();
+});
+const onPlay = async () => {
+    if (audioData.play) {
+        await audio.value.pause();
+        audioData.play = false;
+        return;
+    }
+    await audio.value.play();
+    audioData.play = true;
+};
 const map_ = shallowRef<any>(null);
 var AMap: any;
 const initMap = async () => {
@@ -366,9 +408,9 @@ const onStart = () => {
         autoRotation: true,
     });
 };
-setTimeout(() => {
-    onStart();
-}, 3000);
+// setTimeout(() => {
+//     onStart();
+// }, 3000);
 </script>
 
 <style scoped lang="scss">
@@ -569,13 +611,16 @@ setTimeout(() => {
                         position: absolute;
                         right: 0;
                         top: 0;
-                        animation: zzzzz 5s linear infinite;
-                        @keyframes zzzzz {
-                            0% {
-                                transform: rotateZ(0deg);
-                            }
-                            100% {
-                                transform: rotateZ(360deg);
+                        animation-fill-mode: forwards;
+                        &.zj_y_zzz {
+                            animation: zzzzz 5s linear infinite;
+                            @keyframes zzzzz {
+                                0% {
+                                    transform: rotateZ(0deg);
+                                }
+                                100% {
+                                    transform: rotateZ(360deg);
+                                }
                             }
                         }
                         .zj_cd_fm {
@@ -584,8 +629,6 @@ setTimeout(() => {
                             top: 19px;
                             left: 19px;
                             z-index: 2;
-                        }
-                        .zj_cd_bg {
                         }
                     }
                 }
