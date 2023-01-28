@@ -6,7 +6,23 @@
             <a href="https://next.vuetifyjs.com/en/" target="_black">documentation</a>
         </div>
     </div>
-    <v-card title="Alert" class="elevation-0 my-4">
+    <v-card title="Application" class="elevation-0 my-4">
+        <v-layout :theme="theme">
+            <v-navigation-drawer :theme="theme" permanent></v-navigation-drawer>
+            <v-app-bar :theme="theme">
+                <v-spacer></v-spacer>
+                <v-btn
+                    :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+                    @click="onTheme"
+                    >Toggle Theme</v-btn
+                >
+            </v-app-bar>
+            <v-main>
+                <v-container>Content area</v-container>
+            </v-main>
+        </v-layout>
+    </v-card>
+    <v-card title="Alerts" class="elevation-0 my-4">
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="6" class="pr-2">
                 <v-alert type="success">I'm a success alert.</v-alert>
@@ -49,7 +65,7 @@
             </v-col>
         </v-row>
     </v-card>
-    <v-card title="Badge" class="elevation-0 my-4">
+    <v-card title="Badges" class="elevation-0 my-4">
         <v-toolbar color="blue-grey-darken-3">
             <v-spacer></v-spacer>
 
@@ -82,7 +98,7 @@
             <v-spacer></v-spacer>
         </v-toolbar>
     </v-card>
-    <v-card title="Btn" class="elevation-0 my-4">
+    <v-card title="Buttons" class="elevation-0 my-4">
         <v-container>
             <v-row justify="space-between" class="text-center">
                 <v-col>
@@ -151,7 +167,7 @@
         </v-row>
     </v-card>
 
-    <v-card title="Card" class="elevation-0 my-4">
+    <v-card title="Cards" class="elevation-0 my-4">
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="4" class="pr-2">
                 <v-card class="mx-auto" variant="outlined">
@@ -260,7 +276,7 @@
             </v-col>
         </v-row>
     </v-card>
-    <v-card title="Alert" class="elevation-0 my-4">
+    <v-card title="Alerts" class="elevation-0 my-4">
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="6" class="pr-2"> </v-col>
             <v-col cols="6" class="pl-2"> </v-col>
@@ -268,9 +284,15 @@
     </v-card>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 const cards = reactive({
     reveal: false,
 });
+
+const theme = ref('light');
+
+function onTheme() {
+    theme.value = theme.value === 'light' ? 'dark' : 'light';
+}
 </script>
 <style scoped lang="scss"></style>

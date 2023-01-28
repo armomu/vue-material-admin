@@ -29,7 +29,7 @@ const router = createRouter({
                         keepAlive: false,
                         visible: true,
                     },
-                    component: () => import('@/views/carSystem/teslaModelS.vue'),
+                    component: () => import('@/views/dashboard/teslaModelS.vue'),
                     children: [],
                 },
                 // {
@@ -80,18 +80,18 @@ const router = createRouter({
                     component: () => import('@/views/componets/sample.vue'),
                     children: [],
                 },
-                // {
-                //     path: 'table',
-                //     name: 'table',
-                //     meta: {
-                //         title: 'Table',
-                //         icon: 'mdi-alpha-t',
-                //         keepAlive: false,
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/componets/table.vue'),
-                //     children: [],
-                // },
+                {
+                    path: 'table',
+                    name: 'table',
+                    meta: {
+                        title: 'Table',
+                        icon: 'mdi-alpha-t',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/componets/table.vue'),
+                    children: [],
+                },
             ],
         },
         {

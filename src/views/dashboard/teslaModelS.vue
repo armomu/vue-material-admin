@@ -272,7 +272,7 @@
 import LilMama from '@/assets/Jain - Lil Mama.mp3';
 import { shallowRef, ref, onMounted, reactive } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
-const audio = ref<HTMLAudioElement>(null);
+const audio = ref<HTMLAudioElement | null>(null);
 const audioData = reactive({
     play: false,
     duration: 0,
@@ -283,11 +283,11 @@ onMounted(() => {
 });
 const onPlay = async () => {
     if (audioData.play) {
-        await audio.value.pause();
+        await audio.value?.pause();
         audioData.play = false;
         return;
     }
-    await audio.value.play();
+    await audio.value?.play();
     audioData.play = true;
 };
 const map_ = shallowRef<any>(null);
@@ -408,9 +408,9 @@ const onStart = () => {
         autoRotation: true,
     });
 };
-// setTimeout(() => {
-//     onStart();
-// }, 3000);
+setTimeout(() => {
+    onStart();
+}, 3000);
 </script>
 
 <style scoped lang="scss">

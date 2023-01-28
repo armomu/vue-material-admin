@@ -93,7 +93,9 @@
                         focused
                     ></v-text-field>
                 </div>
-                <v-icon class="mx-3" icon="mdi-github" />
+                <a target="_blank" href="https://github.com/Groundhog-Chen/vue-material-admin"
+                    ><v-icon class="mx-3" icon="mdi-github"
+                /></a>
                 <v-badge content="2" class="mr-5" color="error">
                     <v-icon icon="mdi-bell-outline" />
                 </v-badge>
@@ -111,8 +113,8 @@ import Breadcrumbs from '../components/breadcrumbs/breadcrumbs.vue';
 import { reactive } from 'vue';
 const router = useRouter();
 const navState = reactive({
-    rail: true,
-    isMini: true,
+    rail: false,
+    isMini: false,
     routes: router.options.routes,
 });
 const navigationRail = (e: boolean) => {
