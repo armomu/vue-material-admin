@@ -49,7 +49,7 @@ npm run dev
 ## 预览地址
 
 + [当前版本：http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
-+ [v2旧版：http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/v2)
++ [v2旧版：http://chenhuajie.gitee.io/vue-material-admin/v2/](http://chenhuajie.gitee.io/vue-material-admin/v2)
 
 ## 目录结构
 ```              　　
@@ -64,7 +64,7 @@ npm run dev
 │ ├─ store
 │ ├─ styles
 │ ├─ views
-│ ├─ app.vue│
+│ └─ app.vue
 └─ main.ts
 ├─ .editorconfig
 ├─ .env.development
@@ -84,13 +84,8 @@ npm run dev
 ## 截图
 <p align="center">
   <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
+  <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
 </p>
-
-## 截图（旧版的）
-
-![home](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/vue-material-admin.png)
-![tasks](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/tasks.png)
-![lct](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/lct.png)
 
 
 
