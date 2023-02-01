@@ -12,7 +12,7 @@ export default defineConfig({
     server: {
         open: true,
         host: '0.0.0.0',
-        port: 520,
+        port: 8088,
         hmr: true,
         // proxy: {
         //     // 选项写法

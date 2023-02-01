@@ -32,18 +32,18 @@ const router = createRouter({
                     component: () => import('@/views/dashboard/teslaModelS.vue'),
                     children: [],
                 },
-                // {
-                //     path: '/dashboard/apexcharts',
-                //     name: 'apexcharts',
-                //     meta: {
-                //         title: 'Apexcharts',
-                //         icon: 'mdi-alpha-a',
-                //         keepAlive: false,
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/dashboard/apexcharts.vue'),
-                //     children: [],
-                // },
+                {
+                    path: '/dashboard/smart-house',
+                    name: 'smartHouse',
+                    meta: {
+                        title: 'Smart House',
+                        icon: 'mdi-alpha-s',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/dashboard/smartHouse.vue'),
+                    children: [],
+                },
                 // {
                 //     path: '/dashboard/sparklines',
                 //     name: 'sparklines',
@@ -99,33 +99,44 @@ const router = createRouter({
             name: 'graphics',
             meta: {
                 visible: true,
-                title: 'Graphics',
+                title: '3D Graphics',
                 icon: 'mdi-image',
             },
             component: Layout,
             children: [
-                {
-                    path: 'cruel-mushroom',
-                    name: 'mushroom',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Cruel mushroom',
-                        icon: 'mdi-alpha-c',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/mushroom.vue'),
-                },
                 // {
-                //     path: 'canvas',
-                //     name: 'canvas',
+                //     path: 'cruel-mushroom',
+                //     name: 'mushroom',
                 //     meta: {
                 //         keepAlive: false,
-                //         title: 'Canvas',
+                //         title: 'Cruel mushroom',
                 //         icon: 'mdi-alpha-c',
                 //         visible: true,
                 //     },
-                //     component: () => import('@/views/graphics/canvas.vue'),
+                //     component: () => import('@/views/graphics/mushroom.vue'),
                 // },
+                {
+                    path: 'canvas',
+                    name: 'canvas',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Canvas',
+                        icon: 'mdi-alpha-c',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/canvas.vue'),
+                },
+                {
+                    path: 'three-js',
+                    name: 'three.js',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Three.js',
+                        icon: 'mdi-alpha-t',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/threeJs.vue'),
+                },
             ],
         },
         {
@@ -178,7 +189,7 @@ const router = createRouter({
         {
             path: '/404',
             name: '404',
-            meta: { keepAlive: false, title: 'Not found', icon: 'mdi-paw-off', visible: true },
+            meta: { keepAlive: false, title: 'Not found', icon: 'mdi-paw-off', visible: false },
             component: () => import('@/views/feedback/no.vue'),
         },
         // {

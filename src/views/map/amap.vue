@@ -28,6 +28,7 @@ const test = () => {
         showLabel: false,
     });
 
+    // eslint-disable-next-line no-undef
     var loca = new Loca.Container({
         map,
     });
@@ -49,10 +50,12 @@ const test = () => {
         // 距离表示从光源到光照强度为 0 的位置，0 就是光不会消失。
         distance: 3900,
     };
+    // eslint-disable-next-line no-undef
     var geo = new Loca.GeoJSONSource({
         url: 'https://a.amap.com/Loca/static/loca-v2/demos/mock_data/sh_building_center.json',
     });
 
+    // eslint-disable-next-line no-undef
     var pl = new Loca.PolygonLayer({
         zIndex: 120,
         shininess: 10,
@@ -72,6 +75,7 @@ const test = () => {
     });
     pl.setLoca(loca);
 
+    // eslint-disable-next-line no-undef
     var dat = new Loca.Dat();
     dat.addLight(loca.ambLight, loca, '环境光');
     dat.addLight(loca.dirLight, loca, '平行光');

@@ -33,9 +33,9 @@
                 </div>
             </div>
         </div>
-        <div class="right">
+        <!-- <div class="right">
             <img src="../../assets/login.png" />
-        </div>
+        </div> -->
     </div>
 </template>
 <script lang="ts" setup></script>

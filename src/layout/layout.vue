@@ -1,7 +1,5 @@
 <template>
-    <v-layout :class="{ isMini: navState.isMini }"
-        ><!-- expand-on-hover
-            rail -->
+    <v-layout :class="{ isMini: navState.isMini }">
         <v-navigation-drawer
             class="ms-4 my-4 layout_navigation"
             theme="dark"
@@ -21,11 +19,7 @@
             <v-divider></v-divider>
 
             <v-list nav class="mx-2">
-                <v-list-item :prepend-avatar="wxtx" class="mx-1">
-                    <v-list-item-title class="title ml-4 mt-1">陈咩咩咩咩咩咩啊</v-list-item-title>
-                    <v-list-item-subtitle class="ml-4 mt-1">894620576@qq.com</v-list-item-subtitle>
-                </v-list-item>
-                <v-divider class="my-4"></v-divider>
+                <v-list-subheader>Dashboard</v-list-subheader>
                 <template v-for="(item, key) in navState.routes" :key="key">
                     <v-list-item
                         v-if="item.meta?.visible && !item.children"
@@ -33,6 +27,7 @@
                         :title="(item.meta?.title as any)"
                         :to="{ name: item.name }"
                         class="mx-1"
+                        active-class="nav_active"
                     ></v-list-item>
 
                     <v-list-group
@@ -52,7 +47,6 @@
                                 :title="(row.meta?.title as any)"
                                 :prepend-icon="navState.isMini ? (row.meta?.icon as any) : ''"
                                 :key="i"
-                                active-color="primary"
                                 :to="{ name: row.name }"
                             />
                         </template>
@@ -60,13 +54,33 @@
                     <v-list-subheader v-if="item.name === 'Dashboard'">Group</v-list-subheader>
                     <v-list-subheader v-if="item.name === 'map'">Other</v-list-subheader>
                 </template>
-                <v-list-item prepend-icon="mdi-microsoft-word" class="mx-1">
+                <v-list-item prepend-icon="mdi-text-box" class="mx-1">
                     <v-list-item-title
                         ><a
                             target="_blank"
                             href="https://next.vuetifyjs.com/en/"
                             style="color: #ffffff"
                             >Document</a
+                        ></v-list-item-title
+                    >
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-folder" class="mx-1">
+                    <v-list-item-title
+                        ><a
+                            target="_blank"
+                            href="http://chenhuajie.gitee.io/vue-material-admin/v2"
+                            style="color: #ffffff"
+                            >V2 Preview</a
+                        ></v-list-item-title
+                    >
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-github" class="mx-1">
+                    <v-list-item-title
+                        ><a
+                            target="_blank"
+                            href="https://github.com/Groundhog-Chen"
+                            style="color: #ffffff"
+                            >Github</a
                         ></v-list-item-title
                     >
                 </v-list-item>
@@ -82,24 +96,48 @@
                 </div>
 
                 <v-spacer></v-spacer>
-                <div style="width: 180px">
+                <div style="width: 220px" class="search_ip mr-2">
                     <v-text-field
-                        label="Search here"
-                        model-value="vue"
-                        variant="outlined"
-                        hide-details
+                        rounded
                         density="compact"
+                        variant="outlined"
+                        label="Search here"
+                        prepend-inner-icon="mdi-magnify"
+                        single-line
+                        hide-details
                         clearable
-                        focused
                     ></v-text-field>
                 </div>
-                <a target="_blank" href="https://github.com/Groundhog-Chen/vue-material-admin"
-                    ><v-icon class="mx-3" icon="mdi-github"
-                /></a>
-                <v-badge content="2" class="mr-5" color="error">
-                    <v-icon icon="mdi-bell-outline" />
-                </v-badge>
-                <v-icon class="mr-3" icon="mdi-cog" />
+                <v-btn
+                    @click="mainStore.onTheme"
+                    variant="text"
+                    :icon="mainStore.theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+                />
+                <v-btn variant="text" icon="mdi-bell-outline">
+                    <v-badge content="2" color="error">
+                        <v-icon size="small"></v-icon>
+                    </v-badge>
+                </v-btn>
+                <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
+                    <v-avatar size="x-small" class="mr-2">
+                        <v-img :src="wxtx" alt="陈咩啊"></v-img>
+                    </v-avatar>
+                    陈咩咩啊
+                    <v-menu activator="parent">
+                        <v-list nav class="h_a_menu">
+                            <v-list-item
+                                title="Github"
+                                prepend-icon="mdi-github"
+                                @click="toGithub"
+                            />
+                            <v-list-item title="Email" prepend-icon="mdi-email" @click="toEmail" />
+                            <v-list-item title="Sign out" prepend-icon="mdi-login" to="/login" />
+                        </v-list>
+                    </v-menu>
+                </v-btn>
+                <div style="position: fixed; right: 20px; bottom: 100px; z-index: 99999">
+                    <v-btn icon="mdi-cog" />
+                </div>
             </header>
             <div class="router"><RouterView /></div>
         </main>
@@ -109,12 +147,14 @@
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
-import Breadcrumbs from '../components/breadcrumbs/breadcrumbs.vue';
+import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
 import { reactive } from 'vue';
+import { useMainStore } from '@/stores/appMain';
+const mainStore = useMainStore();
 const router = useRouter();
 const navState = reactive({
-    rail: false,
-    isMini: false,
+    rail: true,
+    isMini: true,
     routes: router.options.routes,
 });
 const navigationRail = (e: boolean) => {
@@ -125,6 +165,12 @@ const navigationRail = (e: boolean) => {
 const changeRail = () => {
     navState.rail = !navState.rail;
     navState.isMini = navState.rail;
+};
+const toGithub = () => {
+    window.open('https://github.com/Groundhog-Chen/vue-material-admin', '_blank');
+};
+const toEmail = () => {
+    window.open('mailto:894620576@qq.com', '_blank');
 };
 </script>
 <style scoped lang="scss"></style>

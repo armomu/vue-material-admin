@@ -1,7 +1,7 @@
 
-.v-layout {
-    color: #344767!important;
-    background: #F7FAFC;
+.v-application {
+    // color: #344767!important;
+    background: rgb(var(--theme-background)) !important;
     .layout_navigation {
         border-radius: 12px;
         overflow: hidden;
@@ -22,6 +22,9 @@
         .v-list-group__items {
             .v-list-item {
                 padding-inline-start: 47px !important;
+            }
+            .v-list-item--active {
+                // background-color: rgb(var(--v-theme-primary));
             }
         }
         .v-icon {
@@ -55,7 +58,7 @@
         transition: all 0.2s;
         margin-top: 92px;
         .header {
-            background: #ffffff;
+            background: var(--header-bg);
             height: 76px;
             transition: all 0.2s;
             display: flex;
@@ -102,9 +105,20 @@
                 cursor: pointer;
                 align-self: flex-start
             }
+            .search_ip {
+                .v-field--variant-solo {
+                    box-shadow: none;
+                }
+            }
         }
         .router {
             padding-top: 16px;
+        }
+    }
+
+    .h_a_menu {
+        .v-list-item {
+            min-height: 40px !important;
         }
     }
 }

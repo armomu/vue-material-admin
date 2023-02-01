@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>卷，就硬卷</title>
+</head>
+<body>
+    <canvas id="tree" width="1280" height="720">
+    </canvas>
+    <script>
+        "use strict";
+        var canvas = document.getElementById("tree");
+        var context = canvas.getContext('2d');
+        function sizedecay(size, angle) {
+            return (0.5 + Math.random() * 0.5) * (0.65 + 0.175 * size * (0.75 + Math.sin(angle) * 0.25));
+        }
+        function sizelength(size) {
+            return (6 + Math.random() * 2) * Math.sqrt(size * (size + 4)) + Math.random() * 2;
+        }
+        function sizeangle(size) {
+            return 0.15 + 6 / (size * size + 10.0)+size*size*0.002;
+        }
+        function endsize(size) {
+            return (2 + Math.random() * 2) * (1 + size);
+        }
+        function danglesize(size) {
+            return 0.01 + 0.15 / (size * size + 2.0);
+        }
+
+        function drawline(x, y, angle, size) {
+            var length = sizelength(size);
+            var xto = x + length * Math.cos(angle);
+            var yto = y + length * Math.sin(angle);
+
+            var r = {};
+            r.length = length;
+            r.size = size;
+            r.angle = angle;
+
+            if (size > 1) {
+                var angleleft = angle - sizeangle(size);
+                var sizeleft = size - sizedecay(size, angleleft);
+                r.left = drawline(xto, yto, angleleft, sizeleft);
+                var angleright = angle + sizeangle(size);
+                var sizeright = size - sizedecay(size, angleright);
+                r.right = drawline(xto, yto, angleright, sizeright);
+            }
+            else {
+                var end = endsize(size);
+                r.end = end;
+            }
+            return r;
+        }
+        context.fillStyle = "#cceeff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        var r = drawline(640, 640, Math.PI * 1.5, 10);
+        var t = 0;
+
+        function ontimer() {
+            context.fillStyle = "#cceeff";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            var ends = [];
+            function drawlinet(x, y, r, t, dangle) {
+                var cdangle = Math.sin(r.angle) * Math.sin(t) * danglesize(r.size);
+                var angle = r.angle + dangle;
+                var xto = x + r.length * Math.cos(angle);
+                var yto = y + r.length * Math.sin(angle);
+                context.strokeStyle = "#662200";
+                context.lineWidth = r.size;
+                context.beginPath();
+                context.moveTo(x, y);
+                context.lineTo(xto, yto);
+                context.closePath();
+                context.stroke();
+                if (r.left) {
+                    drawlinet(xto, yto, r.left, t, dangle + cdangle);
+                }
+                if (r.right) {
+                    drawlinet(xto, yto, r.right, t, dangle + cdangle);
+                }
+                if (r.end) {
+                    ends.push({ "xto": xto, "yto": yto, "end": r.end, "angle": angle });
+                }
+            }
+            drawlinet(640, 640, r, t, 0);
+            for (var i = 0; i < ends.length; i++) {
+                context.strokeStyle = "#ee2288";
+                context.lineWidth = ends[i].end * 0.2;
+                context.beginPath();
+                context.moveTo(ends[i].xto, ends[i].yto);
+                context.lineTo(ends[i].xto + ends[i].end * Math.cos(ends[i].angle + Math.PI * 0.25), ends[i].yto + ends[i].end * Math.sin(ends[i].angle + Math.PI * 0.25));
+                context.lineTo(ends[i].xto + ends[i].end * Math.cos(ends[i].angle), ends[i].yto + ends[i].end * Math.sin(ends[i].angle));
+                context.lineTo(ends[i].xto + ends[i].end * Math.cos(ends[i].angle - Math.PI * 0.25), ends[i].yto + ends[i].end * Math.sin(ends[i].angle - Math.PI * 0.25));
+                context.closePath();
+                context.stroke();
+            }
+            t += 0.02;
+            window.requestAnimationFrame(ontimer);
+        }
+        ontimer();
+
+    </script>
+</body>
+</html>

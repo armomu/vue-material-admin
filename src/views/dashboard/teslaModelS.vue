@@ -1,7 +1,7 @@
 <template>
-    <div class="elevation-0 tesla" color="dark">
+    <div class="elevation-0 tesla">
         <div class="car">
-            <v-card class="elevation-0 cloud_card py-2" width="50%">
+            <v-card class="elevation-0 cloud_card py-2" width="50%" theme="light">
                 <div class="d-flex justify-space-between">
                     <div style="flex: 1">
                         <v-card-title class="text-h5"> ShenZhen Tody </v-card-title>
@@ -21,13 +21,13 @@
                 </div>
             </v-card>
             <div class="my-4 d-flex justify-space-between" style="width: 50%">
-                <v-card class="elevation-0 mr-2 pa-4 battery" width="50%">
+                <v-card class="elevation-0 mr-2 pa-4 battery" width="50%" theme="light">
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
                             icon="mdi-car-battery"
                             theme="dark"
-                            class="elevation-0"
+                            class="elevation-0 innericon"
                         ></v-btn>
                         <v-card-title class="text-h6"> Battery Health</v-card-title>
                     </div>
@@ -48,13 +48,13 @@
                         </v-row>
                     </v-card-text>
                 </v-card>
-                <v-card class="elevation-0 ml-2 pa-4 Trip" width="50%">
+                <v-card class="elevation-0 ml-2 pa-4 Trip" width="50%" theme="light">
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
                             icon="mdi-speedometer"
                             theme="dark"
-                            class="elevation-0"
+                            class="elevation-0 innericon"
                         ></v-btn>
                         <v-card-title class="text-h6"> Today's Trip</v-card-title>
                     </div>
@@ -144,74 +144,6 @@
                         <!-- <div style="text-align: center">Clear History</div> -->
                     </v-list>
                 </div>
-                <div class="music">
-                    <img src="../../assets/cover2.jpg" class="bg" />
-
-                    <div class="music_wrap">
-                        <!-- <div class="text-h6 pa-2">Music</div> -->
-                        <audio controls ref="audio" preload="auto" id="audio" hidden>
-                            <source :src="LilMama" type="audio/mpeg" />
-                        </audio>
-                        <div class="zjbg">
-                            <img
-                                src="../../assets/cover2.jpg"
-                                class="zj_img"
-                                width="100"
-                                height="100"
-                            />
-                            <div
-                                class="zj_y"
-                                :class="{
-                                    zj_y_zzz: audioData.play,
-                                }"
-                            >
-                                <img
-                                    src="../../assets/cover2.jpg"
-                                    class="zj_cd_fm"
-                                    width="62"
-                                    height="62"
-                                />
-                                <img src="../../assets/cd-mine.png" class="zj_cd_bg" width="100" />
-                            </div>
-                        </div>
-                        <div class="text-h6" style="text-align: center">Lil Mama</div>
-                        <div style="text-align: center">To Sing Jain</div>
-                        <v-slider
-                            class="slider mx-4 mt-3"
-                            color="#fff"
-                            label="0"
-                            style="color: white"
-                        >
-                            <template #append>{{
-                                audioData.duration ? audioData.duration : ''
-                            }}</template>
-                        </v-slider>
-
-                        <div
-                            class="icon_group d-flex justify-space-around mx-2"
-                            style="justify-content: space-around"
-                        >
-                            <v-btn variant="text" color="#fff" icon="mdi-volume-high" />
-                            <v-btn variant="text" color="#fff" icon="mdi-skip-previous" />
-                            <v-btn
-                                v-if="audioData.play"
-                                variant="text"
-                                class="play_btn"
-                                icon="mdi-pause"
-                                @click="onPlay"
-                            />
-                            <v-btn
-                                v-else
-                                variant="text"
-                                class="play_btn"
-                                icon="mdi-play-circle"
-                                @click="onPlay"
-                            />
-                            <v-btn variant="text" color="#fff" icon="mdi-skip-next" />
-                            <v-btn variant="text" color="#fff" icon="mdi-playlist-music-outline" />
-                        </div>
-                    </div>
-                </div>
                 <div class="bottom_bar" @click="onStart">
                     <div class="bb_inner elevation-10">
                         <div class="bbi_wrap d-flex">
@@ -269,27 +201,12 @@
 </template>
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
-import LilMama from '@/assets/Jain - Lil Mama.mp3';
-import { shallowRef, ref, onMounted, reactive } from 'vue';
+import { shallowRef, onMounted } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
-const audio = ref<HTMLAudioElement | null>(null);
-const audioData = reactive({
-    play: false,
-    duration: 0,
-    curTime: 0,
-});
 onMounted(() => {
     // audio.value.addEventListener();
 });
-const onPlay = async () => {
-    if (audioData.play) {
-        await audio.value?.pause();
-        audioData.play = false;
-        return;
-    }
-    await audio.value?.play();
-    audioData.play = true;
-};
+
 const map_ = shallowRef<any>(null);
 var AMap: any;
 const initMap = async () => {
@@ -431,9 +348,15 @@ setTimeout(() => {
         }
         .battery {
             background-image: linear-gradient(to right, #4eebe4, #69fee1);
+            .innericon {
+                color: #ffffff;
+            }
         }
         .Trip {
             background-image: linear-gradient(to right, #6b38fb, #bc78f2);
+            .innericon {
+                color: #ffffff;
+            }
         }
         .tesla_img {
             width: 48%;
@@ -565,74 +488,6 @@ setTimeout(() => {
                 background-image: linear-gradient(to right, #bc78f2, #bc78f2);
             }
             // filter: blur(10px);
-        }
-        .music {
-            left: auto;
-            right: 50px;
-            overflow: hidden;
-            .bg {
-                height: 100%;
-                position: absolute;
-                margin-left: 150px;
-                transform: translate(-50%, 0);
-                filter: blur(25px);
-                opacity: 0.6;
-            }
-            .music_wrap {
-                position: relative;
-                z-index: 2;
-                color: #ffffff;
-                .play_btn {
-                    background: rgba(255, 255, 255, 0.2);
-                }
-                .zjbg {
-                    width: 150px;
-                    margin: 40px auto 20px auto;
-                    position: relative;
-                    &::after {
-                        content: '';
-                        display: block;
-                        width: 16px;
-                        height: 16px;
-                        background: #1a1a1a;
-                        border-radius: 50%;
-                        position: absolute;
-                        z-index: 4;
-                        top: 42px;
-                        left: 92px;
-                        box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2);
-                    }
-                    .zj_img {
-                        position: relative;
-                        z-index: 3;
-                        border-radius: 4px;
-                    }
-                    .zj_y {
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        animation-fill-mode: forwards;
-                        &.zj_y_zzz {
-                            animation: zzzzz 5s linear infinite;
-                            @keyframes zzzzz {
-                                0% {
-                                    transform: rotateZ(0deg);
-                                }
-                                100% {
-                                    transform: rotateZ(360deg);
-                                }
-                            }
-                        }
-                        .zj_cd_fm {
-                            border-radius: 50%;
-                            position: absolute;
-                            top: 19px;
-                            left: 19px;
-                            z-index: 2;
-                        }
-                    }
-                }
-            }
         }
     }
 }
