@@ -99,7 +99,7 @@ const router = createRouter({
             name: 'graphics',
             meta: {
                 visible: true,
-                title: '3D Graphics',
+                title: 'Graphics',
                 icon: 'mdi-image',
             },
             component: Layout,
