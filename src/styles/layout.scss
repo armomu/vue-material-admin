@@ -58,7 +58,11 @@
         transition: all 0.2s;
         margin-top: 92px;
         .header {
-            background: var(--header-bg);
+            // background: ;
+            background: rgba(var(--header-bg), 0.8);
+            // filter: blur(25px);
+            backdrop-filter: saturate(200%) blur(30px);
+            // box-shadow: inset 0 0 1px 1px hsla(0,0%,99.6%,.9),0 20px 27px 0 rgba(0,0,0,.05)!important;
             height: 76px;
             transition: all 0.2s;
             display: flex;
@@ -69,6 +73,17 @@
             left: 288px;
             width: calc(100vw - 312px);
             z-index: 2;
+            // &::before {
+            //     display: block;
+            //     content: '';
+            //     width: 100%;
+            //     height: 100%;
+            //     background: rgba(255, 255, 255, 0.9);
+            //     filter: blur(25px);
+            //     position: absolute;
+            //     left: 0;
+            //     top: 0;
+            // }
             .header_title {
                 .v-breadcrumbs {
                     padding: 0 !important;
@@ -103,12 +118,20 @@
             }
             .gamepad {
                 cursor: pointer;
-                align-self: flex-start
+                align-self: flex-start;
+                position: relative;
+                z-index: 2;
             }
             .search_ip {
+                position: relative;
+                z-index: 2;
                 .v-field--variant-solo {
                     box-shadow: none;
                 }
+            }
+            .tool_btns {
+                position: relative;
+                z-index: 2;
             }
         }
         .router {

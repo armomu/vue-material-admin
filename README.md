@@ -1,15 +1,55 @@
 <p align="center">
   <img width="200" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/admin-logo.png">
 </p>
+<div align="center"> 
 
+[![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
+![version](https://img.shields.io/badge/version-3.0.0-blue.svg)
+</div>
 <h1 align="center">
-    Vue Material Admin<br/>
+    Vue Material Admin
+    <br/>
     <br/>
 </h1>
 
-基于 Vue3 + Vuetify + TS 实现的后台管理系统模板，原先的的项目是基于 Vue2 + Vuetify 实现的，现在正在持续更新中，如有改进及优化建议，请发送本人邮箱894620576@qq.com
+vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等开发，可以用来作为项目的启动模版，也可用于学习参考，现在正在持续更新中，如有改进及优化建议，请发送本人邮箱 894620576@qq.com
 
->dev、master 分支为正在升级到Vue3的开发代码，v2分支为旧版本，v1应该是>Vuetify1.x的老版本的备份
+>dev、master 分支为正在升级到 Vue3 的开发代码，v2分支为旧版本，v1应该是>Vuetify1.x的老版本的备份
+
+
+## 浏览器支持
+
+本地开发推荐使用 `Chrome 80+` 浏览器
+
+支持现代浏览器, 不支持 IE
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+
+## 开发
+
+```
+# 克隆项目
+git clone https://github.com/Groundhog-Chen/vue-material-admin.git
+
+# 打开文件目录
+cd vue-material-admin
+
+# 安装依赖
+npm install
+
+# 本地运行
+npm run dev
+
+```
+
+
+## 预览地址
+
++ [当前版本：http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
++ [v2旧版：http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/v2)
 
 ## 目录结构
 ```              　　
@@ -41,27 +81,6 @@
 └─ vite.config.ts
 ```
 
-## 预览地址
-
-+ [旧版的：http://chenhuajie.gitee.io/vue-material-admin/](http://chenhuajie.gitee.io/vue-material-admin/)
-+ 新版：还没有发布
-
-## 开发
-
-```
-# 克隆项目
-git clone https://github.com/Groundhog-Chen/vue-material-admin.git
-
-# 打开文件目录
-cd vue-material-admin
-
-# 安装依赖
-npm install
-
-# 本地运行
-npm run dev
-
-```
 ## 截图
 <p align="center">
   <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
@@ -73,3 +92,8 @@ npm run dev
 ![tasks](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/tasks.png)
 ![lct](https://gitee.com/chenhuajie/ng-material-admin/raw/master/src/assets/lct.png)
 
+
+
+## 许可证
+
+[MIT](./LICENSE)

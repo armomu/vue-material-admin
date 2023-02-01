@@ -86,7 +86,6 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <!-- class="elevation-0" -->
         <main class="app_main">
             <header class="header">
                 <Breadcrumbs />
@@ -108,33 +107,45 @@
                         clearable
                     ></v-text-field>
                 </div>
-                <v-btn
-                    @click="mainStore.onTheme"
-                    variant="text"
-                    :icon="mainStore.theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
-                />
-                <v-btn variant="text" icon="mdi-bell-outline">
-                    <v-badge content="2" color="error">
-                        <v-icon size="small"></v-icon>
-                    </v-badge>
-                </v-btn>
-                <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
-                    <v-avatar size="x-small" class="mr-2">
-                        <v-img :src="wxtx" alt="陈咩啊"></v-img>
-                    </v-avatar>
-                    陈咩咩啊
-                    <v-menu activator="parent">
-                        <v-list nav class="h_a_menu">
-                            <v-list-item
-                                title="Github"
-                                prepend-icon="mdi-github"
-                                @click="toGithub"
-                            />
-                            <v-list-item title="Email" prepend-icon="mdi-email" @click="toEmail" />
-                            <v-list-item title="Sign out" prepend-icon="mdi-login" to="/login" />
-                        </v-list>
-                    </v-menu>
-                </v-btn>
+                <div class="tool_btns">
+                    <v-btn
+                        @click="mainStore.onTheme"
+                        variant="text"
+                        :icon="
+                            mainStore.theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'
+                        "
+                    />
+                    <v-btn variant="text" icon="mdi-bell-outline">
+                        <v-badge content="2" color="error">
+                            <v-icon size="small"></v-icon>
+                        </v-badge>
+                    </v-btn>
+                    <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
+                        <v-avatar size="x-small" class="mr-2">
+                            <v-img :src="wxtx" alt="陈咩啊"></v-img>
+                        </v-avatar>
+                        陈咩咩啊
+                        <v-menu activator="parent">
+                            <v-list nav class="h_a_menu">
+                                <v-list-item
+                                    title="Github"
+                                    prepend-icon="mdi-github"
+                                    @click="toGithub"
+                                />
+                                <v-list-item
+                                    title="Email"
+                                    prepend-icon="mdi-email"
+                                    @click="toEmail"
+                                />
+                                <v-list-item
+                                    title="Sign out"
+                                    prepend-icon="mdi-login"
+                                    to="/login"
+                                />
+                            </v-list>
+                        </v-menu>
+                    </v-btn>
+                </div>
                 <div style="position: fixed; right: 20px; bottom: 100px; z-index: 99999">
                     <v-btn icon="mdi-cog" />
                 </div>
