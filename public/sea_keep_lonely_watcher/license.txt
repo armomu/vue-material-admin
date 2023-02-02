@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sea Keep "Lonely Watcher"
+* source:	https://sketchfab.com/3d-models/sea-keep-lonely-watcher-09a15a0c14cb4accaf060a92bc70413d
+* author:	Artjoms Horosilovs (https://sketchfab.com/Artjoms_Horosilovs)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sea Keep "Lonely Watcher"" (https://sketchfab.com/3d-models/sea-keep-lonely-watcher-09a15a0c14cb4accaf060a92bc70413d) by Artjoms Horosilovs (https://sketchfab.com/Artjoms_Horosilovs) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

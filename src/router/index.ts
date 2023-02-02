@@ -95,37 +95,15 @@ const router = createRouter({
             ],
         },
         {
-            path: '/graphics',
-            name: 'graphics',
+            path: '/webgl',
+            name: 'webgl',
             meta: {
                 visible: true,
-                title: 'Graphics',
+                title: 'Webgl',
                 icon: 'mdi-image',
             },
             component: Layout,
             children: [
-                // {
-                //     path: 'cruel-mushroom',
-                //     name: 'mushroom',
-                //     meta: {
-                //         keepAlive: false,
-                //         title: 'Cruel mushroom',
-                //         icon: 'mdi-alpha-c',
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/graphics/mushroom.vue'),
-                // },
-                {
-                    path: 'canvas',
-                    name: 'canvas',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Canvas',
-                        icon: 'mdi-alpha-c',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/canvas.vue'),
-                },
                 {
                     path: 'three-js',
                     name: 'three.js',
@@ -135,7 +113,7 @@ const router = createRouter({
                         icon: 'mdi-alpha-t',
                         visible: true,
                     },
-                    component: () => import('@/views/graphics/threeJs.vue'),
+                    component: () => import('@/views/webgl/threeJs.vue'),
                 },
             ],
         },
