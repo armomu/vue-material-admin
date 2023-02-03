@@ -81,7 +81,7 @@ loader.load(LittlestTokyo, (gltf) => {
     mixer = new THREE.AnimationMixer(model);
     mixer.clipAction(gltf.animations[0]).play();
     animate();
-    // loading.value = false;
+    loading.value = false;
 });
 
 //           const gltfLoader = new GLTFLoader();
