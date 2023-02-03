@@ -95,11 +95,11 @@ const router = createRouter({
             ],
         },
         {
-            path: '/webgl',
-            name: 'webgl',
+            path: '/graphics',
+            name: 'graphics',
             meta: {
                 visible: true,
-                title: 'Webgl',
+                title: 'Graphics',
                 icon: 'mdi-image',
             },
             component: Layout,
@@ -113,7 +113,7 @@ const router = createRouter({
                         icon: 'mdi-alpha-t',
                         visible: true,
                     },
-                    component: () => import('@/views/webgl/threeJs.vue'),
+                    component: () => import('@/views/graphics/threeJs.vue'),
                 },
             ],
         },

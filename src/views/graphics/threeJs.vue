@@ -1,12 +1,13 @@
 <template>
     <div>
-        <v-progress-linear
-            :active="loading"
-            :indeterminate="loading"
-            absolute
-            bottom
-            color="deep-purple-accent-4"
-        ></v-progress-linear>
+        <v-dialog v-model="loading" :scrim="false" width="200px" persistent>
+            <v-card color="primary">
+                <v-card-text>
+                    Loading...
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
         <canvas id="threejs" ref="canvasDom"></canvas>
     </div>
 </template>
@@ -17,10 +18,10 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { ref, reactive, onMounted } from 'vue';
-import seraphineGltf from '/seraphine/scene.gltf';
-import seraphinePng from '/seraphine/textures/Mat_cwfyfr1_userboy17.bmp_diffuse.png';
+// import seraphineGltf from '/seraphine/scene.gltf';
+// import seraphinePng from '/seraphine/textures/Mat_cwfyfr1_userboy17.bmp_diffuse.png';
 import LittlestTokyo from '/littlest_yokyo/LittlestTokyo.glb';
-import sea_keep_lonely_watcher from '/sea_keep_lonely_watcher/sea_keep_lonely_watcher.glb';
+// import sea_keep_lonely_watcher from '/sea_keep_lonely_watcher/sea_keep_lonely_watcher.glb';
 
 const canvasDom = ref<HTMLCanvasElement>();
 const loading = ref(true);
@@ -56,26 +57,31 @@ loader.setDRACOLoader(dracoLoader);
 
 loader.load(LittlestTokyo, (gltf) => {
     const model = gltf.scene;
-    model.traverse((o) => {
-        // console.log(o);
-        // const material = new THREE.MeshBasicMaterial({
-        //     opacity: 1,
-        // });
-        // o.material = material;
-        // o.material.opacity = 1;
-        // o.dep = 1;
-        // const arrs = ['Sky_Sky_0', 'Sky', 'Sea'];
-        // if (arrs.includes(o.name)) {
-        //     o.visible = false;
-        // }
-    });
+    // model.traverse((o) => {
+    //     console.log(o);
+    //     // const material = new THREE.MeshBasicMaterial({
+    //     //     opacity: 1,
+    //     // });
+    //     // o.material = material;
+    //     // o.material.opacity = 1;
+    //     // o.dep = 1;
+    //     // const arrs = ['Sky_Sky_0', 'Sky', 'Sea'];
+    //     // if (arrs.includes(o.name)) {
+    //     //     o.visible = false;
+    //     // }
+    //     if (o.type === 'Object3D') {
+    //         o.children.forEach((obj) => {
+    //             obj.renderOrder = 1;
+    //         });
+    //     }
+    // });
     model.position.set(1, 1, 0);
     model.scale.set(0.01, 0.01, 0.01);
     scene.add(model);
     mixer = new THREE.AnimationMixer(model);
     mixer.clipAction(gltf.animations[0]).play();
     animate();
-    loading.value = false;
+    // loading.value = false;
 });
 
 //           const gltfLoader = new GLTFLoader();
