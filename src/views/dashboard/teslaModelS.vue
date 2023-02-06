@@ -25,7 +25,7 @@
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
-                            icon="mdi-car-battery"
+                            icon="mdi-battery-90"
                             theme="dark"
                             class="elevation-0 innericon"
                         ></v-btn>
