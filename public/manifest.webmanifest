@@ -1,0 +1,20 @@
+{
+    "scope": "/",
+    "short_name": "Qi Reader",
+    "start_url": "/index.html",
+    "icons": [
+        {
+            "url": "/icon-144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "url": "/icon-180.png",
+            "type": "image/png",
+            "sizes": "180x180"
+        }
+    ],
+    "background_color": "#FFFFFF",
+    "manifest_version": 2,
+    "display": "standalone"
+}
