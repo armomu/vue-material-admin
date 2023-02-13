@@ -37,10 +37,6 @@
                     </div>
                     <div class="d-flex jsb mt-5">
                         <div class="text-h4">14,324</div>
-                        <!-- <div class="d-flex jsb tj_label">
-                            <v-icon size="mini" icon="mdi-arrow-up" />
-                            <span class="ml-1">20%</span>
-                        </div> -->
                         <v-chip class="ms-0 me-2" small color="red">
                             <v-icon size="mini" icon="mdi-arrow-up" />15%
                         </v-chip>
@@ -68,14 +64,7 @@
                     ></v-text-field>
                 </div>
 
-                <v-btn
-                    variant="flat"
-                    rounded="pill"
-                    color="#ffffff"
-                    prepend-icon="mdi-filter-variant"
-                >
-                    More Filters</v-btn
-                >
+                <v-btn variant="flat" prepend-icon="mdi-filter-variant"> More Filters</v-btn>
             </div>
         </div>
         <v-table class="mt-4 tabel">
@@ -122,7 +111,7 @@
                     <td>
                         <v-progress-linear
                             model-value="62"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>
@@ -164,7 +153,7 @@
                     <td>
                         <v-progress-linear
                             model-value="50"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>
@@ -206,7 +195,7 @@
                     <td>
                         <v-progress-linear
                             model-value="35"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>
@@ -248,7 +237,7 @@
                     <td>
                         <v-progress-linear
                             model-value="75"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>
@@ -290,7 +279,7 @@
                     <td>
                         <v-progress-linear
                             model-value="20"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>
@@ -332,7 +321,7 @@
                     <td>
                         <v-progress-linear
                             model-value="90"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>
@@ -374,7 +363,7 @@
                     <td>
                         <v-progress-linear
                             model-value="96"
-                            color="deep-purple-accent-4"
+                            color="success"
                             rounded
                             height="6"
                         ></v-progress-linear>

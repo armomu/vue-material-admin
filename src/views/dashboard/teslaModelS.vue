@@ -1,7 +1,8 @@
 <template>
     <div class="elevation-0 tesla">
         <div class="car">
-            <v-card class="elevation-0 cloud_card py-2" width="50%" theme="light">
+            <img src="../../assets/tesla-model-s.png" class="tesla_img" />
+            <v-card class="elevation-0 cloud_card py-2" theme="light">
                 <div class="d-flex justify-space-between">
                     <div style="flex: 1">
                         <v-card-title class="text-h5"> ShenZhen Tody </v-card-title>
@@ -20,8 +21,8 @@
                     </v-avatar>
                 </div>
             </v-card>
-            <div class="my-4 d-flex justify-space-between" style="width: 50%">
-                <v-card class="elevation-0 mr-2 pa-4 battery" width="50%" theme="light">
+            <div class="my-4 d-flex justify-space-between row2">
+                <v-card class="elevation-0 mr-2 pa-4 battery" theme="light">
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
@@ -48,7 +49,7 @@
                         </v-row>
                     </v-card-text>
                 </v-card>
-                <v-card class="elevation-0 ml-2 pa-4 Trip" width="50%" theme="light">
+                <v-card class="elevation-0 ml-2 pa-4 Trip" theme="light">
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
@@ -74,7 +75,6 @@
                     </v-card-text>
                 </v-card>
             </div>
-            <img src="../../assets/tesla-model-s.png" class="tesla_img" />
         </div>
         <div class="car_sys">
             <v-system-bar
@@ -151,11 +151,13 @@
                                 variant="text"
                                 icon="mdi-car-parking-lights"
                                 color="#ffffff"
+                                class="hide"
                             ></v-btn>
                             <v-btn
                                 variant="text"
                                 icon="mdi-car-brake-parking"
                                 color="#ffffff"
+                                class="hide"
                             ></v-btn>
                             <v-btn
                                 variant="text"
@@ -190,8 +192,18 @@
                                 icon="mdi-music-note-bluetooth"
                                 color="#ffffff"
                             ></v-btn>
-                            <v-btn variant="text" icon="mdi-gauge" color="#ffffff"></v-btn>
-                            <v-btn variant="text" icon="mdi-view-comfy" color="#ffffff"></v-btn>
+                            <v-btn
+                                variant="text"
+                                icon="mdi-gauge"
+                                color="#ffffff"
+                                class="hide"
+                            ></v-btn>
+                            <v-btn
+                                variant="text"
+                                icon="mdi-view-comfy"
+                                color="#ffffff"
+                                class="hide"
+                            ></v-btn>
                         </div>
                     </div>
                 </div>
@@ -202,7 +214,9 @@
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
 import { shallowRef, onMounted } from 'vue';
+import { useMainStore } from '@/stores/appMain';
 import AMapLoader from '@amap/amap-jsapi-loader';
+const mainStore = useMainStore();
 onMounted(() => {
     // audio.value.addEventListener();
 });
@@ -340,7 +354,11 @@ setTimeout(() => {
         // border: 1px #999 solid;
         position: relative;
         margin-top: 50px;
+        .row2 {
+            width: 50%;
+        }
         .v-card {
+            width: 50%;
             border-radius: 12px;
         }
         .cloud_card {
@@ -464,8 +482,7 @@ setTimeout(() => {
                 }
             }
         }
-        .search_bar,
-        .music {
+        .search_bar {
             position: absolute;
             left: 50px;
             top: 30px;
@@ -474,8 +491,6 @@ setTimeout(() => {
             background: rgba(255, 255, 255, 0.1);
             z-index: 3;
             border-radius: 8px;
-        }
-        .search_bar {
             .v-field--single-line {
                 background: rgba(0, 0, 0, 0.2);
             }
@@ -488,6 +503,39 @@ setTimeout(() => {
                 background-image: linear-gradient(to right, #bc78f2, #bc78f2);
             }
             // filter: blur(10px);
+        }
+    }
+}
+.isMobile {
+    .tesla {
+        .car {
+            .tesla_img {
+                position: relative;
+                top: 0;
+                width: 80%;
+                display: block;
+                margin: 0 auto;
+            }
+            .row2 {
+                width: auto;
+                display: block !important;
+            }
+            .v-card {
+                width: auto;
+            }
+        }
+        .car_sys {
+            .search_bar {
+                display: none;
+                visibility: hidden;
+            }
+        }
+        .bottom_bar {
+            width: 92%;
+            left: 4%;
+        }
+        .hide {
+            display: none;
         }
     }
 }

@@ -2,22 +2,36 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useMainStore = defineStore('main', () => {
-    // const doubleCount = computed(() => count.value * 2);
-    const theme = ref('light');
-    function onTheme() {
-        theme.value = theme.value === 'light' ? 'dark' : 'light';
-        clearInterval(themeTimer);
-    }
-
-    const themeTimer = setInterval(() => {
-        const winDark =
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (winDark && theme.value === 'light') {
-            theme.value = 'dark';
-        } else if (!winDark && theme.value === 'dark') {
-            theme.value = 'light';
+    // 初始化是否是移动端设备
+    window.addEventListener('resize', () => {
+        const res = getIsMobile();
+        if (res !== isMobile.value) {
+            isMobile.value = res;
         }
-    }, 100);
+    });
+    const { body } = document;
+    const getIsMobile = () => {
+        const rect = body.getBoundingClientRect();
+        if (!document.hidden) {
+            const res = rect.width - 1 < 777;
+            return res;
+        } else {
+            return false;
+        }
+    };
+    const _isMobile = getIsMobile();
+    const isMobile = ref(_isMobile);
 
-    return { theme, onTheme };
+    const scheme = window.matchMedia('(prefers-color-scheme: dark)');
+    scheme.addEventListener('change', () => {
+        theme.value = scheme.matches ? 'dark' : 'light';
+    });
+
+    const theme = ref(scheme.matches ? 'dark' : 'light');
+
+    const onTheme = () => {
+        theme.value = theme.value === 'light' ? 'dark' : 'light';
+    };
+
+    return { theme, isMobile, onTheme };
 });

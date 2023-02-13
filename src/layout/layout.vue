@@ -1,5 +1,10 @@
 <template>
-    <v-layout :class="{ isMini: navState.isMini }">
+    <v-layout
+        :class="{
+            isMini: navState.isMini,
+            isMobile: mainStore.isMobile,
+        }"
+    >
         <v-navigation-drawer
             class="ms-4 my-4 layout_navigation"
             theme="dark"
@@ -7,7 +12,8 @@
             expand-on-hover
             rail-width="77"
             @update:rail="navigationRail"
-            permanent
+            :permanent="permanent"
+            v-model="navState.menuVisible"
             style="height: calc(100vh - 2rem); position: fixed"
         >
             <v-list class="py-4 mx-2 logo" nav>
@@ -88,14 +94,24 @@
         </v-navigation-drawer>
         <main class="app_main">
             <header class="header">
-                <Breadcrumbs />
-                <div class="mt-3 ml-9 gamepad" @click="changeRail">
+                <Breadcrumbs v-if="!mainStore.isMobile" />
+                <div v-if="!mainStore.isMobile" class="mt-3 ml-9 gamepad" @click="changeRail">
                     <v-icon v-if="navState.rail" icon="mdi-sort-variant-lock-open" />
                     <v-icon v-else icon="mdi-sort-variant" />
                 </div>
-
+                <div v-if="mainStore.isMobile" class="head_logo ml-4 mr-1">
+                    <img :src="logo" height="40" />
+                </div>
+                <v-btn
+                    v-if="mainStore.isMobile"
+                    variant="text"
+                    icon="mdi-menu"
+                    @click="navState.menuVisible = !navState.menuVisible"
+                >
+                    <v-icon size="small"></v-icon>
+                </v-btn>
                 <v-spacer></v-spacer>
-                <div style="width: 220px" class="search_ip mr-2">
+                <div v-if="!mainStore.isMobile" style="width: 220px" class="search_ip mr-2">
                     <v-text-field
                         rounded
                         density="compact"
@@ -124,7 +140,7 @@
                         <v-avatar size="x-small" class="mr-2">
                             <v-img :src="wxtx" alt="陈咩啊"></v-img>
                         </v-avatar>
-                        陈咩咩啊
+                        <span v-if="!mainStore.isMobile">陈咩咩啊</span>
                         <v-menu activator="parent">
                             <v-list nav class="h_a_menu">
                                 <v-list-item
@@ -159,14 +175,23 @@ import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
-import { reactive } from 'vue';
+import { reactive, computed, watch } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 const mainStore = useMainStore();
 const router = useRouter();
 const navState = reactive({
-    rail: true,
-    isMini: true,
+    menuVisible: true,
+    rail: !mainStore.isMobile,
+    isMini: !mainStore.isMobile,
     routes: router.options.routes,
+});
+const permanent = computed(() => {
+    return !mainStore.isMobile;
+});
+
+watch(permanent, () => {
+    navState.menuVisible = true;
+    changeRail();
 });
 const navigationRail = (e: boolean) => {
     if (!navState.rail) return;
@@ -177,6 +202,7 @@ const changeRail = () => {
     navState.rail = !navState.rail;
     navState.isMini = navState.rail;
 };
+
 const toGithub = () => {
     window.open('https://github.com/Groundhog-Chen/vue-material-admin', '_blank');
 };
