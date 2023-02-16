@@ -6,7 +6,7 @@
         }"
     >
         <v-navigation-drawer
-            class="ms-4 my-4 layout_navigation"
+            class="my-4 layout_navigation"
             theme="dark"
             :rail="navState.rail"
             expand-on-hover
@@ -14,7 +14,7 @@
             @update:rail="navigationRail"
             :permanent="permanent"
             v-model="navState.menuVisible"
-            style="height: calc(100vh - 2rem); position: fixed"
+            style="position: fixed"
         >
             <v-list class="py-4 mx-2 logo" nav>
                 <v-list-item :prepend-avatar="logo" class="mx-1">
@@ -137,7 +137,7 @@
                         </v-badge>
                     </v-btn>
                     <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
-                        <v-avatar size="x-small" class="mr-2">
+                        <v-avatar size="x-small" class="avatarmr-2">
                             <v-img :src="wxtx" alt="陈咩啊"></v-img>
                         </v-avatar>
                         <span v-if="!mainStore.isMobile">陈咩咩啊</span>

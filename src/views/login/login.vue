@@ -1,44 +1,71 @@
 <template>
     <div class="login_container">
-        <div class="left">
-            <div class="logo">
-                <img src="../../assets/Material-admin-logo.png" />
-            </div>
-            <div class="form">
-                <div class="title">Welcome back</div>
-                <div class="row">
+        <img src="../../assets/Frame-c100fb2f.png" class="frame" />
+        <div class="group">
+            <v-card class="form">
+                <div class="text-h4">👋 Hallo!</div>
+                <div class="mt-4">
+                    <div class="mb-2" style="font-weight: 700">Account</div>
                     <v-text-field
-                        label="Account"
-                        model-value="Groundhog.chen"
+                        model-value="Chen HuaJie"
                         variant="outlined"
                         readonly
-                        density="comfortable"
-                        hint="Account tips"
+                        density="compact"
                         clearable
+                        hide-details
                     ></v-text-field>
                 </div>
-                <div class="row">
+                <div class="my-4">
+                    <div class="mb-2 mt-6" style="font-weight: 700">Password</div>
                     <v-text-field
-                        label="Password"
-                        model-value="Groundhog.chen"
+                        model-value=""
                         type="password"
                         variant="outlined"
-                        density="comfortable"
-                        hint="Password tips"
+                        density="compact"
                         clearable
+                        hide-details
                     ></v-text-field>
                 </div>
-                <div class="row row_f">
-                    <v-btn block color="primary" size="large" type="submit" href="/">Sign in</v-btn>
+                <div style="text-align: right">
+                    <v-btn
+                        color="primary"
+                        append-icon="mdi-arrow-right"
+                        size="large"
+                        type="submit"
+                        href="/"
+                        >Go !</v-btn
+                    >
                 </div>
-            </div>
+            </v-card>
+            <v-card class="desc">
+                <div class="logo mt-4">
+                    <img :src="logo" height="60" />
+                    <div class="text-h5 mt-2">Material UI</div>
+                </div>
+                <div class="mt-4">
+                    vue-material-admin is a free open source mid-backend template based on Vuetify
+                </div>
+                <div class="mt-4">
+                    made with by ❤️
+                    <a
+                        target="_blank"
+                        style="
+                            color: rgba(
+                                var(--v-theme-on-background),
+                                var(--v-high-emphasis-opacity)
+                            );
+                        "
+                        href="https://github.com/Groundhog-Chen"
+                        >Chen HuaJie</a
+                    >
+                </div>
+            </v-card>
         </div>
-        <!-- <div class="right">
-            <img src="../../assets/login.png" />
-        </div> -->
     </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import logo from '@/assets/admin-logo.png';
+</script>
 <style lang="scss" scoped>
 .login_container {
     height: 100vh;
@@ -50,60 +77,43 @@
     position: relative;
     background-color: #fff;
     overflow: hidden;
-    .left {
-        flex: 1;
-        height: 100vh;
+    .frame {
+        position: absolute;
+        left: -5%;
+        top: -5%;
+        width: 110%;
+        height: 110%;
+        filter: blur(20px);
+    }
+    .group {
         display: flex;
-        align-items: center;
-        justify-content: center;
         position: relative;
-        .logo {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            img {
-                height: 38px;
-            }
-        }
+        z-index: 1;
+        border-radius: 20px;
+        overflow: hidden;
         .form {
-            width: 400px;
+            width: 360px;
             margin: 0 auto;
+            background: #fff;
+            height: 400px;
+            padding: 60px;
             .title {
                 font-size: 36px;
                 font-weight: 700;
                 font-family: Roboto, sans-serif !important;
                 margin-bottom: 20px;
             }
-            .row {
-                margin-top: 16px;
-            }
         }
-    }
-    .right {
-        img {
-            width: auto;
+        .desc {
             height: 100%;
-        }
-    }
-}
-
-@media screen and (max-width: 960px) and (min-width: 320px) {
-    .login_container {
-        .left {
-            .wrap_title {
-                font-size: 36px;
-                margin-bottom: 30px;
-            }
-            .inner_card {
-                width: auto;
-                margin: 30px;
-                .left {
-                    width: auto;
-                    padding: 30px;
-                }
-                .right {
-                    display: none;
-                }
+            margin: 0 auto;
+            width: 360px;
+            background-image: linear-gradient(to bottom, #d4e5f5, #e1edf3);
+            height: 400px;
+            padding: 60px;
+            text-align: center;
+            .logo {
+                text-align: center;
             }
         }
     }

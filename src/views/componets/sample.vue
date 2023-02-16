@@ -24,7 +24,7 @@
     </v-card>
     <v-card title="Alerts" class="elevation-0 my-4">
         <v-row align="center" no-gutters class="pa-4">
-            <v-col cols="6" class="pr-2">
+            <v-col cols="12" sm="6" class="pr-0 pr-sm-2">
                 <v-alert type="success">I'm a success alert.</v-alert>
 
                 <br />
@@ -36,7 +36,7 @@
                 <br />
                 <v-alert type="error">I'm an error alert.</v-alert>
             </v-col>
-            <v-col cols="6" class="pl-2">
+            <v-col cols="12" sm="6" class="pl-0 pl-sm-2">
                 <v-alert density="compact" type="info">
                     I'm a compact alert with a <strong>type</strong> of info
                 </v-alert>
@@ -98,78 +98,78 @@
             <v-spacer></v-spacer>
         </v-toolbar>
     </v-card>
-    <v-card title="Buttons" class="elevation-0 my-4">
-        <v-container>
-            <v-row justify="space-between" class="text-center">
-                <v-col>
+    <v-card title="Buttons" class="elevation-0">
+        <div class="pa-4">
+            <v-row>
+                <v-col cols="6" sm="3">
                     <v-btn icon="mdi-heart" color="primary"></v-btn>
                 </v-col>
-
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon="mdi-star" color="secondary"></v-btn>
                 </v-col>
-
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon="mdi-cached" color="info"></v-btn>
                 </v-col>
-
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon="mdi-thumb-up" color="success"></v-btn>
                 </v-col>
-            </v-row>
-
-            <v-row justify="space-between" class="text-center">
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon color="primary">
                         <v-icon>mdi-heart</v-icon>
                     </v-btn>
                 </v-col>
-
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon color="secondary">
                         <v-icon>mdi-star</v-icon>
                     </v-btn>
                 </v-col>
-
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon color="info">
                         <v-icon>mdi-cached</v-icon>
                     </v-btn>
                 </v-col>
-
-                <v-col>
+                <v-col cols="6" sm="3">
                     <v-btn icon color="success">
                         <v-icon>mdi-thumb-up</v-icon>
                     </v-btn>
                 </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn color="primary"> Normal </v-btn>
+                </v-col>
+                <v-col cols="6" sm="3"
+                    ><v-btn rounded="lg" color="primary"> Rounded </v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn :rounded="0" color="primary"> Tile Button </v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn rounded="pill" color="primary"> Pill Button </v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn>elevates</v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn variant="flat">flat</v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn variant="tonal">tonal</v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn variant="outlined">outlined</v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn variant="text">text</v-btn>
+                </v-col>
+                <v-col cols="6" sm="3">
+                    <v-btn variant="plain">plain</v-btn>
+                </v-col>
             </v-row>
-        </v-container>
-        <div class="d-flex justify-space-around align-center flex-column flex-md-row fill-height">
-            <v-btn color="primary"> Normal Button </v-btn>
-
-            <v-btn rounded="lg" color="primary"> Rounded Button </v-btn>
-
-            <v-btn :rounded="0" color="primary"> Tile Button </v-btn>
-
-            <v-btn rounded="pill" color="primary"> Pill Button </v-btn>
         </div>
-        <div class="d-flex justify-space-between ma-4">
-            <v-btn>elevates (default)</v-btn>
-            <v-btn variant="flat">flat</v-btn>
-            <v-btn variant="tonal">tonal</v-btn>
-            <v-btn variant="outlined">outlined</v-btn>
-            <v-btn variant="text">text</v-btn>
-            <v-btn variant="plain">plain</v-btn>
-        </div>
-        <v-row align="center" no-gutters class="pa-4">
-            <v-col cols="6" class="pr-2"> </v-col>
-            <v-col cols="6" class="pl-2"> </v-col>
-        </v-row>
     </v-card>
 
     <v-card title="Cards" class="elevation-0 my-4">
         <v-row align="center" no-gutters class="pa-4">
-            <v-col cols="4" class="pr-2">
+            <v-col cols="12" sm="4" class="pr-0 pr-sm-2">
                 <v-card class="mx-auto" variant="outlined">
                     <v-card-item>
                         <div>
@@ -186,7 +186,7 @@
                     </v-card-actions>
                 </v-card>
             </v-col>
-            <v-col cols="4" class="pl-2">
+            <v-col cols="12" sm="4" class="pl-0 pl-sm-2">
                 <v-card class="mx-auto">
                     <v-card-text>
                         <div>Word of the Day</div>
@@ -230,7 +230,7 @@
                     </v-expand-transition>
                 </v-card>
             </v-col>
-            <v-col cols="4" class="pr-2">
+            <v-col cols="12" sm="4" class="pr-0 pr-sm-2">
                 <v-card
                     class="mx-auto"
                     color="#26c6da"

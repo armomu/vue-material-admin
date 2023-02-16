@@ -1,5 +1,5 @@
 <template>
-    <div class="elevation-0 tesla">
+    <div class="tesla">
         <div class="car">
             <img src="../../assets/tesla-model-s.png" class="tesla_img" />
             <v-card class="elevation-0 cloud_card py-2" theme="light">
@@ -21,8 +21,8 @@
                     </v-avatar>
                 </div>
             </v-card>
-            <div class="my-4 d-flex justify-space-between row2">
-                <v-card class="elevation-0 mr-2 pa-4 battery" theme="light">
+            <div class="row2">
+                <v-card class="elevation-0 pa-4 battery" theme="light">
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
@@ -49,7 +49,7 @@
                         </v-row>
                     </v-card-text>
                 </v-card>
-                <v-card class="elevation-0 ml-2 pa-4 Trip" theme="light">
+                <v-card class="elevation-0 pa-4 Trip" theme="light">
                     <div class="d-flex">
                         <v-btn
                             color="rgba(0,0,0,0.8)"
@@ -76,7 +76,7 @@
                 </v-card>
             </div>
         </div>
-        <div class="car_sys">
+        <div class="car_sys mt-4">
             <v-system-bar
                 theme="dark"
                 style="position: relative; left: 0; top: 0; width: auto; background: none"
@@ -163,6 +163,7 @@
                                 variant="text"
                                 icon="mdi-car-traction-control"
                                 color="#ffffff"
+                                class="hide"
                             ></v-btn>
                             <v-btn
                                 variant="text"
@@ -191,6 +192,7 @@
                                 variant="text"
                                 icon="mdi-music-note-bluetooth"
                                 color="#ffffff"
+                                class="hide"
                             ></v-btn>
                             <v-btn
                                 variant="text"
@@ -214,9 +216,7 @@
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
 import { shallowRef, onMounted } from 'vue';
-import { useMainStore } from '@/stores/appMain';
 import AMapLoader from '@amap/amap-jsapi-loader';
-const mainStore = useMainStore();
 onMounted(() => {
     // audio.value.addEventListener();
 });
@@ -303,32 +303,6 @@ const test = () => {
             // 设置旋转角
             map.setRotation(-e.target.getOrientation());
         });
-        // setTimeout(() => {
-        //     marker.moveAlong(lineArr, {
-        //         // 每一段的时长
-        //         duration: 1000,
-        //         // JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
-        //         autoRotation: true,
-        //     });
-        // }, 3000);
-
-        // map.setFitView();
-
-        // window.startAnimation = function startAnimation() {
-
-        // };
-
-        // window.pauseAnimation = function () {
-        //     marker.pauseMove();
-        // };
-
-        // window.resumeAnimation = function () {
-        //     marker.resumeMove();
-        // };
-
-        // window.stopAnimation = function () {
-        //     marker.stopMove();
-        // };
     });
 };
 const onStart = () => {
@@ -355,7 +329,12 @@ setTimeout(() => {
         position: relative;
         margin-top: 50px;
         .row2 {
+            display: flex;
+            align-items: center;
             width: 50%;
+            .v-card {
+                margin-top: 16px;
+            }
         }
         .v-card {
             width: 50%;
@@ -366,12 +345,14 @@ setTimeout(() => {
         }
         .battery {
             background-image: linear-gradient(to right, #4eebe4, #69fee1);
+            margin-right: 8px;
             .innericon {
                 color: #ffffff;
             }
         }
         .Trip {
             background-image: linear-gradient(to right, #6b38fb, #bc78f2);
+            margin-left: 8px;
             .innericon {
                 color: #ffffff;
             }

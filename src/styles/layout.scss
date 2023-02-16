@@ -4,7 +4,9 @@
     background: rgb(var(--theme-background)) !important;
     .layout_navigation {
         border-radius: 12px;
+        margin: 16px 0 16px 16px !important;
         overflow: hidden;
+        height: calc(100vh - 2rem) !important;
         .v-list-item__prepend > .v-icon, .v-list-item__append > .v-icon {
             opacity: 1 !important;
         }

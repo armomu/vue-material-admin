@@ -1,5 +1,5 @@
 <template>
-    <div id="amap2" style="height: calc(100vh - 124px)"></div>
+    <div id="amap2" style="height: calc(100vh - 124px); position: relative"></div>
 </template>
 <script setup lang="ts">
 import AMapLoader from '@amap/amap-jsapi-loader';
@@ -76,11 +76,11 @@ const test = () => {
     pl.setLoca(loca);
 
     // eslint-disable-next-line no-undef
-    var dat = new Loca.Dat();
-    dat.addLight(loca.ambLight, loca, '环境光');
-    dat.addLight(loca.dirLight, loca, '平行光');
-    dat.addLight(loca.pointLight, loca, '点光');
-    dat.addLayer(pl, '楼块');
+    // var dat = new Loca.Dat();
+    // dat.addLight(loca.ambLight, loca, '环境光');
+    // dat.addLight(loca.dirLight, loca, '平行光');
+    // dat.addLight(loca.pointLight, loca, '点光');
+    // dat.addLayer(pl, '楼块');
 
     map.on('complete', function () {
         loca.animate.start();

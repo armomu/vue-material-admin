@@ -1,7 +1,7 @@
 <template>
     <div class="smart_house pb-5">
         <v-row>
-            <v-col cols="6">
+            <v-col cols="12" sm="6">
                 <v-card title="Cameras" class="elevation-0">
                     <v-tabs v-model="tab" align-tabs="end" class="mx-4" color="primary">
                         <v-tab :value="1">Living Room</v-tab>
@@ -35,17 +35,17 @@
                     </v-window>
                 </v-card>
             </v-col>
-            <v-col cols="2" class="px-1">
+            <v-col cols="12" sm="2" class="px-sm-1 px-3 py-1 py-sm-3">
                 <Device v-model="widgets.wifi" title="5G WI-FI" icon="mdi-wifi" :toolw="false" />
                 <Device v-model="widgets.tv" class="my-4" title="Apple TV" icon="mdi-television" />
                 <Device v-model="widgets.ts" title="Thermostat" icon="mdi-snowflake" />
             </v-col>
-            <v-col cols="4"> <AirConditioner /></v-col>
+            <v-col cols="12" sm="4"> <AirConditioner /></v-col>
         </v-row>
         <v-row>
-            <v-col cols="8" class="py-1">
+            <v-col cols="12" sm="8" class="py-1">
                 <v-row>
-                    <v-col cols="5">
+                    <v-col cols="12" sm="5">
                         <v-card class="elevation-0">
                             <div class="d-flex justify-space-between">
                                 <v-avatar size="120" rounded="0" class="ma-4">
@@ -66,8 +66,8 @@
                             </div>
                         </v-card>
                     </v-col>
-                    <v-col cols="7" class="px-1"><MusicCard /></v-col>
-                    <v-col cols="3" class="py-1 pr-1">
+                    <v-col cols="12" sm="7" class="px-1 sm_item_ sm_pt_1"><MusicCard /></v-col>
+                    <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
                         <Device
                             v-model="widgets.cctv"
                             title="Camera CCTV"
@@ -75,7 +75,7 @@
                             dev-model="Google Camera - X2"
                         />
                     </v-col>
-                    <v-col cols="3" class="py-1 pr-1">
+                    <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
                         <Device
                             v-model="widgets.speaker"
                             title="Speaker"
@@ -83,7 +83,7 @@
                             dev-model="Google Speaker - A2"
                         />
                     </v-col>
-                    <v-col cols="3" class="py-1 pr-1">
+                    <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
                         <Device
                             v-model="widgets.thermostat"
                             title="Thermostat"
@@ -91,7 +91,7 @@
                             dev-model="Google Thermostat"
                         />
                     </v-col>
-                    <v-col cols="3" class="py-1 pr-1">
+                    <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
                         <Device
                             v-model="widgets.humidifier"
                             title="Humidifier"
@@ -101,7 +101,7 @@
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col cols="4" class="py-1">
+            <v-col cols="12" sm="4" class="py-1 py1_no">
                 <EnergyUsed />
             </v-col>
         </v-row>
@@ -130,6 +130,9 @@ const widgets = reactive({
 </script>
 <style lang="scss">
 .smart_house {
+    .v-card {
+        // background-color: mediumslateblue;
+    }
     .camera_wrap {
         position: relative;
         border-radius: 6px;
@@ -155,6 +158,32 @@ const widgets = reactive({
         .label.lk {
             left: auto;
             right: 16px;
+        }
+    }
+}
+.isMobile {
+    .px-sm-3 {
+        padding-right: 12px !important;
+        padding-left: 12px !important;
+    }
+    .py-sm-1 {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+    }
+    .py1_no {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    .sm_item_ {
+        padding: 16px 12px 0 12px !important;
+    }
+    .sm_pt_1 {
+        padding-top: 4px !important;
+    }
+    .music_card {
+        // padding: ;
+        .zjbg {
+            display: none;
         }
     }
 }
