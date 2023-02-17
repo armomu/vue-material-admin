@@ -13,14 +13,13 @@
 
 </div>
 
+</h1>
+
 <div align="center" style="font-size: 14px">
 
 English | [简体中文](./README.zh-CN.md)
 
 </div>
-
-</h1>
-
 
 
 vue-material-admin It is a free open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `TypeScript` and other technology stacks, on the basis of `Material` design specifications and `Vuetify` basic components, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project will continue to be updated, If you have any suggestions for improvement and optimization, please ask [issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
@@ -52,17 +51,17 @@ cd vue-material-admin
 # install dependencies
 npm install
 
-# 本地运行
+# run
 npm run dev
 
 ```
 
 ## Online Demo
 
--   [👉戳这里](https://chenhuajie.gitee.io/vue-material-admin/)
--   [👉v2戳这里](https://chenhuajie.gitee.io/vue-material-admin/v2)
+-   [👉Demo](https://chenhuajie.gitee.io/vue-material-admin/)
+-   [👉v2Demo](https://chenhuajie.gitee.io/vue-material-admin/v2)
 
-## 目录结构
+## File Directory
 
 ```　　
 ┌  public
