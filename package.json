@@ -18,7 +18,6 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",
     "three": "^0.149.0",
-    "vite-plugin-pwa": "^0.13.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vue3-apexcharts": "^1.4.1",

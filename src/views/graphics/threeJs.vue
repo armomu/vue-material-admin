@@ -17,11 +17,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { ref, reactive, onMounted } from 'vue';
-// import seraphineGltf from '/seraphine/scene.gltf';
-// import seraphinePng from '/seraphine/textures/Mat_cwfyfr1_userboy17.bmp_diffuse.png';
+import { ref, onMounted } from 'vue';
 import LittlestTokyo from '/littlest_yokyo/LittlestTokyo.glb';
-// import sea_keep_lonely_watcher from '/sea_keep_lonely_watcher/sea_keep_lonely_watcher.glb';
 
 const canvasDom = ref<HTMLCanvasElement>();
 const loading = ref(true);
@@ -84,26 +81,6 @@ loader.load(LittlestTokyo, (gltf) => {
     loading.value = false;
 });
 
-//           const gltfLoader = new GLTFLoader();
-// gltfLoader.load(seraphineGltf, (gltf) => {
-//     const model = gltf.scene;
-//     // 遍历模型每部分
-//     model.traverse((o) => {
-//         console.log(o);
-//         // 将图片作为纹理加载
-//         const explosionTexture = new THREE.TextureLoader().load(seraphinePng);
-//         // 调整纹理图的方向
-//         explosionTexture.flipY = false;
-//         // 将纹理图生成基础网格材质(MeshBasicMaterial)
-//         const material = new THREE.MeshBasicMaterial({
-//             map: explosionTexture,
-//         });
-//         // 给模型每部分上材质
-//         o.material = material;
-//     });
-//     scene.add(model);
-// });
-
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
     var width = window.innerWidth;
@@ -122,12 +99,7 @@ function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
 onMounted(() => {
     renderer = new THREE.WebGLRenderer({ canvas: canvasDom.value, antialias: true });
     controls = new OrbitControls(camera, renderer.domElement);
-    // camera.position.set(20, 0, 60);
-    // controls.target.set(0, 1, 0);
-    // renderer.setPixelRatio(window.devicePixelRatio);
-    // renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
-
     pmremGenerator = new THREE.PMREMGenerator(renderer);
     scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
     camera.position.set(5, 2, 8);
@@ -135,7 +107,6 @@ onMounted(() => {
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.update();
-    // animate();
 });
 </script>
 <style scoped lang="scss">
