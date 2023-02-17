@@ -25,7 +25,7 @@ const loading = ref(true);
 const scene = new THREE.Scene();
 var renderer: THREE.WebGLRenderer;
 var pmremGenerator: THREE.PMREMGenerator;
-scene.background = new THREE.Color('#f7fafc');
+// scene.background = new THREE.Color('#f7fafc');
 
 const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 100);
 var controls: OrbitControls;
@@ -54,24 +54,6 @@ loader.setDRACOLoader(dracoLoader);
 
 loader.load(LittlestTokyo, (gltf) => {
     const model = gltf.scene;
-    // model.traverse((o) => {
-    //     console.log(o);
-    //     // const material = new THREE.MeshBasicMaterial({
-    //     //     opacity: 1,
-    //     // });
-    //     // o.material = material;
-    //     // o.material.opacity = 1;
-    //     // o.dep = 1;
-    //     // const arrs = ['Sky_Sky_0', 'Sky', 'Sea'];
-    //     // if (arrs.includes(o.name)) {
-    //     //     o.visible = false;
-    //     // }
-    //     if (o.type === 'Object3D') {
-    //         o.children.forEach((obj) => {
-    //             obj.renderOrder = 1;
-    //         });
-    //     }
-    // });
     model.position.set(1, 1, 0);
     model.scale.set(0.01, 0.01, 0.01);
     scene.add(model);
@@ -97,7 +79,16 @@ function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
 }
 
 onMounted(() => {
-    renderer = new THREE.WebGLRenderer({ canvas: canvasDom.value, antialias: true });
+    renderer = new THREE.WebGLRenderer({ canvas: canvasDom.value, antialias: true, alpha: true });
+    var axesHelper = new THREE.AxesHelper(12);
+    scene.add(axesHelper);
+    // const helper = new THREE.PolarGridHelper(10, 16, 8, 24);
+    // scene.add(helper);
+    const plane = new THREE.Plane(new THREE.Vector3(1, 1, 0.2), 3);
+    const helper = new THREE.PlaneHelper(plane, 1, 0xffff00);
+    scene.add(helper);
+    var grid = new THREE.GridHelper(24, 24, 0xff0000, 0x444444);
+    scene.add(grid);
     controls = new OrbitControls(camera, renderer.domElement);
     renderer.outputEncoding = THREE.sRGBEncoding;
     pmremGenerator = new THREE.PMREMGenerator(renderer);
