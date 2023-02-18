@@ -15,53 +15,53 @@
 
 </h1>
 
-
 <div align="center" style="font-size: 14px">
 
-English | [简体中文](./README.zh-CN.md)
+English | [简体中文](./README.md)
 
 </div>
 
-vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等技术栈，在 `material` 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，项目持续保持更新，如有改进及优化建议，直接提[issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
-> `dev` 分支为正在开发代码，`v2` 分支为旧版本，切换到旧版本需要重新 `install` 一下安装 `webpack` 相关依赖 `v1` 是 `Vuetify1.x `的老版本的备份
 
-## 功能支持
-| PWA      | i18n | 响应式 | 暗黑主题 |
+vue-material-admin It is a free open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `TypeScript` and other technology stacks, on the basis of `Material` design specifications and `Vuetify` basic components, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project will continue to be updated, If you have any suggestions for improvement and optimization, please ask [issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
+
+
+## Function Support
+| PWA      | I18n | Mobile devices | Dark theme |
 | :----: | :----: | :----:  | :----:   |
 |  ✅       | ❌   |  ✅    |  ✅    |
 
 
-## 浏览器支持
+## Browser Support
 
-本地开发推荐使用 `Chrome 80+` 浏览器，支持现代浏览器, 不支持 IE
+It is recommended to use `Chrome 80+` browser for local development, modern browsers are supported, IE is not supported
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                                                   not support                                                                                                                    |                                                                                            last 2 versions                                                                                             |                                                                                                  last 2 versions                                                                                                  |                                                                                                last 2 versions                                                                                                |                                                                                                last 2 versions                                                                                                |
 
-## 本地开发
+## Developer
 
 ```
-# 克隆项目
+# clone
 git clone https://github.com/Groundhog-Chen/vue-material-admin.git
 
-# 打开文件目录
+# open
 cd vue-material-admin
 
-# 安装依赖
+# install dependencies
 npm install
 
-# 本地运行
+# run
 npm run dev
 
 ```
 
-## 预览地址
+## Online Demo
 
--   [👉戳这里](https://chenhuajie.gitee.io/vue-material-admin/)
--   [👉v2戳这里](https://chenhuajie.gitee.io/vue-material-admin/v2)
+-   [👉Demo](https://chenhuajie.gitee.io/vue-material-admin/)
+-   [👉v2Demo](https://chenhuajie.gitee.io/vue-material-admin/v2)
 
-## 目录结构
+## File Directory
 
 ```　　
 ┌  public
@@ -93,13 +93,13 @@ npm run dev
 └─ vite.config.ts
 ```
 
-## 页面截图
+## Screenshot
 
 <p align="center">
   <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
   <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
 </p>
 
-## 许可证
+## MIT
 
 [MIT](./LICENSE)
