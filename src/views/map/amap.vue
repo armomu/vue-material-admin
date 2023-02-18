@@ -2,6 +2,7 @@
     <div id="amap2" style="height: calc(100vh - 124px); position: relative"></div>
 </template>
 <script setup lang="ts">
+import { onBeforeUnmount } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
 var AMap: any;
 const initMap = async () => {
@@ -248,5 +249,8 @@ const test = () => {
         );
     }
 };
+onBeforeUnmount(() => {
+    console.log(1111);
+});
 </script>
 <style scoped lang="scss"></style>

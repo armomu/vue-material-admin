@@ -82,11 +82,6 @@ onMounted(() => {
     renderer = new THREE.WebGLRenderer({ canvas: canvasDom.value, antialias: true, alpha: true });
     var axesHelper = new THREE.AxesHelper(12);
     scene.add(axesHelper);
-    // const helper = new THREE.PolarGridHelper(10, 16, 8, 24);
-    // scene.add(helper);
-    const plane = new THREE.Plane(new THREE.Vector3(1, 1, 0.2), 3);
-    const helper = new THREE.PlaneHelper(plane, 1, 0xffff00);
-    scene.add(helper);
     var grid = new THREE.GridHelper(24, 24, 0xff0000, 0x444444);
     scene.add(grid);
     controls = new OrbitControls(camera, renderer.domElement);

@@ -115,6 +115,17 @@ const router = createRouter({
                     },
                     component: () => import('@/views/graphics/threeJs.vue'),
                 },
+                {
+                    path: 'webgl',
+                    name: 'Webgl',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Webgl',
+                        icon: 'mdi-alpha-w',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/webgl.vue'),
+                },
             ],
         },
         {
