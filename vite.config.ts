@@ -18,8 +18,8 @@ export default defineConfig({
                 enabled: true,
             },
             manifest: {
-                name: 'Vue Material Admin',
-                short_name: 'Material UI',
+                name: 'Material UI',
+                short_name: 'Vue Material Admin',
                 icons: [
                     {
                         purpose: 'maskable',

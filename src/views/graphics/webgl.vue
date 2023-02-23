@@ -1,25 +1,50 @@
 <template>
-    <canvas id="threejs2" ref="nodeDom"></canvas>
+    <div ref="wrapDom" style="position: relative">
+        <v-dialog v-model="loading" :scrim="false" width="200px" persistent>
+            <v-card color="primary">
+                <v-card-text>
+                    Loading...
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+        <canvas id="threejs2" ref="nodeDom"></canvas>
+    </div>
 </template>
 <script setup lang="ts">
+import * as TWEEN from '@tweenjs/tween.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { ref, onBeforeUnmount, onMounted } from 'vue';
-import fullImage from '@/assets/webgl/full.webp';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
+// import Stats from 'three/addons/libs/stats.module.js';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import LittlestTokyo from '/littlest_yokyo/LittlestTokyo.glb';
+import fullImage from '@/assets/webgl/full.jpeg';
 
 const nodeDom = ref<HTMLCanvasElement>();
+const wrapDom = ref<HTMLCanvasElement>();
+const loading = ref(true);
 var scene = new THREE.Scene();
 var renderer: THREE.WebGLRenderer;
 var camera: THREE.PerspectiveCamera;
-// var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight);
 var controls: OrbitControls;
-// var pmremGenerator: THREE.PMREMGenerator;
+let mixer: THREE.AnimationMixer;
+
+const clock = new THREE.Clock();
+// var stats: Stats;
+var pmremGenerator: THREE.PMREMGenerator;
+var animateID = 0;
 const animate = () => {
     renderer.render(scene, camera);
     controls.update();
+    const delta = clock.getDelta();
+    mixer.update(delta);
+    // stats.update();
     // console.log(camera.position);
-    requestAnimationFrame(animate);
+    animateID = requestAnimationFrame(animate);
+    TWEEN.update();
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -34,23 +59,56 @@ function init() {
     );
     var axesHelper = new THREE.AxesHelper(12);
     scene.add(axesHelper);
-    var grid = new THREE.GridHelper(24, 24, 0xff0000, 0x444444);
-    scene.add(grid);
+    // var grid = new THREE.GridHelper(24, 24, 0xff0000, 0x444444);
+    // scene.add(grid);
 
     const sphereGeometry = new THREE.SphereGeometry(16, 50, 50);
+    sphereGeometry.scale(16, 16, -16);
     const texture = new THREE.TextureLoader().load(fullImage);
     const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture });
-    sphereGeometry.scale(16, 16, -16);
-    const qiu = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    scene.add(qiu);
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.add(sphere);
 
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('/vue-material-admin/draco/gltf/');
+
+    const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
+    loader.load(LittlestTokyo, (gltf) => {
+        gltf.scene.position.set(1, 1, 0);
+        gltf.scene.scale.set(0.03, 0.03, 0.03);
+        scene.add(gltf.scene);
+        mixer = new THREE.AnimationMixer(gltf.scene);
+        mixer.clipAction(gltf.animations[0]).play();
+        animate();
+        loading.value = false;
+        camera.position.set(410, 136, 68);
+        onTest();
+    });
+
+    // const ambientLight = new THREE.AmbientLight('#ddffe9');
+    // scene.add(ambientLight);
+
+    // stats = new Stats();
+    // stats.domElement.style.position = 'absolute';
+    // stats.domElement.style.top = '0px';
+    // wrapDom.value?.appendChild(stats.domElement);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    pmremGenerator = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
     controls = new OrbitControls(camera, renderer.domElement);
-    camera.position.set(30, 10, 5);
+
+    controls.target.set(0, 0, 0);
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.update();
-    animate();
 }
+const onTest = () => {
+    var tween = new TWEEN.Tween(camera.position)
+        .to({ x: 25, y: 58, z: 181 })
+        .to({ x: 1.3, y: 19, z: -62 });
+    tween.start();
+};
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
     var width = window.innerWidth;
@@ -67,8 +125,14 @@ function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
 }
 onMounted(init);
 onBeforeUnmount(() => {
-    console.log();
+    close();
 });
+const close = () => {
+    cancelAnimationFrame(animateID);
+    renderer.dispose();
+    scene.clear();
+    camera.clear();
+};
 </script>
 <style scoped lang="scss">
 #threejs2 {

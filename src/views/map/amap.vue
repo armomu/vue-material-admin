@@ -5,6 +5,7 @@
 import { onBeforeUnmount } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
 var AMap: any;
+var map: any;
 const initMap = async () => {
     const amap_ = await AMapLoader.load({
         key: '527a03c5d37f26c924d83b3c68f9ac5c', // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -19,7 +20,7 @@ const initMap = async () => {
 };
 initMap();
 const test = () => {
-    var map = new AMap.Map('amap2', {
+    map = new AMap.Map('amap2', {
         viewMode: '3D',
         zoom: 11.8,
         center: [121.304018, 31.217688],
@@ -250,7 +251,7 @@ const test = () => {
     }
 };
 onBeforeUnmount(() => {
-    console.log(1111);
+    map.destroy();
 });
 </script>
 <style scoped lang="scss"></style>

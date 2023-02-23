@@ -52,7 +52,7 @@
                         class="elevation-0"
                         density="compact"
                         variant="solo"
-                        label="Search templates"
+                        label="Search here"
                         append-inner-icon="mdi-magnify"
                         single-line
                         hide-details

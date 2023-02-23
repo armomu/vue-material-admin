@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout/layout.vue';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
+import { checkVersion } from '@/plugins/pwa';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -11,7 +12,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/dashboard/tesla-model-s',
+            redirect: '/dashboard/smart-house',
             name: 'Dashboard',
             meta: {
                 visible: true,
@@ -104,17 +105,17 @@ const router = createRouter({
             },
             component: Layout,
             children: [
-                {
-                    path: 'three-js',
-                    name: 'three.js',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Three.js',
-                        icon: 'mdi-alpha-t',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/threeJs.vue'),
-                },
+                // {
+                //     path: 'three-js',
+                //     name: 'three.js',
+                //     meta: {
+                //         keepAlive: false,
+                //         title: 'Three.js',
+                //         icon: 'mdi-alpha-t',
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/graphics/threeJs.vue'),
+                // },
                 {
                     path: 'webgl',
                     name: 'Webgl',
@@ -197,22 +198,13 @@ const router = createRouter({
 
 NProgress.configure({ showSpinner: false });
 router.beforeEach(async (to, _from, next) => {
-    // console.log(to, _from);
     NProgress.start();
-    // try {
-    //     if (import.meta.env.MODE !== 'development') {
-    //         const versionScript = document.createElement('script');
-    //         versionScript.src = location.origin + '/version.js?v=' + new Date().getTime();
-    //         const s = document.getElementsByTagName('script')[0];
-    //         s.parentNode?.insertBefore(versionScript, s);
-    //     }
-    // } catch (err) {
-    //     console.log(err);
-    // }
+
     next();
 });
 
 router.afterEach(() => {
-    NProgress.done(); // 结束Progress
+    NProgress.done();
+    checkVersion();
 });
 export default router;

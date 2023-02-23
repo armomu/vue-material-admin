@@ -215,7 +215,7 @@
 </template>
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
-import { shallowRef, onMounted } from 'vue';
+import { shallowRef, onMounted, onBeforeUnmount } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
 onMounted(() => {
     // audio.value.addEventListener();
@@ -316,6 +316,9 @@ const onStart = () => {
 setTimeout(() => {
     onStart();
 }, 3000);
+onBeforeUnmount(() => {
+    map_.value?.destroy();
+});
 </script>
 
 <style scoped lang="scss">

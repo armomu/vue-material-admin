@@ -32,7 +32,7 @@
                         append-icon="mdi-arrow-right"
                         size="large"
                         type="submit"
-                        href="/"
+                        href="/vue-material-admin/"
                         >Go !</v-btn
                     >
                 </div>
@@ -114,6 +114,18 @@ import logo from '@/assets/admin-logo.png';
             text-align: center;
             .logo {
                 text-align: center;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 778px) {
+    .login_container {
+        .group {
+            .form {
+                background: transparent;
+            }
+            .desc {
+                display: none;
             }
         }
     }

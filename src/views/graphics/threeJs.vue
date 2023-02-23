@@ -83,6 +83,7 @@ onMounted(() => {
     var axesHelper = new THREE.AxesHelper(12);
     scene.add(axesHelper);
     var grid = new THREE.GridHelper(24, 24, 0xff0000, 0x444444);
+    grid.position.set(0, -1, 0);
     scene.add(grid);
     controls = new OrbitControls(camera, renderer.domElement);
     renderer.outputEncoding = THREE.sRGBEncoding;

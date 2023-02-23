@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { onUpVersion } from '@/plugins/pwa';
 
 export const useMainStore = defineStore('main', () => {
     // 初始化是否是移动端设备
@@ -33,5 +34,20 @@ export const useMainStore = defineStore('main', () => {
         theme.value = theme.value === 'light' ? 'dark' : 'light';
     };
 
-    return { theme, isMobile, onTheme };
+    const upVisible = ref(false);
+
+    const onHideUp = () => {
+        upVisible.value = false;
+    };
+    let versionCode = '';
+    const onShowUp = (code: string) => {
+        versionCode = code;
+        upVisible.value = true;
+    };
+    const onUp = () => {
+        onUpVersion(versionCode);
+        upVisible.value = false;
+    };
+
+    return { theme, isMobile, onTheme, upVisible, onHideUp, onShowUp, onUp };
 });
