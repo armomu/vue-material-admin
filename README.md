@@ -41,6 +41,8 @@ vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。�
 
 ## 本地开发
 
+> ⚠️ 注意：本地开发需要 `nodejs` 14.18+以上版本
+
 ```
 # 克隆项目
 git clone https://github.com/Groundhog-Chen/vue-material-admin.git
