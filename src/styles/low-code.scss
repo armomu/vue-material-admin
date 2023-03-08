@@ -1,0 +1,52 @@
+.low_code_page {
+    display: flex;
+
+    .v-card.v-card--variant-elevated {
+        box-shadow: none;
+    }
+
+    .widgets {
+        height: calc(100vh - 124px);
+        width: 220px;
+    }
+
+    .work_area {
+        // background: #fff;
+        flex: 1;
+        height: calc(100vh - 124px);
+        margin: 0 16px;
+        overflow: hidden;
+        position: relative;
+        .work_content {
+            height: 100%;
+            border: 1px #efefef solid;
+            overflow: scroll;
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            .scale_wrap {
+                width: 1920px;
+                height: 1080px;
+                position: absolute;
+                left: 0;
+                transition: all 0.3s;
+                background: -webkit-linear-gradient(top, transparent 15px, #efefef 0),
+                    -webkit-linear-gradient(left, transparent 15px, #efefef 0);
+                background-size: 16px 16px;
+            }
+        }
+        .w_b_tool {
+            display: flex;
+            position: absolute;
+            background: transparent;
+            z-index: 2;
+            right: 16px;
+            top: 0;
+        }
+    }
+
+    .tool_area {
+        height: calc(100vh - 124px);
+        width: 220px;
+    }
+}

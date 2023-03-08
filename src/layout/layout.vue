@@ -70,7 +70,7 @@
                         ></v-list-item-title
                     >
                 </v-list-item>
-                <v-list-item prepend-icon="mdi-folder" class="mx-1">
+                <!-- <v-list-item prepend-icon="mdi-folder" class="mx-1">
                     <v-list-item-title
                         ><a
                             target="_blank"
@@ -79,7 +79,7 @@
                             >V2 Preview</a
                         ></v-list-item-title
                     >
-                </v-list-item>
+                </v-list-item> -->
                 <v-list-item prepend-icon="mdi-github" class="mx-1">
                     <v-list-item-title
                         ><a
@@ -112,6 +112,7 @@
                 </v-btn>
                 <v-spacer></v-spacer>
                 <div v-if="!mainStore.isMobile" style="width: 220px" class="search_ip mr-2">
+                    <!-- <div id="docsearch"></div> -->
                     <v-text-field
                         rounded
                         density="compact"
@@ -137,7 +138,7 @@
                         </v-badge>
                     </v-btn>
                     <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
-                        <v-avatar size="x-small" class="avatarmr-2">
+                        <v-avatar size="x-small" class="avatar mr-2">
                             <v-img :src="wxtx" alt="陈咩啊"></v-img>
                         </v-avatar>
                         <span v-if="!mainStore.isMobile">陈咩咩啊</span>
@@ -174,9 +175,20 @@
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
+// import { docsearch } from 'meilisearch-docsearch';
+// import 'meilisearch-docsearch/css';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
-import { reactive, computed, watch } from 'vue';
+import { reactive, computed, watch, onMounted } from 'vue';
 import { useMainStore } from '@/stores/appMain';
+
+onMounted(() => {
+    // docsearch({
+    //     container: '#docsearch',
+    //     host: 'https://ms-4c0f4c604814-2275.sgp.meilisearch.io',
+    //     apiKey: 'be54438b7a46ff7567aa3ca928590a58bdc81abe7aa4e389881f8de597cc9d13',
+    //     indexUid: 'dev_search',
+    // });
+});
 const mainStore = useMainStore();
 const router = useRouter();
 const navState = reactive({

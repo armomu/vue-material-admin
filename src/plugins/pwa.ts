@@ -22,10 +22,16 @@ window.getVersion = (version: string) => {
 
 export function onUpVersion(code: string) {
     console.log(pwaReg);
-    pwaReg?.update().then(() => {
-        console.log('update ok');
-        localStorage.frontendVersion = code;
-    });
+    pwaReg
+        ?.update()
+        .then(() => {
+            console.log('update ok');
+            localStorage.frontendVersion = code;
+            location.reload();
+        })
+        .catch(() => {
+            location.reload();
+        });
 }
 
 export function checkVersion() {

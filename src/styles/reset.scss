@@ -72,10 +72,6 @@ img {
     border: 0;
     vertical-align: middle;
 }
-svg:not(:root) {
-    width: 1em;
-    height: 1em;
-}
 svg + svg {
     margin-left: 10px;
 }

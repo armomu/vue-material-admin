@@ -130,6 +130,30 @@ const router = createRouter({
             ],
         },
         {
+            path: '/low-code',
+            name: 'LowCode',
+            meta: {
+                visible: true,
+                title: 'Low Code',
+                icon: 'mdi-view-module',
+            },
+            component: Layout,
+            children: [
+                {
+                    path: '',
+                    name: 'low-code',
+                    meta: {
+                        title: 'Low Code',
+                        icon: 'mdi-alpha-l',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/low-code/low-code.vue'),
+                    children: [],
+                },
+            ],
+        },
+        {
             path: '/map',
             name: 'map',
             meta: {
@@ -139,18 +163,6 @@ const router = createRouter({
             },
             component: Layout,
             children: [
-                // {
-                //     path: 'baidu-map',
-                //     name: 'baiduMap',
-                //     meta: {
-                //         title: 'Baidu map',
-                //         icon: 'mdi-alpha-b',
-                //         keepAlive: false,
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/map/baiduMap.vue'),
-                //     children: [],
-                // },
                 {
                     path: 'amap',
                     name: 'amap',

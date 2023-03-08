@@ -19,7 +19,7 @@ export default defineConfig({
             },
             manifest: {
                 name: 'Material UI',
-                short_name: 'Vue Material Admin',
+                short_name: 'Material UI',
                 icons: [
                     {
                         purpose: 'maskable',
@@ -38,6 +38,7 @@ export default defineConfig({
                         sizes: '128x128 144x144 152x152 192x192 256x256 512x512',
                     },
                 ],
+                scope: '/vue-material-admin/',
                 start_url: '/vue-material-admin/',
                 background_color: '#FFFFFF',
                 theme_color: '#FFFFFF',

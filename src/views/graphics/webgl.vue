@@ -70,7 +70,7 @@ function init() {
     scene.add(sphere);
 
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('/vue-material-admin/draco/gltf/');
+    dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}/draco/`);
 
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
