@@ -1,13 +1,34 @@
 .d-flex {
     align-items: center;
 }
+
 .jsb {
     justify-content: space-between;
 }
+
 .arphl {
     background-color: #ddffe9;
 }
 
 .v-list-item__prepend {
     width: 40px;
+}
+
+.apexcharts-svg {
+    background-color: transparent !important;
+}
+
+div {
+    &::-webkit-scrollbar {
+        // 定义了滚动条整体的样式；
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        width: 5px;
+        height: 5px;
+        border-radius: 8px;
+        background-color: var(--scrollbar);
+    }
 }

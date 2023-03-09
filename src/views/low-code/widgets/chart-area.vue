@@ -1,12 +1,5 @@
 <template>
-    <v-card class="elevation-0 energy_used" title="Energy Used">
-        <VueApexCharts
-            :height="props.height"
-            type="area"
-            :options="chartOptions"
-            :series="series"
-        />
-    </v-card>
+    <VueApexCharts height="100%" type="area" :options="chartOptions" :series="series" />
 </template>
 <script setup lang="ts">
 import VueApexCharts from 'vue3-apexcharts';
@@ -17,17 +10,14 @@ const props = withDefaults(
     defineProps<{
         height?: string | number;
     }>(),
-    {
-        height: 300,
-    }
+    {}
 );
-console.log(props);
 const mainStore = useMainStore();
 const chartOptions = computed(() => {
     return {
         chart: {
             id: 'vuechart-example',
-            height: 310,
+            height: props.height,
             // sparkline: {
             //     enabled: true,
             // },
@@ -67,11 +57,3 @@ const series = ref([
     },
 ]);
 </script>
-<style lang="scss">
-.energy_used {
-    .apexcharts-svg {
-        width: 100% !important;
-        height: 310px;
-    }
-}
-</style>

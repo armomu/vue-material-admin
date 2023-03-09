@@ -54,7 +54,7 @@
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
-const emit = defineEmits(['update:modelValue']);
+
 const props = withDefaults(
     defineProps<{
         title?: string;
@@ -72,6 +72,7 @@ const props = withDefaults(
         toolp: true,
     }
 );
+const emit = defineEmits(['update:modelValue']);
 const value = computed({
     get() {
         return props.modelValue;
