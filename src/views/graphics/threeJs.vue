@@ -1,67 +1,110 @@
 <template>
-    <div>
-        <v-dialog v-model="loading" :scrim="false" width="200px" persistent>
-            <v-card color="primary">
-                <v-card-text>
-                    Loading...
-                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
-        <canvas id="threejs" ref="canvasDom"></canvas>
+    <div class="threejs_page">
+        <v-card class="op" title="Upload Model & VR Panorama">
+            <div class="ma-4">
+                <v-file-input
+                    show-size
+                    counter
+                    label="VR Panorama"
+                    accept="image/*"
+                    density="compact"
+                    v-model="locaFiles.flulimg"
+                    @update:model-value="fileChange"
+                ></v-file-input>
+                <v-file-input
+                    show-size
+                    counter
+                    label="GLB Model"
+                    accept=".glb"
+                    density="compact"
+                    v-model="locaFiles.glb"
+                    @update:model-value="fileChange"
+                ></v-file-input>
+            </div>
+        </v-card>
+        <canvas id="threejs2" ref="nodeDom"></canvas>
     </div>
 </template>
 <script setup lang="ts">
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { ref, onMounted } from 'vue';
-import LittlestTokyo from '/littlest_yokyo/LittlestTokyo.glb';
+import { ref, reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
+import fullImage from '@/assets/webgl/full.jpeg';
 
-const canvasDom = ref<HTMLCanvasElement>();
-const loading = ref(true);
-const scene = new THREE.Scene();
+const locaFiles = reactive({
+    glb: [],
+    flulimg: [],
+});
+
+const fileChange = (val: File[]) => {
+    const [file] = val;
+    if (!file) return;
+    const sphereGeometry = new THREE.SphereGeometry(1, 50, 50);
+    sphereGeometry.scale(10, 10, -10);
+
+    const texture = new THREE.TextureLoader().load(getObjectURL(file));
+    const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture });
+
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.add(sphere);
+};
+
+const getObjectURL = (file: File) => {
+    let url = '';
+    if (window.webkitURL !== undefined) {
+        // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    } else if (window.URL !== undefined) {
+        // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    }
+    return url;
+};
+
+const nodeDom = shallowRef<HTMLCanvasElement>();
+var scene = new THREE.Scene();
 var renderer: THREE.WebGLRenderer;
-var pmremGenerator: THREE.PMREMGenerator;
-// scene.background = new THREE.Color('#f7fafc');
-
-const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 100);
+var camera: THREE.PerspectiveCamera;
 var controls: OrbitControls;
-let mixer: THREE.AnimationMixer;
 
-const clock = new THREE.Clock();
-
-function animate() {
+// var stats: Stats;
+var pmremGenerator: THREE.PMREMGenerator;
+var animateID = 0;
+const animate = () => {
     renderer.render(scene, camera);
-    const delta = clock.getDelta();
-    mixer.update(delta);
     controls.update();
-    requestAnimationFrame(animate);
+    // console.log(camera.position);
+    animateID = requestAnimationFrame(animate);
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
     }
-}
+};
+function init() {
+    renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
+    camera = new THREE.PerspectiveCamera(
+        50,
+        nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!
+    );
+    camera.position.set(0, 5, 12);
+    var axesHelper = new THREE.AxesHelper(12);
+    scene.add(axesHelper);
+    const gridHelper = new THREE.GridHelper(10, 20);
+    scene.add(gridHelper);
 
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('/vue-material-admin/draco/gltf/');
-
-const loader = new GLTFLoader();
-loader.setDRACOLoader(dracoLoader);
-
-loader.load(LittlestTokyo, (gltf) => {
-    const model = gltf.scene;
-    model.position.set(1, 1, 0);
-    model.scale.set(0.01, 0.01, 0.01);
-    scene.add(model);
-    mixer = new THREE.AnimationMixer(model);
-    mixer.clipAction(gltf.animations[0]).play();
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    pmremGenerator = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enablePan = false;
+    controls.enableDamping = true;
+    controls.update();
     animate();
-    loading.value = false;
-});
+}
 
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
@@ -77,27 +120,28 @@ function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     }
     return needResize;
 }
-
-onMounted(() => {
-    renderer = new THREE.WebGLRenderer({ canvas: canvasDom.value, antialias: true, alpha: true });
-    var axesHelper = new THREE.AxesHelper(12);
-    scene.add(axesHelper);
-    var grid = new THREE.GridHelper(24, 24, 0xff0000, 0x444444);
-    grid.position.set(0, -1, 0);
-    scene.add(grid);
-    controls = new OrbitControls(camera, renderer.domElement);
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    pmremGenerator = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
-    camera.position.set(5, 2, 8);
-    controls.target.set(0, 0.5, 0);
-    controls.enablePan = false;
-    controls.enableDamping = true;
-    controls.update();
+onMounted(init);
+onBeforeUnmount(() => {
+    close();
 });
+const close = () => {
+    cancelAnimationFrame(animateID);
+    renderer.dispose();
+    scene.clear();
+    camera.clear();
+};
 </script>
 <style scoped lang="scss">
-#threejs {
+.threejs_page {
+    position: relative;
+    .op {
+        width: 300px;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+#threejs2 {
     width: 100%;
     height: calc(100vh - 124px);
 }

@@ -105,17 +105,17 @@ const router = createRouter({
             },
             component: Layout,
             children: [
-                // {
-                //     path: 'three-js',
-                //     name: 'three.js',
-                //     meta: {
-                //         keepAlive: false,
-                //         title: 'Three.js',
-                //         icon: 'mdi-alpha-t',
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/graphics/threeJs.vue'),
-                // },
+                {
+                    path: 'three-js',
+                    name: 'three.js',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Three.js',
+                        icon: 'mdi-alpha-t',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/threeJs.vue'),
+                },
                 {
                     path: 'webgl',
                     name: 'Webgl',
