@@ -6,38 +6,24 @@ import VueApexCharts from 'vue3-apexcharts';
 import { ref, computed } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
-const props = withDefaults(
-    defineProps<{
-        height?: string | number;
-    }>(),
-    {}
-);
 const mainStore = useMainStore();
 const chartOptions = computed(() => {
     return {
         chart: {
             id: 'vuechart-example',
-            height: props.height,
-            // sparkline: {
-            //     enabled: true,
-            // },
             type: 'area',
             toolbar: {
                 show: false,
             },
         },
+        grid: {
+            borderColor: 'transparent',
+        },
         theme: {
-            mode: mainStore.theme, // light
+            mode: mainStore.theme,
         },
         dataLabels: {
             enabled: false,
-        },
-        stroke: {
-            curve: 'smooth',
-        },
-        xaxis: {
-            type: 'string',
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         },
         tooltip: {
             x: {
@@ -47,6 +33,13 @@ const chartOptions = computed(() => {
             marker: {
                 show: false,
             },
+        },
+        stroke: {
+            curve: 'smooth',
+        },
+        xaxis: {
+            type: 'string',
+            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         },
     };
 });

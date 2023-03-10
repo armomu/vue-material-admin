@@ -9,7 +9,7 @@
                 class="ma-4"
                 hide-details
             ></v-text-field>
-            <v-list v-model:opened="data.open" nav>
+            <v-list v-model:opened="data.open" nav id="first-element-introduction">
                 <v-list-group v-for="item in data.widgets" :key="item.name" :value="item.name">
                     <template v-slot:activator="{ props }">
                         <v-list-item
@@ -24,6 +24,7 @@
                             :key="row.name"
                             class="item"
                             draggable="true"
+                            @dragend="onMenuDragend(row)"
                         >
                             <v-icon :icon="row.icon" size="50" />
                             <!-- <div>{{ row.name }}</div> -->
@@ -33,7 +34,7 @@
             </v-list>
         </v-card>
         <div class="work_area">
-            <div class="work_content">
+            <div class="work_content" id="second-element-introduction">
                 <div
                     class="scale_wrap"
                     :style="{
@@ -42,14 +43,19 @@
                     @dragover="onDragover"
                     @drop="onDragEnd"
                 >
-                    <dragTool
-                        v-for="(item, key) in data.layouts"
-                        :key="key"
-                        @change="resize(item)"
-                        :options="item"
-                    >
-                        <component :is="components[item.widget]" />
-                    </dragTool>
+                    <template v-for="(item, key) in data.layouts">
+                        <dragTool
+                            :key="key"
+                            v-if="item.visible"
+                            v-model:active="item.active"
+                            v-model:width="item.width"
+                            v-model:height="item.height"
+                            v-model:top="item.top"
+                            v-model:left="item.left"
+                        >
+                            <component :is="chartKeys[item.widget]" />
+                        </dragTool>
+                    </template>
                 </div>
             </div>
         </div>
@@ -103,8 +109,9 @@
         </v-card>
         <div class="tool_area">
             <v-card class="widget_tools"></v-card>
-            <v-card class="widget_layouts" title="Layer">
+            <v-card class="widget_layouts">
                 <div class="layout_min_wrap">
+                    <v-list-subheader>Layer</v-list-subheader>
                     <vuedraggable v-model="data.layouts" item-key="index">
                         <template #item="{ element, index }">
                             <div
@@ -113,13 +120,20 @@
                                 :class="{
                                     active: element.active,
                                 }"
-                                @click="onMinLayout(element)"
+                                @click.stop="onMinLayout(element)"
                             >
                                 <div class="title">
                                     {{ element.widget }}
                                 </div>
                                 <div class="icons">
-                                    <v-icon icon="mdi-eye" />
+                                    <v-icon
+                                        :icon="element.visible ? 'mdi-eye' : 'mdi-eye-off'"
+                                        @click.stop="
+                                            () => {
+                                                element.visible = !element.visible;
+                                            }
+                                        "
+                                    />
                                     <v-icon icon="mdi-delete" />
                                 </div>
                             </div>
@@ -131,12 +145,14 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, reactive } from 'vue';
-import ChartArea from './widgets/chart-area.vue';
+import { reactive, onMounted } from 'vue';
+import { chartKeys } from './widgets/widgets';
 import dragTool from './widgets/drag-tool.vue';
+import type { LeftMenuOptions, EditBoxOptions } from './hook/layout-edit';
 import { useDrapToolStore } from '@/stores/drapTool';
 import vuedraggable from 'vuedraggable';
 const { onSetDrapXy } = useDrapToolStore();
+
 const scaleState = reactive({
     slider: 100,
     sliderStep: [50, 100, 150],
@@ -145,26 +161,7 @@ const scaleState = reactive({
 const onScale = (val: number) => {
     scaleState.slider = val;
 };
-interface Data {
-    open: string[];
-    widgets: {
-        name: string;
-        icon: string;
-        items: any[];
-    }[];
-    layouts: {
-        active: boolean;
-        width: number;
-        height: number;
-        top: number;
-        left: number;
-        widget: any;
-    }[];
-}
-const components = {
-    ChartArea: ChartArea,
-};
-const data = reactive<Data>({
+const data = reactive<LeftMenuOptions>({
     open: ['Charts'],
     widgets: [
         {
@@ -179,30 +176,79 @@ const data = reactive<Data>({
                 {
                     name: 'Line',
                     icon: 'mdi-chart-line',
+                    active: true,
+                    widget: 'ChartLine',
+                    width: 320,
+                    height: 180,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
                 {
                     name: 'Area',
                     icon: 'mdi-chart-areaspline-variant',
+                    active: true,
+                    widget: 'ChartArea',
+                    width: 320,
+                    height: 180,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
                 {
                     name: 'column',
                     icon: 'mdi-chart-bar',
+                    active: true,
+                    widget: 'ChartColumn',
+                    width: 300,
+                    height: 160,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
                 {
                     name: 'Bubble',
                     icon: 'mdi-chart-scatter-plot',
+                    active: true,
+                    widget: 'ChartBubble',
+                    width: 300,
+                    height: 160,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
                 {
                     name: 'TreeMap',
                     icon: 'mdi-chart-tree',
+                    active: true,
+                    widget: 'ChartTreemap',
+                    width: 300,
+                    height: 160,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
                 {
                     name: 'Pie',
                     icon: 'mdi-chart-pie',
+                    active: true,
+                    widget: 'ChartPie',
+                    width: 300,
+                    height: 160,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
                 {
                     name: 'RadialBar',
                     icon: 'mdi-chart-donut-variant',
+                    active: true,
+                    widget: 'ChartRadialBar',
+                    width: 300,
+                    height: 160,
+                    top: 0,
+                    left: 0,
+                    visible: true,
                 },
             ],
         },
@@ -219,32 +265,28 @@ const data = reactive<Data>({
     ],
     layouts: [],
 });
-
-const testH = ref(100);
-
-const resize = (e) => {
-    testH.value = e.height;
-    console.log(e);
-    // console.log(data.layouts);
+var DragingItem: EditBoxOptions;
+const onMenuDragend = (e: EditBoxOptions) => {
+    DragingItem = JSON.parse(JSON.stringify(e));
 };
 const onDragover = (e: DragEvent) => {
     e.preventDefault();
 };
-const onMinLayout = (e) => {
-    e.active = !e.active;
+const onMinLayout = (e: EditBoxOptions) => {
+    e.active = true;
 };
 
 const onDragEnd = (e: DragEvent) => {
     e.preventDefault();
-    const obj = {
-        active: true,
-        widget: 'ChartArea',
-        width: 300,
-        height: 160,
-        top: e.offsetY,
-        left: e.offsetX,
-    };
-    onSetDrapXy(e.offsetX, e.offsetY);
-    data.layouts.push(obj);
+    setTimeout(() => {
+        DragingItem.top = e.offsetY;
+        DragingItem.left = e.offsetX;
+        data.layouts.push(DragingItem);
+    }, 30);
 };
+
+// Start the introduction
+onMounted(() => {
+    // driver.start();
+});
 </script>
