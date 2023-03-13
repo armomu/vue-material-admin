@@ -9,7 +9,7 @@
                     accept="image/*"
                     density="compact"
                     v-model="locaFiles.flulimg"
-                    @update:model-value="fileChange"
+                    @update:model-value="imgFileChange"
                 ></v-file-input>
                 <v-file-input
                     show-size
@@ -31,25 +31,32 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { ref, reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
-import fullImage from '@/assets/webgl/full.jpeg';
+import { reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
 const locaFiles = reactive({
     glb: [],
     flulimg: [],
 });
 
-const fileChange = (val: File[]) => {
+const imgFileChange = (val: File[]) => {
     const [file] = val;
     if (!file) return;
     const sphereGeometry = new THREE.SphereGeometry(1, 50, 50);
     sphereGeometry.scale(10, 10, -10);
 
-    const texture = new THREE.TextureLoader().load(getObjectURL(file));
+    const texture = textureLoader.load(getObjectURL(file));
     const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture });
 
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphere);
+};
+
+const fileChange = (val: File[]) => {
+    const [file] = val;
+    if (!file) return;
+    loader.load(getObjectURL(file), (gltf) => {
+        scene.add(gltf.scene);
+    });
 };
 
 const getObjectURL = (file: File) => {
@@ -69,6 +76,11 @@ var scene = new THREE.Scene();
 var renderer: THREE.WebGLRenderer;
 var camera: THREE.PerspectiveCamera;
 var controls: OrbitControls;
+const loader = new GLTFLoader();
+const textureLoader = new THREE.TextureLoader();
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}/draco/`);
+loader.setDRACOLoader(dracoLoader);
 
 // var stats: Stats;
 var pmremGenerator: THREE.PMREMGenerator;
@@ -95,6 +107,12 @@ function init() {
     scene.add(axesHelper);
     const gridHelper = new THREE.GridHelper(10, 20);
     scene.add(gridHelper);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
+    hemiLight.color.setHSL(0.6, 1, 0.6);
+    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
+    hemiLight.position.set(0, 50, 0);
+    scene.add(hemiLight);
 
     renderer.outputEncoding = THREE.sRGBEncoding;
     pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -134,13 +152,15 @@ const close = () => {
 <style scoped lang="scss">
 .threejs_page {
     position: relative;
+
     .op {
         width: 300px;
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 16px;
+        top: 16px;
     }
 }
+
 #threejs2 {
     width: 100%;
     height: calc(100vh - 124px);
