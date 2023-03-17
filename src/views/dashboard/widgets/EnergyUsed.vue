@@ -21,7 +21,6 @@ const props = withDefaults(
         height: 300,
     }
 );
-console.log(props);
 const mainStore = useMainStore();
 const chartOptions = computed(() => {
     return {

@@ -34,6 +34,7 @@
             </v-list>
         </v-card>
         <div class="work_area">
+            <Grid />
             <div class="work_content" id="second-element-introduction">
                 <div
                     class="scale_wrap"
@@ -44,7 +45,7 @@
                     @drop="onDragEnd"
                 >
                     <template v-for="(item, key) in data.layouts">
-                        <dragTool
+                        <DragSizeBle
                             :key="key"
                             v-if="item.visible"
                             v-model:active="item.active"
@@ -52,10 +53,26 @@
                             v-model:height="item.height"
                             v-model:top="item.top"
                             v-model:left="item.left"
+                            @snapLine="onSnapLine"
                         >
                             <component :is="chartKeys[item.widget]" />
-                        </dragTool>
+                        </DragSizeBle>
                     </template>
+                    <!--辅助线-->
+                    <span
+                        class="ref-line v-line"
+                        v-for="item in snapLine.vLine"
+                        :key="item.id"
+                        v-show="item.display"
+                        :style="{ left: item.position, top: item.origin, height: item.lineLength }"
+                    />
+                    <span
+                        class="ref-line h-line"
+                        v-for="item in snapLine.hLine"
+                        :key="item.id"
+                        v-show="item.display"
+                        :style="{ top: item.position, left: item.origin, width: item.lineLength }"
+                    />
                 </div>
             </div>
         </div>
@@ -65,17 +82,20 @@
                     <v-btn variant="text" icon="mdi-play-circle" v-bind="props" />
                 </template>
             </v-tooltip>
-
-            <v-btn variant="text" icon="mdi-grid" color="primary">
-                <v-icon size="small"></v-icon>
-            </v-btn>
-            <v-btn variant="text" icon="mdi-hand-back-right-outline">
-                <v-icon size="small"></v-icon>
-            </v-btn>
-            <!-- <v-btn variant="text" icon="mdi-mouse" color="primary">
-                <v-icon size="small"></v-icon>
-            </v-btn> -->
-
+            <v-tooltip text="Hide grid">
+                <template v-slot:activator="{ props }">
+                    <v-btn variant="text" icon="mdi-grid" color="primary" v-bind="props">
+                        <v-icon size="small"></v-icon>
+                    </v-btn>
+                </template>
+            </v-tooltip>
+            <v-tooltip text="Move model">
+                <template v-slot:activator="{ props }">
+                    <v-btn variant="text" icon="mdi-hand-back-right-outline" v-bind="props">
+                        <v-icon size="small"></v-icon>
+                    </v-btn>
+                </template>
+            </v-tooltip>
             <v-slider
                 v-model="scaleState.slider"
                 color="primary"
@@ -86,6 +106,7 @@
                 density="compact"
                 direction="vertical"
                 hide-details
+                hidden
             >
                 <template v-slot:append>
                     <v-menu>
@@ -108,10 +129,23 @@
             </v-slider>
         </v-card>
         <div class="tool_area">
-            <v-card class="widget_tools"></v-card>
-            <v-card class="widget_layouts">
+            <v-card class="widget_tools">
+                <v-tabs v-model="data.attrTab" color="primary">
+                    <v-tab value="one">Attrs</v-tab>
+                    <v-tab value="three">Event</v-tab>
+                </v-tabs>
+
+                <v-card-text>
+                    <v-window v-model="data.attrTab">
+                        <v-window-item value="one"> Attr </v-window-item>
+
+                        <v-window-item value="two"> Event </v-window-item>
+                    </v-window>
+                </v-card-text>
+            </v-card>
+            <v-card class="widget_layouts" title="Layer">
                 <div class="layout_min_wrap">
-                    <v-list-subheader>Layer</v-list-subheader>
+                    <!-- <v-list-subheader>Layer</v-list-subheader> -->
                     <vuedraggable v-model="data.layouts" item-key="index">
                         <template #item="{ element, index }">
                             <div
@@ -120,7 +154,7 @@
                                 :class="{
                                     active: element.active,
                                 }"
-                                @click.stop="onMinLayout(element)"
+                                @click.stop="onMinLayout(index)"
                             >
                                 <div class="title">
                                     {{ element.widget }}
@@ -134,12 +168,13 @@
                                             }
                                         "
                                     />
-                                    <v-icon icon="mdi-delete" />
+                                    <v-icon icon="mdi-delete" @click.stop="onDelLayer(index)" />
                                 </div>
                             </div>
                         </template>
                     </vuedraggable>
                 </div>
+                <v-dialog> </v-dialog>
             </v-card>
         </div>
     </div>
@@ -147,11 +182,11 @@
 <script lang="ts" setup>
 import { reactive, onMounted } from 'vue';
 import { chartKeys } from './widgets/widgets';
-import dragTool from './widgets/drag-tool.vue';
-import type { LeftMenuOptions, EditBoxOptions } from './hook/layout-edit';
-import { useDrapToolStore } from '@/stores/drapTool';
+import DragSizeBle from './widgets/dragSizeBle.vue';
+import Grid from '@/views/low-code/widgets/Grid.vue';
 import vuedraggable from 'vuedraggable';
-const { onSetDrapXy } = useDrapToolStore();
+
+import type { LeftMenuOptions, EditBoxOptions, SnapLine } from './hook/layout-edit';
 
 const scaleState = reactive({
     slider: 100,
@@ -163,6 +198,7 @@ const onScale = (val: number) => {
 };
 const data = reactive<LeftMenuOptions>({
     open: ['Charts'],
+    attrTab: 'one',
     widgets: [
         {
             name: 'Widgets',
@@ -263,28 +299,74 @@ const data = reactive<LeftMenuOptions>({
             items: [],
         },
     ],
-    layouts: [],
+    layouts: [
+        {
+            name: 'Line',
+            icon: 'mdi-chart-line',
+            active: true,
+            widget: 'ChartLine',
+            width: 320,
+            height: 180,
+            top: 100,
+            left: 200,
+            visible: true,
+        },
+        {
+            name: 'Area',
+            icon: 'mdi-chart-areaspline-variant',
+            active: false,
+            widget: 'ChartArea',
+            width: 620,
+            height: 380,
+            top: 300,
+            left: 100,
+            visible: true,
+        },
+    ],
 });
 var DragingItem: EditBoxOptions;
+
 const onMenuDragend = (e: EditBoxOptions) => {
     DragingItem = JSON.parse(JSON.stringify(e));
 };
 const onDragover = (e: DragEvent) => {
     e.preventDefault();
 };
-const onMinLayout = (e: EditBoxOptions) => {
-    e.active = true;
+
+const onDelLayer = (key: number) => {
+    data.layouts.splice(key, 1);
+};
+const onMinLayout = (e: number) => {
+    data.layouts.forEach((item, key) => {
+        item.active = key === e;
+    });
 };
 
 const onDragEnd = (e: DragEvent) => {
     e.preventDefault();
+    data.layouts.forEach((item) => {
+        item.active = false;
+    });
     setTimeout(() => {
-        DragingItem.top = e.offsetY;
-        DragingItem.left = e.offsetX;
+        const { width, height } = DragingItem;
+        DragingItem.top = e.offsetY - height / 2;
+        DragingItem.left = e.offsetX - width / 2;
         data.layouts.push(DragingItem);
     }, 30);
 };
 
+const snapLine = reactive<{
+    vLine: SnapLine[];
+    hLine: SnapLine[];
+}>({
+    vLine: [],
+    hLine: [],
+});
+const onSnapLine = (arr: SnapLine[][]) => {
+    const [vLine, hLine] = arr;
+    snapLine.vLine = vLine;
+    snapLine.hLine = hLine;
+};
 // Start the introduction
 onMounted(() => {
     // driver.start();

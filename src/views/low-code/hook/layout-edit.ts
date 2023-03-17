@@ -1,5 +1,6 @@
 export interface LeftMenuOptions {
     open: string[];
+    attrTab: string;
     widgets: MenuItemOptions[];
     layouts: EditBoxOptions[];
 }
@@ -19,4 +20,11 @@ export interface EditBoxOptions {
     top: number;
     left: number;
     visible: boolean;
+}
+export interface SnapLine {
+    display: boolean;
+    id: number;
+    lineLength: string;
+    origin: string;
+    position: string;
 }

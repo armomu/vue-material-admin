@@ -140,15 +140,15 @@ const router = createRouter({
             component: Layout,
             children: [
                 {
-                    path: 'layout-edit',
-                    name: 'layoutEdit',
+                    path: 'layer-edit-example',
+                    name: 'layerEdit',
                     meta: {
-                        title: 'Layout Edit',
+                        title: 'Layer Edit Example',
                         icon: 'mdi-alpha-l',
                         keepAlive: false,
                         visible: true,
                     },
-                    component: () => import('@/views/low-code/layout-edit.vue'),
+                    component: () => import('@/views/low-code/layer-edit.vue'),
                     children: [],
                 },
             ],

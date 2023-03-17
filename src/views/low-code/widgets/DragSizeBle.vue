@@ -1,22 +1,22 @@
 <template>
     <VueDragResize
-        :isActive="_active"
+        :active="_active"
         :w="_width"
         :h="_height"
         :x="_left"
         :y="_top"
-        @resizestop="resize"
-        @dragstop="resize"
         @activated="onActivated"
         @deactivated="onDeactivated"
+        @resizestop="resize"
+        @dragstop="resize"
+        @refLineParams="getRefLineParams"
     >
         <slot />
-        <div>w{{ width }} h{{ height }} l{{ left }} t{{ top }}</div>
     </VueDragResize>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
-import VueDragResize from 'vue3-drag-resize';
+import VueDragResize from '@/components/vue-draggable-resizable.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -42,6 +42,7 @@ const emit = defineEmits([
     'update:top',
     'update:left',
     'change',
+    'snapLine',
 ]);
 const _active = computed(() => props.active);
 const _width = computed(() => props.width);
@@ -50,7 +51,6 @@ const _top = computed(() => props.top);
 const _left = computed(() => props.left);
 
 const resize = (e: any) => {
-    console.log(e);
     emit('update:width', e.width);
     emit('update:height', e.height);
     emit('update:top', e.top);
@@ -58,31 +58,23 @@ const resize = (e: any) => {
     emit('change', e);
 };
 
+const getRefLineParams = (params: any) => {
+    const { vLine, hLine } = params;
+    let id = 0;
+    const vs = vLine.map((item: any) => {
+        item['id'] = ++id;
+        return item;
+    });
+    const hl = hLine.map((item: any) => {
+        item['id'] = ++id;
+        return item;
+    });
+    emit('snapLine', [vs || [], hl || []]);
+};
 const onActivated = () => {
     emit('update:active', true);
 };
 const onDeactivated = () => {
     emit('update:active', false);
 };
-
-// const _options = computed(() => props.options);
-// const _options = computed(() => props.options);
-// const obj = {
-//     x: parseInt(position.x - props.options.width / 2 + ''),
-//     y: parseInt(position.y - props.options.height / 2 + ''),
-// };
-// const resize = (e: any) => {
-//     _options.value.width = e.width;
-//     _options.value.height = e.height;
-//     _options.value.top = e.top;
-//     _options.value.left = e.left;
-//     emit('change', e);
-// };
-
-// const onActivated = () => {
-//     _options.value.active = true;
-// };
-// const onDeactivated = () => {
-//     _options.value.active = false;
-// };
 </script>

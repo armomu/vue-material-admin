@@ -34,6 +34,9 @@ const chartOptions = computed(() => {
         theme: {
             mode: mainStore.theme, // light
         },
+        grid: {
+            borderColor: 'transparent',
+        },
         tooltip: {
             x: {
                 // format: 'dd/MM/yy HH:mm',

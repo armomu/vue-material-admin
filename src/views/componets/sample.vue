@@ -7,9 +7,9 @@
         </div>
     </div>
     <v-card title="Application" class="elevation-0 my-4">
-        <v-layout :theme="theme">
-            <v-navigation-drawer :theme="theme" permanent></v-navigation-drawer>
-            <v-app-bar :theme="theme">
+        <v-layout>
+            <v-navigation-drawer permanent></v-navigation-drawer>
+            <v-app-bar>
                 <v-spacer></v-spacer>
                 <v-btn
                     :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"

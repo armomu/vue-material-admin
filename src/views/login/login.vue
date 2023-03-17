@@ -1,5 +1,5 @@
 <template>
-    <div class="login_container">
+    <v-card class="login_container">
         <img src="../../assets/Frame-c100fb2f.png" class="frame" />
         <div class="group">
             <v-card class="form">
@@ -61,7 +61,7 @@
                 </div>
             </v-card>
         </div>
-    </div>
+    </v-card>
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
@@ -75,7 +75,6 @@ import logo from '@/assets/admin-logo.png';
     justify-content: center;
     transition: all 0.5s;
     position: relative;
-    background-color: #fff;
     overflow: hidden;
     .frame {
         position: absolute;
@@ -94,7 +93,6 @@ import logo from '@/assets/admin-logo.png';
         .form {
             width: 360px;
             margin: 0 auto;
-            background: #fff;
             height: 400px;
             padding: 60px;
             .title {

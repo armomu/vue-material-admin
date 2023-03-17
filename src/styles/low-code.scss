@@ -39,17 +39,23 @@
         margin-left: 16px;
         overflow: hidden;
         position: relative;
+        .ruler {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 2;
+        }
 
         .work_content {
             height: 100%;
-            border: 1px solid var(--grid);
+            // border: 1px solid var(--grid);
             overflow: overlay;
             position: absolute;
             z-index: 1;
             width: 100%;
-            background: -webkit-linear-gradient(top, transparent 15px, var(--grid) 0),
-            -webkit-linear-gradient(left, transparent 15px, var(--grid) 0);
-        background-size: 16px 16px;
+        //     background: -webkit-linear-gradient(top, transparent 15px, var(--grid) 0),
+        //     -webkit-linear-gradient(left, transparent 15px, var(--grid) 0);
+        // background-size: 16px 16px;
             .scale_wrap {
                 width: 1920px;
                 height: 1080px;
@@ -118,12 +124,3 @@
 
 }
 
-.vdr {
-    cursor: move;
-    // background-color: #efefef;
-    border: 1px dashed transparent;
-
-    &:hover {
-        border: 1px dashed #d6d6d6;
-    }
-}

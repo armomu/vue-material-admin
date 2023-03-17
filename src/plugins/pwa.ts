@@ -6,6 +6,16 @@ registerSW({
     onRegisteredSW(swScriptUrl, registration) {
         pwaReg = registration;
         console.log('onRegisteredSW');
+        if (import.meta.env.MODE !== 'production') {
+            pwaReg
+                ?.update()
+                .then(() => {
+                    console.log('update ok');
+                })
+                .catch(() => {
+                    location.reload();
+                });
+        }
     },
 });
 

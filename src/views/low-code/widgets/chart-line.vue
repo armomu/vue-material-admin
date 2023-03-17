@@ -15,12 +15,12 @@ const chartOptions = computed(() => {
             toolbar: {
                 show: false,
             },
-            // sparkline: {
-            //     enabled: true,
-            // },
         },
         theme: {
             mode: mainStore.theme, // light
+        },
+        grid: {
+            borderColor: 'transparent',
         },
         tooltip: {
             x: {
