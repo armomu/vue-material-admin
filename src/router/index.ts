@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import Layout from '@/layout/layout.vue';
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
@@ -211,7 +211,6 @@ const router = createRouter({
 NProgress.configure({ showSpinner: false });
 router.beforeEach(async (to, _from, next) => {
     NProgress.start();
-
     next();
 });
 

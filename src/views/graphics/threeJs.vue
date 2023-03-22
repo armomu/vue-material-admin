@@ -30,6 +30,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 import { reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
@@ -46,7 +47,6 @@ const imgFileChange = (val: File[]) => {
 
     const texture = textureLoader.load(getObjectURL(file));
     const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture });
-
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphere);
 };
@@ -55,6 +55,7 @@ const fileChange = (val: File[]) => {
     const [file] = val;
     if (!file) return;
     loader.load(getObjectURL(file), (gltf) => {
+        gltf.scene.scale.set(0.1, 0.1, 0.1);
         scene.add(gltf.scene);
     });
 };
@@ -77,6 +78,7 @@ var renderer: THREE.WebGLRenderer;
 var camera: THREE.PerspectiveCamera;
 var controls: OrbitControls;
 const loader = new GLTFLoader();
+// const FbxLoader = new FBXLoader();
 const textureLoader = new THREE.TextureLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}/draco/`);
@@ -98,21 +100,67 @@ const animate = () => {
 };
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
+    renderer.shadowMap.enabled = true;
     camera = new THREE.PerspectiveCamera(
         50,
         nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!
     );
-    camera.position.set(0, 5, 12);
-    var axesHelper = new THREE.AxesHelper(12);
-    scene.add(axesHelper);
-    const gridHelper = new THREE.GridHelper(10, 20);
-    scene.add(gridHelper);
+    camera.position.set(0, 5, 25);
 
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
-    hemiLight.color.setHSL(0.6, 1, 0.6);
-    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
-    hemiLight.position.set(0, 50, 0);
-    scene.add(hemiLight);
+    var axesHelper = new THREE.AxesHelper(15);
+    scene.add(axesHelper);
+    const gridHelper = new THREE.GridHelper(10, 30);
+    gridHelper.position.set(0, 0.001, 0);
+    // scene.add(gridHelper);
+
+    // 立方体
+    const cubeMtr = new THREE.MeshBasicMaterial({ color: new THREE.Color('#efefef') });
+    // cubeMtr.wireframe = true;
+    const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), cubeMtr);
+    cube.position.y = 0.5;
+    scene.add(cube);
+
+    // 地板
+    const geometry = new THREE.PlaneGeometry(10, 10);
+    const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+    });
+    const plane = new THREE.Mesh(geometry, material);
+    plane.receiveShadow = true;
+    plane.castShadow = true;
+    plane.rotation.x = -0.5 * Math.PI;
+    scene.add(plane);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(8, 9, 0);
+    directionalLight.castShadow = true;
+    directionalLight.target = cube;
+    scene.add(directionalLight);
+
+    const lightHelper = new THREE.DirectionalLightHelper(
+        directionalLight,
+        12,
+        new THREE.Color('gray')
+    );
+    // lightHelper.castShadow = true;
+    scene.add(lightHelper);
+
+    // const plane = new THREE.Plane(new THREE.Vector3(0, 90, 0));
+    // const helper = new THREE.PlaneHelper(plane, 10, 0xffff00);
+    // helper.position.set(0, 0, 0);
+    // scene.add(helper);
+
+    // const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 20);
+    // hemiLight.position.set(0, 0, 0);
+    // hemiLight.castShadow = true;
+    // scene.add(hemiLight);
+
+    // const hemiLightHelper = new THREE.HemisphereLightHelper(hemiLight, 10, new THREE.Color('gray'));
+    // scene.add(hemiLightHelper);
+
+    const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+    scene.add(helper);
 
     renderer.outputEncoding = THREE.sRGBEncoding;
     pmremGenerator = new THREE.PMREMGenerator(renderer);

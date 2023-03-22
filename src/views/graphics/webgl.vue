@@ -44,7 +44,7 @@ const animate = () => {
     // stats.update();
     // console.log(camera.position);
     animateID = requestAnimationFrame(animate);
-    TWEEN.update();
+    // TWEEN.update();
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -76,14 +76,15 @@ function init() {
     loader.setDRACOLoader(dracoLoader);
     loader.load(LittlestTokyo, (gltf) => {
         gltf.scene.position.set(1, 1, 0);
-        gltf.scene.scale.set(0.03, 0.03, 0.03);
+        gltf.scene.scale.set(0.3, 0.3, 0.3);
         scene.add(gltf.scene);
         mixer = new THREE.AnimationMixer(gltf.scene);
         mixer.clipAction(gltf.animations[0]).play();
         animate();
         loading.value = false;
         camera.position.set(410, 136, 68);
-        onTest();
+        // camera.lookAt(scene.position);
+        // onTest();
     });
 
     // const ambientLight = new THREE.AmbientLight('#ddffe9');

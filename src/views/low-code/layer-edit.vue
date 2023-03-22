@@ -367,8 +367,4 @@ const onSnapLine = (arr: SnapLine[][]) => {
     snapLine.vLine = vLine;
     snapLine.hLine = hLine;
 };
-// Start the introduction
-onMounted(() => {
-    // driver.start();
-});
 </script>
