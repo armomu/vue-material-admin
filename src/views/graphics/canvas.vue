@@ -1,108 +1,128 @@
 <template>
-    <canvas id="tree" width="1280" height="720"> </canvas>
+    <div class="camera_Follow_page">
+        <canvas id="camera_Follow" ref="nodeDom"></canvas>
+    </div>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue';
-onMounted(() => {
-    var canvas = document.getElementById('tree');
-    var context = canvas.getContext('2d');
-    function sizedecay(size, angle) {
-        return (
-            (0.5 + Math.random() * 0.5) * (0.65 + 0.175 * size * (0.75 + Math.sin(angle) * 0.25))
-        );
-    }
-    function sizelength(size) {
-        return (6 + Math.random() * 2) * Math.sqrt(size * (size + 4)) + Math.random() * 2;
-    }
-    function sizeangle(size) {
-        return 0.15 + 6 / (size * size + 10.0) + size * size * 0.002;
-    }
-    function endsize(size) {
-        return (2 + Math.random() * 2) * (1 + size);
-    }
-    function danglesize(size) {
-        return 0.01 + 0.15 / (size * size + 2.0);
-    }
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
-    function drawline(x, y, angle, size) {
-        var length = sizelength(size);
-        var xto = x + length * Math.cos(angle);
-        var yto = y + length * Math.sin(angle);
+const nodeDom = shallowRef<HTMLCanvasElement>();
+var scene = new THREE.Scene();
+var renderer: THREE.WebGLRenderer;
+var camera: THREE.PerspectiveCamera;
+var clock = new THREE.Clock();
+var mixer: THREE.AnimationMixer;
+var controls: OrbitControls;
+const loader = new GLTFLoader();
 
-        var r = {};
-        r.length = length;
-        r.size = size;
-        r.angle = angle;
+var model: THREE.Group;
 
-        if (size > 1) {
-            var angleleft = angle - sizeangle(size);
-            var sizeleft = size - sizedecay(size, angleleft);
-            r.left = drawline(xto, yto, angleleft, sizeleft);
-            var angleright = angle + sizeangle(size);
-            var sizeright = size - sizedecay(size, angleright);
-            r.right = drawline(xto, yto, angleright, sizeright);
-        } else {
-            var end = endsize(size);
-            r.end = end;
-        }
-        return r;
+var animateID = 0;
+
+const animate = () => {
+    renderer.render(scene, camera);
+    controls.update();
+    const delta = clock.getDelta();
+    mixer.update(delta);
+    // console.log(camera.position);
+    animateID = requestAnimationFrame(animate);
+    if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
     }
-    context.fillStyle = '#cceeff';
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    var r = drawline(640, 640, Math.PI * 1.5, 10);
-    var t = 0;
+};
+function init() {
+    renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
 
-    function ontimer() {
-        context.fillStyle = '#cceeff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        var ends = [];
-        function drawlinet(x, y, r, t, dangle) {
-            var cdangle = Math.sin(r.angle) * Math.sin(t) * danglesize(r.size);
-            var angle = r.angle + dangle;
-            var xto = x + r.length * Math.cos(angle);
-            var yto = y + r.length * Math.sin(angle);
-            context.strokeStyle = '#662200';
-            context.lineWidth = r.size;
-            context.beginPath();
-            context.moveTo(x, y);
-            context.lineTo(xto, yto);
-            context.closePath();
-            context.stroke();
-            if (r.left) {
-                drawlinet(xto, yto, r.left, t, dangle + cdangle);
-            }
-            if (r.right) {
-                drawlinet(xto, yto, r.right, t, dangle + cdangle);
-            }
-            if (r.end) {
-                ends.push({ xto: xto, yto: yto, end: r.end, angle: angle });
-            }
-        }
-        drawlinet(640, 640, r, t, 0);
-        for (var i = 0; i < ends.length; i++) {
-            context.strokeStyle = '#ee2288';
-            context.lineWidth = ends[i].end * 0.2;
-            context.beginPath();
-            context.moveTo(ends[i].xto, ends[i].yto);
-            context.lineTo(
-                ends[i].xto + ends[i].end * Math.cos(ends[i].angle + Math.PI * 0.25),
-                ends[i].yto + ends[i].end * Math.sin(ends[i].angle + Math.PI * 0.25)
-            );
-            context.lineTo(
-                ends[i].xto + ends[i].end * Math.cos(ends[i].angle),
-                ends[i].yto + ends[i].end * Math.sin(ends[i].angle)
-            );
-            context.lineTo(
-                ends[i].xto + ends[i].end * Math.cos(ends[i].angle - Math.PI * 0.25),
-                ends[i].yto + ends[i].end * Math.sin(ends[i].angle - Math.PI * 0.25)
-            );
-            context.closePath();
-            context.stroke();
-        }
-        t += 0.02;
-        window.requestAnimationFrame(ontimer);
+    camera = new THREE.PerspectiveCamera(
+        45,
+        nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!,
+        0.25,
+        100
+    );
+    camera.position.set(1.26, 16, -40);
+    camera.lookAt(0, 2, 0);
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xe0e0e0);
+    scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+    hemiLight.position.set(0, 20, 0);
+    scene.add(hemiLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff);
+    dirLight.position.set(0, 20, 10);
+    scene.add(dirLight);
+
+    const mesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(2000, 2000),
+        new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+    );
+    mesh.rotation.x = -Math.PI / 2;
+    scene.add(mesh);
+
+    const grid = new THREE.GridHelper(200, 40, 0x000000, 0x000000);
+    grid.material.opacity = 0.2;
+    grid.material.transparent = true;
+    scene.add(grid);
+    loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
+        model = gltf.scene;
+        scene.add(model);
+        mixer = new THREE.AnimationMixer(model);
+        const animation = mixer.clipAction(gltf.animations[2]);
+        animation.clampWhenFinished = true;
+        // animation.loop = THREE.LoopOnce;
+        animation.play();
+        // createGUI(model, gltf.animations);
+        console.log(gltf.animations);
+        animate();
+    });
+    controls = new OrbitControls(camera, renderer.domElement);
+
+    controls.target.set(0, 0, 0);
+    controls.enablePan = false;
+    controls.enableDamping = true;
+    controls.update();
+}
+
+function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
+    const canvas = renderer.domElement;
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    var canvasPixelWidth = canvas.width / window.devicePixelRatio;
+    var canvasPixelHeight = canvas.height / window.devicePixelRatio;
+
+    const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height;
+    if (needResize) {
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height, false);
     }
-    ontimer();
-});
+    return needResize;
+}
+
+const clear = () => {
+    cancelAnimationFrame(animateID);
+    renderer.dispose();
+    scene.clear();
+    camera.clear();
+};
+onMounted(init);
+onBeforeUnmount(clear);
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.camera_Follow_page {
+    position: relative;
+}
+
+#camera_Follow {
+    width: 100%;
+    height: calc(100vh - 124px);
+}
+</style>

@@ -45,18 +45,6 @@ const router = createRouter({
                     component: () => import('@/views/dashboard/smartHouse.vue'),
                     children: [],
                 },
-                // {
-                //     path: '/dashboard/sparklines',
-                //     name: 'sparklines',
-                //     meta: {
-                //         title: 'Sparklines',
-                //         icon: 'mdi-alpha-s',
-                //         keepAlive: false,
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/dashboard/sparklines.vue'),
-                //     children: [],
-                // },
             ],
         },
         {
@@ -126,6 +114,17 @@ const router = createRouter({
                         visible: true,
                     },
                     component: () => import('@/views/graphics/webgl.vue'),
+                },
+                {
+                    path: 'camera-follow',
+                    name: 'camerafollow',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Camera Follow',
+                        icon: 'mdi-alpha-c',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/canvas.vue'),
                 },
             ],
         },

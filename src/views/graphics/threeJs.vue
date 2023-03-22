@@ -111,31 +111,31 @@ function init() {
     scene.add(axesHelper);
     const gridHelper = new THREE.GridHelper(10, 30);
     gridHelper.position.set(0, 0.001, 0);
-    // scene.add(gridHelper);
+    scene.add(gridHelper);
 
-    // 立方体
-    const cubeMtr = new THREE.MeshBasicMaterial({ color: new THREE.Color('#efefef') });
-    // cubeMtr.wireframe = true;
-    const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), cubeMtr);
-    cube.position.y = 0.5;
-    scene.add(cube);
+    // // 立方体
+    // const cubeMtr = new THREE.MeshBasicMaterial({ color: new THREE.Color('#efefef') });
+    // // cubeMtr.wireframe = true;
+    // const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), cubeMtr);
+    // cube.position.y = 0.5;
+    // scene.add(cube);
 
     // 地板
-    const geometry = new THREE.PlaneGeometry(10, 10);
-    const material = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        side: THREE.DoubleSide,
-    });
-    const plane = new THREE.Mesh(geometry, material);
-    plane.receiveShadow = true;
-    plane.castShadow = true;
-    plane.rotation.x = -0.5 * Math.PI;
-    scene.add(plane);
+    // const geometry = new THREE.PlaneGeometry(10, 10);
+    // const material = new THREE.MeshBasicMaterial({
+    //     color: 0xffffff,
+    //     side: THREE.DoubleSide,
+    // });
+    // const plane = new THREE.Mesh(geometry, material);
+    // plane.receiveShadow = true;
+    // plane.castShadow = true;
+    // plane.rotation.x = -0.5 * Math.PI;
+    // scene.add(plane);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(8, 9, 0);
     directionalLight.castShadow = true;
-    directionalLight.target = cube;
+    directionalLight.target = gridHelper;
     scene.add(directionalLight);
 
     const lightHelper = new THREE.DirectionalLightHelper(
@@ -145,19 +145,6 @@ function init() {
     );
     // lightHelper.castShadow = true;
     scene.add(lightHelper);
-
-    // const plane = new THREE.Plane(new THREE.Vector3(0, 90, 0));
-    // const helper = new THREE.PlaneHelper(plane, 10, 0xffff00);
-    // helper.position.set(0, 0, 0);
-    // scene.add(helper);
-
-    // const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 20);
-    // hemiLight.position.set(0, 0, 0);
-    // hemiLight.castShadow = true;
-    // scene.add(hemiLight);
-
-    // const hemiLightHelper = new THREE.HemisphereLightHelper(hemiLight, 10, new THREE.Color('gray'));
-    // scene.add(hemiLightHelper);
 
     const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
     scene.add(helper);
