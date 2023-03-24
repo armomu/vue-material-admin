@@ -7,7 +7,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
+import { onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
 const nodeDom = shallowRef<HTMLCanvasElement>();
 var scene = new THREE.Scene();
@@ -17,7 +17,8 @@ var clock = new THREE.Clock();
 var mixer: THREE.AnimationMixer;
 var controls: OrbitControls;
 const loader = new GLTFLoader();
-
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
 var model: THREE.Group;
 
 var animateID = 0;
@@ -35,6 +36,11 @@ const animate = () => {
         camera.updateProjectionMatrix();
     }
 };
+
+var floorMesh: THREE.Mesh;
+var rollOverMesh: THREE.Mesh;
+var rollOverMaterial: THREE.MeshBasicMaterial;
+
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -47,8 +53,8 @@ function init() {
         0.25,
         100
     );
-    camera.position.set(1.26, 16, -40);
-    camera.lookAt(0, 2, 0);
+    camera.position.set(0, 30, 40);
+    camera.lookAt(0, 1, 0);
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xe0e0e0);
     scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
@@ -61,16 +67,24 @@ function init() {
     dirLight.position.set(0, 20, 10);
     scene.add(dirLight);
 
-    const mesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(2000, 2000),
+    floorMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(20, 20),
         new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
     );
-    mesh.rotation.x = -Math.PI / 2;
-    scene.add(mesh);
+    floorMesh.rotation.x = -Math.PI / 2;
+    scene.add(floorMesh);
 
-    const grid = new THREE.GridHelper(200, 40, 0x000000, 0x000000);
-    grid.material.opacity = 0.2;
-    grid.material.transparent = true;
+    const rollOverGeo = new THREE.BoxGeometry(2, 2, 2);
+    rollOverMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        opacity: 0.5,
+        transparent: true,
+    });
+    rollOverMesh = new THREE.Mesh(rollOverGeo, rollOverMaterial);
+    scene.add(rollOverMesh);
+    var axesHelper = new THREE.AxesHelper(15);
+    scene.add(axesHelper);
+    const grid = new THREE.GridHelper(20, 10, 0x000000, 0x000000);
     scene.add(grid);
     loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
@@ -81,7 +95,7 @@ function init() {
         // animation.loop = THREE.LoopOnce;
         animation.play();
         // createGUI(model, gltf.animations);
-        console.log(gltf.animations);
+        console.log(scene.children);
         animate();
     });
     controls = new OrbitControls(camera, renderer.domElement);
@@ -90,6 +104,31 @@ function init() {
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.update();
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('click', onPointerClick);
+}
+function onPointerMove(event: MouseEvent) {
+    // pointer.set(
+    //     (event.clientX / window.innerWidth) * 2 - 1,
+    //     -(event.clientY / window.innerHeight) * 2 + 1
+    // );
+    // const intersects = raycaster.intersectObject(floorMesh);
+    // if (intersects.length > 0) {
+    //     const position = intersects[0].point;
+    //     console.log('Clicked position:', position);
+    // }
+}
+function onPointerClick(event: MouseEvent) {
+    const res = pointer.set(
+        (event.clientX / nodeDom.value?.offsetWidth!) * 2 - 1,
+        -(event.clientY / nodeDom.value?.offsetHeight!) * 2 + 1
+    );
+    raycaster.setFromCamera(pointer, camera);
+    const intersects = raycaster.intersectObject(floorMesh);
+    if (intersects.length > 0) {
+        const res = intersects[0];
+        model.position.copy(res.point);
+    }
 }
 
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
@@ -112,6 +151,8 @@ const clear = () => {
     renderer.dispose();
     scene.clear();
     camera.clear();
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('click', onPointerClick);
 };
 onMounted(init);
 onBeforeUnmount(clear);
