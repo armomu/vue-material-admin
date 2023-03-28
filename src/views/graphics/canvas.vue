@@ -1,5 +1,5 @@
 <template>
-    <div class="camera_Follow_page">
+    <div class="camera_Follow_page" ref="wrapNodeDom">
         <canvas id="camera_Follow" ref="nodeDom"></canvas>
     </div>
 </template>
@@ -10,6 +10,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
 const nodeDom = shallowRef<HTMLCanvasElement>();
+const wrapNodeDom = shallowRef<HTMLDivElement>();
 var scene = new THREE.Scene();
 var renderer: THREE.WebGLRenderer;
 var camera: THREE.PerspectiveCamera;
@@ -44,12 +45,12 @@ var rollOverMaterial: THREE.MeshBasicMaterial;
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
 
     camera = new THREE.PerspectiveCamera(
         45,
-        nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!,
+        renderer.domElement.clientWidth! / renderer.domElement.clientHeight!,
         0.25,
         100
     );
@@ -104,8 +105,8 @@ function init() {
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.update();
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('click', onPointerClick);
+    wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
+    wrapNodeDom.value?.addEventListener('click', onPointerClick);
 }
 function onPointerMove(event: MouseEvent) {
     // pointer.set(
@@ -118,16 +119,20 @@ function onPointerMove(event: MouseEvent) {
     //     console.log('Clicked position:', position);
     // }
 }
-function onPointerClick(event: MouseEvent) {
-    const res = pointer.set(
-        (event.clientX / nodeDom.value?.offsetWidth!) * 2 - 1,
-        -(event.clientY / nodeDom.value?.offsetHeight!) * 2 + 1
+function onPointerClick(event: MouseEvent | any) {
+    console.log(event);
+    pointer.set(
+        (event.layerX / renderer.domElement.clientWidth!) * 2 - 1,
+        -(event.layerY / renderer.domElement.clientHeight!) * 2 + 1
     );
     raycaster.setFromCamera(pointer, camera);
     const intersects = raycaster.intersectObject(floorMesh);
     if (intersects.length > 0) {
-        const res = intersects[0];
-        model.position.copy(res.point);
+        const intersect = intersects[0];
+        model.position.copy(intersect.point);
+
+        // rollOverMesh.position.copy(intersect.point).add(intersect?.face!.normal);
+        // rollOverMesh.position.divideScalar(2).floor().multiplyScalar(2).addScalar(1);
     }
 }
 
