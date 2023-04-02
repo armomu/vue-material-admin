@@ -25,11 +25,12 @@ var model: THREE.Group;
 var animateID = 0;
 
 const animate = () => {
-    renderer.render(scene, camera);
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
-    // console.log(camera.position);
+    modelMove();
+    renderer.render(scene, camera);
+    camera.lookAt(model.position);
     animateID = requestAnimationFrame(animate);
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
@@ -39,8 +40,31 @@ const animate = () => {
 };
 
 var floorMesh: THREE.Mesh;
-var rollOverMesh: THREE.Mesh;
-var rollOverMaterial: THREE.MeshBasicMaterial;
+
+const keydown = {
+    keyW: false,
+    keyS: false,
+    keyA: false,
+    keyD: false,
+};
+var curAnimation: THREE.AnimationAction;
+var animations: THREE.AnimationClip[];
+enum actions {
+    Dance,
+    Death,
+    Idle,
+    Jump,
+    No,
+    Punch,
+    Running,
+    Sitting,
+    Standing,
+    ThumbsUp,
+    Walking,
+    WalkJump,
+    Wave,
+    Yes,
+}
 
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
@@ -55,7 +79,7 @@ function init() {
         100
     );
     camera.position.set(0, 30, 40);
-    camera.lookAt(0, 1, 0);
+    // camera.lookAt(0, 1, 0);
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xe0e0e0);
     scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
@@ -69,45 +93,109 @@ function init() {
     scene.add(dirLight);
 
     floorMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(20, 20),
+        new THREE.PlaneGeometry(50, 50),
         new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
     );
     floorMesh.rotation.x = -Math.PI / 2;
     scene.add(floorMesh);
 
-    const rollOverGeo = new THREE.BoxGeometry(2, 2, 2);
-    rollOverMaterial = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        opacity: 0.5,
-        transparent: true,
-    });
-    rollOverMesh = new THREE.Mesh(rollOverGeo, rollOverMaterial);
-    scene.add(rollOverMesh);
     var axesHelper = new THREE.AxesHelper(15);
     scene.add(axesHelper);
-    const grid = new THREE.GridHelper(20, 10, 0x000000, 0x000000);
+    const grid = new THREE.GridHelper(50, 50, 0x000000, 0x000000);
     scene.add(grid);
     loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
+        animations = gltf.animations;
         scene.add(model);
         mixer = new THREE.AnimationMixer(model);
-        const animation = mixer.clipAction(gltf.animations[2]);
-        animation.clampWhenFinished = true;
-        // animation.loop = THREE.LoopOnce;
-        animation.play();
-        // createGUI(model, gltf.animations);
-        console.log(scene.children);
+        curAnimation = mixer.clipAction(animations[actions.Walking]);
+        curAnimation.clampWhenFinished = true;
+        curAnimation.play();
+        //
         animate();
+        wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
+        wrapNodeDom.value?.addEventListener('click', onPointerClick);
+        document.addEventListener('keydown', onKeydown);
+        document.addEventListener('keyup', onKeyUp);
     });
     controls = new OrbitControls(camera, renderer.domElement);
-
     controls.target.set(0, 0, 0);
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.update();
-    wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
-    wrapNodeDom.value?.addEventListener('click', onPointerClick);
 }
+
+const onKeydown = (e: KeyboardEvent) => {
+    switch (e.code) {
+        case 'KeyW':
+            keydown.keyW = true;
+            break;
+        case 'KeyS':
+            keydown.keyS = true;
+            break;
+        case 'KeyA':
+            keydown.keyA = true;
+            break;
+        case 'KeyD':
+            keydown.keyD = true;
+            break;
+        default:
+            break;
+    }
+};
+
+const onKeyUp = (e: KeyboardEvent) => {
+    switch (e.code) {
+        case 'KeyW':
+            keydown.keyW = false;
+            break;
+        case 'KeyS':
+            keydown.keyS = false;
+            break;
+        case 'KeyA':
+            keydown.keyA = false;
+            break;
+        case 'KeyD':
+            keydown.keyD = false;
+            break;
+        default:
+            break;
+    }
+    console.log(e.code);
+};
+
+const modelMove = () => {
+    if (keydown.keyW) {
+        model.position.z += 0.05;
+    }
+    if (keydown.keyS) {
+        model.position.z -= 0.05;
+    }
+    if (keydown.keyD) {
+        model.position.x += 0.05;
+    }
+    if (keydown.keyA) {
+        model.position.x -= 0.05;
+    }
+    // curAnimation.halt(0);
+    // switch () {
+    //     case 'KeyW':
+    //         keydown.keyW = true;
+    //         break;
+    //     case 'KeyS':
+    //         keydown.keyS = true;
+    //         break;
+    //     case 'KeyA':
+    //         keydown.keyA = true;
+    //         break;
+    //     case 'KeyD':
+    //         keydown.keyD = true;
+    //         break;
+    //     default:
+    //         break;
+    // }
+};
+
 function onPointerMove(event: MouseEvent) {
     // pointer.set(
     //     (event.clientX / window.innerWidth) * 2 - 1,

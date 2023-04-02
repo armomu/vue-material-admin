@@ -18,7 +18,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-// import Stats from 'three/addons/libs/stats.module.js';
+import Stats from 'three/addons/libs/stats.module.js';
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import LittlestTokyo from '/littlest_yokyo/LittlestTokyo.glb';
 import fullImage from '@/assets/webgl/full.jpeg';
@@ -33,7 +33,7 @@ var controls: OrbitControls;
 let mixer: THREE.AnimationMixer;
 
 const clock = new THREE.Clock();
-// var stats: Stats;
+var stats: Stats;
 var pmremGenerator: THREE.PMREMGenerator;
 var animateID = 0;
 const animate = () => {
@@ -41,7 +41,7 @@ const animate = () => {
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
-    // stats.update();
+    stats.update();
     // console.log(camera.position);
     animateID = requestAnimationFrame(animate);
     // TWEEN.update();
@@ -90,10 +90,10 @@ function init() {
     // const ambientLight = new THREE.AmbientLight('#ddffe9');
     // scene.add(ambientLight);
 
-    // stats = new Stats();
-    // stats.domElement.style.position = 'absolute';
-    // stats.domElement.style.top = '0px';
-    // wrapDom.value?.appendChild(stats.domElement);
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    wrapDom.value?.appendChild(stats.domElement);
     renderer.outputEncoding = THREE.sRGBEncoding;
     pmremGenerator = new THREE.PMREMGenerator(renderer);
     scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
