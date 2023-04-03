@@ -7,6 +7,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import THREEx from '@/utils/KeyboardState';
 import { onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
 const nodeDom = shallowRef<HTMLCanvasElement>();
@@ -23,30 +24,18 @@ const pointer = new THREE.Vector2();
 var model: THREE.Group;
 
 var animateID = 0;
-
 const animate = () => {
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
-    modelMove();
-    renderer.render(scene, camera);
-    camera.lookAt(model.position);
+    modelRun(delta);
+    // console.log(camera.position);
+    // controls.target = model.position;
     animateID = requestAnimationFrame(animate);
-    if (resizeRendererToDisplaySize(renderer)) {
-        const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
-        camera.updateProjectionMatrix();
-    }
 };
 
 var floorMesh: THREE.Mesh;
 
-const keydown = {
-    keyW: false,
-    keyS: false,
-    keyA: false,
-    keyD: false,
-};
 var curAnimation: THREE.AnimationAction;
 var animations: THREE.AnimationClip[];
 enum actions {
@@ -66,6 +55,51 @@ enum actions {
     Yes,
 }
 
+const keyboard = new THREEx.KeyboardState();
+const modelRun = (delta: number) => {
+    const moveDistance = 5 * delta;
+    const rotateAngle = (Math.PI / 2) * delta;
+    // if (keyboard.pressed('down')) {
+    //     model.translateZ(moveDistance);
+    // }
+    // if (keyboard.pressed('up')) {
+    //     model.translateZ(-moveDistance);
+    // }
+    // if (keyboard.pressed('left')) {
+    //     model.translateX(-moveDistance);
+    // }
+    // if (keyboard.pressed('right')) {
+    //     model.translateX(moveDistance);
+    // }
+
+    if (keyboard.pressed('w')) {
+        model.translateZ(moveDistance);
+        // model.rotateOnAxis(new THREE.Vector3(1, 0, 0), rotateAngle);
+    }
+    if (keyboard.pressed('s')) {
+        model.translateZ(-moveDistance);
+        // model.rotateOnAxis(new THREE.Vector3(1, 0, 0), -rotateAngle);
+    }
+    if (keyboard.pressed('a')) {
+        console.log(rotateAngle);
+        model.rotateOnAxis(new THREE.Vector3(0, 0.2, 0), rotateAngle);
+    }
+    if (keyboard.pressed('d')) {
+        console.log(rotateAngle);
+        model.rotateOnAxis(new THREE.Vector3(0, 0.2, 0), -rotateAngle);
+    }
+
+    const relativeCameraOffset = new THREE.Vector3(0, 10, -20);
+
+    const cameraOffset = relativeCameraOffset.applyMatrix4(model.matrixWorld);
+
+    camera.position.x = cameraOffset.x;
+    camera.position.y = cameraOffset.y;
+    camera.position.z = cameraOffset.z;
+
+    controls.target = model.position;
+};
+
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -78,8 +112,12 @@ function init() {
         0.25,
         100
     );
-    camera.position.set(0, 30, 40);
+    camera.position.set(0, 10, -10);
     // camera.lookAt(0, 1, 0);
+    controls = new OrbitControls(camera, renderer.domElement);
+
+    controls.enablePan = false;
+    controls.enableDamping = true;
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xe0e0e0);
     scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
@@ -106,107 +144,22 @@ function init() {
     loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
         animations = gltf.animations;
+        console.log(animations);
         scene.add(model);
         mixer = new THREE.AnimationMixer(model);
         curAnimation = mixer.clipAction(animations[actions.Walking]);
         curAnimation.clampWhenFinished = true;
         curAnimation.play();
-        //
+        // wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
+        // wrapNodeDom.value?.addEventListener('click', onPointerClick);
         animate();
         wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
         wrapNodeDom.value?.addEventListener('click', onPointerClick);
         document.addEventListener('keydown', onKeydown);
         document.addEventListener('keyup', onKeyUp);
     });
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0, 0);
-    controls.enablePan = false;
-    controls.enableDamping = true;
-    controls.update();
 }
 
-const onKeydown = (e: KeyboardEvent) => {
-    switch (e.code) {
-        case 'KeyW':
-            keydown.keyW = true;
-            break;
-        case 'KeyS':
-            keydown.keyS = true;
-            break;
-        case 'KeyA':
-            keydown.keyA = true;
-            break;
-        case 'KeyD':
-            keydown.keyD = true;
-            break;
-        default:
-            break;
-    }
-};
-
-const onKeyUp = (e: KeyboardEvent) => {
-    switch (e.code) {
-        case 'KeyW':
-            keydown.keyW = false;
-            break;
-        case 'KeyS':
-            keydown.keyS = false;
-            break;
-        case 'KeyA':
-            keydown.keyA = false;
-            break;
-        case 'KeyD':
-            keydown.keyD = false;
-            break;
-        default:
-            break;
-    }
-    console.log(e.code);
-};
-
-const modelMove = () => {
-    if (keydown.keyW) {
-        model.position.z += 0.05;
-    }
-    if (keydown.keyS) {
-        model.position.z -= 0.05;
-    }
-    if (keydown.keyD) {
-        model.position.x += 0.05;
-    }
-    if (keydown.keyA) {
-        model.position.x -= 0.05;
-    }
-    // curAnimation.halt(0);
-    // switch () {
-    //     case 'KeyW':
-    //         keydown.keyW = true;
-    //         break;
-    //     case 'KeyS':
-    //         keydown.keyS = true;
-    //         break;
-    //     case 'KeyA':
-    //         keydown.keyA = true;
-    //         break;
-    //     case 'KeyD':
-    //         keydown.keyD = true;
-    //         break;
-    //     default:
-    //         break;
-    // }
-};
-
-function onPointerMove(event: MouseEvent) {
-    // pointer.set(
-    //     (event.clientX / window.innerWidth) * 2 - 1,
-    //     -(event.clientY / window.innerHeight) * 2 + 1
-    // );
-    // const intersects = raycaster.intersectObject(floorMesh);
-    // if (intersects.length > 0) {
-    //     const position = intersects[0].point;
-    //     console.log('Clicked position:', position);
-    // }
-}
 function onPointerClick(event: MouseEvent | any) {
     console.log(event);
     pointer.set(
@@ -244,8 +197,6 @@ const clear = () => {
     renderer.dispose();
     scene.clear();
     camera.clear();
-    window.removeEventListener('pointermove', onPointerMove);
-    window.removeEventListener('click', onPointerClick);
 };
 onMounted(init);
 onBeforeUnmount(clear);
