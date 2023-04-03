@@ -1,15 +1,24 @@
 <template>
     <div class="camera_Follow_page" ref="wrapNodeDom">
+        <v-dialog v-model="loading" :scrim="false" width="200px" persistent>
+            <v-card color="primary">
+                <v-card-text>
+                    Loading model...
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
         <canvas id="camera_Follow" ref="nodeDom"></canvas>
     </div>
 </template>
 <script setup lang="ts">
 import * as THREE from 'three';
+import { ref } from 'vue';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import THREEx from '@/utils/KeyboardState';
 import { onMounted, onBeforeUnmount, shallowRef } from 'vue';
-
+const loading = ref(true);
 const nodeDom = shallowRef<HTMLCanvasElement>();
 const wrapNodeDom = shallowRef<HTMLDivElement>();
 var scene = new THREE.Scene();
@@ -25,6 +34,7 @@ var model: THREE.Group;
 
 var animateID = 0;
 const animate = () => {
+    renderer.render(scene, camera);
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
@@ -57,14 +67,14 @@ enum actions {
 
 const keyboard = new THREEx.KeyboardState();
 const modelRun = (delta: number) => {
-    const moveDistance = 5 * delta;
+    const moveDistance = 10 * delta;
     const rotateAngle = (Math.PI / 2) * delta;
-    // if (keyboard.pressed('down')) {
-    //     model.translateZ(moveDistance);
-    // }
-    // if (keyboard.pressed('up')) {
-    //     model.translateZ(-moveDistance);
-    // }
+    if (keyboard.pressed('down')) {
+        model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), rotateAngle);
+    }
+    if (keyboard.pressed('up')) {
+        model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), -rotateAngle);
+    }
     // if (keyboard.pressed('left')) {
     //     model.translateX(-moveDistance);
     // }
@@ -74,19 +84,17 @@ const modelRun = (delta: number) => {
 
     if (keyboard.pressed('w')) {
         model.translateZ(moveDistance);
-        // model.rotateOnAxis(new THREE.Vector3(1, 0, 0), rotateAngle);
+        //
     }
     if (keyboard.pressed('s')) {
         model.translateZ(-moveDistance);
-        // model.rotateOnAxis(new THREE.Vector3(1, 0, 0), -rotateAngle);
+        //
     }
     if (keyboard.pressed('a')) {
-        console.log(rotateAngle);
-        model.rotateOnAxis(new THREE.Vector3(0, 0.2, 0), rotateAngle);
+        model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), rotateAngle);
     }
     if (keyboard.pressed('d')) {
-        console.log(rotateAngle);
-        model.rotateOnAxis(new THREE.Vector3(0, 0.2, 0), -rotateAngle);
+        model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), -rotateAngle);
     }
 
     const relativeCameraOffset = new THREE.Vector3(0, 10, -20);
@@ -105,12 +113,9 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
-
     camera = new THREE.PerspectiveCamera(
-        45,
-        renderer.domElement.clientWidth! / renderer.domElement.clientHeight!,
-        0.25,
-        100
+        50,
+        renderer.domElement.clientWidth! / renderer.domElement.clientHeight!
     );
     camera.position.set(0, 10, -10);
     // camera.lookAt(0, 1, 0);
@@ -118,9 +123,6 @@ function init() {
 
     controls.enablePan = false;
     controls.enableDamping = true;
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xe0e0e0);
-    scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
 
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
     hemiLight.position.set(0, 20, 0);
@@ -141,6 +143,12 @@ function init() {
     scene.add(axesHelper);
     const grid = new THREE.GridHelper(50, 50, 0x000000, 0x000000);
     scene.add(grid);
+    // loader.load('/city.glb', function (gltf) {
+    //     gltf.scene.position.y = -14.1;
+    //     gltf.scene.scale.set(1.8, 1.8, 1.8);
+    //     scene.add(gltf.scene);
+    //     animate();
+    // });
     loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
         animations = gltf.animations;
@@ -150,13 +158,7 @@ function init() {
         curAnimation = mixer.clipAction(animations[actions.Walking]);
         curAnimation.clampWhenFinished = true;
         curAnimation.play();
-        // wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
-        // wrapNodeDom.value?.addEventListener('click', onPointerClick);
         animate();
-        wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
-        wrapNodeDom.value?.addEventListener('click', onPointerClick);
-        document.addEventListener('keydown', onKeydown);
-        document.addEventListener('keyup', onKeyUp);
     });
 }
 
