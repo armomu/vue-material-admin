@@ -7,6 +7,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import THREEx from '@/utils/KeyboardState';
 import { onMounted, onBeforeUnmount, shallowRef } from 'vue';
 
 const nodeDom = shallowRef<HTMLCanvasElement>();
@@ -23,24 +24,82 @@ const pointer = new THREE.Vector2();
 var model: THREE.Group;
 
 var animateID = 0;
-
 const animate = () => {
     renderer.render(scene, camera);
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
+    modelRun(delta);
     // console.log(camera.position);
+    // controls.target = model.position;
     animateID = requestAnimationFrame(animate);
-    if (resizeRendererToDisplaySize(renderer)) {
-        const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
-        camera.updateProjectionMatrix();
-    }
 };
 
 var floorMesh: THREE.Mesh;
-var rollOverMesh: THREE.Mesh;
-var rollOverMaterial: THREE.MeshBasicMaterial;
+
+var curAnimation: THREE.AnimationAction;
+var animations: THREE.AnimationClip[];
+enum actions {
+    Dance,
+    Death,
+    Idle,
+    Jump,
+    No,
+    Punch,
+    Running,
+    Sitting,
+    Standing,
+    ThumbsUp,
+    Walking,
+    WalkJump,
+    Wave,
+    Yes,
+}
+
+const keyboard = new THREEx.KeyboardState();
+const modelRun = (delta: number) => {
+    const moveDistance = 5 * delta;
+    const rotateAngle = (Math.PI / 2) * delta;
+    // if (keyboard.pressed('down')) {
+    //     model.translateZ(moveDistance);
+    // }
+    // if (keyboard.pressed('up')) {
+    //     model.translateZ(-moveDistance);
+    // }
+    // if (keyboard.pressed('left')) {
+    //     model.translateX(-moveDistance);
+    // }
+    // if (keyboard.pressed('right')) {
+    //     model.translateX(moveDistance);
+    // }
+
+    if (keyboard.pressed('w')) {
+        model.translateZ(moveDistance);
+        // model.rotateOnAxis(new THREE.Vector3(1, 0, 0), rotateAngle);
+    }
+    if (keyboard.pressed('s')) {
+        model.translateZ(-moveDistance);
+        // model.rotateOnAxis(new THREE.Vector3(1, 0, 0), -rotateAngle);
+    }
+    if (keyboard.pressed('a')) {
+        console.log(rotateAngle);
+        model.rotateOnAxis(new THREE.Vector3(0, 0.2, 0), rotateAngle);
+    }
+    if (keyboard.pressed('d')) {
+        console.log(rotateAngle);
+        model.rotateOnAxis(new THREE.Vector3(0, 0.2, 0), -rotateAngle);
+    }
+
+    const relativeCameraOffset = new THREE.Vector3(0, 10, -20);
+
+    const cameraOffset = relativeCameraOffset.applyMatrix4(model.matrixWorld);
+
+    camera.position.x = cameraOffset.x;
+    camera.position.y = cameraOffset.y;
+    camera.position.z = cameraOffset.z;
+
+    controls.target = model.position;
+};
 
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
@@ -54,8 +113,12 @@ function init() {
         0.25,
         100
     );
-    camera.position.set(0, 30, 40);
-    camera.lookAt(0, 1, 0);
+    camera.position.set(0, 10, -10);
+    // camera.lookAt(0, 1, 0);
+    controls = new OrbitControls(camera, renderer.domElement);
+
+    controls.enablePan = false;
+    controls.enableDamping = true;
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xe0e0e0);
     scene.fog = new THREE.Fog(0xe0e0e0, 20, 100);
@@ -69,56 +132,31 @@ function init() {
     scene.add(dirLight);
 
     floorMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(20, 20),
+        new THREE.PlaneGeometry(50, 50),
         new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
     );
     floorMesh.rotation.x = -Math.PI / 2;
     scene.add(floorMesh);
 
-    const rollOverGeo = new THREE.BoxGeometry(2, 2, 2);
-    rollOverMaterial = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        opacity: 0.5,
-        transparent: true,
-    });
-    rollOverMesh = new THREE.Mesh(rollOverGeo, rollOverMaterial);
-    scene.add(rollOverMesh);
     var axesHelper = new THREE.AxesHelper(15);
     scene.add(axesHelper);
-    const grid = new THREE.GridHelper(20, 10, 0x000000, 0x000000);
+    const grid = new THREE.GridHelper(50, 50, 0x000000, 0x000000);
     scene.add(grid);
     loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
+        animations = gltf.animations;
+        console.log(animations);
         scene.add(model);
         mixer = new THREE.AnimationMixer(model);
-        const animation = mixer.clipAction(gltf.animations[2]);
-        animation.clampWhenFinished = true;
-        // animation.loop = THREE.LoopOnce;
-        animation.play();
-        // createGUI(model, gltf.animations);
-        console.log(scene.children);
+        curAnimation = mixer.clipAction(animations[actions.Walking]);
+        curAnimation.clampWhenFinished = true;
+        curAnimation.play();
+        // wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
+        // wrapNodeDom.value?.addEventListener('click', onPointerClick);
         animate();
     });
-    controls = new OrbitControls(camera, renderer.domElement);
+}
 
-    controls.target.set(0, 0, 0);
-    controls.enablePan = false;
-    controls.enableDamping = true;
-    controls.update();
-    wrapNodeDom.value?.addEventListener('pointermove', onPointerMove);
-    wrapNodeDom.value?.addEventListener('click', onPointerClick);
-}
-function onPointerMove(event: MouseEvent) {
-    // pointer.set(
-    //     (event.clientX / window.innerWidth) * 2 - 1,
-    //     -(event.clientY / window.innerHeight) * 2 + 1
-    // );
-    // const intersects = raycaster.intersectObject(floorMesh);
-    // if (intersects.length > 0) {
-    //     const position = intersects[0].point;
-    //     console.log('Clicked position:', position);
-    // }
-}
 function onPointerClick(event: MouseEvent | any) {
     console.log(event);
     pointer.set(
@@ -156,8 +194,6 @@ const clear = () => {
     renderer.dispose();
     scene.clear();
     camera.clear();
-    window.removeEventListener('pointermove', onPointerMove);
-    window.removeEventListener('click', onPointerClick);
 };
 onMounted(init);
 onBeforeUnmount(clear);
