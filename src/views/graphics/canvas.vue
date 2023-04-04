@@ -75,20 +75,12 @@ const modelRun = (delta: number) => {
     if (keyboard.pressed('up')) {
         model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), -rotateAngle);
     }
-    // if (keyboard.pressed('left')) {
-    //     model.translateX(-moveDistance);
-    // }
-    // if (keyboard.pressed('right')) {
-    //     model.translateX(moveDistance);
-    // }
 
     if (keyboard.pressed('w')) {
         model.translateZ(moveDistance);
-        //
     }
     if (keyboard.pressed('s')) {
         model.translateZ(-moveDistance);
-        //
     }
     if (keyboard.pressed('a')) {
         model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), rotateAngle);
@@ -132,24 +124,18 @@ function init() {
     dirLight.position.set(0, 20, 10);
     scene.add(dirLight);
 
-    floorMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(50, 50),
-        new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
-    );
-    floorMesh.rotation.x = -Math.PI / 2;
-    scene.add(floorMesh);
+    // floorMesh = new THREE.Mesh(
+    //     new THREE.PlaneGeometry(50, 50),
+    //     new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+    // );
+    // floorMesh.rotation.x = -Math.PI / 2;
+    // scene.add(floorMesh);
 
     var axesHelper = new THREE.AxesHelper(15);
     scene.add(axesHelper);
     const grid = new THREE.GridHelper(50, 50, 0x000000, 0x000000);
     scene.add(grid);
-    // loader.load('/city.glb', function (gltf) {
-    //     gltf.scene.position.y = -14.1;
-    //     gltf.scene.scale.set(1.8, 1.8, 1.8);
-    //     scene.add(gltf.scene);
-    //     animate();
-    // });
-    loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
+    loader.load('/vue-material-admin/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
         animations = gltf.animations;
         console.log(animations);
@@ -158,6 +144,7 @@ function init() {
         curAnimation = mixer.clipAction(animations[actions.Walking]);
         curAnimation.clampWhenFinished = true;
         curAnimation.play();
+        loading.value = false;
         animate();
     });
 }

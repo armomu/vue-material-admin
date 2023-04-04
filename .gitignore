@@ -15,6 +15,7 @@ dev-dist
 coverage
 *.local
 
+/public/city.glb
 /cypress/videos/
 /cypress/screenshots/
 
