@@ -27,7 +27,7 @@ export const useMainStore = defineStore('main', () => {
     scheme.addEventListener('change', () => {
         theme.value = scheme.matches ? 'dark' : 'light';
     });
-
+    console.log(scheme.matches);
     const theme = ref(scheme.matches ? 'dark' : 'light');
 
     const onTheme = () => {

@@ -34,7 +34,6 @@ function init() {
     scene.background = new THREE.Color(0xf0f0f0);
 
     // roll-over helpers
-
     const rollOverGeo = new THREE.BoxGeometry(50, 50, 50);
     rollOverMaterial = new THREE.MeshBasicMaterial({
         color: 0xff0000,

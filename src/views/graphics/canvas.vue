@@ -38,7 +38,7 @@ const animate = () => {
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
-    modelRun(delta);
+    // modelRun(delta);
     // console.log(camera.position);
     // controls.target = model.position;
     animateID = requestAnimationFrame(animate);
@@ -71,24 +71,32 @@ const modelRun = (delta: number) => {
     const rotateAngle = (Math.PI / 2) * delta;
     if (keyboard.pressed('down')) {
         model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), rotateAngle);
+        upCamera();
     }
     if (keyboard.pressed('up')) {
         model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), -rotateAngle);
+        upCamera();
     }
 
     if (keyboard.pressed('w')) {
         model.translateZ(moveDistance);
+        upCamera();
     }
     if (keyboard.pressed('s')) {
         model.translateZ(-moveDistance);
+        upCamera();
     }
     if (keyboard.pressed('a')) {
         model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), rotateAngle);
+        upCamera();
     }
     if (keyboard.pressed('d')) {
         model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), -rotateAngle);
+        upCamera();
     }
+};
 
+const upCamera = () => {
     const relativeCameraOffset = new THREE.Vector3(0, 10, -20);
 
     const cameraOffset = relativeCameraOffset.applyMatrix4(model.matrixWorld);
@@ -109,7 +117,7 @@ function init() {
         50,
         renderer.domElement.clientWidth! / renderer.domElement.clientHeight!
     );
-    camera.position.set(0, 10, -10);
+    camera.position.set(0, 10, 30);
     // camera.lookAt(0, 1, 0);
     controls = new OrbitControls(camera, renderer.domElement);
 
@@ -150,7 +158,6 @@ function init() {
 }
 
 function onPointerClick(event: MouseEvent | any) {
-    console.log(event);
     pointer.set(
         (event.layerX / renderer.domElement.clientWidth!) * 2 - 1,
         -(event.layerY / renderer.domElement.clientHeight!) * 2 + 1
@@ -160,9 +167,6 @@ function onPointerClick(event: MouseEvent | any) {
     if (intersects.length > 0) {
         const intersect = intersects[0];
         model.position.copy(intersect.point);
-
-        // rollOverMesh.position.copy(intersect.point).add(intersect?.face!.normal);
-        // rollOverMesh.position.divideScalar(2).floor().multiplyScalar(2).addScalar(1);
     }
 }
 

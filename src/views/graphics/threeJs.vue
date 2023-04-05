@@ -23,6 +23,14 @@
             </div>
         </v-card>
         <canvas id="threejs2" ref="nodeDom"></canvas>
+        <v-dialog v-model="loading" :scrim="false" width="200px" persistent>
+            <v-card color="primary">
+                <v-card-text>
+                    Loading model...
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 <script setup lang="ts">
@@ -30,10 +38,10 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue';
-
+import THREEx from '@/utils/KeyboardState';
+import { reactive, onMounted, onBeforeUnmount, shallowRef, ref } from 'vue';
+const loading = ref(true);
 const locaFiles = reactive({
     glb: [],
     flulimg: [],
@@ -78,7 +86,8 @@ var renderer: THREE.WebGLRenderer;
 var camera: THREE.PerspectiveCamera;
 var controls: OrbitControls;
 const loader = new GLTFLoader();
-// const FbxLoader = new FBXLoader();
+var clock = new THREE.Clock();
+var mixer: THREE.AnimationMixer;
 const textureLoader = new THREE.TextureLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}/draco/`);
@@ -87,16 +96,80 @@ loader.setDRACOLoader(dracoLoader);
 // var stats: Stats;
 var pmremGenerator: THREE.PMREMGenerator;
 var animateID = 0;
+var model: THREE.Group;
 const animate = () => {
     renderer.render(scene, camera);
     controls.update();
-    // console.log(camera.position);
+    const delta = clock.getDelta();
+    mixer.update(delta);
+    modelRun(delta);
     animateID = requestAnimationFrame(animate);
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
     }
+};
+var curAnimation: THREE.AnimationAction;
+var animations: THREE.AnimationClip[];
+enum actions {
+    Dance,
+    Death,
+    Idle,
+    Jump,
+    No,
+    Punch,
+    Running,
+    Sitting,
+    Standing,
+    ThumbsUp,
+    Walking,
+    WalkJump,
+    Wave,
+    Yes,
+}
+
+const keyboard = new THREEx.KeyboardState();
+const modelRun = (delta: number) => {
+    const moveDistance = 10 * delta;
+    const rotateAngle = (Math.PI / 2) * delta;
+    if (keyboard.pressed('down')) {
+        model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), rotateAngle);
+        upCamera();
+    }
+    if (keyboard.pressed('up')) {
+        model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), -rotateAngle);
+        upCamera();
+    }
+
+    if (keyboard.pressed('w')) {
+        model.translateZ(moveDistance);
+        upCamera();
+    }
+    if (keyboard.pressed('s')) {
+        model.translateZ(-moveDistance);
+        upCamera();
+    }
+    if (keyboard.pressed('a')) {
+        model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), rotateAngle);
+        upCamera();
+    }
+    if (keyboard.pressed('d')) {
+        model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), -rotateAngle);
+        upCamera();
+    }
+};
+
+const upCamera = () => {
+    const relativeCameraOffset = new THREE.Vector3(0, 10, -25);
+
+    const cameraOffset = relativeCameraOffset.applyMatrix4(model.matrixWorld);
+
+    camera.position.x = cameraOffset.x;
+    camera.position.y = cameraOffset.y;
+    camera.position.z = cameraOffset.z;
+
+    controls.target = model.position;
 };
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
@@ -105,32 +178,13 @@ function init() {
         50,
         nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!
     );
-    camera.position.set(0, 5, 25);
+    camera.position.set(0, 10, 25);
 
     var axesHelper = new THREE.AxesHelper(15);
     scene.add(axesHelper);
     const gridHelper = new THREE.GridHelper(10, 30);
     gridHelper.position.set(0, 0.001, 0);
     scene.add(gridHelper);
-
-    // // 立方体
-    // const cubeMtr = new THREE.MeshBasicMaterial({ color: new THREE.Color('#efefef') });
-    // // cubeMtr.wireframe = true;
-    // const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), cubeMtr);
-    // cube.position.y = 0.5;
-    // scene.add(cube);
-
-    // 地板
-    // const geometry = new THREE.PlaneGeometry(10, 10);
-    // const material = new THREE.MeshBasicMaterial({
-    //     color: 0xffffff,
-    //     side: THREE.DoubleSide,
-    // });
-    // const plane = new THREE.Mesh(geometry, material);
-    // plane.receiveShadow = true;
-    // plane.castShadow = true;
-    // plane.rotation.x = -0.5 * Math.PI;
-    // scene.add(plane);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(8, 9, 0);
@@ -156,8 +210,33 @@ function init() {
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.update();
-    animate();
+
+    loader.load('/vue-material-admin/RobotExpressive/RobotExpressive.glb', function (gltf) {
+        model = gltf.scene;
+        animations = gltf.animations;
+        console.log(animations);
+        scene.add(model);
+        mixer = new THREE.AnimationMixer(model);
+        curAnimation = mixer.clipAction(animations[actions.Walking]);
+        curAnimation.clampWhenFinished = true;
+        curAnimation.play();
+        loading.value = false;
+        animate();
+    });
 }
+
+// function onPointerClick(event: MouseEvent | any) {
+//     pointer.set(
+//         (event.layerX / renderer.domElement.clientWidth!) * 2 - 1,
+//         -(event.layerY / renderer.domElement.clientHeight!) * 2 + 1
+//     );
+//     raycaster.setFromCamera(pointer, camera);
+//     const intersects = raycaster.intersectObject(floorMesh);
+//     if (intersects.length > 0) {
+//         const intersect = intersects[0];
+//         model.position.copy(intersect.point);
+//     }
+// }
 
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
