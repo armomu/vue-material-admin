@@ -115,28 +115,28 @@ const router = createRouter({
                     },
                     component: () => import('@/views/graphics/webgl.vue'),
                 },
-                {
-                    path: 'camera-follow',
-                    name: 'camerafollow',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Camera Follow',
-                        icon: 'mdi-alpha-c',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/canvas.vue'),
-                },
-                {
-                    path: 'test',
-                    name: 'test',
-                    meta: {
-                        keepAlive: false,
-                        title: 'test',
-                        icon: 'mdi-alpha-t',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/test.vue'),
-                },
+                // {
+                //     path: 'camera-follow',
+                //     name: 'camerafollow',
+                //     meta: {
+                //         keepAlive: false,
+                //         title: 'Camera Follow',
+                //         icon: 'mdi-alpha-c',
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/graphics/canvas.vue'),
+                // },
+                // {
+                //     path: 'test',
+                //     name: 'test',
+                //     meta: {
+                //         keepAlive: false,
+                //         title: 'test',
+                //         icon: 'mdi-alpha-t',
+                //         visible: true,
+                //     },
+                //     component: () => import('@/views/graphics/test.vue'),
+                // },
             ],
         },
         {
