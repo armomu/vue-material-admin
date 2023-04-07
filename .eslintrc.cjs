@@ -7,7 +7,7 @@ module.exports = {
     extends: [
         'plugin:vue/vue3-essential',
         'eslint:recommended',
-        '@vue/eslint-config-typescript',
+        '@vue/eslint-config-typescript/recommended',
         '@vue/eslint-config-prettier',
     ],
     parserOptions: {
@@ -26,6 +26,7 @@ module.exports = {
                 },
             },
         ],
+        '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-explicit-any': ['off'],
         'require-atomic-updates': 'off',

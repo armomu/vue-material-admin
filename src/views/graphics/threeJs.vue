@@ -63,7 +63,7 @@ const fileChange = (val: File[]) => {
     const [file] = val;
     if (!file) return;
     loader.load(getObjectURL(file), (gltf) => {
-        gltf.scene.scale.set(0.1, 0.1, 0.1);
+        // gltf.scene.scale.set(0.1, 0.1, 0.1);
         scene.add(gltf.scene);
     });
 };
@@ -81,22 +81,22 @@ const getObjectURL = (file: File) => {
 };
 
 const nodeDom = shallowRef<HTMLCanvasElement>();
-var scene = new THREE.Scene();
-var renderer: THREE.WebGLRenderer;
-var camera: THREE.PerspectiveCamera;
-var controls: OrbitControls;
+const scene = new THREE.Scene();
+let renderer: THREE.WebGLRenderer;
+let camera: THREE.PerspectiveCamera;
+let controls: OrbitControls;
 const loader = new GLTFLoader();
-var clock = new THREE.Clock();
-var mixer: THREE.AnimationMixer;
+const clock = new THREE.Clock();
+let mixer: THREE.AnimationMixer;
 const textureLoader = new THREE.TextureLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}/draco/`);
 loader.setDRACOLoader(dracoLoader);
 
 // var stats: Stats;
-var pmremGenerator: THREE.PMREMGenerator;
-var animateID = 0;
-var model: THREE.Group;
+let pmremGenerator: THREE.PMREMGenerator;
+let animateID = 0;
+let model: THREE.Group;
 const animate = () => {
     renderer.render(scene, camera);
     controls.update();
@@ -110,8 +110,8 @@ const animate = () => {
         camera.updateProjectionMatrix();
     }
 };
-var curAnimation: THREE.AnimationAction;
-var animations: THREE.AnimationClip[];
+let curAnimation: THREE.AnimationAction;
+let animations: THREE.AnimationClip[];
 enum actions {
     Dance,
     Death,
@@ -176,11 +176,11 @@ function init() {
     renderer.shadowMap.enabled = true;
     camera = new THREE.PerspectiveCamera(
         50,
-        nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!
+        renderer.domElement.clientWidth / renderer.domElement.clientHeight
     );
     camera.position.set(0, 10, 25);
 
-    var axesHelper = new THREE.AxesHelper(15);
+    const axesHelper = new THREE.AxesHelper(15);
     scene.add(axesHelper);
     const gridHelper = new THREE.GridHelper(10, 30);
     gridHelper.position.set(0, 0.001, 0);
@@ -240,10 +240,10 @@ function init() {
 
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    var canvasPixelWidth = canvas.width / window.devicePixelRatio;
-    var canvasPixelHeight = canvas.height / window.devicePixelRatio;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const canvasPixelWidth = canvas.width / window.devicePixelRatio;
+    const canvasPixelHeight = canvas.height / window.devicePixelRatio;
 
     const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height;
     if (needResize) {
