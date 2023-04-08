@@ -18,6 +18,8 @@
     "js-cookie": "^3.0.1",
     "meilisearch-docsearch": "^0.4.7",
     "nprogress": "^0.2.0",
+    "oasis-engine": "^0.8.3",
+    "oasis-engine-toolkit": "^0.8.1",
     "pinia": "^2.0.28",
     "stats.js": "^0.17.0",
     "three": "^0.149.0",
