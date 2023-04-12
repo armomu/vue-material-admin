@@ -85,6 +85,6 @@ onMounted(() => {
 
 #canvas {
     width: 100%;
-    height: calc(100vh - 124px);
+    height: var(--content-height);
 }
 </style>

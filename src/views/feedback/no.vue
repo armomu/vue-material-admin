@@ -1,37 +1,24 @@
 <template>
-    <v-toolbar absolute class="toolbar404">
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <!-- <v-toolbar-title>Title</v-toolbar-title> -->
-        <v-spacer></v-spacer>
-        <v-btn icon :to="{ path: '/' }">
-            <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-btn icon>
-            <v-icon>mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-            <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-    </v-toolbar>
     <div class="no404">
-        <img src="../../assets/404_images/404.jpg" />
+        <div>
+            <div class="title">Not found</div>
+            <span>404</span>
+        </div>
     </div>
 </template>
 <script setup lang="ts"></script>
 <style scoped lang="scss">
-.toolbar404 {
-    width: 100%;
-    background: none;
-}
 .no404 {
-    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    img {
-        height: 60vh;
-        width: auto;
+    height: var(--content-height);
+    text-align: center;
+    .title {
+        font-size: 50px;
+    }
+    span {
+        font-size: 30px;
     }
 }
 </style>

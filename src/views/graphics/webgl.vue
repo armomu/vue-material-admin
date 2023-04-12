@@ -12,13 +12,13 @@ import fullImage from '@/assets/webgl/full.jpeg';
 
 const nodeDom = ref<HTMLCanvasElement>();
 const wrapDom = ref<HTMLCanvasElement>();
-var scene = new THREE.Scene();
-var renderer: THREE.WebGLRenderer;
-var camera: THREE.PerspectiveCamera;
-var controls: OrbitControls;
+const scene = new THREE.Scene();
+let renderer: THREE.WebGLRenderer;
+let camera: THREE.PerspectiveCamera;
+let controls: OrbitControls;
 
-var pmremGenerator: THREE.PMREMGenerator;
-var animateID = 0;
+let pmremGenerator: THREE.PMREMGenerator;
+let animateID = 0;
 const animate = () => {
     renderer.render(scene, camera);
     controls.update();
@@ -36,7 +36,6 @@ function init() {
         50,
         nodeDom.value?.offsetWidth! / nodeDom.value?.offsetHeight!
     );
-
     const sphereGeometry = new THREE.SphereGeometry(16, 50, 50);
     sphereGeometry.scale(16, 16, -16);
     const texture = new THREE.TextureLoader().load(fullImage);
@@ -57,10 +56,10 @@ function init() {
 
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    var canvasPixelWidth = canvas.width / window.devicePixelRatio;
-    var canvasPixelHeight = canvas.height / window.devicePixelRatio;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const canvasPixelWidth = canvas.width / window.devicePixelRatio;
+    const canvasPixelHeight = canvas.height / window.devicePixelRatio;
 
     const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height;
     if (needResize) {

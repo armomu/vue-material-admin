@@ -115,27 +115,16 @@ const router = createRouter({
                     },
                     component: () => import('@/views/graphics/webgl.vue'),
                 },
-                // {
-                //     path: 'camera-follow',
-                //     name: 'camerafollow',
-                //     meta: {
-                //         keepAlive: false,
-                //         title: 'Camera Follow',
-                //         icon: 'mdi-alpha-c',
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/graphics/canvas.vue'),
-                // },
                 {
-                    path: 'test',
-                    name: 'test',
+                    path: 'oasis-engine',
+                    name: 'OasisEngine',
                     meta: {
                         keepAlive: false,
-                        title: 'test',
-                        icon: 'mdi-alpha-t',
+                        title: 'Oasis Engine',
+                        icon: 'mdi-alpha-o',
                         visible: true,
                     },
-                    component: () => import('@/views/graphics/test.vue'),
+                    component: () => import('@/views/graphics/oasisEngine.vue'),
                 },
             ],
         },
@@ -202,7 +191,19 @@ const router = createRouter({
             path: '/404',
             name: '404',
             meta: { keepAlive: false, title: 'Not found', icon: 'mdi-paw-off', visible: false },
-            component: () => import('@/views/feedback/no.vue'),
+            component: Layout,
+            children: [
+                {
+                    path: '',
+                    name: 'd404',
+                    meta: {
+                        title: 'Not found',
+                        visible: false,
+                    },
+                    component: () => import('@/views/feedback/no.vue'),
+                    children: [],
+                },
+            ],
         },
         // {
         //     path: '/document',
