@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout/layout.vue';
-import NProgress from 'nprogress'; // progress bar
-import 'nprogress/nprogress.css';
+
 import { checkVersion } from '@/plugins/pwa';
 
 const router = createRouter({
@@ -126,6 +125,17 @@ const router = createRouter({
                     },
                     component: () => import('@/views/graphics/oasisEngine.vue'),
                 },
+                {
+                    path: 'test',
+                    name: 'Enginetest',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Engine test',
+                        icon: 'mdi-alpha-t',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/test.vue'),
+                },
             ],
         },
         {
@@ -205,28 +215,14 @@ const router = createRouter({
                 },
             ],
         },
-        // {
-        //     path: '/document',
-        //     name: 'document',
-        //     meta: {
-        //         keepAlive: false,
-        //         title: 'Document',
-        //         icon: 'mdi-microsoft-word',
-        //         visible: true,
-        //     },
-        //     component: () => import('@/views/feedback/no.vue'),
-        // },
     ],
 });
 
-NProgress.configure({ showSpinner: false });
 router.beforeEach(async (to, _from, next) => {
-    NProgress.start();
     next();
 });
 
 router.afterEach(() => {
-    NProgress.done();
     checkVersion();
 });
 export default router;
