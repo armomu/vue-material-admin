@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/vue-material-admin/dev-sw.js?dev-sw', { scope: '/vue-material-admin/', type: 'classic' })

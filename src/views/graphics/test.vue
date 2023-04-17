@@ -8,9 +8,10 @@
  * @title PhysX Character Controller
  * @category Physics
  */
- import { OrbitControl } from "@oasis-engine-toolkit/controls";
-import { PhysXPhysics } from "@oasis-engine/physics-physx";
-import { onMounted, shallowRef } from 'vue'
+import { OrbitControl } from '@oasis-engine-toolkit/controls';
+// import { OrbitControl, Stats } from 'oasis-engine-toolkit';
+import { PhysXPhysics } from '@oasis-engine/physics-physx';
+import { onMounted, shallowRef } from 'vue';
 import {
     AmbientLight,
     AnimationClip,
@@ -46,17 +47,18 @@ import {
     Texture2D,
     Vector2,
     Vector3,
-    WebGLEngine
-} from "oasis-engine";
+    WebGLEngine,
+} from 'oasis-engine';
+import medieval_fantasy_book from '/medieval_fantasy_book.glb';
 const nodeDom = shallowRef<HTMLCanvasElement>();
 Logger.enable();
 
 enum State {
-    Run = "Run",
-    Idle = "Idle",
-    Jump = "Jump_In",
-    Fall = "Fall",
-    Landing = "Landing",
+    Run = 'Run',
+    Idle = 'Idle',
+    Jump = 'Jump_In',
+    Fall = 'Fall',
+    Landing = 'Landing',
 }
 
 class AnimationState {
@@ -73,10 +75,7 @@ class AnimationState {
             return;
         }
 
-        if (
-            this._lastKey === null &&
-            (this._state === State.Run || this._state === State.Idle)
-        ) {
+        if (this._lastKey === null && (this._state === State.Run || this._state === State.Idle)) {
             this._state = State.Idle;
         } else {
             this._state = State.Run;
@@ -92,7 +91,7 @@ class AnimationState {
     }
 
     setIdleKey() {
-        if (this._state == State.Jump) {
+        if (this._state === State.Jump) {
             return;
         }
 
@@ -153,7 +152,7 @@ class ControllerScript extends Script {
             const animationState = this._animationState;
             const displacement = this._displacement;
             if (inputManager.isKeyHeldDown(Keys.KeyW)) {
-                console.log('w')
+                console.log('w');
                 animationState.setMoveKey(Keys.KeyW);
                 Vector3.scale(this._forward, animationSpeed, displacement);
             }
@@ -200,15 +199,10 @@ class ControllerScript extends Script {
         }
         this._playAnimation();
 
-        if (this._displacement.x != 0 || this._displacement.z != 0) {
+        if (this._displacement.x !== 0 || this._displacement.z !== 0) {
             this._predictPosition.copyFrom(transform.worldPosition);
             this._predictPosition.subtract(this._displacement);
-            Matrix.lookAt(
-                transform.worldPosition,
-                this._predictPosition,
-                this._up,
-                this._rotMat
-            );
+            Matrix.lookAt(transform.worldPosition, this._predictPosition, this._up, this._rotMat);
             this._rotMat.getRotation(this._rotation).invert();
             const currentRot = transform.rotationQuaternion;
             Quaternion.slerp(currentRot, this._rotation, 0.1, this._newRotation);
@@ -231,12 +225,7 @@ function addPlane(
     rotation: Quaternion
 ): Entity {
     const mtl = new PBRMaterial(rootEntity.engine);
-    mtl.baseColor.set(
-        0.2179807202597362,
-        0.2939682161541871,
-        0.31177952549087604,
-        1
-    );
+    mtl.baseColor.set(0.2179, 0.2939, 0.3117, 1);
     mtl.roughness = 0.0;
     mtl.metallic = 0.0;
     mtl.renderFace = RenderFace.Double;
@@ -245,7 +234,7 @@ function addPlane(
     const renderer = planeEntity.addComponent(MeshRenderer);
     renderer.mesh = PrimitiveMesh.createPlane(rootEntity.engine, size.x, size.y);
     renderer.setMaterial(mtl);
-    console.log(position)
+    console.log(position);
     // planeEntity.transform.position = position;
     planeEntity.transform.position.y = -1;
     planeEntity.transform.rotationQuaternion = rotation;
@@ -270,12 +259,7 @@ function addBox(
     mtl.baseColor.set(1, 1, 0, 1.0);
     const boxEntity = rootEntity.createChild();
     const renderer = boxEntity.addComponent(MeshRenderer);
-    renderer.mesh = PrimitiveMesh.createCuboid(
-        rootEntity.engine,
-        size.x,
-        size.y,
-        size.z
-    );
+    renderer.mesh = PrimitiveMesh.createCuboid(rootEntity.engine, size.x, size.y, size.z);
     renderer.setMaterial(mtl);
     boxEntity.transform.position = position;
     boxEntity.transform.rotationQuaternion = rotation;
@@ -298,12 +282,7 @@ function addStair(
     const mtl = new PBRMaterial(rootEntity.engine);
     mtl.roughness = 0.5;
     mtl.baseColor.set(0.9, 0.9, 0.9, 1.0);
-    const mesh = PrimitiveMesh.createCuboid(
-        rootEntity.engine,
-        size.x,
-        size.y,
-        size.z
-    );
+    const mesh = PrimitiveMesh.createCuboid(rootEntity.engine, size.x, size.y, size.z);
 
     const stairEntity = rootEntity.createChild();
     stairEntity.transform.position = position;
@@ -365,48 +344,46 @@ function textureAndAnimationLoader(
 ) {
     engine.resourceManager
         .load<Texture2D>(
-            "https://gw.alipayobjects.com/zos/OasisHub/440001585/6990/T_Doggy_1_diffuse.png"
+            'https://gw.alipayobjects.com/zos/OasisHub/440001585/6990/T_Doggy_1_diffuse.png'
         )
         .then((res) => {
             for (let i = 0, n = materials.length; i < n; i++) {
                 const material = materials[i];
-                (<PBRMaterial>material).baseTexture = res;
+                (material as PBRMaterial).baseTexture = res;
             }
         });
     engine.resourceManager
         .load<Texture2D>(
-            "https://gw.alipayobjects.com/zos/OasisHub/440001585/3072/T_Doggy_normal.png"
+            'https://gw.alipayobjects.com/zos/OasisHub/440001585/3072/T_Doggy_normal.png'
         )
         .then((res) => {
             for (let i = 0, n = materials.length; i < n; i++) {
                 const material = materials[i];
-                (<PBRMaterial>material).normalTexture = res;
+                (material as PBRMaterial).normalTexture = res;
             }
         });
     engine.resourceManager
         .load<Texture2D>(
-            "https://gw.alipayobjects.com/zos/OasisHub/440001585/5917/T_Doggy_roughness.png"
+            'https://gw.alipayobjects.com/zos/OasisHub/440001585/5917/T_Doggy_roughness.png'
         )
         .then((res) => {
             for (let i = 0, n = materials.length; i < n; i++) {
                 const material = materials[i];
-                (<PBRMaterial>material).roughnessMetallicTexture = res;
+                (material as PBRMaterial).roughnessMetallicTexture = res;
             }
         });
     engine.resourceManager
         .load<Texture2D>(
-            "https://gw.alipayobjects.com/zos/OasisHub/440001585/2547/T_Doggy_1_ao.png"
+            'https://gw.alipayobjects.com/zos/OasisHub/440001585/2547/T_Doggy_1_ao.png'
         )
         .then((res) => {
             for (let i = 0, n = materials.length; i < n; i++) {
                 const material = materials[i];
-                (<PBRMaterial>material).occlusionTexture = res;
+                (material as PBRMaterial).occlusionTexture = res;
             }
         });
     engine.resourceManager
-        .load<GLTFResource>(
-            "https://gw.alipayobjects.com/os/OasisHub/440001585/7205/Anim_Run.gltf"
-        )
+        .load<GLTFResource>('https://gw.alipayobjects.com/os/OasisHub/440001585/7205/Anim_Run.gltf')
         .then((res) => {
             const animations = res.animations;
             if (animations) {
@@ -418,7 +395,7 @@ function textureAndAnimationLoader(
         });
     engine.resourceManager
         .load<GLTFResource>(
-            "https://gw.alipayobjects.com/os/OasisHub/440001585/3380/Anim_Idle.gltf"
+            'https://gw.alipayobjects.com/os/OasisHub/440001585/3380/Anim_Idle.gltf'
         )
         .then((res) => {
             const animations = res.animations;
@@ -433,7 +410,7 @@ function textureAndAnimationLoader(
         });
     engine.resourceManager
         .load<GLTFResource>(
-            "https://gw.alipayobjects.com/os/OasisHub/440001585/5703/Anim_Landing.gltf"
+            'https://gw.alipayobjects.com/os/OasisHub/440001585/5703/Anim_Landing.gltf'
         )
         .then((res) => {
             const animations = res.animations;
@@ -446,7 +423,7 @@ function textureAndAnimationLoader(
         });
     engine.resourceManager
         .load<GLTFResource>(
-            "https://gw.alipayobjects.com/os/OasisHub/440001585/3275/Anim_Fall.gltf"
+            'https://gw.alipayobjects.com/os/OasisHub/440001585/3275/Anim_Fall.gltf'
         )
         .then((res) => {
             const animations = res.animations;
@@ -459,7 +436,7 @@ function textureAndAnimationLoader(
         });
     engine.resourceManager
         .load<GLTFResource>(
-            "https://gw.alipayobjects.com/os/OasisHub/440001585/2749/Anim_Jump_In.gltf"
+            'https://gw.alipayobjects.com/os/OasisHub/440001585/2749/Anim_Jump_In.gltf'
         )
         .then((res) => {
             const animations = res.animations;
@@ -472,9 +449,9 @@ function textureAndAnimationLoader(
         });
 }
 function init() {
-    //----------------------------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------------------
     PhysXPhysics.initialize().then(() => {
-        const engine = new WebGLEngine("canvas", { alpha: true });
+        const engine = new WebGLEngine('canvas', { alpha: true });
         engine.physicsManager.initialize(PhysXPhysics);
         engine.canvas.resizeByClientSize();
 
@@ -483,75 +460,60 @@ function init() {
         const rootEntity = scene.createRootEntity();
 
         // camera
-        const cameraEntity = rootEntity.createChild("camera_node");
+        const cameraEntity = rootEntity.createChild('camera_node');
         cameraEntity.transform.position.set(4, 4, -4);
         cameraEntity.addComponent(Camera);
         cameraEntity.addComponent(OrbitControl);
+        // cameraEntity.addComponent(Stats);
 
-        const lightNode = rootEntity.createChild("light_node");
+        const lightNode = rootEntity.createChild('light_node');
         lightNode.transform.setPosition(8, 10, 10);
         lightNode.transform.lookAt(new Vector3(0, 0, 0));
         const directLight = lightNode.addComponent(DirectLight);
         directLight.shadowType = ShadowType.SoftLow;
 
-        const entity = cameraEntity.createChild("text");
+        const entity = cameraEntity.createChild('text');
         entity.transform.position = new Vector3(0, 3.5, -10);
         const renderer = entity.addComponent(TextRenderer);
         renderer.color = new Color();
-        renderer.text = "Use `WASD` to move character and `Space` to jump";
-        renderer.font = Font.createFromOS(entity.engine, "Arial");
+        renderer.text = 'Use `WASD` to move character and `Space` to jump';
+        renderer.font = Font.createFromOS(entity.engine, 'Arial');
         renderer.fontSize = 40;
 
         addPlane(rootEntity, new Vector2(10, 6), new Vector3(), new Quaternion());
         const slope = new Quaternion();
 
         Quaternion.rotationEuler(20, 0, 0, slope);
-        console.log(slope.normalize())
-        addBox(
-            rootEntity,
-            new Vector3(4, 4, 0.01),
-            new Vector3(0, 0, 1),
-            slope.normalize()
-        );
-        addStair(
-            rootEntity,
-            new Vector3(1, 0.3, 0.5),
-            new Vector3(3, 0, 1),
-            new Quaternion()
-        );
+        // console.log(slope.normalize());
+        // addBox(rootEntity, new Vector3(4, 4, 0.01), new Vector3(0, 0, 1), slope.normalize());
+        // addStair(rootEntity, new Vector3(1, 0.3, 0.5), new Vector3(3, 0, 1), new Quaternion());
 
         engine.resourceManager
             .load<AmbientLight>({
                 type: AssetType.Env,
-                url: "https://gw.alipayobjects.com/os/bmw-prod/09904c03-0d23-4834-aa73-64e11e2287b0.bin",
+                url: 'https://gw.alipayobjects.com/os/bmw-prod/09904c03-0d23-4834-aa73-64e11e2287b0.bin',
             })
             .then((ambientLight) => {
                 scene.ambientLight = ambientLight;
-                // skyMaterial.textureCubeMap = ambientLight.specularTexture;
-                // skyMaterial.textureDecodeRGBM = true;
             });
 
-    // engine.resourceManager
-    //     .load<GLTFResource>(
-    //         '/medieval_fantasy_book.glb',
-    //     )
-    //     .then((asset) => {
-    //         // controllerEntity //addChild(res.defaultSceneRoot);
-    //         const animator = asset.defaultSceneRoot.getComponent(Animator);
-    //         const controllerEntity = rootEntity.createChild("controller");
-    //             controllerEntity.addChild(asset.defaultSceneRoot);
-    //         // cameraEntity.transform.setPosition(0, 0, -40);
-    //         // animator.play('Running');
-    //     });
+        engine.resourceManager.load<GLTFResource>(medieval_fantasy_book).then((asset) => {
+            const animator = asset.defaultSceneRoot.getComponent(Animator);
+            const controllerEntity = rootEntity.createChild('controller');
+            controllerEntity.addChild(asset.defaultSceneRoot);
+            // cameraEntity.transform.setPosition(0, 0, -40);
+            // animator.play('Running');
+        });
         engine.resourceManager
             .load<GLTFResource>(
-                "https://gw.alipayobjects.com/os/OasisHub/440001585/5407/Doggy_Demo.gltf"
+                'https://gw.alipayobjects.com/os/OasisHub/440001585/5407/Doggy_Demo.gltf'
             )
             .then((asset) => {
                 const { defaultSceneRoot } = asset;
-                console.log(asset)
-                const controllerEntity = rootEntity.createChild("controller");
-                // controllerEntity.addChild(defaultSceneRoot);
+                console.log(asset);
+                const controllerEntity = rootEntity.createChild('controller');
+                console.log(controllerEntity);
+                controllerEntity.addChild(defaultSceneRoot);
 
                 // animator
                 defaultSceneRoot.transform.setPosition(0, -0.35, 0);
@@ -561,8 +523,7 @@ function init() {
                 const physicsCapsule = new CapsuleColliderShape();
                 physicsCapsule.radius = 0.15;
                 physicsCapsule.height = 0.2;
-                const characterController =
-                    controllerEntity.addComponent(CharacterController);
+                const characterController = controllerEntity.addComponent(CharacterController);
                 characterController.addShape(physicsCapsule);
                 const userController = controllerEntity.addComponent(ControllerScript);
                 userController.targetCamera(cameraEntity);
@@ -576,7 +537,6 @@ function init() {
                 );
             });
     });
-
 }
 
 onMounted(init);
