@@ -19,6 +19,9 @@ progress,
 video {
     display: inline-block;
 }
+canvas:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
 audio:not([controls]) {
     display: none;
     height: 0;

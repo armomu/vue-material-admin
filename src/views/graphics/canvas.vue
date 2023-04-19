@@ -21,18 +21,18 @@ import { onMounted, onBeforeUnmount, shallowRef } from 'vue';
 const loading = ref(true);
 const nodeDom = shallowRef<HTMLCanvasElement>();
 const wrapNodeDom = shallowRef<HTMLDivElement>();
-var scene = new THREE.Scene();
-var renderer: THREE.WebGLRenderer;
-var camera: THREE.PerspectiveCamera;
-var clock = new THREE.Clock();
-var mixer: THREE.AnimationMixer;
-var controls: OrbitControls;
+const scene = new THREE.Scene();
+let renderer: THREE.WebGLRenderer;
+let camera: THREE.PerspectiveCamera;
+const clock = new THREE.Clock();
+let mixer: THREE.AnimationMixer;
+let controls: OrbitControls;
 const loader = new GLTFLoader();
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
-var model: THREE.Group;
+let model: THREE.Group;
 
-var animateID = 0;
+let animateID = 0;
 const animate = () => {
     renderer.render(scene, camera);
     controls.update();
@@ -44,10 +44,10 @@ const animate = () => {
     animateID = requestAnimationFrame(animate);
 };
 
-var floorMesh: THREE.Mesh;
+let floorMesh: THREE.Mesh;
 
-var curAnimation: THREE.AnimationAction;
-var animations: THREE.AnimationClip[];
+let curAnimation: THREE.AnimationAction;
+let animations: THREE.AnimationClip[];
 enum actions {
     Dance,
     Death,
@@ -139,7 +139,7 @@ function init() {
     // floorMesh.rotation.x = -Math.PI / 2;
     // scene.add(floorMesh);
 
-    var axesHelper = new THREE.AxesHelper(15);
+    const axesHelper = new THREE.AxesHelper(15);
     scene.add(axesHelper);
     const grid = new THREE.GridHelper(50, 50, 0x000000, 0x000000);
     scene.add(grid);
@@ -172,10 +172,10 @@ function onPointerClick(event: MouseEvent | any) {
 
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    var canvasPixelWidth = canvas.width / window.devicePixelRatio;
-    var canvasPixelHeight = canvas.height / window.devicePixelRatio;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const canvasPixelWidth = canvas.width / window.devicePixelRatio;
+    const canvasPixelHeight = canvas.height / window.devicePixelRatio;
 
     const needResize = canvasPixelWidth !== width || canvasPixelHeight !== height;
     if (needResize) {
