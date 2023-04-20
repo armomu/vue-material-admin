@@ -40,7 +40,7 @@ THREEx.KeyboardState = function () {
     this.modifiers = {};
 
     // create callback to bind/unbind keyboard events
-    var self = this;
+    const self = this;
     this._onKeyDown = function (event) {
         self._onKeyChange(event, true);
     };
@@ -82,7 +82,7 @@ THREEx.KeyboardState.prototype._onKeyChange = function (event, pressed) {
     // console.log("onKeyChange", event, pressed, event.keyCode, event.shiftKey, event.ctrlKey, event.altKey, event.metaKey)
 
     // update this.keyCodes
-    var keyCode = event.keyCode;
+    const keyCode = event.keyCode;
     this.keyCodes[keyCode] = pressed;
 
     // update this.modifiers
@@ -99,9 +99,9 @@ THREEx.KeyboardState.prototype._onKeyChange = function (event, pressed) {
  * @returns {Boolean} true if the key is pressed, false otherwise
  */
 THREEx.KeyboardState.prototype.pressed = function (keyDesc) {
-    var keys = keyDesc.split('+');
-    for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
+    const keys = keyDesc.split('+');
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
         var pressed;
         if (THREEx.KeyboardState.MODIFIERS.indexOf(key) !== -1) {
             pressed = this.modifiers[key];
