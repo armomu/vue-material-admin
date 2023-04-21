@@ -12,8 +12,9 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@babylonjs/core": "^5.56.0",
-    "@babylonjs/loaders": "^5.56.0",
+    "@babylonjs/havok": "^1.0.0",
+    "@babylonjs/core": "^6.0.0",
+    "@babylonjs/loaders": "^6.0.0",
     "@oasis-engine-toolkit/controls": "0.9.0-beta.4",
     "@oasis-engine/physics-physx": "0.9.0-beta.9",
     "apexcharts": "^3.36.3",

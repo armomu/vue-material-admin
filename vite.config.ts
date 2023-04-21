@@ -64,7 +64,7 @@ export default defineConfig(({ mode }) => {
             //     }
             // }
         },
-        assetsInclude: ['**/*.gltf', '**/*.glb'],
+        assetsInclude: ['**/*.gltf', '**/*.glb', '**/*.wasm'],
         resolve: {
             alias: {
                 '@': fileURLToPath(new URL('./src', import.meta.url)),
