@@ -18,7 +18,7 @@
     background-color: transparent !important;
 }
 
-div, body, html {
+div {
     &::-webkit-scrollbar {
         // 定义了滚动条整体的样式；
         width: 6px;
@@ -32,8 +32,21 @@ div, body, html {
     }
 }
 body, html {
+
+    &::-webkit-scrollbar {
+        // 定义了滚动条整体的样式；
+        width: 6px;
+        height: 6px;
+        background-color: var(--scrollbar);
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 5px;
+        height: 5px;
+        border-radius: 8px;
+        background-color: var(--scrollbar);
+    }
     &::-webkit-scrollbar-track {
         border-radius: 10px; // 轨道圆角
-        background: rgb(var(--theme-background)) !important // 轨道颜色
+        background-color: rgb(var(--theme-background)) !important // 轨道颜色
     }
 }

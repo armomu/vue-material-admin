@@ -27,11 +27,13 @@ export const useMainStore = defineStore('main', () => {
     scheme.addEventListener('change', () => {
         theme.value = scheme.matches ? 'dark' : 'light';
     });
-    console.log(scheme.matches);
+    const root = document.querySelector(':root');
+    root?.setAttribute('theme', scheme.matches ? 'dark' : 'light');
     const theme = ref(scheme.matches ? 'dark' : 'light');
 
     const onTheme = () => {
         theme.value = theme.value === 'light' ? 'dark' : 'light';
+        root?.setAttribute('theme', theme.value);
     };
 
     const upVisible = ref(false);

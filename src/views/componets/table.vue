@@ -58,7 +58,7 @@
                         hide-details
                     ></v-text-field>
                 </div>
-                <v-btn class="btn" variant="flat" prepend-icon="mdi-filter-variant"
+                <v-btn class="btn" variant="flat" prepend-icon="mdi-filter-variant" @click="onTest"
                     ><span> More</span></v-btn
                 >
             </div>
@@ -148,6 +148,7 @@
     </div>
 </template>
 <script setup lang="ts">
+import router from '@/router';
 import { ref } from 'vue';
 const dialog = ref(false);
 const list = ref([
@@ -194,6 +195,11 @@ const list = ref([
         progress: '78',
     },
 ]);
+const onTest = () => {
+    // router.push({
+    //     path: '/graphics/oasis-engine',
+    // });
+};
 </script>
 <style lang="scss">
 .tables_page {
