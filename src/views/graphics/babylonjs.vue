@@ -13,7 +13,6 @@ let engine: BABYLON.Engine;
 let scene: BABYLON.Scene;
 let camera: BABYLON.ArcRotateCamera;
 let physicsPlugin: BABYLON.HavokPlugin;
-// const lights: BABYLON.HemisphericLight[] = [];
 
 const init = async () => {
     const havokPlugin = await getHavokPhysics();
@@ -31,27 +30,50 @@ const init = async () => {
         scene
     );
     camera.attachControl(canvasDom.value!, true);
-    camera.setPosition(new BABYLON.Vector3(0, 30, -95));
+    camera.setPosition(new BABYLON.Vector3(5, 75, -150));
     // Add lights to the scene
     const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 0), scene);
     light.diffuse = new BABYLON.Color3(1, 1, 1);
-    // light.intensity = 0.4;
-    new BABYLON.AxesViewer(scene, 30);
-    engine.runRenderLoop(function () {
-        scene.render();
-        // animate();
+    light.intensity = 2;
+
+    scene.onAfterRenderCameraObservable.add(() => {
+        // console.log(camera.position);
     });
-    // scene.onAfterRenderCameraObservable.add(() => {
-    //     console.log(camera.position);
-    // });
-    addForestHouse();
-    addGround();
+    addBook();
+    // addForestHouse();
+    // addRobotExpressive();
+    // addGround();
     addBox();
     scene.onReadyObservable.addOnce(function () {
         // scene.stopAllAnimations();
     });
-
     // observer.observe(canvasDom.value as any);
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+    // 监听键盘事件
+    scene.onKeyboardObservable.add(function (eventData) {
+        if (eventData.type === BABYLON.KeyboardEventTypes.KEYDOWN) {
+            switch (eventData.event.keyCode) {
+                case 87: // W键
+                    // 执行向前移动操作
+                    console.log('w');
+                    break;
+                case 83: // S键
+                    // 执行向后移动操作
+                    console.log('s');
+                    break;
+                case 65: // A键
+                    // 执行向左移动操作
+                    console.log('a');
+                    break;
+                case 68: // D键
+                    // 执行向右移动操作
+                    console.log('d');
+                    break;
+            }
+        }
+    });
 };
 
 const onAfterRender = () => {};
@@ -62,6 +84,7 @@ const onAfterRender = () => {};
 // });
 
 const addBox = () => {
+    // const viewer = new BABYLON.PhysicsViewer();
     for (let i = 0; i < 10; i++) {
         // 随机生成一个颜色值
         const randomColor = BABYLON.Color3.FromHexString(
@@ -73,19 +96,23 @@ const addBox = () => {
         material.diffuseColor = randomColor;
 
         // 使用 MeshBuilder 创建一个立方体，并将它的材质设置为上一步中创建的材质
-        const box = BABYLON.MeshBuilder.CreateBox('box_' + i, { size: 5 }, scene);
+        const box = BABYLON.MeshBuilder.CreateBox('box_' + i, { size: 4 }, scene);
         box.material = material;
 
         // 将立方体的位置设置为随机位置
-        box.position.x = Math.random() * 10 - 5;
-        box.position.y = Math.random() * 10 + 80;
-        box.position.z = Math.random() * 10 - 5;
+        box.position.x = Math.random() * 10 + 5;
+        box.position.y = Math.random() * 10 + 50;
+        box.position.z = Math.random() * 10 + 5;
         const groundAggregate = new BABYLON.PhysicsAggregate(
             box,
             BABYLON.PhysicsShapeType.BOX,
             { mass: 100 },
             scene
         );
+
+        if (box.physicsBody) {
+            // viewer.showBody(box.physicsBody);
+        }
     }
 };
 
@@ -104,24 +131,12 @@ const addGround = () => {
 };
 
 const addForestHouse = () => {
-    BABYLON.SceneLoader.LoadAssetContainer('/', 'forest_house.glb', scene, function (container) {
-        // const [meshe1] = container.meshes;
-        // meshe1.position.y = 5;
-        container.addAllToScene();
-        container.meshes.forEach((meshe) => {
-            new BABYLON.PhysicsAggregate(meshe, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
-        });
-        // addSphere();
-    });
-};
-
-const addBook = () => {
     BABYLON.SceneLoader.LoadAssetContainer(
-        '/medieval_fantasy_book/',
-        'medieval_fantasy_book.glb',
+        import.meta.env.BASE_URL,
+        'forest_house.glb',
         scene,
         function (container) {
-            const [meshe1] = container.meshes;
+            // const [meshe1] = container.meshes;
             // meshe1.position.y = 5;
             container.addAllToScene();
             container.meshes.forEach((meshe) => {
@@ -132,7 +147,35 @@ const addBook = () => {
                     scene
                 );
             });
+            // addSphere();
+        }
+    );
+};
+
+const addBook = () => {
+    BABYLON.SceneLoader.LoadAssetContainer(
+        `${import.meta.env.BASE_URL}/medieval_fantasy_book/`,
+        'medieval_fantasy_book.glb',
+        scene,
+        function (container) {
+            const [meshe1] = container.meshes;
+            // meshe1.position.y = 5;
+            container.addAllToScene();
+            container.meshes.forEach((meshe) => {
+                new BABYLON.PhysicsAggregate(
+                    meshe,
+                    BABYLON.PhysicsShapeType.MESH,
+                    { mass: 0 },
+                    scene
+                );
+            });
             addSphere();
+            const viewer = new BABYLON.PhysicsViewer();
+            scene.meshes.forEach((item) => {
+                if (item.physicsBody) {
+                    viewer.showBody(item.physicsBody);
+                }
+            });
         }
     );
 };
@@ -142,7 +185,7 @@ const addCity = () => {
         // meshe1.position.y = 5;
         container.addAllToScene();
         container.meshes.forEach((meshe) => {
-            new BABYLON.PhysicsAggregate(meshe, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
+            new BABYLON.PhysicsAggregate(meshe, BABYLON.PhysicsShapeType.MESH, { mass: 0 }, scene);
         });
         addSphere();
     });
@@ -156,16 +199,21 @@ const addRobotExpressive = () => {
             // const [a, b, idle, d] = container.animationGroups;
             // idle.play(true);
             const [model] = container.meshes;
-            // model.position.y = 5;
-            // model.position.x = -4;
-            // model.position.z = 13;
-            new BABYLON.PhysicsAggregate(
-                model,
-                BABYLON.PhysicsShapeType.SPHERE,
-                { mass: 0 },
-                scene
+            model.position.y = 5;
+            container.meshes.forEach((meshe) => {
+                new BABYLON.PhysicsAggregate(
+                    meshe,
+                    BABYLON.PhysicsShapeType.MESH,
+                    { mass: 0 },
+                    scene
+                );
+            });
+            const characterController = new BABYLON.CharacterController(
+                character, // 角色模型
+                0.4, // 角色半径
+                1.8, // 角色高度
+                scene // 场景
             );
-            // camera.parent = model;
             container.addAllToScene();
         }
     );
@@ -173,23 +221,15 @@ const addRobotExpressive = () => {
 
 const addSphere = () => {
     const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2, segments: 32 }, scene);
-    sphere.position.y = 30;
-    sphere.position.x = 28;
-    sphere.position.z = -20;
+    sphere.position.y = 50;
+    sphere.position.x = 26;
+    sphere.position.z = -25;
     const sphereAggregate = new BABYLON.PhysicsAggregate(
         sphere,
         BABYLON.PhysicsShapeType.BOX,
         { mass: 1000 },
         scene
     );
-    // sphere.setAbsolutePosition
-    scene.onPointerDown = function (evt, pickResult) {
-        // 如果用户点击了地面，则获取点击位置的世界坐标
-        if (pickResult.hit) {
-            const position = pickResult.pickedPoint;
-            console.log('Clicked position: ', position);
-        }
-    };
 };
 window.addEventListener('resize', function () {
     engine?.resize();
