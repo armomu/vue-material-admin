@@ -7,6 +7,7 @@ export interface LeftMenuOptions {
 export interface MenuItemOptions {
     name: string;
     icon: string;
+    open: boolean;
     desc?: string;
     items: EditBoxOptions[];
 }

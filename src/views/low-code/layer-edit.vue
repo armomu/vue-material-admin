@@ -1,41 +1,43 @@
 <template>
     <div class="low_code_page">
         <v-card class="widgets">
-            <v-text-field
-                label="Search Wigets"
-                variant="outlined"
-                density="compact"
-                prepend-inner-icon="mdi-magnify"
-                class="ma-4"
-                hide-details
-            ></v-text-field>
-            <v-list v-model:opened="data.open" nav id="first-element-introduction">
-                <v-list-group v-for="item in data.widgets" :key="item.name" :value="item.name">
-                    <template v-slot:activator="{ props }">
-                        <v-list-item
-                            v-bind="props"
-                            :prepend-icon="item.icon"
-                            :title="item.name"
-                        ></v-list-item>
-                    </template>
-                    <div class="chart_s">
-                        <div
-                            v-for="row in item.items"
-                            :key="row.name"
-                            class="item"
-                            draggable="true"
-                            @dragend="onMenuDragend(row)"
-                        >
-                            <v-icon :icon="row.icon" size="50" />
-                            <!-- <div>{{ row.name }}</div> -->
-                        </div>
+            <div
+                v-for="(item, i) in data.widgets"
+                :key="item.name"
+                class="item"
+                :class="{
+                    active: item.open,
+                }"
+                @click="onWidgets(i)"
+            >
+                <div class="icon">
+                    <v-btn variant="text" :icon="item.icon">
+                        <v-icon size="small"></v-icon>
+                    </v-btn>
+                </div>
+
+                <v-card class="chart_s">
+                    <div
+                        v-for="row in item.items"
+                        :key="row.name"
+                        class="widget_item"
+                        draggable="true"
+                        @dragend="onMenuDragend(row)"
+                    >
+                        <v-icon :icon="row.icon" size="36" />
                     </div>
-                </v-list-group>
-            </v-list>
+                </v-card>
+            </div>
         </v-card>
         <div class="work_area">
-            <Grid />
-            <div class="work_content" id="second-element-introduction">
+            <Grid v-if="workViewData.showGrid" />
+            <div
+                class="work_content"
+                id="second-element-introduction"
+                :class="{
+                    showGrid: workViewData.showGrid,
+                }"
+            >
                 <div
                     class="scale_wrap"
                     :style="{
@@ -45,7 +47,7 @@
                     @drop="onDragEnd"
                 >
                     <template v-for="(item, key) in data.layouts">
-                        <DragSizeBle
+                        <DragResizeble
                             :key="key"
                             v-if="item.visible"
                             v-model:active="item.active"
@@ -56,7 +58,7 @@
                             @snapLine="onSnapLine"
                         >
                             <component :is="chartKeys[item.widget]" />
-                        </DragSizeBle>
+                        </DragResizeble>
                     </template>
                     <!--辅助线-->
                     <span
@@ -75,59 +77,50 @@
                     />
                 </div>
             </div>
+            <div class="column_tools">
+                <v-btn variant="text" icon="mdi-play-circle" size="small" />
+                <v-btn
+                    variant="text"
+                    icon="mdi-grid"
+                    :color="workViewData.showGrid ? 'primary' : ''"
+                    @click="workViewData.showGrid = !workViewData.showGrid"
+                    size="small"
+                />
+                <v-btn variant="text" icon="mdi-hand-back-right-outline" size="small" />
+                <v-slider
+                    v-model="scaleState.slider"
+                    color="primary"
+                    :step="1"
+                    class="slider"
+                    :max="200"
+                    :min="25"
+                    density="compact"
+                    direction="vertical"
+                    hide-details
+                    hidden
+                >
+                    <template v-slot:append>
+                        <v-menu>
+                            <template v-slot:activator="{ props }">
+                                <div style="width: 56px; text-align: center" v-bind="props">
+                                    {{ scaleState.slider }}%
+                                </div>
+                            </template>
+                            <v-list class="h_a_menu">
+                                <v-list-item
+                                    v-for="item in scaleState.sliderStep"
+                                    :key="item"
+                                    @click="onScale(item)"
+                                >
+                                    <v-list-item-title>{{ item }}%</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </template>
+                </v-slider>
+            </div>
         </div>
-        <v-card class="column_tools">
-            <v-tooltip text="Preview">
-                <template v-slot:activator="{ props }">
-                    <v-btn variant="text" icon="mdi-play-circle" v-bind="props" />
-                </template>
-            </v-tooltip>
-            <v-tooltip text="Hide grid">
-                <template v-slot:activator="{ props }">
-                    <v-btn variant="text" icon="mdi-grid" color="primary" v-bind="props">
-                        <v-icon size="small"></v-icon>
-                    </v-btn>
-                </template>
-            </v-tooltip>
-            <v-tooltip text="Move model">
-                <template v-slot:activator="{ props }">
-                    <v-btn variant="text" icon="mdi-hand-back-right-outline" v-bind="props">
-                        <v-icon size="small"></v-icon>
-                    </v-btn>
-                </template>
-            </v-tooltip>
-            <v-slider
-                v-model="scaleState.slider"
-                color="primary"
-                :step="1"
-                class="slider"
-                :max="200"
-                :min="25"
-                density="compact"
-                direction="vertical"
-                hide-details
-                hidden
-            >
-                <template v-slot:append>
-                    <v-menu>
-                        <template v-slot:activator="{ props }">
-                            <div style="width: 56px; text-align: center" v-bind="props">
-                                {{ scaleState.slider }}%
-                            </div>
-                        </template>
-                        <v-list class="h_a_menu">
-                            <v-list-item
-                                v-for="item in scaleState.sliderStep"
-                                :key="item"
-                                @click="onScale(item)"
-                            >
-                                <v-list-item-title>{{ item }}%</v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
-                </template>
-            </v-slider>
-        </v-card>
+
         <div class="tool_area">
             <v-card class="widget_tools">
                 <v-tabs v-model="data.attrTab" color="primary">
@@ -182,7 +175,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted } from 'vue';
 import { chartKeys } from './widgets/widgets';
-import DragSizeBle from './widgets/dragSizeBle.vue';
+import DragResizeble from './widgets/drag-resizeble.vue';
 import Grid from '@/views/low-code/widgets/Grid.vue';
 import vuedraggable from 'vuedraggable';
 
@@ -196,6 +189,12 @@ const scaleState = reactive({
 const onScale = (val: number) => {
     scaleState.slider = val;
 };
+const workViewData = reactive({
+    showGrid: true,
+    slider: 100,
+    sliderStep: [50, 100, 150],
+});
+
 const data = reactive<LeftMenuOptions>({
     open: ['Charts'],
     attrTab: 'one',
@@ -203,11 +202,13 @@ const data = reactive<LeftMenuOptions>({
         {
             name: 'Widgets',
             icon: 'mdi-auto-fix',
+            open: false,
             items: [],
         },
         {
             name: 'Charts',
             icon: 'mdi-chart-areaspline',
+            open: true,
             items: [
                 {
                     name: 'Line',
@@ -290,11 +291,13 @@ const data = reactive<LeftMenuOptions>({
         },
         {
             name: 'Form Inputs',
+            open: false,
             icon: 'mdi-form-select',
             items: [],
         },
         {
             name: '3D Model',
+            open: false,
             icon: 'mdi-unity',
             items: [],
         },
@@ -324,7 +327,18 @@ const data = reactive<LeftMenuOptions>({
         },
     ],
 });
-var DragingItem: EditBoxOptions;
+let DragingItem: EditBoxOptions;
+
+const onWidgets = (key: number) => {
+    console.log(key);
+    data.widgets.forEach((item, i) => {
+        if (i === key) {
+            item.open = !item.open;
+        } else {
+            item.open = false;
+        }
+    });
+};
 
 const onMenuDragend = (e: EditBoxOptions) => {
     DragingItem = JSON.parse(JSON.stringify(e));
@@ -353,6 +367,7 @@ const onDragEnd = (e: DragEvent) => {
         DragingItem.left = e.offsetX - width / 2;
         data.layouts.push(DragingItem);
     }, 30);
+    onWidgets(-1);
 };
 
 const snapLine = reactive<{

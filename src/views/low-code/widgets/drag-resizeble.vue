@@ -1,5 +1,5 @@
 <template>
-    <VueDragResize
+    <DragResizeBle
         :active="_active"
         :w="_width"
         :h="_height"
@@ -12,11 +12,11 @@
         @refLineParams="getRefLineParams"
     >
         <slot />
-    </VueDragResize>
+    </DragResizeBle>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
-import VueDragResize from '@/components/vue-draggable-resizable.vue';
+import DragResizeBle from '@/components/drag-resizeble/drag-resizeble.vue';
 
 const props = withDefaults(
     defineProps<{

@@ -1,6 +1,7 @@
 .low_code_page {
     display: flex;
-
+    position: relative;
+    // scale: ;
     .tttt {
         background-color: darkorange;
     }
@@ -11,23 +12,32 @@
 
     .widgets {
         height: calc(100vh - 124px);
-        width: 220px;
-        overflow-y: overlay;
-
+        width: 48px;
+        position: relative;
+        text-align: center;
+        overflow: inherit;
+        z-index: 3;
+        .item {
+            position: relative;
+        }
         .chart_s {
-            display: flex;
+            display: none;
+            width: 228px;
             flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 0 12px;
-
-            .item {
-                width: 30%;
+            position: absolute;
+            left: 56px;
+            top: 0;
+            z-index: 2;
+            padding: 4px;
+            min-height: 100px;
+            .widget_item {
                 text-align: center;
-                margin-bottom: 12px;
-
-                .v-icon {
-                    color: #999;
-                }
+                padding: 4px;
+            }
+        }
+        .active {
+            .chart_s {
+                display: flex;
             }
         }
     }
@@ -36,7 +46,6 @@
         // background: #fff;
         flex: 1;
         height: calc(100vh - 124px);
-        margin-left: 16px;
         overflow: hidden;
         position: relative;
         .ruler {
@@ -48,14 +57,11 @@
 
         .work_content {
             height: 100%;
-            // border: 1px solid var(--grid);
+            border: 1px solid rgba(186, 186, 186, 0.3);
             overflow: overlay;
             position: absolute;
             z-index: 1;
             width: 100%;
-        //     background: -webkit-linear-gradient(top, transparent 15px, var(--grid) 0),
-        //     -webkit-linear-gradient(left, transparent 15px, var(--grid) 0);
-        // background-size: 16px 16px;
             .scale_wrap {
                 width: 1920px;
                 height: 1080px;
@@ -63,6 +69,9 @@
                 left: 0;
                 transition: all 0.3s;
             }
+        }
+        .work_content.showGrid {
+            border: 0;
         }
 
         .w_b_tool {
@@ -73,27 +82,32 @@
             right: 16px;
             top: 0;
         }
-    }
 
-    .column_tools {
-        height: calc(100vh - 124px);
-        width: 56px;
-        margin-right: 16px;
-        position: relative;
-        text-align: center;
-        .slider {
+        .column_tools {
             position: absolute;
-            left: 0;
-            bottom: 0;
-            .v-input__control {
-                min-height: 100px;
+            text-align: center;
+            right: 10px;
+            top: 8px;
+            z-index: 3;
+            .v-btn {
+                display: block;
+            }
+            .slider {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                .v-input__control {
+                    min-height: 100px;
+                }
             }
         }
     }
 
+
+
     .tool_area {
         height: calc(100vh - 124px);
-        width: 320px;
+        width: 280px;
         .widget_tools  {
             height: calc(100vh - 424px);
         }

@@ -44,9 +44,9 @@ const init = async () => {
     // scene.onAfterRenderCameraObservable.add(() => {
     //     console.log(camera.position);
     // });
+    addForestHouse();
     addGround();
     addBox();
-    // addBook();
     scene.onReadyObservable.addOnce(function () {
         // scene.stopAllAnimations();
     });
@@ -78,7 +78,7 @@ const addBox = () => {
 
         // 将立方体的位置设置为随机位置
         box.position.x = Math.random() * 10 - 5;
-        box.position.y = Math.random() * 10 + 30;
+        box.position.y = Math.random() * 10 + 80;
         box.position.z = Math.random() * 10 - 5;
         const groundAggregate = new BABYLON.PhysicsAggregate(
             box,
@@ -103,6 +103,18 @@ const addGround = () => {
     );
 };
 
+const addForestHouse = () => {
+    BABYLON.SceneLoader.LoadAssetContainer('/', 'forest_house.glb', scene, function (container) {
+        // const [meshe1] = container.meshes;
+        // meshe1.position.y = 5;
+        container.addAllToScene();
+        container.meshes.forEach((meshe) => {
+            new BABYLON.PhysicsAggregate(meshe, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
+        });
+        // addSphere();
+    });
+};
+
 const addBook = () => {
     BABYLON.SceneLoader.LoadAssetContainer(
         '/medieval_fantasy_book/',
@@ -123,6 +135,17 @@ const addBook = () => {
             addSphere();
         }
     );
+};
+const addCity = () => {
+    BABYLON.SceneLoader.LoadAssetContainer('/', 'city.glb', scene, function (container) {
+        const [meshe1] = container.meshes;
+        // meshe1.position.y = 5;
+        container.addAllToScene();
+        container.meshes.forEach((meshe) => {
+            new BABYLON.PhysicsAggregate(meshe, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, scene);
+        });
+        addSphere();
+    });
 };
 const addRobotExpressive = () => {
     BABYLON.SceneLoader.LoadAssetContainer(
@@ -153,7 +176,13 @@ const addSphere = () => {
     sphere.position.y = 30;
     sphere.position.x = 28;
     sphere.position.z = -20;
-    new BABYLON.PhysicsAggregate(sphere, BABYLON.PhysicsShapeType.BOX, { mass: 1000 }, scene);
+    const sphereAggregate = new BABYLON.PhysicsAggregate(
+        sphere,
+        BABYLON.PhysicsShapeType.BOX,
+        { mass: 1000 },
+        scene
+    );
+    // sphere.setAbsolutePosition
     scene.onPointerDown = function (evt, pickResult) {
         // 如果用户点击了地面，则获取点击位置的世界坐标
         if (pickResult.hit) {

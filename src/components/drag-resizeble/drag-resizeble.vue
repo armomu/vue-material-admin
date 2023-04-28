@@ -30,13 +30,8 @@
 </template>
 
 <script>
-import {
-    matchesSelectorToParentElements,
-    getComputedSize,
-    addEvent,
-    removeEvent,
-} from '@/utils/dom';
-import { computeWidth, computeHeight, restrictToBounds, snapToGrid } from '@/utils/fns';
+import { matchesSelectorToParentElements, getComputedSize, addEvent, removeEvent } from './dom';
+import { computeWidth, computeHeight, restrictToBounds, snapToGrid } from './fns';
 import { defineComponent } from 'vue';
 
 const events = {
@@ -67,7 +62,7 @@ const userSelectAuto = {
     MsUserSelect: 'auto',
 };
 
-var eventsFor = events.mouse;
+let eventsFor = events.mouse;
 export default defineComponent({
     replace: true,
     name: 'vue-draggable-resizable',
@@ -1144,7 +1139,7 @@ export default defineComponent({
         },
         // 正则获取left与top
         formatTransformVal(string) {
-            var [left, top] = string.replace(/[^0-9\-,]/g, '').split(',');
+            let [left, top] = string.replace(/[^0-9\-,]/g, '').split(',');
             if (top === undefined) top = 0;
             return [+left, +top];
         },
