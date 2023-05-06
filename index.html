@@ -14,8 +14,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/icon/icon-192.png" sizes="192x192">
-    <script id="vite-plugin-pwa:register-sw" src="/vue-material-admin/registerSW.js"></script>
-    <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script>
+    <!-- <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script> -->
     <title>Material UI</title>
 </head>
 
@@ -23,9 +22,9 @@
     <div id="app"></div>
     <script >
         // @babylonjs/havok报错，HavokPhysics用cdn
-        window.onload = async function () {
-            globalThis.HK = await HavokPhysics();
-        };
+        // window.onload = async function () {
+        //     globalThis.HK = await HavokPhysics();
+        // };
     </script>
     <script type="module" src="/src/main.ts">
     </script>

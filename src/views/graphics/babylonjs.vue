@@ -7,6 +7,7 @@
 import { onMounted, shallowRef, onBeforeUnmount } from 'vue';
 import * as BABYLON from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
+import HavokPhysics from '@babylonjs/havok';
 
 const canvasDom = shallowRef<HTMLCanvasElement>();
 let engine: BABYLON.Engine;
@@ -15,7 +16,7 @@ let camera: BABYLON.ArcRotateCamera;
 let physicsPlugin: BABYLON.HavokPlugin;
 
 const init = async () => {
-    const havokPlugin = await getHavokPhysics();
+    const havokPlugin = await HavokPhysics();
     engine = new BABYLON.Engine(canvasDom.value!, true);
     scene = new BABYLON.Scene(engine);
     scene.clearColor = new BABYLON.Color4(136 / 255, 227 / 255, 254 / 255, 1);
@@ -53,35 +54,43 @@ const init = async () => {
     });
     // 监听键盘事件
     scene.onKeyboardObservable.add(function (eventData) {
-        if (eventData.type === BABYLON.KeyboardEventTypes.KEYDOWN) {
-            switch (eventData.event.keyCode) {
-                case 87: // W键
-                    // 执行向前移动操作
-                    console.log('w');
-                    break;
-                case 83: // S键
-                    // 执行向后移动操作
-                    console.log('s');
-                    break;
-                case 65: // A键
-                    // 执行向左移动操作
-                    console.log('a');
-                    break;
-                case 68: // D键
-                    // 执行向右移动操作
-                    console.log('d');
-                    break;
-            }
+        if (eventData.type !== BABYLON.KeyboardEventTypes.KEYDOWN) return;
+        switch (eventData.event.keyCode) {
+            case 87: // W键
+                sphere.physicsBody?.applyForce(
+                    new BABYLON.Vector3(0, 100, 0),
+                    sphere.getAbsolutePosition()
+                );
+                break;
+            case 83: // S键
+                sphere.physicsBody?.applyForce(
+                    new BABYLON.Vector3(0, -100, 0),
+                    sphere.getAbsolutePosition()
+                );
+                break;
+            case 65: // A键
+                sphere.physicsBody?.applyForce(
+                    new BABYLON.Vector3(-100, 0, 0),
+                    sphere.getAbsolutePosition()
+                );
+                break;
+            case 68: // D键
+                // 执行向右移动操作
+                sphere.physicsBody?.applyForce(
+                    new BABYLON.Vector3(100, 0, 0),
+                    sphere.getAbsolutePosition()
+                );
+                break;
         }
     });
+    scene.onPointerDown = function (evt, pickResult) {
+        // 如果用户点击了地面，则获取点击位置的世界坐标
+        if (pickResult.hit) {
+            const position = pickResult.pickedPoint;
+            console.log('Clicked position: ', position);
+        }
+    };
 };
-
-const onAfterRender = () => {};
-
-// 需要截流
-// const observer = new ResizeObserver(function (entries) {
-//     engine?.resize();
-// });
 
 const addBox = () => {
     // const viewer = new BABYLON.PhysicsViewer();
@@ -111,6 +120,7 @@ const addBox = () => {
         );
 
         if (box.physicsBody) {
+            // box.physicsImpostor
             // viewer.showBody(box.physicsBody);
         }
     }
@@ -124,10 +134,11 @@ const addGround = () => {
     // Create a static box shape.
     const groundAggregate = new BABYLON.PhysicsAggregate(
         ground,
-        BABYLON.PhysicsShapeType.BOX,
+        BABYLON.PhysicsShapeType.SPHERE,
         { mass: 0 },
         scene
     );
+    console.log(ground.physicsImpostor);
 };
 
 const addForestHouse = () => {
@@ -170,25 +181,33 @@ const addBook = () => {
                 );
             });
             addSphere();
-            const viewer = new BABYLON.PhysicsViewer();
-            scene.meshes.forEach((item) => {
-                if (item.physicsBody) {
-                    viewer.showBody(item.physicsBody);
-                }
-            });
+            // const viewer = new BABYLON.PhysicsViewer();
+            // scene.meshes.forEach((item) => {
+            //     if (item.physicsBody) {
+            //         viewer.showBody(item.physicsBody);
+            //     }
+            // });
         }
     );
 };
 const addCity = () => {
-    BABYLON.SceneLoader.LoadAssetContainer('/', 'city.glb', scene, function (container) {
-        const [meshe1] = container.meshes;
-        // meshe1.position.y = 5;
-        container.addAllToScene();
-        container.meshes.forEach((meshe) => {
-            new BABYLON.PhysicsAggregate(meshe, BABYLON.PhysicsShapeType.MESH, { mass: 0 }, scene);
-        });
-        addSphere();
-    });
+    BABYLON.SceneLoader.LoadAssetContainer(
+        import.meta.env.BASE_URL,
+        'city.glb',
+        scene,
+        function (container) {
+            container.addAllToScene();
+            container.meshes.forEach((meshe) => {
+                new BABYLON.PhysicsAggregate(
+                    meshe,
+                    BABYLON.PhysicsShapeType.MESH,
+                    { mass: 0 },
+                    scene
+                );
+            });
+            addSphere();
+        }
+    );
 };
 const addRobotExpressive = () => {
     BABYLON.SceneLoader.LoadAssetContainer(
@@ -208,28 +227,24 @@ const addRobotExpressive = () => {
                     scene
                 );
             });
-            const characterController = new BABYLON.CharacterController(
-                character, // 角色模型
-                0.4, // 角色半径
-                1.8, // 角色高度
-                scene // 场景
-            );
             container.addAllToScene();
         }
     );
 };
-
+let sphere: BABYLON.Mesh;
 const addSphere = () => {
-    const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2, segments: 32 }, scene);
-    sphere.position.y = 50;
-    sphere.position.x = 26;
-    sphere.position.z = -25;
+    sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2, segments: 32 }, scene);
+    sphere.position.y = 1;
+    sphere.position.x = -11;
+    sphere.position.z = -26;
     const sphereAggregate = new BABYLON.PhysicsAggregate(
         sphere,
-        BABYLON.PhysicsShapeType.BOX,
-        { mass: 1000 },
+        BABYLON.PhysicsShapeType.SPHERE,
+        { mass: 0 },
         scene
     );
+    sphere.physicsBody?.applyForce;
+    sphere.getAbsolutePivotPoint;
 };
 window.addEventListener('resize', function () {
     engine?.resize();
@@ -243,23 +258,23 @@ onBeforeUnmount(() => {
 });
 const getHavokPhysics = () => {
     let index = 0;
-    const timer = (cb: any) => {
+    const timer = (resolve: any, reject: any) => {
         setTimeout(() => {
             index++;
             if (index > 200) {
-                cb && cb(false);
+                reject && reject(false);
             }
             // eslint-disable-next-line no-undef
             if (!globalThis.HK) {
-                timer(cb);
+                timer(resolve, reject);
             } else {
                 // eslint-disable-next-line no-undef
-                cb && cb(HK);
+                resolve && resolve(globalThis.HK);
             }
         }, 100);
     };
-    return new Promise((resolve) => {
-        timer(resolve);
+    return new Promise((resolve, reject) => {
+        timer(resolve, reject);
     });
 };
 </script>

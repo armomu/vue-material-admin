@@ -64,6 +64,9 @@ export default defineConfig(({ mode }) => {
             //     }
             // }
         },
+        optimizeDeps: {
+            exclude: ['@babylonjs/havok'],
+        },
         assetsInclude: ['**/*.gltf', '**/*.glb', '**/*.wasm'],
         resolve: {
             alias: {
