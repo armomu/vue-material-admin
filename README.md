@@ -22,26 +22,21 @@
 
 </div>
 
-vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等技术栈，在 `material` 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，项目持续保持更新，如有改进及优化建议，直接提[issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
+vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等技术栈，在 `material` 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，项目持续保持更新，如有改进及优化建议，直接提  [issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
+
 > `dev` 分支为正在开发代码，`v2` 分支为旧版本，切换到旧版本需要重新 `install` 一下安装 `webpack` 相关依赖 `v1` 是 `Vuetify1.x `的老版本的备份
 
+
+> PWA遇到一个缓存的问题，ServiceWorkerRegistration?.update() [vite-plugin-pwa](https://vite-pwa-org.netlify.app/guide/prompt-for-update.html) 插件这个更新缓存的方法大多时候不管用，有这方面的大佬可以帮我看看吗？
 ## 功能支持
 | PWA      | i18n | 响应式 | 暗黑主题 |
 | :----: | :----: | :----:  | :----:   |
 |  ✅       | ❌   |  ✅    |  ✅    |
 
-
-## 浏览器支持
-
-本地开发推荐使用 `Chrome 80+` 浏览器，支持现代浏览器, 不支持 IE
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                                   not support                                                                                                                    |                                                                                            last 2 versions                                                                                             |                                                                                                  last 2 versions                                                                                                  |                                                                                                last 2 versions                                                                                                |                                                                                                last 2 versions                                                                                                |
-
 ## 本地开发
 
-> ⚠️ 注意：本地开发需要 `nodejs` 14.18+以上版本
+> ⚠️ 注意：本地开发需要 `nodejs` 14.18+以上版本，
+> 本地开发推荐使用 `Chrome 80+` 浏览器，支持现代浏览 器, 不支持 IE
 
 ```
 # 克隆项目
@@ -61,12 +56,12 @@ npm run dev
 ## 预览地址
 
 -   [👉戳这里](https://chenhuajie.gitee.io/vue-material-admin/)
--   [👉v2戳这里](https://chenhuajie.gitee.io/vue-material-admin/v2)
 
 ## 目录结构
 
 ```　　
-┌  public
+┌  .vscode
+├─ public
 ├─ tests
 ├─ src
 │ ├─ assets
@@ -105,24 +100,3 @@ npm run dev
 ## 许可证
 
 [MIT](./LICENSE)
-MIT License
-
-Copyright (c) 2021-present ChenHuaJie
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
