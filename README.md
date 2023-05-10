@@ -33,6 +33,14 @@ vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。�
 | :----: | :----: | :----:  | :----:   |
 |  ✅       | ❌   |  ✅    |  ✅    |
 
+## TODO
+- 特斯拉仪表盘
+- 智能家居控制中心
+- Vuetify 组件
+- Three.js 导入模型、360全景图基础演示
+- Babylon.js
+- 低代码编辑简单掩饰
+
 ## 本地开发
 
 > ⚠️ 注意：本地开发需要 `nodejs` 14.18+以上版本，
@@ -56,40 +64,6 @@ npm run dev
 ## 预览地址
 
 -   [👉戳这里](https://chenhuajie.gitee.io/vue-material-admin/)
-
-## 目录结构
-
-```　　
-┌  .vscode
-├─ public
-├─ tests
-├─ src
-│ ├─ assets
-│ ├─ components
-│ ├─ layout
-│ ├─ plugins
-│ ├─ router
-│ ├─ store
-│ ├─ styles
-│ ├─ views
-│ ├─ app.vue
-│ └─ main.ts
-└─ typings
-├─ .editorconfig
-├─ .env.development
-├─ .env.production
-├─ .eslintrc.cjs
-├─ .gitignore
-├─ .prettierrc.json
-├─ env.d.ts
-├─ index.html
-├─ package.json
-├─ README.md
-├─ tsconfig.config.json
-├─ tsconfig.json
-└─ vite.config.ts
-```
-
 ## 页面截图
 
 <p align="center">

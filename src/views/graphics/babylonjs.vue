@@ -40,11 +40,12 @@ const init = async () => {
     scene.onAfterRenderCameraObservable.add(() => {
         // console.log(camera.position);
     });
-    addBook();
+    // addBook();
     // addForestHouse();
     // addRobotExpressive();
-    // addGround();
-    addBox();
+    addGround();
+    // addBox();
+    addSphere();
     scene.onReadyObservable.addOnce(function () {
         // scene.stopAllAnimations();
     });
@@ -124,6 +125,12 @@ const addBox = () => {
             // viewer.showBody(box.physicsBody);
         }
     }
+    const viewer = new BABYLON.PhysicsViewer();
+    scene.meshes.forEach((item) => {
+        if (item.physicsBody) {
+            viewer.showBody(item.physicsBody);
+        }
+    });
 };
 
 const addGround = () => {
@@ -132,13 +139,13 @@ const addGround = () => {
     ground_material.diffuseColor = BABYLON.Color3.Gray();
     ground.material = ground_material;
     // Create a static box shape.
+    // ground.position.y = 10;
     const groundAggregate = new BABYLON.PhysicsAggregate(
         ground,
-        BABYLON.PhysicsShapeType.SPHERE,
+        BABYLON.PhysicsShapeType.BOX,
         { mass: 0 },
         scene
     );
-    console.log(ground.physicsImpostor);
 };
 
 const addForestHouse = () => {
@@ -180,7 +187,8 @@ const addBook = () => {
                     scene
                 );
             });
-            addSphere();
+            addBox();
+            // addSphere();
             // const viewer = new BABYLON.PhysicsViewer();
             // scene.meshes.forEach((item) => {
             //     if (item.physicsBody) {
@@ -234,17 +242,19 @@ const addRobotExpressive = () => {
 let sphere: BABYLON.Mesh;
 const addSphere = () => {
     sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2, segments: 32 }, scene);
-    sphere.position.y = 1;
+    sphere.position.y = 10;
     sphere.position.x = -11;
     sphere.position.z = -26;
     const sphereAggregate = new BABYLON.PhysicsAggregate(
         sphere,
         BABYLON.PhysicsShapeType.SPHERE,
-        { mass: 0 },
+        { mass: 1 },
         scene
     );
     sphere.physicsBody?.applyForce;
     sphere.getAbsolutePivotPoint;
+    // camera.parent = sphere;
+    camera.lockedTarget = sphere;
 };
 window.addEventListener('resize', function () {
     engine?.resize();

@@ -31,15 +31,19 @@ vue-material-admin It is a free open source mid-backend template based on `Vueti
 |  ✅       | ❌   |  ✅    |  ✅    |
 
 
-## Browser Support
-
-It is recommended to use `Chrome 80+` browser for local development, modern browsers are supported, IE is not supported
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                                   not support                                                                                                                    |                                                                                            last 2 versions                                                                                             |                                                                                                  last 2 versions                                                                                                  |                                                                                                last 2 versions                                                                                                |                                                                                                last 2 versions                                                                                                |
+##TODO
+- Tesla models Dashboard
+- Smart Home Control Center
+- Vuetify components
+- Three.js import model, 360 panorama basic demo
+- Babylon.js
+- Simple demo for low-code editing
 
 ## Developer
+
+> ⚠️ Note: Local development requires `nodejs` 14.18+ version,
+> It is recommended to use `Chrome 80+` browser for local development, modern browsers are supported, IE is not supported
+
 
 ```
 # clone
@@ -59,39 +63,6 @@ npm run dev
 ## Online Demo
 
 -   [👉Demo](https://chenhuajie.gitee.io/vue-material-admin/)
--   [👉v2Demo](https://chenhuajie.gitee.io/vue-material-admin/v2)
-
-## File Directory
-
-```　　
-┌  public
-├─ tests
-├─ src
-│ ├─ assets
-│ ├─ components
-│ ├─ layout
-│ ├─ plugins
-│ ├─ router
-│ ├─ store
-│ ├─ styles
-│ ├─ views
-│ ├─ app.vue
-│ └─ main.ts
-└─ typings
-├─ .editorconfig
-├─ .env.development
-├─ .env.production
-├─ .eslintrc.cjs
-├─ .gitignore
-├─ .prettierrc.json
-├─ env.d.ts
-├─ index.html
-├─ package.json
-├─ README.md
-├─ tsconfig.config.json
-├─ tsconfig.json
-└─ vite.config.ts
-```
 
 ## Screenshot
 
