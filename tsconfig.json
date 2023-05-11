@@ -3,7 +3,8 @@
   "include": ["src/**/*", "src/**/*.vue", "typings/*", "node_modules/vite-plugin-pwa/client.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",
-    "allowJs": true,
+    // "allowJs": true,
+    "ignoreDeprecations": "5.0",
     "paths": {
       "@/*": ["./src/*"]
     }

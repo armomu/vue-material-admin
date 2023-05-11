@@ -39,7 +39,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import THREEx from '@/utils/KeyboardState';
+// import THREEx from '@/utils/KeyboardState';
 import { reactive, onMounted, onBeforeUnmount, shallowRef, ref } from 'vue';
 const loading = ref(true);
 const locaFiles = reactive({
@@ -102,7 +102,7 @@ const animate = () => {
     controls.update();
     const delta = clock.getDelta();
     mixer.update(delta);
-    modelRun(delta);
+    // modelRun(delta);
     animateID = requestAnimationFrame(animate);
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
@@ -129,7 +129,7 @@ enum actions {
     Yes,
 }
 
-const keyboard = new THREEx.KeyboardState();
+// const keyboard = new THREEx.KeyboardState();
 const modelRun = (delta: number) => {
     const moveDistance = 10 * delta;
     const rotateAngle = (Math.PI / 2) * delta;
