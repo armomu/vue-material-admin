@@ -9,10 +9,10 @@ export class Player {
     public scene!: BABYLON.Scene;
     public camera!: BABYLON.ArcRotateCamera;
     public physicsPlugin!: BABYLON.HavokPlugin;
-    public raycastResult!: BABYLON.PhysicsRaycastResult;
     public Robot!: BABYLON.AbstractMesh;
     public shadowGenerator!: BABYLON.ShadowGenerator;
     public axesViewer!: BABYLON.AxesViewer;
+    public characterController!: CharacterController;
 
     constructor(_canvas: HTMLCanvasElement) {
         this.canvas = _canvas;
@@ -28,34 +28,40 @@ export class Player {
         this.scene.enablePhysics(null, this.physicsPlugin);
 
         this.camera = new BABYLON.ArcRotateCamera(
-            'Camera',
-            Math.PI / 2,
-            Math.PI / 2,
-            2,
+            'arcCamera1',
+            0,
+            0,
+            10,
             BABYLON.Vector3.Zero(),
             this.scene
         );
-        this.camera.attachControl(this.canvas, true);
-        this.camera.setPosition(new BABYLON.Vector3(5, 75, 25));
-        this.axesViewer = new BABYLON.AxesViewer(this.scene, 20);
-        const cam2 = new BABYLON.ArcRotateCamera(
-            'cam2',
-            0.2,
-            Math.PI / 2.5,
-            25,
-            BABYLON.Vector3.Zero(),
-            this.scene
-        );
-        cam2.viewport = new BABYLON.Viewport(0.75, 0.75, 0.25, 0.25);
-        this.scene.activeCameras?.push(cam2);
-        this.scene.activeCameras?.push(this.camera);
+        this.camera.attachControl(this.canvas, false);
+        this.camera.setPosition(new BABYLON.Vector3(0, 6, -16));
+        this.camera.checkCollisions = true;
+        // this.camera.applyGravity = true;
+        // this.camera.lowerRadiusLimit = 16 // 最小缩放;
+        // this.camera.upperRadiusLimit = 20; //最大缩放
 
-        this.scene.cameraToUseForPointers = this.camera;
+        // this.axesViewer = new BABYLON.AxesViewer(this.scene, 20);
+        // const cam2 = new BABYLON.ArcRotateCamera(
+        //     'cam2',
+        //     0.2,
+        //     Math.PI / 2.5,
+        //     25,
+        //     BABYLON.Vector3.Zero(),
+        //     this.scene
+        // );
+        // cam2.viewport = new BABYLON.Viewport(0.75, 0.75, 0.25, 0.25);
+        // this.scene.activeCameras?.push(cam2);
+        // this.scene.activeCameras?.push(this.camera);
+
+        // this.scene.cameraToUseForPointers = this.camera;
         // Add lights to the scene
-        new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(1, 1, 0), this.scene);
+        new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(1, 30, 0), this.scene);
+
         const light = new BABYLON.PointLight(
             'sparklight',
-            new BABYLON.Vector3(0, 0, 0),
+            new BABYLON.Vector3(0, 5, 0),
             this.scene
         );
         light.diffuse = new BABYLON.Color3(
@@ -65,7 +71,6 @@ export class Player {
         );
         light.intensity = 35;
         light.radius = 1;
-
         this.shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
         this.shadowGenerator.darkness = 0.4;
 
@@ -106,14 +111,17 @@ export class Player {
             this.scene,
             (container) => {
                 this.Robot = container.meshes[0];
-                container.addAllToScene();
-                new CharacterController(container, this.camera, this.scene);
+                this.characterController = new CharacterController(
+                    container,
+                    this.camera,
+                    this.scene
+                );
                 const localAxes = new BABYLON.AxesViewer(this.scene, 1);
                 // 创建XYZ轴辅助
                 localAxes.xAxis.parent = this.Robot;
                 localAxes.yAxis.parent = this.Robot;
                 localAxes.zAxis.parent = this.Robot;
-                this.camera.lockedTarget = this.Robot;
+                container.addToScene();
                 // const rotationQuaternion = this.Robot.rotationQuaternion;
             }
         );
