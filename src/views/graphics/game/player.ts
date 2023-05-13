@@ -36,43 +36,40 @@ export class Player {
             this.scene
         );
         this.camera.attachControl(this.canvas, false);
-        this.camera.setPosition(new BABYLON.Vector3(0, 6, -16));
+        this.camera.setPosition(new BABYLON.Vector3(0, 2, 15));
         this.camera.checkCollisions = true;
         // this.camera.applyGravity = true;
-        // this.camera.lowerRadiusLimit = 16 // 最小缩放;
-        // this.camera.upperRadiusLimit = 20; //最大缩放
+        this.camera.lowerRadiusLimit = 10; // 最小缩放;
+        this.camera.upperRadiusLimit = 50; // 最大缩放
 
-        // this.axesViewer = new BABYLON.AxesViewer(this.scene, 20);
-        // const cam2 = new BABYLON.ArcRotateCamera(
-        //     'cam2',
-        //     0.2,
-        //     Math.PI / 2.5,
-        //     25,
-        //     BABYLON.Vector3.Zero(),
-        //     this.scene
-        // );
-        // cam2.viewport = new BABYLON.Viewport(0.75, 0.75, 0.25, 0.25);
-        // this.scene.activeCameras?.push(cam2);
-        // this.scene.activeCameras?.push(this.camera);
-
-        // this.scene.cameraToUseForPointers = this.camera;
-        // Add lights to the scene
         new BABYLON.HemisphericLight('hemisphericLight', new BABYLON.Vector3(1, 30, 0), this.scene);
 
-        const light = new BABYLON.PointLight(
-            'sparklight',
-            new BABYLON.Vector3(0, 5, 0),
+        // const light = new BABYLON.PointLight(
+        //     'sparklight',
+        //     new BABYLON.Vector3(0, 5, 0),
+        //     this.scene
+        // );
+        // light.diffuse = new BABYLON.Color3(
+        //     0.08627450980392157,
+        //     0.10980392156862745,
+        //     0.15294117647058825
+        // );
+        // light.intensity = 35;
+        // light.radius = 1;
+
+        const light = new BABYLON.DirectionalLight(
+            'light',
+            new BABYLON.Vector3(-1, -1, -1),
             this.scene
         );
-        light.diffuse = new BABYLON.Color3(
-            0.08627450980392157,
-            0.10980392156862745,
-            0.15294117647058825
-        );
-        light.intensity = 35;
-        light.radius = 1;
+        // var light = new BABYLON.PointLight("light", new BABYLON.Vector3(0, 0, 0), scene);
+        // var light = new BABYLON.SpotLight("light", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(-1, -1, -1), Math.PI/4, 50, scene);
+
+        light.intensity = 2;
+        light.position = new BABYLON.Vector3(5, 16, 5);
+
         this.shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
-        this.shadowGenerator.darkness = 0.4;
+        this.shadowGenerator.darkness = 0.8;
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
@@ -89,16 +86,24 @@ export class Player {
             'medieval_fantasy_book.glb',
             this.scene,
             (container) => {
-                console.log('addBook');
-                container.addAllToScene();
-                container.meshes.forEach((meshe) => {
+                // const viewer = new BABYLON.PhysicsViewer();
+                container.meshes.forEach((meshe, index) => {
+                    if (index === 0) {
+                        meshe.scaling = new BABYLON.Vector3(3, 3, 3);
+                    }
+                    meshe.receiveShadows = true;
+                    this.shadowGenerator.addShadowCaster(meshe);
                     new BABYLON.PhysicsAggregate(
                         meshe,
                         BABYLON.PhysicsShapeType.MESH,
                         { mass: 0 },
                         this.scene
                     );
+                    if (meshe.physicsBody) {
+                        // viewer.showBody(meshe.physicsBody);
+                    }
                 });
+                container.addAllToScene();
                 this.addRobotExpressive();
             }
         );
@@ -111,6 +116,9 @@ export class Player {
             this.scene,
             (container) => {
                 this.Robot = container.meshes[0];
+                container.meshes.forEach((meshe) => {
+                    this.shadowGenerator.addShadowCaster(meshe);
+                });
                 this.characterController = new CharacterController(
                     container,
                     this.camera,
