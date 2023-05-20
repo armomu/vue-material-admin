@@ -8,7 +8,6 @@ enum animatstate {
     Walking = 10,
     WalkJump = 11,
 }
-
 export class CharacterController {
     public inputMap: InputMap = {};
     public player!: BABYLON.AbstractMesh;
@@ -33,7 +32,7 @@ export class CharacterController {
         this.scene.actionManager = new BABYLON.ActionManager(this.scene);
         this.scene.actionManager.registerAction(
             new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, (evt) => {
-                console.log(evt.sourceEvent.key, '按下');
+                // console.log(evt.sourceEvent.key, '按下');
                 this.inputMap[evt.sourceEvent.key] = evt.sourceEvent.type === 'keydown';
                 this.curAnimation?.pause();
             })
@@ -41,7 +40,7 @@ export class CharacterController {
         this.physEngine = this.scene.getPhysicsEngine();
         this.scene.actionManager.registerAction(
             new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, (evt) => {
-                console.log(evt.sourceEvent.key, '抬起');
+                // console.log(evt.sourceEvent.key, '抬起');
                 this.inputMap[evt.sourceEvent.key] = evt.sourceEvent.type === 'keydown';
                 this.curAnimation?.stop();
                 this.curAnimation = _meshContent.animationGroups[animatstate.Idle];

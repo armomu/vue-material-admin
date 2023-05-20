@@ -74,10 +74,41 @@ export class Player {
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
-        this.addBook();
+        // this.addBook();
+        this.addPly();
         window.addEventListener('resize', () => {
             this.engine.resize();
         });
+    }
+
+    public addPly() {
+        const ground = BABYLON.MeshBuilder.CreateGround(
+            'ground',
+            { width: 100, height: 100 },
+            this.scene
+        );
+        const ground_material = new BABYLON.StandardMaterial('gm');
+        ground_material.diffuseColor = BABYLON.Color3.Gray();
+        ground.material = ground_material;
+        // Create a static box shape.
+        const groundAggregate = new BABYLON.PhysicsAggregate(
+            ground,
+            BABYLON.PhysicsShapeType.BOX,
+            { mass: 0 },
+            this.scene
+        );
+        BABYLON.SceneLoader.LoadAssetContainer(
+            `${import.meta.env.BASE_URL}/ply/`,
+            'scene.gltf',
+            this.scene,
+            (container) => {
+                const [ply] = container.meshes;
+                ply.scaling = new BABYLON.Vector3(700, 700, 700);
+                // const viewer = new BABYLON.PhysicsViewer();
+
+                container.addAllToScene();
+            }
+        );
     }
 
     private addBook() {
@@ -111,7 +142,7 @@ export class Player {
 
     private addRobotExpressive() {
         BABYLON.SceneLoader.LoadAssetContainer(
-            '/RobotExpressive/',
+            `${import.meta.env.BASE_URL}/RobotExpressive/`,
             'RobotExpressive.glb',
             this.scene,
             (container) => {
@@ -125,12 +156,10 @@ export class Player {
                     this.scene
                 );
                 const localAxes = new BABYLON.AxesViewer(this.scene, 1);
-                // 创建XYZ轴辅助
                 localAxes.xAxis.parent = this.Robot;
                 localAxes.yAxis.parent = this.Robot;
                 localAxes.zAxis.parent = this.Robot;
                 container.addToScene();
-                // const rotationQuaternion = this.Robot.rotationQuaternion;
             }
         );
     }
