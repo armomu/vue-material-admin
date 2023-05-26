@@ -39,7 +39,7 @@ vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。�
 - Vuetify 组件
 - Three.js 导入模型、360全景图基础演示
 - Babylon.js
-- 低代码编辑简单掩饰
+- 简单的低代码编辑演示
 
 ## 本地开发
 

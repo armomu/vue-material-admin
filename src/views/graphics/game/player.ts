@@ -4,23 +4,20 @@ import HavokPhysics from '@babylonjs/havok';
 import { CharacterController } from './characterController';
 
 export class Player {
-    public canvas!: HTMLCanvasElement;
     public engine!: BABYLON.Engine;
     public scene!: BABYLON.Scene;
     public camera!: BABYLON.ArcRotateCamera;
     public physicsPlugin!: BABYLON.HavokPlugin;
-    public Robot!: BABYLON.AbstractMesh;
     public shadowGenerator!: BABYLON.ShadowGenerator;
     public axesViewer!: BABYLON.AxesViewer;
     public characterController!: CharacterController;
 
     constructor(_canvas: HTMLCanvasElement) {
-        this.canvas = _canvas;
-        this.main();
+        this.main(_canvas);
     }
-    private async main() {
+    private async main(canvas: HTMLCanvasElement) {
         const havokPlugin = await HavokPhysics();
-        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.engine = new BABYLON.Engine(canvas, true);
         this.scene = new BABYLON.Scene(this.engine);
 
         this.scene.clearColor = new BABYLON.Color4(136 / 255, 227 / 255, 254 / 255, 1);
@@ -35,7 +32,7 @@ export class Player {
             BABYLON.Vector3.Zero(),
             this.scene
         );
-        this.camera.attachControl(this.canvas, false);
+        this.camera.attachControl(canvas, false);
         this.camera.setPosition(new BABYLON.Vector3(0, 2, 15));
         this.camera.checkCollisions = true;
         // this.camera.applyGravity = true;
@@ -59,7 +56,7 @@ export class Player {
 
         const light = new BABYLON.DirectionalLight(
             'light',
-            new BABYLON.Vector3(-1, -1, -1),
+            new BABYLON.Vector3(0, 20, 0),
             this.scene
         );
         // var light = new BABYLON.PointLight("light", new BABYLON.Vector3(0, 0, 0), scene);
@@ -67,18 +64,27 @@ export class Player {
 
         light.intensity = 2;
         light.position = new BABYLON.Vector3(5, 16, 5);
-
         this.shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
         this.shadowGenerator.darkness = 0.8;
-
+        new BABYLON.AxesViewer(this.scene, 1);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
-        // this.addBook();
-        this.addPly();
+        this.addBook();
+
         window.addEventListener('resize', () => {
             this.engine.resize();
         });
+        // 创建性能监视器
+        const performanceMonitor = new BABYLON.PerformanceMonitor();
+
+        // 将性能监视器添加到渲染循环中
+        this.scene.registerAfterRender(function () {
+            performanceMonitor.sampleFrame();
+        });
+
+        // 在屏幕上显示性能监视器
+        performanceMonitor.enable();
     }
 
     public addPly() {
@@ -91,24 +97,8 @@ export class Player {
         ground_material.diffuseColor = BABYLON.Color3.Gray();
         ground.material = ground_material;
         // Create a static box shape.
-        const groundAggregate = new BABYLON.PhysicsAggregate(
-            ground,
-            BABYLON.PhysicsShapeType.BOX,
-            { mass: 0 },
-            this.scene
-        );
-        BABYLON.SceneLoader.LoadAssetContainer(
-            `${import.meta.env.BASE_URL}/ply/`,
-            'scene.gltf',
-            this.scene,
-            (container) => {
-                const [ply] = container.meshes;
-                ply.scaling = new BABYLON.Vector3(700, 700, 700);
-                // const viewer = new BABYLON.PhysicsViewer();
-
-                container.addAllToScene();
-            }
-        );
+        new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, this.scene);
+        this.loadAssetContainer(`${import.meta.env.BASE_URL}/ply/`, 'scene.gltf', 350);
     }
 
     private addBook() {
@@ -135,33 +125,57 @@ export class Player {
                     }
                 });
                 container.addAllToScene();
-                this.addRobotExpressive();
+
+                enum animatstate1 {
+                    Idle = 0,
+                    Jump = 7,
+                    Running = 12,
+                    Walking = 11,
+                }
+                enum animatstate2 {
+                    Idle = 2,
+                    Jump = 3,
+                    Running = 6,
+                    Walking = 10,
+                }
+                this.loadAssetContainer(
+                    `${import.meta.env.BASE_URL}/ply/`,
+                    'scene.gltf',
+                    animatstate1,
+                    350
+                );
+                console.log(animatstate1.Jump);
+                // this.loadAssetContainer(
+                //     `${import.meta.env.BASE_URL}/RobotExpressive/`,
+                //     'RobotExpressive.glb',
+                //     animatstate2,
+                //     1
+                // );
             }
         );
     }
 
-    private addRobotExpressive() {
-        BABYLON.SceneLoader.LoadAssetContainer(
-            `${import.meta.env.BASE_URL}/RobotExpressive/`,
-            'RobotExpressive.glb',
-            this.scene,
-            (container) => {
-                this.Robot = container.meshes[0];
-                container.meshes.forEach((meshe) => {
-                    this.shadowGenerator.addShadowCaster(meshe);
-                });
-                this.characterController = new CharacterController(
-                    container,
-                    this.camera,
-                    this.scene
-                );
-                const localAxes = new BABYLON.AxesViewer(this.scene, 1);
-                localAxes.xAxis.parent = this.Robot;
-                localAxes.yAxis.parent = this.Robot;
-                localAxes.zAxis.parent = this.Robot;
-                container.addToScene();
-            }
-        );
+    private loadAssetContainer(
+        rootUrl: string,
+        sceneFilename: string,
+        animatstateEmun: any,
+        scaling = 1
+    ) {
+        BABYLON.SceneLoader.LoadAssetContainer(rootUrl, sceneFilename, this.scene, (container) => {
+            const [player] = container.meshes;
+
+            player.scaling = new BABYLON.Vector3(-scaling, scaling, -scaling);
+            container.meshes.forEach((meshe) => {
+                this.shadowGenerator.addShadowCaster(meshe);
+            });
+            this.characterController = new CharacterController(
+                container,
+                this.camera,
+                this.scene,
+                animatstateEmun
+            );
+            container.addToScene();
+        });
     }
 
     public addRandomBox() {
@@ -176,7 +190,7 @@ export class Player {
             material.diffuseColor = randomColor;
 
             // 使用 MeshBuilder 创建一个立方体，并将它的材质设置为上一步中创建的材质
-            const box = BABYLON.MeshBuilder.CreateBox('box_' + i, { size: 4 }, this.scene);
+            const box = BABYLON.MeshBuilder.CreateBox('box_' + i, { size: 2 }, this.scene);
             box.material = material;
 
             // 将立方体的位置设置为随机位置
@@ -190,12 +204,6 @@ export class Player {
                 this.scene
             );
         }
-        // const viewer = new BABYLON.PhysicsViewer();
-        // scene.meshes.forEach((item) => {
-        //     if (item.physicsBody) {
-        //         viewer.showBody(item.physicsBody);
-        //     }
-        // });
     }
 
     public dispose() {
