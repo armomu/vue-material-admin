@@ -17,7 +17,7 @@ export class CharacterController {
     public meshContent!: BABYLON.AssetContainer;
     private scene!: BABYLON.Scene;
     private camera!: BABYLON.ArcRotateCamera;
-    public fpx = 0;
+    public fps = 0;
     private speed = 12;
     private raycastResult = new BABYLON.PhysicsRaycastResult();
     private physEngine: BABYLON.Nullable<IPhysicsEngine>;
@@ -47,7 +47,6 @@ export class CharacterController {
         this.physEngine = this.scene.getPhysicsEngine();
         this.scene.actionManager.registerAction(
             new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, (evt) => {
-                console.log(evt.sourceEvent.code, '抬起');
                 this.inputMap[evt.sourceEvent.code] = evt.sourceEvent.type === 'keydown';
                 this.curAnimation?.stop();
                 this.curAnimation = _meshContent.animationGroups[animatstate.Idle];
@@ -55,19 +54,14 @@ export class CharacterController {
             })
         );
         this.scene.onBeforeRenderObservable.add(() => {
-            this.fpx = engine.getFps();
+            this.fps = engine.getFps();
             this.updateFromKeyboard();
-            // console.log(_scene.getEngine().getFps());
         });
         this.scene.onAfterCameraRenderObservable.add(() => {
-            // this.lookAtCamera();
             // this.lookAtCamera();
             if (this.inputMap['KeyW']) {
                 // this.lookAtCamera();
             }
-
-            this.getPlayerDirection(this.player);
-            // console.log('物体的朝向为：' + direction, this.player.position.toString());
         });
     }
 
@@ -79,14 +73,8 @@ export class CharacterController {
         _meshContent.animationGroups[animatstate.Walking].speedRatio = 2;
         this.curAnimation.play(true);
         this.camera.setTarget(this.player);
-        this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 4);
-        this.player.rotation.y = 5;
-        // this.addHelper();
-        // const d = this.getPlayerDirection(this.player);
-        // console.log(d);
-        // this.addHelper();
-        // this.lookAtCamera();
-        // this.player.translate(BABYLON.Axis.Z, 2, BABYLON.Space.WORLD);
+        // this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 4);
+        // this.player.rotation.y = 5;
     }
 
     private getPlayerDirection(mesh: BABYLON.TransformNode) {
@@ -99,17 +87,45 @@ export class CharacterController {
         direction = BABYLON.Vector3.Normalize(direction);
 
         const ray = new BABYLON.Ray(mesh.position, direction, 3);
-        const rayHelper = new BABYLON.RayHelper(ray);
-        rayHelper.show(this.scene);
+
         return direction;
     }
 
-    public addRay(start = new BABYLON.Vector3(0, 0, 0), end = new BABYLON.Vector3(0, 0, 1)) {
-        const ray = new BABYLON.Ray(start, end, 3);
-        const rayHelper = new BABYLON.RayHelper(ray);
-        rayHelper.show(this.scene);
+    private newPosition() {
+        const forward = BABYLON.Vector3.TransformCoordinates(
+            new BABYLON.Vector3(0, 0, 1),
+            this.player.getWorldMatrix()
+        );
+
+        let direction = forward.subtract(this.player.position);
+        direction = BABYLON.Vector3.Normalize(direction);
+        const speed = this.getSpeed();
+        const ray = new BABYLON.Ray(this.player.position, direction, speed);
         const endPosition = ray.origin.add(ray.direction.scale(ray.length));
-        console.log(endPosition);
+        return endPosition;
+    }
+
+    private onMove(w = true) {
+        const newPosition = this.newPosition();
+
+        const start = new BABYLON.Vector3(newPosition.x, newPosition.y + 2, newPosition.z);
+        const end = new BABYLON.Vector3(newPosition.x, newPosition.y - 100, newPosition.z);
+        this.physEngine?.raycastToRef(start, end, this.raycastResult);
+        if (this.raycastResult?.hasHit) {
+            const res = new BABYLON.Vector3(
+                newPosition.x,
+                this.raycastResult?.hitPointWorld.y,
+                newPosition.z
+            );
+            this.player.position = res;
+            if (this.inputMap['ShiftLeft']) {
+                this.curAnimation = this.meshContent.animationGroups[animatstate.Running];
+                this.curAnimation.play(true);
+            } else {
+                this.curAnimation = this.meshContent.animationGroups[animatstate.Walking];
+                this.curAnimation.play(true);
+            }
+        }
     }
 
     public lookAtCamera() {
@@ -124,16 +140,18 @@ export class CharacterController {
 
     private updateFromKeyboard(): void {
         if (this.inputMap['KeyW']) {
-            this.onKeyW();
+            this.onMove();
         }
         if (this.inputMap['KeyS']) {
-            this.onKeyW(false);
+            // this.onKeyW(false);
         }
         if (this.inputMap['KeyA']) {
-            // this.player.rotate(new BABYLON.Vector3(0, 1, 0), -Math.PI / 8 / 10);
+            this.player.rotate(new BABYLON.Vector3(0, 1, 0), -Math.PI / 8 / 10);
+            this.onMove();
         }
         if (this.inputMap['KeyD']) {
-            // this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 8 / 10);
+            this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 8 / 10);
+            this.onMove();
         }
         if (this.inputMap['ShiftLeft']) {
             this.speed = 24;
@@ -154,7 +172,7 @@ export class CharacterController {
     }
 
     private getSpeed() {
-        return this.speed / this.fpx;
+        return this.speed / this.fps;
     }
 
     private onKeyW(w = true) {

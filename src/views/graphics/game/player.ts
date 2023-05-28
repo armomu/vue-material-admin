@@ -33,7 +33,7 @@ export class Player {
             this.scene
         );
         this.camera.attachControl(canvas, false);
-        this.camera.setPosition(new BABYLON.Vector3(0, 2, 15));
+        this.camera.setPosition(new BABYLON.Vector3(0, 2, -15));
         this.camera.checkCollisions = true;
         // this.camera.applyGravity = true;
         this.camera.lowerRadiusLimit = 10; // 最小缩放;
@@ -76,15 +76,15 @@ export class Player {
             this.engine.resize();
         });
         // 创建性能监视器
-        const performanceMonitor = new BABYLON.PerformanceMonitor();
+        // const performanceMonitor = new BABYLON.PerformanceMonitor();
 
         // 将性能监视器添加到渲染循环中
-        this.scene.registerAfterRender(function () {
-            performanceMonitor.sampleFrame();
-        });
+        // this.scene.registerAfterRender(function () {
+        //     performanceMonitor.sampleFrame();
+        // });
 
-        // 在屏幕上显示性能监视器
-        performanceMonitor.enable();
+        // // 在屏幕上显示性能监视器
+        // performanceMonitor.enable();
     }
 
     public addPly() {
@@ -144,7 +144,6 @@ export class Player {
                     animatstate1,
                     350
                 );
-                console.log(animatstate1.Jump);
                 // this.loadAssetContainer(
                 //     `${import.meta.env.BASE_URL}/RobotExpressive/`,
                 //     'RobotExpressive.glb',
