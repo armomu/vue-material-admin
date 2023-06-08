@@ -62,7 +62,7 @@ export class Player {
                 bench.nextFrame();
             });
         }
-        // this.loadAsset('/medieval_fantasy_book/', 'medieval_fantasy_book.glb');
+        this.loadAsset('/medieval_fantasy_book/', 'medieval_fantasy_book.glb');
         // this.loadAsset('/smier/', 'scene.gltf');
         // this.loadAsset('/mond/', 'scene.gltf', false);
         // this.loadPlayer('/RobotExpressive/', 'RobotExpressive.glb');
@@ -82,7 +82,7 @@ export class Player {
             (container) => {
                 // 获取骨架和动画
                 const [meshe] = container.meshes;
-                meshe.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
+                meshe.scaling = new BABYLON.Vector3(-0.05, 0.05, -0.05);
                 // const [idle] = container.animationGroups;
                 // idle.stop();
                 container.addToScene();
@@ -96,7 +96,6 @@ export class Player {
                     null,
                     (scene) => {
                         const [idle, walking, jump, running] = scene.animationGroups;
-                        jump.play(true);
                     }
                 );
             }
@@ -110,7 +109,7 @@ export class Player {
             new BABYLON.Vector3(0, 30, 0),
             this.scene
         );
-        hemisphericLight.intensity = 1;
+        hemisphericLight.intensity = 0.8;
         // 方向光
         // const light = new BABYLON.DirectionalLight(
         //     'light',
@@ -119,11 +118,11 @@ export class Player {
         // );
         // light.intensity = 0.5;
         // light.position = new BABYLON.Vector3(0, 60, 0);
-
+        const lightDirection = new BABYLON.Vector3(-3, -1, 0);
         const light = new BABYLON.SpotLight(
             'spotLight',
-            new BABYLON.Vector3(100, 100, 0),
-            new BABYLON.Vector3(-3, -1, 0),
+            new BABYLON.Vector3(60, 60, 0),
+            lightDirection,
             Math.PI / 2,
             2,
             this.scene
@@ -133,22 +132,25 @@ export class Player {
         // this.shadowGenerator = new BABYLON.ShadowGenerator(1024 * 10, light);
         // this.shadowGenerator.useContactHardeningShadow = true;
         // this.shadowGenerator.useBlurExponentialShadowMap = true;
-        this.addLigthHelper(light);
+        this.addLigthHelper(light, lightDirection);
     }
 
-    public addLigthHelper(light: BABYLON.Light) {
+    public addLigthHelper(light: BABYLON.Light, lightDirection: BABYLON.Vector3) {
         const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 2 }, this.scene);
         const p = light.getAbsolutePosition();
+        const lightRay = new BABYLON.Ray(p, lightDirection, 30);
+        const rayHelper = new BABYLON.RayHelper(lightRay);
+        rayHelper.show(this.scene);
         // sphere.position = new BABYLON.Vector3(p.x, p.y + 2, p.z);
         sphere.position = p;
     }
     public addGround() {
-        // const groundMtl = new BABYLON.StandardMaterial('groundMtl', this.scene);
-        // groundMtl.diffuseColor = BABYLON.Color3.White();
-        // groundMtl.ambientColor = BABYLON.Color3.White();
+        const groundMtl = new BABYLON.StandardMaterial('groundMtl', this.scene);
+        groundMtl.diffuseColor = BABYLON.Color3.Green();
+        groundMtl.ambientColor = BABYLON.Color3.Gray();
         const ground = BABYLON.MeshBuilder.CreateGround(
             'ground',
-            { width: 200, height: 200 },
+            { width: 2000, height: 2000 },
             this.scene
         );
         // ground.material = groundMtl;
@@ -185,7 +187,6 @@ export class Player {
             sceneFilename,
             this.scene,
             (container) => {
-                console.log(container.meshes);
                 try {
                     container.addToScene();
                     container.meshes.forEach((meshe, index) => {

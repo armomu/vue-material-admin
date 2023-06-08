@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
+    "@babylonjs/core": "6.2.0",
     "@babylonjs/havok": "^1.0.1",
     "@babylonjs/loaders": "6.2.0",
     "apexcharts": "^3.36.3",
