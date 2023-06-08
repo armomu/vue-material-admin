@@ -13,23 +13,18 @@
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@babylonjs/havok": "^1.0.1",
-    "@babylonjs/core": "6.2.0",
     "@babylonjs/loaders": "6.2.0",
-    "@oasis-engine-toolkit/controls": "0.9.0-beta.4",
-    "@oasis-engine/physics-physx": "0.9.0-beta.9",
     "apexcharts": "^3.36.3",
     "axios": "^1.2.2",
-    "cannon-es": "^0.20.0",
+    "gl-bench": "^1.0.42",
     "lodash": "^4.17.21",
-    "nipplejs": "^0.10.1",
-    "oasis-engine": "0.9.0-beta.9",
     "pinia": "^2.0.28",
     "three": "^0.149.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vue3-apexcharts": "^1.4.1",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^3.1.0"
+    "vuetify": "^3.3.2"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",

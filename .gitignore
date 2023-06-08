@@ -17,6 +17,8 @@ coverage
 *.local
 
 /public/forest_house.glb
+/public/mond/
+/public/smier/
 /public/city.glb
 /cypress/videos/
 /cypress/screenshots/

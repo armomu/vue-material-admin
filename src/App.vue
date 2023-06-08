@@ -1,14 +1,7 @@
 <template>
     <v-app :theme="mainStore.theme">
         <router-view />
-        <v-snackbar
-            location="bottom right"
-            color="#ffffff"
-            theme="dark"
-            vertical
-            v-model="mainStore.upVisible"
-            :timeout="-1"
-        >
+        <v-snackbar location="bottom right" vertical v-model="mainStore.upVisible" :timeout="-1">
             <p>New content available, click on reload button to update</p>
 
             <template v-slot:actions>
