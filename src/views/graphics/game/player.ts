@@ -26,6 +26,50 @@ export class Player {
         this.physicsPlugin = new BABYLON.HavokPlugin(true, havokPlugin);
         this.scene.enablePhysics(null, this.physicsPlugin);
         this.PhysicsViewer = new BABYLON.PhysicsViewer();
+        this.addCamera(canvas);
+        // this.addGround();
+        this.addLight();
+        this.addSkybox();
+        new BABYLON.AxesViewer(this.scene, 1);
+        this.addGround();
+        // 加载场景和角色控制器
+        this.onTest();
+        // this.loadAsset('/smier/', 'scene.gltf');
+        // this.loadAsset('/smier/', 'scene.gltf');
+        // this.loadAsset('/mond/', 'scene.gltf', false);
+        // this.loadPlayer('/RobotExpressive/', 'RobotExpressive.glb');
+        // this.onAddTestBox();
+        this.engine.runRenderLoop(() => {
+            this.scene.render();
+        });
+        window.addEventListener('resize', () => {
+            this.engine.resize();
+        });
+        this.addFpsMonitor(canvas, div);
+    }
+
+    public onAddTestBox() {
+        const randomColor = BABYLON.Color3.FromHexString(
+            '#' + Math.floor(Math.random() * 16777215).toString(16)
+        );
+
+        // 创建一个新的材质，并设置它的 diffuseColor 属性为随机颜色值
+        const material = new BABYLON.StandardMaterial('material_a');
+        material.diffuseColor = randomColor;
+
+        // 使用 MeshBuilder 创建一个立方体，并将它的材质设置为上一步中创建的材质
+        const box = BABYLON.MeshBuilder.CreateBox('box_a', { size: 2 }, this.scene);
+        box.material = material;
+        box.position.x = 4;
+        // Math.PI = 180度角
+        box.rotate(new BABYLON.Vector3(0, 1, 0), (180 / 180) * Math.PI);
+        const av = new BABYLON.AxesViewer(this.scene, 3);
+        av.xAxis.parent = box;
+        av.yAxis.parent = box;
+        av.zAxis.parent = box;
+    }
+
+    public addCamera(canvas: HTMLCanvasElement) {
         this.camera = new BABYLON.ArcRotateCamera(
             'arcCamera1',
             0,
@@ -36,21 +80,33 @@ export class Player {
         );
         this.camera.rotation = new BABYLON.Vector3(0, 0, 0);
         this.camera.attachControl(canvas, false);
-        this.camera.setPosition(new BABYLON.Vector3(0, 2, -15));
-        this.camera.checkCollisions = true;
-        this.camera.collisionRadius = new BABYLON.Vector3(1, 1, 1);
-        // this.camera.applyGravity = true;
-        // this.camera.lowerRadiusLimit = 10; // 最小缩放;
-        // this.camera.upperRadiusLimit = 50; // 最大缩放
-        // this.camera.upperBetaLimit = 10; // 最大缩放
+        this.camera.setPosition(new BABYLON.Vector3(-15, 15, -9));
+        // this.camera.checkCollisions = true;
+        // this.camera.collisionRadius = new BABYLON.Vector3(1, 1, 1);
 
-        // this.addGround();
-        this.addLight();
-        new BABYLON.AxesViewer(this.scene, 1);
-        this.engine.runRenderLoop(() => {
-            this.scene.render();
-        });
-        // FPS性能面板
+        // this.camera.applyGravity = true;
+        this.camera.lowerRadiusLimit = -4; // 最小缩放;
+        // this.camera.upperRadiusLimit = 15; // 最大缩放
+
+        const isLocked = false;
+
+        // this.scene.onPointerDown = () => {
+        //     if (!isLocked) {
+        //         canvas.requestPointerLock =
+        //             canvas.requestPointerLock ||
+        //             canvas.msRequestPointerLock ||
+        //             canvas.mozRequestPointerLock ||
+        //             canvas.webkitRequestPointerLock ||
+        //             false;
+        //         if (canvas.requestPointerLock) {
+        //             canvas.requestPointerLock();
+        //         }
+        //     }
+        // };
+    }
+
+    // 性能面板
+    public addFpsMonitor(canvas: HTMLCanvasElement, div: HTMLDivElement) {
         if (div) {
             const bench = new GLBench(canvas.getContext('webgl2'), {
                 dom: div,
@@ -62,16 +118,6 @@ export class Player {
                 bench.nextFrame();
             });
         }
-        this.loadAsset('/medieval_fantasy_book/', 'medieval_fantasy_book.glb');
-        // this.loadAsset('/smier/', 'scene.gltf');
-        // this.loadAsset('/mond/', 'scene.gltf', false);
-        // this.loadPlayer('/RobotExpressive/', 'RobotExpressive.glb');
-        this.onTest();
-
-        this.addSkybox();
-        window.addEventListener('resize', () => {
-            this.engine.resize();
-        });
     }
 
     public onTest() {
@@ -83,8 +129,10 @@ export class Player {
                 // 获取骨架和动画
                 const [meshe] = container.meshes;
                 meshe.scaling = new BABYLON.Vector3(-0.05, 0.05, -0.05);
-                // const [idle] = container.animationGroups;
-                // idle.stop();
+                const av = new BABYLON.AxesViewer(this.scene, 3);
+                av.xAxis.parent = meshe;
+                av.yAxis.parent = meshe;
+                av.zAxis.parent = meshe;
                 container.addToScene();
                 // 加载FBX动画
                 BABYLON.SceneLoader.ImportAnimations(
@@ -95,7 +143,25 @@ export class Player {
                     BABYLON.SceneLoaderAnimationGroupLoadingMode.Stop,
                     null,
                     (scene) => {
-                        const [idle, walking, jump, running] = scene.animationGroups;
+                        const keys = ['walk', 'run_jump', 'running'];
+                        scene.animationGroups.forEach((item) => {
+                            if (keys.includes(item.name)) {
+                                container.animationGroups.push(item);
+                            }
+                        });
+                        try {
+                            this.characterController = new ThirdPersonController(
+                                container,
+                                this.camera,
+                                this.scene
+                            );
+                        } catch (err) {
+                            console.log(err);
+                        }
+                        container.addToScene();
+                    },
+                    (err) => {
+                        console.log(err);
                     }
                 );
             }
@@ -110,18 +176,10 @@ export class Player {
             this.scene
         );
         hemisphericLight.intensity = 0.8;
-        // 方向光
-        // const light = new BABYLON.DirectionalLight(
-        //     'light',
-        //     new BABYLON.Vector3(0, -1, 0),
-        //     this.scene
-        // );
-        // light.intensity = 0.5;
-        // light.position = new BABYLON.Vector3(0, 60, 0);
         const lightDirection = new BABYLON.Vector3(-3, -1, 0);
         const light = new BABYLON.SpotLight(
             'spotLight',
-            new BABYLON.Vector3(60, 60, 0),
+            new BABYLON.Vector3(30, 30, 0),
             lightDirection,
             Math.PI / 2,
             2,
@@ -158,29 +216,6 @@ export class Player {
         new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, this.scene);
     }
 
-    // 手电筒
-    public addSdt() {
-        const spotlight = new BABYLON.SpotLight(
-            'spotLight',
-            new BABYLON.Vector3(0, 1, 0),
-            new BABYLON.Vector3(0, -1, 0),
-            Math.PI / 3,
-            2,
-            this.scene
-        );
-        const cone = BABYLON.MeshBuilder.CreateCylinder(
-            'cone',
-            { diameterTop: 0, height: 1, diameterBottom: 1 },
-            this.scene
-        );
-        cone.parent = spotlight;
-        cone.position.y = -0.5;
-        spotlight.diffuse = new BABYLON.Color3(1, 1, 0.8);
-        spotlight.intensity = 1.5;
-        spotlight.range = 20;
-        // spotlight.setDirectionToTarget(target.position);
-    }
-
     private loadAsset(rootUrl: string, sceneFilename: string, physics = true) {
         BABYLON.SceneLoader.LoadAssetContainer(
             `${import.meta.env.BASE_URL}${rootUrl}`,
@@ -202,8 +237,9 @@ export class Player {
                             }
                         }
                     });
+                    this.onTest();
                 } catch (err) {
-                    console.log(err);
+                    console.log('loadAsset err:', err);
                 }
             }
         );
@@ -215,7 +251,6 @@ export class Player {
             sceneFilename,
             this.scene,
             (container) => {
-                console.log(container.animationGroups);
                 this.characterController = new ThirdPersonController(
                     container,
                     this.camera,
@@ -268,6 +303,7 @@ export class Player {
 
     public dispose() {
         this.engine?.dispose();
+        this.scene?.actionManager?.dispose();
         this.scene?.dispose();
         this.camera?.dispose();
         this.physicsPlugin?.dispose();

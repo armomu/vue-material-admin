@@ -16,6 +16,8 @@ dev-dist
 coverage
 *.local
 
+stage.glb
+
 /public/forest_house.glb
 /public/mond/
 /public/smier/

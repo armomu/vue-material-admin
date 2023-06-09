@@ -103,17 +103,6 @@ const router = createRouter({
                     },
                     component: () => import('@/views/graphics/threeJs.vue'),
                 },
-                // {
-                //     path: 'oasis-engine',
-                //     name: 'OasisEngine',
-                //     meta: {
-                //         keepAlive: false,
-                //         title: 'Oasis Engine',
-                //         icon: 'mdi-alpha-o',
-                //         visible: true,
-                //     },
-                //     component: () => import('@/views/graphics/oasisEngine.vue'),
-                // },
                 {
                     path: 'babylonjs',
                     name: 'Babylon.js',
