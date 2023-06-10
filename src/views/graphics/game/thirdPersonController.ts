@@ -55,9 +55,7 @@ export class ThirdPersonController {
             this.updateFromKeyboardKeydown();
         });
         this.scene.onAfterCameraRenderObservable.add(() => {
-            // this.lookAtCamera();
             if (this.inputMap['KeyW']) {
-                this.lookAtCamera();
             }
         });
     }
@@ -95,11 +93,12 @@ export class ThirdPersonController {
     private updateFromKeyboardKeyup(keyCode: string) {
         if (keyCode === 'KeyW' || keyCode === 'KeyS') {
             this.stopAnimation(animationEnum.Running);
+            this.curAnimation.stop();
         }
     }
     private playerRotate = 0;
     private onRotate() {
-        const speed = this.getSpeed(2);
+        let speed = this.getSpeed(2);
         if (this.inputMap['KeyW']) {
             if (this.playerRotate > 0 && this.playerRotate <= 180) {
                 this.playerRotate = this.playerRotate - speed;
@@ -109,12 +108,18 @@ export class ThirdPersonController {
                 this.player.rotate(new BABYLON.Vector3(0, 1, 0), (speed / 180) * Math.PI);
             } else {
                 this.playerRotate = 0;
+                // this.lookAtCamera();
             }
         }
         if (this.inputMap['KeyS']) {
             if (this.playerRotate < 180) {
-                this.playerRotate = this.playerRotate + speed;
-
+                const res = this.playerRotate + speed;
+                if (res > 180) {
+                    speed = res - 180;
+                    this.playerRotate = 180;
+                } else {
+                    this.playerRotate = res;
+                }
                 this.player.rotate(new BABYLON.Vector3(0, 1, 0), (speed / 180) * Math.PI);
             } else if (this.playerRotate > 180) {
                 this.playerRotate = this.playerRotate - speed;
@@ -122,7 +127,6 @@ export class ThirdPersonController {
             }
         }
         if (this.inputMap['KeyA']) {
-            // this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
         }
         if (this.inputMap['KeyD']) {
             // this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
