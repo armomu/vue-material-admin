@@ -93,7 +93,6 @@ export class ThirdPersonController {
     private updateFromKeyboardKeyup(keyCode: string) {
         if (keyCode === 'KeyW' || keyCode === 'KeyS') {
             this.stopAnimation(animationEnum.Running);
-            this.curAnimation.stop();
         }
     }
     private playerRotate = 0;
@@ -121,12 +120,19 @@ export class ThirdPersonController {
                     this.playerRotate = res;
                 }
                 this.player.rotate(new BABYLON.Vector3(0, 1, 0), (speed / 180) * Math.PI);
-            } else if (this.playerRotate > 180) {
-                this.playerRotate = this.playerRotate - speed;
-                this.player.rotate(new BABYLON.Vector3(0, 1, 0), -(speed / 180) * Math.PI);
             }
         }
         if (this.inputMap['KeyA']) {
+            if (this.playerRotate >= 0 && this.playerRotate < 90) {
+                const res = this.playerRotate + speed;
+                if (res > 90) {
+                    speed = res - 90;
+                } else {
+                    this.playerRotate = res;
+                }
+                this.player.rotate(new BABYLON.Vector3(0, 1, 0), (speed / 180) * Math.PI);
+            } else {
+            }
         }
         if (this.inputMap['KeyD']) {
             // this.player.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
@@ -182,15 +188,13 @@ export class ThirdPersonController {
         }
     }
     private playAnimation(key: number, loop = true) {
-        if (this.curAnimation.name === this.meshContent.animationGroups[key]?.name) {
-            return;
-        }
         this.curAnimation.pause();
         this.curAnimation = this.meshContent.animationGroups[key];
         this.curAnimation.play(loop);
     }
 
     private stopAnimation(key: number) {
+        this.curAnimation.stop();
         this.meshContent.animationGroups[key]?.stop();
     }
 
