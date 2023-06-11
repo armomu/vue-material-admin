@@ -3,6 +3,7 @@
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
     "verbatimModuleSyntax": true,
+    "ignoreDeprecations": "5.0",
     "composite": true,
     "types": ["node"]
   }
