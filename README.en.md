@@ -9,7 +9,7 @@
 
 ![version](https://img.shields.io/badge/Vue-3.2.0-blue.svg)
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
-![stars](https://img.shields.io/github/stars/Groundhog-Chen/vue-material-admin.svg?style=social&label=Stars)
+![stars](https://img.shields.io/github/stars/jaywoow/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
 
@@ -22,7 +22,7 @@ English | [简体中文](./README.md)
 </div>
 
 
-vue-material-admin It is a free open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `TypeScript` and other technology stacks, on the basis of `Material` design specifications and `Vuetify` basic components, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project will continue to be updated, If you have any suggestions for improvement and optimization, please ask [issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
+vue-material-admin It is a free open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `TypeScript` and other technology stacks, on the basis of `Material` design specifications and `Vuetify` basic components, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project will continue to be updated, If you have any suggestions for improvement and optimization, please ask [issues](https://github.com/jaywoow/vue-material-admin/issues)
 
 
 ## Function Support
@@ -47,7 +47,7 @@ vue-material-admin It is a free open source mid-backend template based on `Vueti
 
 ```
 # clone
-git clone https://github.com/Groundhog-Chen/vue-material-admin.git
+git clone https://github.com/jaywoow/vue-material-admin.git
 
 # open
 cd vue-material-admin

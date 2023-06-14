@@ -9,7 +9,7 @@
 
 ![version](https://img.shields.io/badge/Vue-3.2.0-blue.svg)
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
-![stars](https://img.shields.io/github/stars/Groundhog-Chen/vue-material-admin.svg?style=social&label=Stars)
+![stars](https://img.shields.io/github/stars/jaywoow/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
 
@@ -22,7 +22,7 @@
 
 </div>
 
-vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等技术栈，在 `material` 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，项目持续保持更新，如有改进及优化建议，直接提  [issues](https://github.com/Groundhog-Chen/vue-material-admin/issues)
+vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等技术栈，在 `material` 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，项目持续保持更新，如有改进及优化建议，直接提  [issues](https://github.com/jaywoow/vue-material-admin/issues)
 
 > `dev` 分支为正在开发代码，`v2` 分支为旧版本，切换到旧版本需要重新 `install` 一下安装 `webpack` 相关依赖 `v1` 是 `Vuetify1.x `的老版本的备份
 
@@ -48,7 +48,7 @@ vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。�
 
 ```
 # 克隆项目
-git clone https://github.com/Groundhog-Chen/vue-material-admin.git
+git clone https://github.com/jaywoow/vue-material-admin.git
 
 # 打开文件目录
 cd vue-material-admin

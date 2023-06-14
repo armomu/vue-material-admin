@@ -84,7 +84,7 @@
                     <v-list-item-title
                         ><a
                             target="_blank"
-                            href="https://github.com/Groundhog-Chen"
+                            href="https://github.com/jaywoow"
                             style="color: #ffffff"
                             >Github</a
                         ></v-list-item-title
@@ -216,7 +216,7 @@ const changeRail = () => {
 };
 
 const toGithub = () => {
-    window.open('https://github.com/Groundhog-Chen/vue-material-admin', '_blank');
+    window.open('https://github.com/jaywoow/vue-material-admin', '_blank');
 };
 const toEmail = () => {
     window.open('mailto:894620576@qq.com', '_blank');
