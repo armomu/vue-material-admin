@@ -1,7 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
 import HavokPhysics from '@babylonjs/havok';
-import { ThirdPersonController } from './thirdPersonController';
 import GLBench from 'gl-bench/dist/gl-bench.module';
 export class Player {
     public engine!: BABYLON.Engine;
@@ -11,7 +10,6 @@ export class Player {
     public shadowGenerator!: BABYLON.ShadowGenerator;
     public axesViewer!: BABYLON.AxesViewer;
     public PhysicsViewer!: BABYLON.PhysicsViewer;
-    public characterController!: ThirdPersonController;
 
     constructor(_canvas: HTMLCanvasElement, _div?: HTMLDivElement) {
         this.main(_canvas, _div!);
@@ -31,14 +29,11 @@ export class Player {
         this.addLight();
         this.addSkybox();
         new BABYLON.AxesViewer(this.scene, 1);
-        this.addGround();
         // 加载场景和角色控制器
-        this.onTest();
         // this.loadAsset('/smier/', 'scene.gltf');
         // this.loadAsset('/smier/', 'scene.gltf');
-        // this.loadAsset('/mond/', 'scene.gltf', false);
-        // this.loadPlayer('/RobotExpressive/', 'RobotExpressive.glb');
-        // this.onAddTestBox();
+        this.loadAsset('/medieval_fantasy_book/', 'medieval_fantasy_book.glb');
+        this.loadAsset('/RobotExpressive/', 'RobotExpressive.glb');
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
@@ -87,22 +82,6 @@ export class Player {
         // this.camera.applyGravity = true;
         this.camera.lowerRadiusLimit = -4; // 最小缩放;
         // this.camera.upperRadiusLimit = 15; // 最大缩放
-
-        const isLocked = false;
-
-        // this.scene.onPointerDown = () => {
-        //     if (!isLocked) {
-        //         canvas.requestPointerLock =
-        //             canvas.requestPointerLock ||
-        //             canvas.msRequestPointerLock ||
-        //             canvas.mozRequestPointerLock ||
-        //             canvas.webkitRequestPointerLock ||
-        //             false;
-        //         if (canvas.requestPointerLock) {
-        //             canvas.requestPointerLock();
-        //         }
-        //     }
-        // };
     }
 
     // 性能面板
@@ -118,54 +97,6 @@ export class Player {
                 bench.nextFrame();
             });
         }
-    }
-
-    public onTest() {
-        BABYLON.SceneLoader.LoadAssetContainer(
-            `${import.meta.env.BASE_URL}/zombie77/`,
-            'idle.glb',
-            this.scene,
-            (container) => {
-                // 获取骨架和动画
-                const [meshe] = container.meshes;
-                meshe.scaling = new BABYLON.Vector3(-0.05, 0.05, -0.05);
-                const av = new BABYLON.AxesViewer(this.scene, 3);
-                av.xAxis.parent = meshe;
-                av.yAxis.parent = meshe;
-                av.zAxis.parent = meshe;
-                container.addToScene();
-                // 加载FBX动画
-                BABYLON.SceneLoader.ImportAnimations(
-                    '/zombie77/',
-                    'action.glb',
-                    this.scene,
-                    false,
-                    BABYLON.SceneLoaderAnimationGroupLoadingMode.Stop,
-                    null,
-                    (scene) => {
-                        const keys = ['walk', 'run_jump', 'running'];
-                        scene.animationGroups.forEach((item) => {
-                            if (keys.includes(item.name)) {
-                                container.animationGroups.push(item);
-                            }
-                        });
-                        try {
-                            this.characterController = new ThirdPersonController(
-                                container,
-                                this.camera,
-                                this.scene
-                            );
-                        } catch (err) {
-                            console.log(err);
-                        }
-                        container.addToScene();
-                    },
-                    (err) => {
-                        console.log(err);
-                    }
-                );
-            }
-        );
     }
 
     public addLight() {
@@ -202,6 +133,7 @@ export class Player {
         // sphere.position = new BABYLON.Vector3(p.x, p.y + 2, p.z);
         sphere.position = p;
     }
+
     public addGround() {
         const groundMtl = new BABYLON.StandardMaterial('groundMtl', this.scene);
         groundMtl.diffuseColor = BABYLON.Color3.Green();
@@ -216,46 +148,12 @@ export class Player {
         new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, this.scene);
     }
 
-    private loadAsset(rootUrl: string, sceneFilename: string, physics = true) {
+    private loadAsset(rootUrl: string, sceneFilename: string) {
         BABYLON.SceneLoader.LoadAssetContainer(
             `${import.meta.env.BASE_URL}${rootUrl}`,
             sceneFilename,
             this.scene,
             (container) => {
-                try {
-                    container.addToScene();
-                    container.meshes.forEach((meshe, index) => {
-                        if (physics && index) {
-                            new BABYLON.PhysicsAggregate(
-                                meshe,
-                                BABYLON.PhysicsShapeType.MESH,
-                                { mass: 0 },
-                                this.scene
-                            );
-                            if (meshe.physicsBody) {
-                                // viewer.showBody(meshe.physicsBody);
-                            }
-                        }
-                    });
-                    this.onTest();
-                } catch (err) {
-                    console.log('loadAsset err:', err);
-                }
-            }
-        );
-    }
-
-    private loadPlayer(rootUrl: string, sceneFilename: string) {
-        BABYLON.SceneLoader.LoadAssetContainer(
-            `${import.meta.env.BASE_URL}${rootUrl}`,
-            sceneFilename,
-            this.scene,
-            (container) => {
-                this.characterController = new ThirdPersonController(
-                    container,
-                    this.camera,
-                    this.scene
-                );
                 container.addToScene();
             }
         );
