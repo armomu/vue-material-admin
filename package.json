@@ -1,6 +1,6 @@
 {
   "name": "material-ul",
-  "version": "0.1.2",
+  "version": "2.0.2",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@babylonjs/core": "6.2.0",
+    "@babylonjs/core": "^6.2.0",
     "@babylonjs/havok": "^1.0.1",
-    "@babylonjs/loaders": "6.2.0",
+    "@babylonjs/loaders": "^6.2.0",
     "apexcharts": "^3.36.3",
     "axios": "^1.2.2",
     "gl-bench": "^1.0.42",

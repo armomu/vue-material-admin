@@ -1,4 +1,6 @@
 <template>
+    <!-- TODO
+    增加播放侧滑出CD💽动画 -->
     <v-card class="music_card elevation-0">
         <!-- <img src="../../../assets/cover2.jpg" class="bg" /> -->
         <!-- <audio controls ref="audio" preload="auto" id="audio" hidden>
