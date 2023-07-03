@@ -2,25 +2,19 @@
     <!-- TODO
     增加播放侧滑出CD💽动画 -->
     <v-card class="music_card elevation-0">
-        <!-- <img src="../../../assets/cover2.jpg" class="bg" /> -->
         <!-- <audio controls ref="audio" preload="auto" id="audio" hidden>
             <source :src="LilMama" type="audio/mpeg" />
         </audio> -->
         <div class="d-flex music_wrap pa-4 pr-0">
-            <div class="zjbg">
-                <img src="../../../assets/cover2.jpeg" class="zj_img" width="120" height="120" />
-                <div
-                    class="zj_y"
-                    :class="{
-                        zj_y_zzz: audioData.play,
-                    }"
-                >
-                    <img
-                        src="../../../assets/cover2.jpeg"
-                        class="zj_cd_fm"
-                        width="72"
-                        height="72"
-                    />
+            <div
+                class="zjbg"
+                :class="{
+                    zj_play: audioData.play,
+                }"
+            >
+                <img src="../../../assets/cover2.jpg" class="zj_img" width="120" height="120" />
+                <div class="zj_y">
+                    <img src="../../../assets/cover2.jpg" class="zj_cd_fm" width="72" height="72" />
                     <img src="../../../assets/cd-mine.png" class="zj_cd_bg" width="120" />
                 </div>
             </div>
@@ -99,23 +93,9 @@ const onPlay = async () => {
             background: rgba(255, 255, 255, 0.2);
         }
         .zjbg {
-            // width: 120px;
-            // margin: 40px auto 20px auto;
             position: relative;
-            flex: 0 0 180px;
-            &::after {
-                content: '';
-                display: block;
-                width: 16px;
-                height: 16px;
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 50%;
-                position: absolute;
-                z-index: 2;
-                top: 52px;
-                left: 110px;
-                box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2);
-            }
+            flex: 0 0 120px;
+            transition: all 0.3s;
             .zj_img {
                 position: relative;
                 z-index: 3;
@@ -127,15 +107,30 @@ const onPlay = async () => {
                 top: 0;
                 animation-fill-mode: forwards;
                 transition: all 0.2s;
-                &.zj_y_zzz {
-                    animation: zzzzz 5s linear infinite;
-                    @keyframes zzzzz {
-                        0% {
-                            transform: rotateZ(0deg);
-                        }
-                        100% {
-                            transform: rotateZ(360deg);
-                        }
+                animation: zzzzz 5s linear infinite;
+                animation-fill-mode: forwards;
+
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                    background: rgba(255, 255, 255, 0.9);
+                    border-radius: 50%;
+                    position: absolute;
+                    z-index: 2;
+                    top: 50%;
+                    left: 50%;
+                    margin-left: -9px;
+                    margin-top: -8px;
+                    box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2);
+                }
+                @keyframes zzzzz {
+                    0% {
+                        transform: rotateZ(0deg);
+                    }
+                    100% {
+                        transform: rotateZ(360deg);
                     }
                 }
                 .zj_cd_fm {
@@ -146,6 +141,9 @@ const onPlay = async () => {
                     z-index: 2;
                 }
             }
+        }
+        .zjbg.zj_play {
+            flex: 0 0 180px;
         }
         .slider {
             flex: 1;
