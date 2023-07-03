@@ -72,6 +72,9 @@ const onPlay = async () => {
     // await audio.value?.play();
     audioData.play = true;
 };
+setTimeout(() => {
+    audioData.play = true;
+}, 2000);
 </script>
 <style scoped lang="scss">
 .music_card {
@@ -115,7 +118,7 @@ const onPlay = async () => {
                     display: block;
                     width: 16px;
                     height: 16px;
-                    background: rgba(255, 255, 255, 0.9);
+                    background: rgba(var(--header-bg), 1);
                     border-radius: 50%;
                     position: absolute;
                     z-index: 2;
