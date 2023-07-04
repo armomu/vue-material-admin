@@ -57,10 +57,10 @@ const router = createRouter({
             component: Layout,
             children: [
                 {
-                    path: 'sample',
-                    name: 'allSample',
+                    path: 'samples',
+                    name: 'Samples',
                     meta: {
-                        title: 'Sample',
+                        title: 'Samples',
                         icon: 'mdi-alpha-s',
                         keepAlive: false,
                         visible: true,
@@ -69,10 +69,10 @@ const router = createRouter({
                     children: [],
                 },
                 {
-                    path: 'table',
-                    name: 'table',
+                    path: 'tables',
+                    name: 'tables',
                     meta: {
-                        title: 'Table',
+                        title: 'Tables',
                         icon: 'mdi-alpha-t',
                         keepAlive: false,
                         visible: true,

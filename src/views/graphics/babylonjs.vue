@@ -22,7 +22,6 @@ function addRay() {
 }
 
 onMounted(() => {
-    console.log(GLBenchDom.value);
     playerApp = new Player(canvasDom.value!, GLBenchDom.value);
 });
 onBeforeUnmount(() => {

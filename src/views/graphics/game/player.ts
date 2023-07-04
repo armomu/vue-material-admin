@@ -33,7 +33,7 @@ export class Player {
         // this.loadAsset('/smier/', 'scene.gltf');
         // this.loadAsset('/smier/', 'scene.gltf');
         this.loadAsset('/medieval_fantasy_book/', 'medieval_fantasy_book.glb');
-        this.loadAsset('/RobotExpressive/', 'RobotExpressive.glb');
+        this.loadAsset('/RobotExpressive/', 'RobotExpressive.glb', false);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
@@ -148,12 +148,22 @@ export class Player {
         new BABYLON.PhysicsAggregate(ground, BABYLON.PhysicsShapeType.BOX, { mass: 0 }, this.scene);
     }
 
-    private loadAsset(rootUrl: string, sceneFilename: string) {
+    private loadAsset(rootUrl: string, sceneFilename: string, ph = true) {
         BABYLON.SceneLoader.LoadAssetContainer(
             `${import.meta.env.BASE_URL}${rootUrl}`,
             sceneFilename,
             this.scene,
             (container) => {
+                container.meshes.forEach((meshe) => {
+                    if (ph) {
+                        new BABYLON.PhysicsAggregate(
+                            meshe,
+                            BABYLON.PhysicsShapeType.MESH,
+                            { mass: 0 },
+                            this.scene
+                        );
+                    }
+                });
                 container.addToScene();
             }
         );
@@ -192,7 +202,10 @@ export class Player {
         const sphere = BABYLON.MeshBuilder.CreateSphere('sphere', { diameter: 10000 }, this.scene);
         sphere.infiniteDistance = true;
         const sphereMaterial = new BABYLON.StandardMaterial('sphereMaterial', this.scene);
-        sphereMaterial.emissiveTexture = new BABYLON.Texture('/skybox.png', this.scene);
+        sphereMaterial.emissiveTexture = new BABYLON.Texture(
+            `${import.meta.env.BASE_URL}/skybox.png`,
+            this.scene
+        );
         sphereMaterial.emissiveTexture.coordinatesMode = BABYLON.Texture.SPHERICAL_MODE;
         sphereMaterial.backFaceCulling = false;
         sphereMaterial.disableLighting = true;

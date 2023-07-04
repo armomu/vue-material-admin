@@ -118,8 +118,14 @@
                         ></v-progress-linear>
                     </td>
                     <td>
-                        <div style="width: 66px">
-                            <v-icon icon="mdi-share-variant" color="#999" @click="dialog = true" />
+                        <div>
+                            <v-icon icon="mdi-message-text" color="#999" @click="dialog = true" />
+                            <v-icon
+                                icon="mdi-share-variant"
+                                class="ml-2"
+                                color="#999"
+                                @click="dialog = true"
+                            />
                             <v-icon
                                 icon="mdi-trash-can-outline"
                                 class="ml-2"
@@ -131,7 +137,7 @@
                 </tr>
             </tbody>
         </v-table>
-        <div class="d-flex py-2" style="justify-content: flex-end">
+        <div class="d-flex py-2" style="justify-content: center">
             <v-pagination :model-value="1" :length="4" size="small" rounded="circle"></v-pagination>
         </div>
         <v-dialog v-model="dialog" width="30%">
@@ -149,7 +155,7 @@
 </template>
 <script setup lang="ts">
 import router from '@/router';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 const dialog = ref(false);
 const list = ref([
     {
@@ -157,44 +163,52 @@ const list = ref([
         name: 'GitHub',
         net: 'https://github.com',
         color: 'secondary',
-        progress: '90',
+        progress: 0,
     },
     {
         icon: 'mdi-angular',
         name: 'Angular',
         net: 'https://angular.com',
         color: 'red',
-        progress: '62',
+        progress: 0,
     },
     {
         icon: 'mdi-apple',
         name: 'Apple',
         net: 'https://apple.com',
         color: 'green',
-        progress: '78',
+        progress: 0,
     },
     {
         icon: 'mdi-blender-software',
         name: 'Blender Software',
         net: 'https://blender.com',
         color: 'pink',
-        progress: '58',
+        progress: 0,
     },
     {
         icon: 'mdi-facebook',
         name: 'Facebook',
         net: 'https://facebook.com',
         color: 'pink',
-        progress: '10',
+        progress: 0,
     },
     {
         icon: 'mdi-microsoft-xbox',
         name: 'Microsoft Xbox',
         net: 'https://xbox.microsoft.com',
         color: 'green',
-        progress: '78',
+        progress: 0,
     },
 ]);
+onMounted(() => {
+    setTimeout(() => {
+        list.value.forEach((item) => {
+            item.progress = Math.floor(Math.random() * 100) + 1;
+        });
+        console.log(list.value);
+    }, 300);
+});
 const onTest = () => {
     // router.push({
     //     path: '/graphics/oasis-engine',

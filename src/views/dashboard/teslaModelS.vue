@@ -222,7 +222,7 @@ onMounted(() => {
 });
 
 const map_ = shallowRef<any>(null);
-var AMap: any;
+let AMap: any;
 const initMap = async () => {
     const amap_ = await AMapLoader.load({
         key: '527a03c5d37f26c924d83b3c68f9ac5c', // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -236,8 +236,8 @@ const initMap = async () => {
     test();
 };
 initMap();
-var marker: any;
-var lineArr = [
+let marker: any;
+const lineArr = [
     [116.478935, 39.997761],
     [116.478939, 39.997825],
     [116.478912, 39.998549],
@@ -260,7 +260,7 @@ var lineArr = [
 ];
 const test = () => {
     AMap.plugin('AMap.MoveAnimation', function () {
-        var map = new AMap.Map('amap', {
+        const map = new AMap.Map('amap', {
             resizeEnable: true,
             showLabel: false,
             center: [116.478935, 39.997761],
@@ -290,7 +290,7 @@ const test = () => {
             strokeStyle: 'solid', // 线样式
         });
 
-        var passedPolyline = new AMap.Polyline({
+        const passedPolyline = new AMap.Polyline({
             map: map,
             strokeColor: '#AF5', // 线颜色
             strokeWeight: 6, // 线宽
@@ -365,6 +365,7 @@ onBeforeUnmount(() => {
             position: absolute;
             right: 0;
             top: -90px;
+            z-index: 2;
         }
     }
     .car_sys {

@@ -19,11 +19,11 @@
                 </div>
             </div>
             <div class="slider ml-4">
-                <div class="text-h6">As I Moved On</div>
-                <v-card-subtitle class="pl-0">Sweep Of Days </v-card-subtitle>
+                <div class="text-h6">Music Card</div>
+                <v-card-subtitle class="pl-0">Vocalist</v-card-subtitle>
                 <v-slider class="mt-2" model-value="23" color="primary" hide-details />
                 <div class="d-flex jsb pl-2">
-                    <div>0</div>
+                    <div>3:45</div>
                     <div>{{ audioData.duration ? audioData.duration : '' }}</div>
                 </div>
             </div>

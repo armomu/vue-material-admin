@@ -73,17 +73,7 @@
             left: 288px;
             width: calc(100vw - 312px);
             z-index: 2;
-            // &::before {
-            //     display: block;
-            //     content: '';
-            //     width: 100%;
-            //     height: 100%;
-            //     background: rgba(255, 255, 255, 0.9);
-            //     filter: blur(25px);
-            //     position: absolute;
-            //     left: 0;
-            //     top: 0;
-            // }
+
             .header_title {
                 .v-breadcrumbs {
                     padding: 0 !important;
@@ -99,13 +89,13 @@
                     .v-breadcrumbs-divider {
                         // color: rgb(204, 204, 204);
                         opacity: 0.6;
-                        padding: 0 2px;
+                        padding: 0;
                     }
                     .v-breadcrumbs__prepend {
                         opacity: 0.6;
                         .v-icon {
                             margin-left: 5px;
-                            width: 5px;
+                            // width: 5px;
                         }
                         // width: 25px;
                     }
