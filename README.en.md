@@ -6,8 +6,8 @@
     Vue Material Admin
 <div align="center">
 
-
-![version](https://img.shields.io/badge/Vue-3.2.0-blue.svg)
+![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
+![version](https://img.shields.io/badge/Vite-4.x-green.svg)
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
 ![stars](https://img.shields.io/github/stars/jaywoow/vue-material-admin.svg?style=social&label=Stars)
 
@@ -22,8 +22,7 @@ English | [简体中文](./README.md)
 </div>
 
 
-vue-material-admin It is a free open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `TypeScript` and other technology stacks, on the basis of `Material` design specifications and `Vuetify` basic components, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project will continue to be updated, If you have any suggestions for improvement and optimization, please ask [issues](https://github.com/jaywoow/vue-material-admin/issues)
-
+Vue Material Admin is a free and open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `Pinia`, `TypeScript`, `PWA` and other technology stacks, in [Material Design](https://m3.material.io/) design specifications and `Vuetify` basic components Based on the above, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project continues to be updated
 
 ## Function Support
 | PWA      | I18n | Mobile devices | Dark theme |
@@ -31,19 +30,29 @@ vue-material-admin It is a free open source mid-backend template based on `Vueti
 |  ✅       | ❌   |  ✅    |  ✅    |
 
 
-##TODO
-- Tesla models Dashboard
-- Smart Home Control Center
-- Vuetify components
-- Three.js import model, 360 panorama basic demo
-- Babylon.js
-- Simple demo for low-code editing
+## Pages
+1. [Tesla Dashboard](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/tesla-model-s)
+2. [Smart home control center components](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/smart-house)
+     - Apexcharts 
+     - Semicircle controller
+     - Music player
+3. [Vuetify Basic Components](https://vuetifyjs.com/zh-Hans/)
+4. [Table Layout](https://chenhuajie.gitee.io/vue-material-admin/#/components/tables)
+5. [Three.js engine](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/three-js)
+     - Import models dynamically
+     - 360 panorama import
+6. [Babylon.js engine](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/babylonjs)
+     - physics engine
+     - Character controller (under development) ~ not open source code
+7. [Low code page editing](https://chenhuajie.gitee.io/vue-material-admin/#/low-code/layer-edit-example)
+     - Element resizing, component dragging, sequential dragging, display deletion
+     - Right-click menu (undeveloped)
+     - Attributes, event editing (undeveloped)
+8. [AutoNavi Map lens tracking animation](https://chenhuajie.gitee.io/vue-material-admin/#/map/amap)
 
 ## Developer
 
-> ⚠️ Note: Local development requires `nodejs` 14.18+ version,
-> It is recommended to use `Chrome 80+` browser for local development, modern browsers are supported, IE is not supported
-
+> ⚠️ Note: Local development requires `nodejs` 14.18+ version
 
 ```
 # clone
@@ -67,10 +76,8 @@ npm run dev
 ## Screenshot
 
 <p align="center">
-  <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
-  <img width="100%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
+  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
+  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
+  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/babylonjs.png">
+  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/edit_layer.png">
 </p>
-
-## MIT
-
-[MIT](./LICENSE)
