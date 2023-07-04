@@ -7,7 +7,8 @@
 <div align="center">
 
 
-![version](https://img.shields.io/badge/Vue-3.2.0-blue.svg)
+![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
+![version](https://img.shields.io/badge/Vite-4.x-green.svg)
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
 ![stars](https://img.shields.io/github/stars/jaywoow/vue-material-admin.svg?style=social&label=Stars)
 
@@ -22,29 +23,36 @@
 
 </div>
 
-vue-material-admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`，`Vite`，`TypeScript`等技术栈，在 `material` 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，项目持续保持更新，如有改进及优化建议，直接提  [issues](https://github.com/jaywoow/vue-material-admin/issues)
+Vue Material Admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`PWA`等技术栈，在 [Material Design](https://m3.material.io/) 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，该项目持续保持更新
 
-> `dev` 分支为正在开发代码，`v2` 分支为旧版本，切换到旧版本需要重新 `install` 一下安装 `webpack` 相关依赖 `v1` 是 `Vuetify1.x `的老版本的备份
+## 公共功能支持
+| PWA    | i18n | 响应式 | 暗黑主题 |
+| :----: | :--: | :--:  | :-----:  |
+|  ✅    |  ❌  |  ✅   |   ✅    |
 
-
-> PWA遇到一个缓存的问题，ServiceWorkerRegistration?.update() [vite-plugin-pwa](https://vite-pwa-org.netlify.app/guide/prompt-for-update.html) 插件这个更新缓存的方法大多时候不管用，有这方面的大佬可以帮我看看吗？
-## 功能支持
-| PWA      | i18n | 响应式 | 暗黑主题 |
-| :----: | :----: | :----:  | :----:   |
-|  ✅       | ❌   |  ✅    |  ✅    |
-
-## TODO
-- 特斯拉仪表盘
-- 智能家居控制中心
-- Vuetify 组件
-- Three.js 导入模型、360全景图基础演示
-- Babylon.js
-- 简单的低代码编辑演示
+## 已有页面演示功能
+1. [特斯拉仪表盘](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/tesla-model-s)
+2. [智能家居控制中心组件](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/smart-house)
+    - Apexcharts📈图表
+    - 半圆滑块控制器
+    - 音乐播放器
+3. [Vuetify 基础组件](https://vuetifyjs.com/zh-Hans/)
+4. [Table 布局](https://chenhuajie.gitee.io/vue-material-admin/#/componets/tables)
+5. [Three.js 引擎](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/three-js)
+    - 动态导入模型
+    - 360全景图导入
+6. [Babylon.js 引擎](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/babylonjs)
+    - 物理引擎
+    - 角色控制器（开发中）～不公开源码
+7. [低代码页面编辑](https://chenhuajie.gitee.io/vue-material-admin/#/low-code/layer-edit-example)
+    - 元素大小调整、组件拖拽、顺序拖拽、显示删除
+    - 右键菜单（未开发）
+    - 属性、事件编辑（未开发）
+8. [高德地图镜头跟踪动画](https://chenhuajie.gitee.io/vue-material-admin/#/map/amap)
 
 ## 本地开发
 
 > ⚠️ 注意：本地开发需要 `nodejs` 14.18+以上版本，
-> 本地开发推荐使用 `Chrome 80+` 浏览器，支持现代浏览 器, 不支持 IE
 
 ```
 # 克隆项目
