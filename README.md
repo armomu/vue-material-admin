@@ -10,7 +10,7 @@
 ![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
 ![version](https://img.shields.io/badge/Vite-4.x-green.svg)
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
-![stars](https://img.shields.io/github/stars/jaywoow/vue-material-admin.svg?style=social&label=Stars)
+![stars](https://img.shields.io/github/stars/armomu/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
 
@@ -28,12 +28,13 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的中后台模版。�
 ## 公共功能支持
 | PWA    | i18n | 响应式 | 暗黑主题 |
 | :----: | :--: | :--:  | :-----:  |
-|  ✅    |  ❌  |  ✅   |   ✅    |
+|  dev   |  ❌  |  ✅   |   ✅    |
 
 ## 已有页面演示功能
 1. [特斯拉仪表盘](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/tesla-model-s)
+    - 高德地图轨迹回放
 2. [智能家居控制中心组件](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/smart-house)
-    - Apexcharts📈图表
+    - Apexcharts📈
     - 半圆滑块控制器
     - 音乐播放器
 3. [Vuetify 基础组件](https://vuetifyjs.com/zh-Hans/)
@@ -52,11 +53,11 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的中后台模版。�
 
 ## 本地开发
 
-> ⚠️ 注意：本地开发需要 `nodejs` 14.18+以上版本，
+> ⚠️本地开发需要 `nodejs` 14.18+以上版本，
 
 ```
 # 克隆项目
-git clone https://github.com/jaywoow/vue-material-admin.git
+git clone https://github.com/armomu/vue-material-admin.git
 
 # 打开文件目录
 cd vue-material-admin

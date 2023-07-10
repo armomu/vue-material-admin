@@ -9,7 +9,7 @@
 ![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
 ![version](https://img.shields.io/badge/Vite-4.x-green.svg)
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
-![stars](https://img.shields.io/github/stars/jaywoow/vue-material-admin.svg?style=social&label=Stars)
+![stars](https://img.shields.io/github/stars/armomu/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
 
@@ -27,11 +27,12 @@ Vue Material Admin is a free and open source mid-backend template based on `Vuet
 ## Function Support
 | PWA      | I18n | Mobile devices | Dark theme |
 | :----: | :----: | :----:  | :----:   |
-|  ✅       | ❌   |  ✅    |  ✅    |
+|  dev      | ❌   |  ✅    |  ✅    |
 
 
 ## Pages
 1. [Tesla Dashboard](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/tesla-model-s)
+    - Amap track playback
 2. [Smart home control center components](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/smart-house)
      - Apexcharts 
      - Semicircle controller
@@ -52,11 +53,11 @@ Vue Material Admin is a free and open source mid-backend template based on `Vuet
 
 ## Developer
 
-> ⚠️ Note: Local development requires `nodejs` 14.18+ version
+> ⚠️ Local development requires `nodejs` 14.18+ version
 
 ```
 # clone
-git clone https://github.com/jaywoow/vue-material-admin.git
+git clone https://github.com/armomu/vue-material-admin.git
 
 # open
 cd vue-material-admin
