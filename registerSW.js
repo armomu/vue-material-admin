@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/vue-material-admin/sw.js', { scope: '/vue-material-admin/' })})}
