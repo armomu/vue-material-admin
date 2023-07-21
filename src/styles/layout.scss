@@ -16,8 +16,11 @@
         .v-list-item-title {
             font-size: 14px;
             font-weight: 500;
-            color: #ffffff;
+            // color: #ffffff;
             opacity: 1;
+            .link {
+                color: inherit;
+            }
         }
         .v-list-group__items {
             .v-list-item {

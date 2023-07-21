@@ -7,7 +7,6 @@
     >
         <v-navigation-drawer
             class="my-4 layout_navigation"
-            theme="dark"
             :rail="navState.rail"
             expand-on-hover
             rail-width="77"
@@ -62,30 +61,17 @@
                 </template>
                 <v-list-item prepend-icon="mdi-text-box" class="mx-1">
                     <v-list-item-title
-                        ><a
-                            target="_blank"
-                            href="https://next.vuetifyjs.com/en/"
-                            style="color: #ffffff"
+                        ><a target="_blank" href="https://vuetifyjs.com/" class="link"
                             >Document</a
                         ></v-list-item-title
                     >
                 </v-list-item>
-                <!-- <v-list-item prepend-icon="mdi-folder" class="mx-1">
-                    <v-list-item-title
-                        ><a
-                            target="_blank"
-                            href="http://chenhuajie.gitee.io/vue-material-admin/v2"
-                            style="color: #ffffff"
-                            >V2 Preview</a
-                        ></v-list-item-title
-                    >
-                </v-list-item> -->
                 <v-list-item prepend-icon="mdi-github" class="mx-1">
                     <v-list-item-title
                         ><a
                             target="_blank"
-                            href="https://github.com/jaywoow"
-                            style="color: #ffffff"
+                            href="https://github.com/armomu/vue-material-admin"
+                            class="link"
                             >Github</a
                         ></v-list-item-title
                     >
