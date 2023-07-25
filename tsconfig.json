@@ -4,7 +4,6 @@
   "compilerOptions": {
     "module": "ESNext",
     "baseUrl": ".",
-    // "allowJs": true,
     "ignoreDeprecations": "5.0",
     "types": ["vite/client"],
     "paths": {

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-deprecated-v-on-native-modifier -->
 <template>
     <div class="low_code_page">
         <v-card class="widgets">
@@ -37,6 +38,12 @@
                 :class="{
                     showGrid: workViewData.showGrid,
                 }"
+                @contextmenu.prevent.native="
+                    (e) => {
+                        // e.preventDefault();
+                        // contextmenu.visible = false;
+                    }
+                "
             >
                 <div
                     class="scale_wrap"
@@ -56,6 +63,7 @@
                             v-model:top="item.top"
                             v-model:left="item.left"
                             @snapLine="onSnapLine"
+                            @contextmenu.prevent.native="openMenu"
                         >
                             <component :is="chartKeys[item.widget]" />
                         </DragResizeble>
@@ -170,10 +178,26 @@
                 <v-dialog> </v-dialog>
             </v-card>
         </div>
+        <v-card
+            class="contextmenu"
+            v-if="contextmenu.visible"
+            :style="{
+                left: contextmenu.left + 'px',
+                top: contextmenu.top + 'px',
+            }"
+        >
+            <div class="layout_min_wrap">
+                <div class="layout_min_item">隐藏</div>
+                <div class="layout_min_item">删除</div>
+                <div class="layout_min_item">下一层</div>
+                <div class="layout_min_item">上一层</div>
+            </div>
+            <v-dialog> </v-dialog>
+        </v-card>
     </div>
 </template>
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue';
+import { reactive } from 'vue';
 import { chartKeys } from './widgets/widgets';
 import DragResizeble from './widgets/drag-resizeble.vue';
 import Grid from '@/views/low-code/widgets/Grid.vue';
@@ -381,5 +405,22 @@ const onSnapLine = (arr: SnapLine[][]) => {
     const [vLine, hLine] = arr;
     snapLine.vLine = vLine;
     snapLine.hLine = hLine;
+};
+
+const contextmenu = reactive({
+    left: 0,
+    top: 0,
+    visible: false,
+});
+const hideMenu = () => {
+    contextmenu.visible = false;
+    // document.body.removeEventListener();
+};
+const openMenu = (e: PointerEvent) => {
+    e.preventDefault();
+    contextmenu.left = e.clientX;
+    contextmenu.top = e.clientY;
+    contextmenu.visible = true;
+    document.body.addEventListener('click', hideMenu);
 };
 </script>

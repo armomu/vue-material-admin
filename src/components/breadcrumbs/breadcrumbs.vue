@@ -3,7 +3,7 @@
         <div>
             <v-breadcrumbs :items="routes">
                 <template v-slot:prepend>
-                    <router-link to="/"
+                    <router-link to="/" class="link"
                         ><v-icon size="small" icon="mdi-home-circle"></v-icon
                     ></router-link>
                     <li class="v-breadcrumbs-divider">/</li>

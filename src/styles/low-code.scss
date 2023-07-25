@@ -135,6 +135,21 @@
             }
         }
     }
+    .contextmenu {
+        position: fixed;
+        left: 200px;
+        top: 300px;
+        z-index: 999;
+        .layout_min_item {
+            line-height: 36px;
+            height: 36px;
+            padding: 0 16px;
+            cursor: pointer;
+            &:hover {
+                background-color: var(--grid);
+            }
+        }
+    }
 
 }
 

@@ -20,11 +20,13 @@ stage.glb
 
 /public/forest_house.glb
 /public/zombie77/
+/public/textures/xnh.gltf
 /public/mond/
 /public/smier/
 /public/city.glb
 /cypress/videos/
 /cypress/screenshots/
+/src/views/graphics/babylonjs/
 
 # Editor directories and files
 !.vscode/extensions.json

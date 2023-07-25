@@ -225,19 +225,6 @@ function init() {
     });
 }
 
-// function onPointerClick(event: MouseEvent | any) {
-//     pointer.set(
-//         (event.layerX / renderer.domElement.clientWidth!) * 2 - 1,
-//         -(event.layerY / renderer.domElement.clientHeight!) * 2 + 1
-//     );
-//     raycaster.setFromCamera(pointer, camera);
-//     const intersects = raycaster.intersectObject(floorMesh);
-//     if (intersects.length > 0) {
-//         const intersect = intersects[0];
-//         model.position.copy(intersect.point);
-//     }
-// }
-
 function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
     const canvas = renderer.domElement;
     const width = window.innerWidth;

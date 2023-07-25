@@ -4,11 +4,12 @@ import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import vuetify from 'vite-plugin-vuetify';
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
     // eslint-disable-next-line no-undef
     const env = loadEnv(mode, process.cwd(), '');
-    console.log(env.APP_ENV);
+    console.log('APP_ENV：', env.APP_ENV);
     return {
         // base: env.APP_ENV === 'production' ? '/vue-material-admin' : '/',
         base: '/vue-material-admin',
@@ -67,7 +68,7 @@ export default defineConfig(({ mode }) => {
         optimizeDeps: {
             exclude: ['@babylonjs/havok'],
         },
-        assetsInclude: ['**/*.gltf', '**/*.glb', '**/*.wasm'],
+        assetsInclude: ['**/*.gltf', '**/*.glb'],
         resolve: {
             alias: {
                 '@': fileURLToPath(new URL('./src', import.meta.url)),
