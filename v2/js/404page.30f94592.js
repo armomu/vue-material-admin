@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["404page"],{"0552":function(n,e,t){"use strict";t.r(e);var u=function(){var n=this,e=n._self._c;return e("div",{},[n._v("404")])},l=[],s=t("e607"),a={},c=Object(s["a"])(a,u,l,!1,null,null,null);e["default"]=c.exports}}]);
-//# sourceMappingURL=404page.30f94592.js.map
