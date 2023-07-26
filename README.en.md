@@ -24,10 +24,15 @@ English | [简体中文](./README.md)
 
 Vue Material Admin is a free and open source mid-backend template based on `Vuetify`. Using `Vue3`, `Vite`, `Pinia`, `TypeScript`, `PWA` and other technology stacks, in [Material Design](https://m3.material.io/) design specifications and `Vuetify` basic components Based on the above, continue to build and develop upwards, which can be used as a project startup template, and can also be used as a learning reference. The project continues to be updated
 
+
+## Online Demo
+-   [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
+-   [https://armomu.github.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
+
 ## Function Support
 | PWA      | I18n | Mobile devices | Dark theme |
 | :----: | :----: | :----:  | :----:   |
-|  dev      | ❌   |  ✅    |  ✅    |
+|  ✅     | ❌   |  ✅    |  ✅    |
 
 
 ## Pages
@@ -44,10 +49,10 @@ Vue Material Admin is a free and open source mid-backend template based on `Vuet
      - 360 panorama import
 6. [Babylon.js engine](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/babylonjs)
      - physics engine
-     - Character controller (under development) ~ not open source code
+     - Character controller 
 7. [Low code page editing](https://chenhuajie.gitee.io/vue-material-admin/#/low-code/layer-edit-example)
      - Element resizing, component dragging, sequential dragging, display deletion
-     - Right-click menu (undeveloped)
+     - Right-click menu
      - Attributes, event editing (undeveloped)
 8. [AutoNavi Map lens tracking animation](https://chenhuajie.gitee.io/vue-material-admin/#/map/amap)
 
@@ -70,15 +75,12 @@ npm run dev
 
 ```
 
-## Online Demo
-
--   [👉Demo](https://chenhuajie.gitee.io/vue-material-admin/)
 
 ## Screenshot
 
 <p align="center">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/babylonjs.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/edit_layer.png">
+  <img width="49%" src="https://raw.githubusercontent.com/armomu/vue-material-admin/master/src/assets/tesla.png">
+  <img width="49%" src="https://raw.githubusercontent.com/armomu/vue-material-admin/master/src/assets/smart_house.png">
+  <img width="49%" src="https://raw.githubusercontent.com/armomu/vue-material-admin/master/src/assets/babylonjs.png">
+  <img width="49%" src="https://raw.githubusercontent.com/armomu/vue-material-admin/master/src/assets/edit_layer.png">
 </p>

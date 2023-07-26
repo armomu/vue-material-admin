@@ -25,7 +25,6 @@
 
 Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台模版。使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`PWA`等技术栈，在 [Material Design](https://m3.material.io/) 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，该项目持续保持更新
 ## 预览地址
-
 -   [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
 -   [https://armomu.github.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
 ## 功能支持
@@ -50,7 +49,7 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台�
     - 角色控制器（开发中）
 7. [低代码页面编辑](https://chenhuajie.gitee.io/vue-material-admin/#/low-code/layer-edit-example)
     - 元素大小调整、组件拖拽、顺序拖拽、显示删除
-    - 右键菜单（未开发）
+    - 右键菜单
     - 属性、事件编辑（未开发）
 8. [高德地图镜头跟踪动画](https://chenhuajie.gitee.io/vue-material-admin/#/map/amap)
 
