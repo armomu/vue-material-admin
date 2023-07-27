@@ -15,6 +15,7 @@ dev-dist
 coverage
 *.local
 
+.vite/
 /cypress/videos/
 /cypress/screenshots/
 src
