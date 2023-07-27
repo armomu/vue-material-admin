@@ -22,7 +22,6 @@ const routes = ref();
 const pageTitle = computed(() => $route.meta.title);
 function init() {
     const { matched } = $route;
-    // console.log(matched);
     if (matched[0].path === '/dashboard') {
         routes.value = [
             {
