@@ -26,6 +26,7 @@ stage.glb
 /cypress/videos/
 /cypress/screenshots/
 /src/views/graphics/babylonjs/
+.vite/
 
 # Editor directories and files
 !.vscode/extensions.json

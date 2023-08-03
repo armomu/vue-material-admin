@@ -161,20 +161,10 @@
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
-// import { docsearch } from 'meilisearch-docsearch';
-// import 'meilisearch-docsearch/css';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
-import { reactive, computed, watch, onMounted } from 'vue';
+import { reactive, computed, watch } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
-onMounted(() => {
-    // docsearch({
-    //     container: '#docsearch',
-    //     host: 'https://ms-4c0f4c604814-2275.sgp.meilisearch.io',
-    //     apiKey: 'be54438b7a46ff7567aa3ca928590a58bdc81abe7aa4e389881f8de597cc9d13',
-    //     indexUid: 'dev_search',
-    // });
-});
 const mainStore = useMainStore();
 const router = useRouter();
 const navState = reactive({
@@ -202,7 +192,7 @@ const changeRail = () => {
 };
 
 const toGithub = () => {
-    window.open('https://github.com/jaywoow/vue-material-admin', '_blank');
+    window.open('https://github.com/armomu/vue-material-admin', '_blank');
 };
 const toEmail = () => {
     window.open('mailto:894620576@qq.com', '_blank');
