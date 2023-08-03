@@ -112,7 +112,7 @@ const router = createRouter({
                         icon: 'mdi-alpha-b',
                         visible: true,
                     },
-                    component: () => import('@/views/graphics/babylonjs/babylonjs.vue'),
+                    component: () => import('@/views/graphics/babylonjs.vue'),
                 },
             ],
         },
