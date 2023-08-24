@@ -74,9 +74,9 @@ npm run dev
 ## 页面截图
 
 <p align="center">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/babylonjs.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/edit_layer.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/tesla.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/smart_house.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/babylonjs.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/edit_layer.png">
 </p>
 
