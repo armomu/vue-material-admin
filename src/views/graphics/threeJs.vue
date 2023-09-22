@@ -39,7 +39,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-// import THREEx from '@/utils/KeyboardState';
 import { reactive, onMounted, onBeforeUnmount, shallowRef, ref } from 'vue';
 const loading = ref(true);
 const locaFiles = reactive({
@@ -63,8 +62,12 @@ const fileChange = (val: File[]) => {
     const [file] = val;
     if (!file) return;
     loader.load(getObjectURL(file), (gltf) => {
-        // gltf.scene.scale.set(0.1, 0.1, 0.1);
         scene.add(gltf.scene);
+        scene.remove(model);
+        mixer = new THREE.AnimationMixer(gltf.scene);
+        curAnimation = mixer.clipAction(gltf.animations[0]);
+        curAnimation.clampWhenFinished = true;
+        curAnimation.play();
     });
 };
 
@@ -128,49 +131,6 @@ enum actions {
     Wave,
     Yes,
 }
-
-// const keyboard = new THREEx.KeyboardState();
-const modelRun = (delta: number) => {
-    const moveDistance = 10 * delta;
-    const rotateAngle = (Math.PI / 2) * delta;
-    if (keyboard.pressed('down')) {
-        model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), rotateAngle);
-        upCamera();
-    }
-    if (keyboard.pressed('up')) {
-        model.rotateOnAxis(new THREE.Vector3(0.1, 0, 0), -rotateAngle);
-        upCamera();
-    }
-
-    if (keyboard.pressed('w')) {
-        model.translateZ(moveDistance);
-        upCamera();
-    }
-    if (keyboard.pressed('s')) {
-        model.translateZ(-moveDistance);
-        upCamera();
-    }
-    if (keyboard.pressed('a')) {
-        model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), rotateAngle);
-        upCamera();
-    }
-    if (keyboard.pressed('d')) {
-        model.rotateOnAxis(new THREE.Vector3(0, 0.5, 0), -rotateAngle);
-        upCamera();
-    }
-};
-
-const upCamera = () => {
-    const relativeCameraOffset = new THREE.Vector3(0, 10, -25);
-
-    const cameraOffset = relativeCameraOffset.applyMatrix4(model.matrixWorld);
-
-    camera.position.x = cameraOffset.x;
-    camera.position.y = cameraOffset.y;
-    camera.position.z = cameraOffset.z;
-
-    controls.target = model.position;
-};
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
     renderer.shadowMap.enabled = true;
@@ -214,7 +174,6 @@ function init() {
     loader.load('/vue-material-admin/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
         animations = gltf.animations;
-        console.log(animations);
         scene.add(model);
         mixer = new THREE.AnimationMixer(model);
         curAnimation = mixer.clipAction(animations[actions.Walking]);
