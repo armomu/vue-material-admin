@@ -20,14 +20,15 @@ import { useRoute } from 'vue-router';
 const $route = useRoute();
 const routes = ref();
 const pageTitle = computed(() => $route.meta.title);
+
 function init() {
     const { matched } = $route;
     if (matched[0].path === '/dashboard') {
         routes.value = [
             {
-                text: 'Dashboard',
+                title: 'Dashboard',
                 disabled: false,
-                to: '/dashboard',
+                href: '/dashboard',
             },
         ];
         return;
@@ -35,14 +36,14 @@ function init() {
     if (matched[0].path === matched[1].path) {
         routes.value = [
             {
-                text: 'Index',
+                title: 'Index',
                 disabled: false,
-                to: '/dashboard',
+                href: '/dashboard',
             },
             {
-                text: matched[0].meta.title,
+                title: matched[0].meta.title,
                 disabled: true,
-                to: matched[0].path,
+                href: matched[0].path,
             },
         ];
         return;
@@ -51,20 +52,21 @@ function init() {
     matched.forEach((route, index) => {
         if (index === matched.length - 1) {
             routes.value.push({
-                text: route.meta.title,
+                title: route.meta.title,
                 exact: true,
                 disabled: false,
-                to: $route.path,
+                href: $route.path,
             });
         } else {
             routes.value.push({
-                text: route.meta.title,
+                title: route.meta.title,
                 exact: false,
                 disabled: true,
-                to: route.path,
+                href: route.path,
             });
         }
     });
+    console.log(routes.value);
 }
 init();
 </script>

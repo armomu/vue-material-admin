@@ -119,7 +119,7 @@ const router = createRouter({
                     name: 'Pixi.js',
                     meta: {
                         keepAlive: false,
-                        title: 'Babylon.js',
+                        title: 'Pixi.js',
                         icon: 'mdi-alpha-p',
                         visible: true,
                     },

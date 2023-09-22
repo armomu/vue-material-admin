@@ -478,7 +478,7 @@ export class BabylonScene {
     }
 
     public dispose() {
-        this.scene?.actionManager?.dispose();
+        // this.scene?.actionManager?.dispose();
         this.scene?.dispose();
         this.engine?.dispose();
         // this.camera?.dispose();
