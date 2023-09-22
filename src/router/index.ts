@@ -112,16 +112,27 @@ const router = createRouter({
                         icon: 'mdi-alpha-b',
                         visible: true,
                     },
-                    component: () => import('@/views/graphics/babylonjs.vue'),
+                    component: () => import('@/views/babylonjs/babylonjs.vue'),
+                },
+                {
+                    path: 'pixijs',
+                    name: 'Pixi.js',
+                    meta: {
+                        keepAlive: false,
+                        title: 'Babylon.js',
+                        icon: 'mdi-alpha-p',
+                        visible: true,
+                    },
+                    component: () => import('@/views/graphics/pxiJs.vue'),
                 },
             ],
         },
         {
-            path: '/low-code',
-            name: 'LowCode',
+            path: '/miscellaneous',
+            name: 'Miscellaneous',
             meta: {
                 visible: true,
-                title: 'Low Code',
+                title: 'Miscellaneous',
                 icon: 'mdi-view-module',
             },
             component: Layout,
@@ -138,18 +149,6 @@ const router = createRouter({
                     component: () => import('@/views/low-code/layer-edit.vue'),
                     children: [],
                 },
-            ],
-        },
-        {
-            path: '/map',
-            name: 'map',
-            meta: {
-                visible: true,
-                title: 'Map',
-                icon: 'mdi-compass',
-            },
-            component: Layout,
-            children: [
                 {
                     path: 'amap',
                     name: 'amap',

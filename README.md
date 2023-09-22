@@ -32,26 +32,33 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台�
 | :----: | :--: | :--:  | :---:  |
 |  ✅    |  ❌  |  ✅   |   ✅    |
 
-## 主要页面演示功能
-1. [特斯拉仪表盘](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/tesla-model-s)
-    - 高德地图轨迹回放
-2. [智能家居控制中心组件](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/smart-house)
-    - Apexcharts📈
-    - SVG半圆滑块控制器
-    - 音乐播放器
-3. [Vuetify 基础组件](https://vuetifyjs.com/zh-Hans/)
-4. [Table 布局](https://chenhuajie.gitee.io/vue-material-admin/#/componets/tables)
-5. [Three.js 引擎](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/three-js)
-    - 动态导入模型
-    - 360全景图导入
-6. [Babylon.js 引擎](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/babylonjs)
-    - 物理引擎
-    - 角色控制器（开发中）
-7. [低代码页面编辑](https://chenhuajie.gitee.io/vue-material-admin/#/low-code/layer-edit-example)
-    - 元素大小调整、组件拖拽、顺序拖拽、显示删除
-    - 右键菜单
-    - 属性、事件编辑（未开发）
-8. [高德地图镜头跟踪动画](https://chenhuajie.gitee.io/vue-material-admin/#/map/amap)
+## TODO
+1. 特斯拉仪表盘
+    - ✅ 高德地图轨迹回放
+    - ❌ 轨迹播放优化
+2. 智能家居控制中心组件
+    - ✅ Apexcharts📈
+    - ✅ 滑块控制器
+    - ❌ 滑块控制器增加鼠标滑动
+    - ✅ 音乐播放器UI
+    - ❌ 音乐播放器增加真实播放音频
+    - ✅ 360全景图
+3. Vuetify 基础组件
+    - ❌ 更多案例
+5. Three.js 引擎
+    - ✅ 动态导入模型入
+6. Babylon.js 引擎
+    - ✅ 物理引擎
+    - ✅ 角色控制器
+    - 单独源码看这个库 [https://github.com/armomu/babylonjs-character-generator](https://github.com/armomu/babylonjs-character-generator)
+7. 页面拖拽编辑
+    - ✅ 元素大小调整、组件拖拽、顺序拖拽、显示删除
+    - ✅ 右键菜单
+    - ❌ 属性、事件编辑
+8. 高德地图
+    - ✅ 镜头跟踪动画
+    - ✅ 镜头跟踪动画
+    - ❌ 更多案例
 
 ## 本地开发
 
