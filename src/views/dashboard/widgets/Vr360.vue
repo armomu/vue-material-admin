@@ -28,7 +28,7 @@ const textureLoader = new THREE.TextureLoader();
 let pmremGenerator: THREE.PMREMGenerator;
 
 let animateID = 0;
-let cameraDir = 1;
+const cameraDir = 1;
 
 const animate = () => {
     renderer.render(scene, camera);
@@ -39,17 +39,17 @@ const animate = () => {
     // if (camera.position.y > 2) {
     //     camera.position.y -= 0.03;
     // }
-    if (camera.position.x > 10) {
-        cameraDir = 1;
-    }
-    if (camera.position.x < -10) {
-        cameraDir = 0;
-    }
-    if (cameraDir) {
-        camera.position.x -= 0.03;
-    } else {
-        camera.position.x += 0.03;
-    }
+    // if (camera.position.x > 10) {
+    //     cameraDir = 1;
+    // }
+    // if (camera.position.x < -10) {
+    //     cameraDir = 0;
+    // }
+    // if (cameraDir) {
+    //     camera.position.x -= 0.03;
+    // } else {
+    //     camera.position.x += 0.03;
+    // }
     animateID = requestAnimationFrame(animate);
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
@@ -76,6 +76,10 @@ function init() {
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
     controls.enableDamping = true;
+    controls.autoRotate = true;
+
+    // 设置自动旋转的速度
+    controls.autoRotateSpeed = 2.0;
     controls.update();
 
     const sphereGeometry = new THREE.SphereGeometry(1, 50, 50);
