@@ -36,7 +36,7 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台�
 
 ## 预览地址
 -   [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
--   [https://armomu.github.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
+-   [https://armomu.github.io/vue-material-admin](https://armomu.github.io/vue-material-admin/)
 
 ## TODO
 1. 特斯拉仪表盘
