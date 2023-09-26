@@ -169,6 +169,10 @@ function init() {
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
     controls.enableDamping = true;
+    controls.autoRotate = true;
+
+    // 设置自动旋转的速度
+    controls.autoRotateSpeed = 2.0;
     controls.update();
 
     loader.load('/vue-material-admin/RobotExpressive/RobotExpressive.glb', function (gltf) {
