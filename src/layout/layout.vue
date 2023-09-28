@@ -56,8 +56,8 @@
                             />
                         </template>
                     </v-list-group>
-                    <v-list-subheader v-if="item.name === 'Dashboard'">Group</v-list-subheader>
-                    <v-list-subheader v-if="item.name === 'map'">Other</v-list-subheader>
+                    <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
+                    <v-list-subheader v-if="item.name === 'Miscellaneous'">Other</v-list-subheader>
                 </template>
                 <v-list-item prepend-icon="mdi-text-box" class="mx-1">
                     <v-list-item-title

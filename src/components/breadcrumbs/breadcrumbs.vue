@@ -14,7 +14,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const $route = useRoute();
@@ -69,6 +69,7 @@ function init() {
     console.log(routes.value);
 }
 init();
+watch($route, init);
 </script>
 <style lang="scss">
 .v-breadcrumbs__prepend {
