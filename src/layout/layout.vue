@@ -7,7 +7,6 @@
     >
         <v-navigation-drawer
             class="my-4 layout_navigation"
-            theme="dark"
             :rail="navState.rail"
             expand-on-hover
             rail-width="77"
@@ -57,35 +56,22 @@
                             />
                         </template>
                     </v-list-group>
-                    <v-list-subheader v-if="item.name === 'Dashboard'">Group</v-list-subheader>
-                    <v-list-subheader v-if="item.name === 'map'">Other</v-list-subheader>
+                    <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
+                    <v-list-subheader v-if="item.name === 'Miscellaneous'">Other</v-list-subheader>
                 </template>
                 <v-list-item prepend-icon="mdi-text-box" class="mx-1">
                     <v-list-item-title
-                        ><a
-                            target="_blank"
-                            href="https://next.vuetifyjs.com/en/"
-                            style="color: #ffffff"
+                        ><a target="_blank" href="https://vuetifyjs.com/" class="link"
                             >Document</a
                         ></v-list-item-title
                     >
                 </v-list-item>
-                <!-- <v-list-item prepend-icon="mdi-folder" class="mx-1">
-                    <v-list-item-title
-                        ><a
-                            target="_blank"
-                            href="http://chenhuajie.gitee.io/vue-material-admin/v2"
-                            style="color: #ffffff"
-                            >V2 Preview</a
-                        ></v-list-item-title
-                    >
-                </v-list-item> -->
                 <v-list-item prepend-icon="mdi-github" class="mx-1">
                     <v-list-item-title
                         ><a
                             target="_blank"
-                            href="https://github.com/jaywoow"
-                            style="color: #ffffff"
+                            href="https://github.com/armomu/vue-material-admin"
+                            class="link"
                             >Github</a
                         ></v-list-item-title
                     >
@@ -175,20 +161,10 @@
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
-// import { docsearch } from 'meilisearch-docsearch';
-// import 'meilisearch-docsearch/css';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
-import { reactive, computed, watch, onMounted } from 'vue';
+import { reactive, computed, watch } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
-onMounted(() => {
-    // docsearch({
-    //     container: '#docsearch',
-    //     host: 'https://ms-4c0f4c604814-2275.sgp.meilisearch.io',
-    //     apiKey: 'be54438b7a46ff7567aa3ca928590a58bdc81abe7aa4e389881f8de597cc9d13',
-    //     indexUid: 'dev_search',
-    // });
-});
 const mainStore = useMainStore();
 const router = useRouter();
 const navState = reactive({
@@ -216,7 +192,7 @@ const changeRail = () => {
 };
 
 const toGithub = () => {
-    window.open('https://github.com/jaywoow/vue-material-admin', '_blank');
+    window.open('https://github.com/armomu/vue-material-admin', '_blank');
 };
 const toEmail = () => {
     window.open('mailto:894620576@qq.com', '_blank');

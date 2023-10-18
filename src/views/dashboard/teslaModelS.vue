@@ -90,7 +90,7 @@
                 <div class="a_t"></div>
                 <div class="a_l"></div>
                 <div class="a_r"></div>
-                <div class="search_bar">
+                <div class="search_bar" hidden>
                     <!-- <div class="input">
                         <input placeholder="Search Here" />
                     </div> -->
@@ -318,6 +318,7 @@ setTimeout(() => {
 }, 3000);
 onBeforeUnmount(() => {
     map_.value?.destroy();
+    marker.stopMove();
 });
 </script>
 
@@ -330,7 +331,7 @@ onBeforeUnmount(() => {
     .car {
         // border: 1px #999 solid;
         position: relative;
-        margin-top: 50px;
+        // margin-top: 16px;
         .row2 {
             display: flex;
             align-items: center;
@@ -366,6 +367,8 @@ onBeforeUnmount(() => {
             right: 0;
             top: -90px;
             z-index: 2;
+            pointer-events: none;
+            cursor: default;
         }
     }
     .car_sys {

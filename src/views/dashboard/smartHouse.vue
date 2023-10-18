@@ -10,12 +10,13 @@
                     <v-window v-model="tab">
                         <v-window-item :value="1">
                             <div class="camera_wrap ma-4">
-                                <v-img
+                                <!-- <v-img
                                     :aspect-ratio="16 / 9"
                                     height="365"
                                     cover
                                     src="https://demos.creative-tim.com/argon-dashboard-chakra/static/media/ImageArchitect1.032614a5.png"
-                                />
+                                /> -->
+                                <Vr360 />
                                 <div class="label"><span /> Live</div>
                                 <div class="label lk">4K Resolution</div>
                             </div>
@@ -109,6 +110,7 @@
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import Vr360 from './widgets/Vr360.vue';
 import Device from './widgets/Device.vue';
 import MusicCard from './widgets/MusicCard.vue';
 import AirConditioner from './widgets/AirConditioner.vue';
@@ -137,6 +139,7 @@ const widgets = reactive({
         position: relative;
         border-radius: 6px;
         overflow: hidden;
+        height: 365px;
         .label {
             max-width: 112px;
             line-height: 25px;

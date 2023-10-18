@@ -79,8 +79,9 @@ import { reactive, ref } from 'vue';
 const svgCircleDom = ref<HTMLDivElement | null>(null);
 const circles = reactive({
     icon: 'snowflake',
-    angle: 145 + 175,
-    value: 21,
+    angle: 145,
+    // angle: 145 + 175,
+    value: 0,
 });
 const onAdd = () => {
     circles.angle = circles.angle + 8.33;
@@ -90,6 +91,13 @@ const onReduce = () => {
     circles.angle = circles.angle - 8.33;
     circles.value = circles.value - 1;
 };
+const add = setInterval(() => {
+    if (circles.value > 20) {
+        clearInterval(add);
+    }
+    circles.angle = circles.angle + 8.33;
+    circles.value = circles.value + 1;
+}, 100);
 </script>
 <style scoped lang="scss">
 .air_conditioner {

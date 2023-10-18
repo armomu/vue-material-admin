@@ -16,8 +16,11 @@
         .v-list-item-title {
             font-size: 14px;
             font-weight: 500;
-            color: #ffffff;
+            // color: #ffffff;
             opacity: 1;
+            .link {
+                color: inherit;
+            }
         }
         .v-list-group__items {
             .v-list-item {
@@ -98,6 +101,9 @@
                             // width: 5px;
                         }
                         // width: 25px;
+                    }
+                    .link {
+                        color: inherit;
                     }
                 }
                 .page_title {

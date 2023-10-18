@@ -23,33 +23,48 @@
 
 </div>
 
-Vue Material Admin 是一个基于 `Vuetify` 免费开源的中后台模版。使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`PWA`等技术栈，在 [Material Design](https://m3.material.io/) 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，该项目持续保持更新
+Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台模版。使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`PWA`等技术栈，在 [Material Design](https://m3.material.io/) 设计规范和 `Vuetify` 基础组件的基础上，继续向上构建开发，可以用来作为项目的启动模版，也可用于学习参考，该项目持续保持更新
 
-## 公共功能支持
-| PWA    | i18n | 响应式 | 暗黑主题 |
-| :----: | :--: | :--:  | :-----:  |
-|  dev   |  ❌  |  ✅   |   ✅    |
+## 页面截图
 
-## 已有页面演示功能
-1. [特斯拉仪表盘](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/tesla-model-s)
-    - 高德地图轨迹回放
-2. [智能家居控制中心组件](https://chenhuajie.gitee.io/vue-material-admin/#/dashboard/smart-house)
-    - Apexcharts📈
-    - 半圆滑块控制器
-    - 音乐播放器
-3. [Vuetify 基础组件](https://vuetifyjs.com/zh-Hans/)
-4. [Table 布局](https://chenhuajie.gitee.io/vue-material-admin/#/componets/tables)
-5. [Three.js 引擎](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/three-js)
-    - 动态导入模型
-    - 360全景图导入
-6. [Babylon.js 引擎](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/babylonjs)
-    - 物理引擎
-    - 角色控制器（开发中）～不公开源码
-7. [低代码页面编辑](https://chenhuajie.gitee.io/vue-material-admin/#/low-code/layer-edit-example)
-    - 元素大小调整、组件拖拽、顺序拖拽、显示删除
-    - 右键菜单（未开发）
-    - 属性、事件编辑（未开发）
-8. [高德地图镜头跟踪动画](https://chenhuajie.gitee.io/vue-material-admin/#/map/amap)
+<p align="center">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/tesla.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/smart_house.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/babylonjs.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/edit_layer.png">
+</p>
+
+## 预览地址
+-   [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
+-   [https://armomu.github.io/vue-material-admin](https://armomu.github.io/vue-material-admin/)
+
+## TODO
+1. 特斯拉仪表盘
+    - ✅ 高德地图轨迹回放
+    - ❌ 轨迹播放优化
+2. 智能家居控制中心组件
+    - ✅ Apexcharts
+    - ✅ 滑块控制器
+    - ❌ 滑块控制器增加鼠标滑动
+    - ✅ 音乐播放器UI
+    - ❌ 音乐播放器增加真实播放音频
+    - ✅ 360全景图
+3. Vuetify 基础组件
+    - ❌ 更多案例
+5. Three.js 引擎
+    - ✅ 动态导入模型入
+6. Babylon.js 引擎
+    - ✅ 物理引擎
+    - ✅ 角色控制器
+7. 页面拖拽编辑
+    - ✅ 元素大小调整、组件拖拽、顺序拖拽、显示删除
+    - ✅ 右键菜单
+    - ❌ 属性、事件编辑
+8. 高德地图
+    - ✅ 高德地图轨迹回放
+    - ✅ 镜头跟踪动画
+    - ❌ GeoJSON
+    - ❌ 更多案例
 
 ## 本地开发
 
@@ -69,16 +84,4 @@ npm install
 npm run dev
 
 ```
-
-## 预览地址
-
--   [👉戳这里](https://chenhuajie.gitee.io/vue-material-admin/)
-## 页面截图
-
-<p align="center">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/tesla.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/smart_house.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/babylonjs.png">
-  <img width="49%" src="https://gitee.com/chenhuajie/vue-material-admin/raw/master/src/assets/edit_layer.png">
-</p>
 

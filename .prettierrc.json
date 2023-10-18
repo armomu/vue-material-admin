@@ -1,5 +1,5 @@
 {
-    "prettier/prettier": 1,
+    "prettier/prettier": 0,
     "printWidth": 100,
     "useTabs": false,
     "tabWidth": 4,

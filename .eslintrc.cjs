@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 require('@rushstack/eslint-patch/modern-module-resolution');
 
 // eslint-disable-next-line no-undef

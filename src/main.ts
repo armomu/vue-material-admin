@@ -5,10 +5,11 @@ import App from './App.vue';
 import router from './router';
 import { vuetify } from '@/plugins/vuetify';
 import '@/plugins/pwa';
-
 const app = createApp(App);
-
 app.use(createPinia());
 app.use(vuetify);
 app.use(router);
-app.mount('#app');
+app.mount('#app').$nextTick(() => {
+    const d = document.getElementById('_loading_');
+    d?.setAttribute('class', 'la-ball-climbing-dot hide');
+});
