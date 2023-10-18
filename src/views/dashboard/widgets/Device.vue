@@ -9,12 +9,8 @@
                         <div v-if="toolw" class="item" :class="{ pbg: value }">
                             <v-icon icon="mdi-wifi" :color="value ? 'primary' : '#999'" size="12" />
                         </div>
-                        <div v-if="toolp" class="item mt-2" :class="{ bg: value }">
-                            <v-icon
-                                icon="mdi-power-plug"
-                                :color="value ? 'success' : '#999'"
-                                size="12"
-                            />
+                        <div v-if="toolp" class="item mt-2 bg">
+                            <v-icon icon="mdi-power-plug" color="success" size="12" />
                         </div>
                     </div>
                 </div>
@@ -40,12 +36,8 @@
                     <div v-if="toolw" class="item" :class="{ pbg: value }">
                         <v-icon icon="mdi-wifi" :color="value ? 'primary' : '#999'" size="12" />
                     </div>
-                    <div v-if="toolp" class="item mt-2" :class="{ bg: value }">
-                        <v-icon
-                            icon="mdi-power-plug"
-                            :color="value ? 'success' : '#999'"
-                            size="12"
-                        />
+                    <div v-if="toolp" class="item mt-2 bg">
+                        <v-icon icon="mdi-power-plug" color="success" size="12" />
                     </div>
                 </div>
             </div>
