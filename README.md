@@ -52,20 +52,22 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台�
     - ❌ 全景图陀螺仪
 3. Vuetify 基础组件
     - ❌ 更多案例
-5. Three.js 引擎
+5. Three.js
     - ✅ 动态导入模型入
-6. Babylon.js 引擎
+6. [Babylon.js](https://github.com/armomu/ergoudan) 
     - ✅ 物理引擎
     - ✅ 角色控制器
     - ❌ 控制器上下楼梯
-7. 页面拖拽编辑
+7. Pixi.js 
+    - ❌ 简单的捕鱼效果
+8. 页面拖拽编辑
     - ✅ 元素大小调整、组件拖拽、顺序拖拽、显示删除
     - ✅ 右键菜单
     - ❌ 属性、事件编辑
     - ❌ 标尺
     - ❌ 缩放
     - ❌ 更多组件
-8. 高德地图
+9. 高德地图
     - ✅ 高德地图轨迹回放
     - ✅ 镜头跟踪动画
     - ❌ GeoJSON
