@@ -24,9 +24,9 @@ const init = () => {
     loadAnimatedSprite('/fishcatcher/cannon/cannon1/', 'cannon100', 7, app).then((sprite) => {
         // sprite.animationSpeed = 0.06;
         sprite.x = app.screen.width / 2;
-        sprite.y = app.screen.height / 2;
-        sprite.anchor.set(0.5);
-        // app.stage.addChild(sprite);
+        sprite.y = app.screen.height;
+        sprite.anchor.set(0.5, 1);
+        app.stage.addChild(sprite);
     });
     const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
     bottomBar.y = 580 - 34;
