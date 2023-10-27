@@ -123,7 +123,7 @@ const router = createRouter({
                         icon: 'mdi-alpha-p',
                         visible: true,
                     },
-                    component: () => import('@/views/graphics/pxiJs.vue'),
+                    component: () => import('@/views/graphics/pixiJs.vue'),
                 },
             ],
         },
