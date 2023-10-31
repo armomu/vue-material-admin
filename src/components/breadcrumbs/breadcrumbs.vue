@@ -66,7 +66,6 @@ function init() {
             });
         }
     });
-    console.log(routes.value);
 }
 init();
 watch($route, init);

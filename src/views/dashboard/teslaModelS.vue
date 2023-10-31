@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 #amap {
-    height: 500px;
+    height: calc(100vh - 488px);
     position: relative;
 }
 .tesla {
@@ -373,7 +373,7 @@ onBeforeUnmount(() => {
     }
     .car_sys {
         overflow: hidden;
-        min-height: 400px;
+        height: calc(100vh - 464px);
         background: #212121;
         border-radius: 12px;
         margin-bottom: 16px;
@@ -408,21 +408,20 @@ onBeforeUnmount(() => {
             }
         }
         .bottom_bar {
-            height: 86px;
+            height: 76px;
             position: absolute;
-            left: 10%;
-            bottom: 0;
-            width: 80%;
-            overflow: hidden;
+            left: 20%;
+            bottom: 10px;
+            width: 60%;
             z-index: 3;
             .bb_inner {
-                height: 200px;
-                background: #1a1a1a;
-                border-radius: 70px;
-                padding: 0 20px;
+                border-radius: 30px;
+                // padding: 0 20px;
                 .bbi_wrap {
-                    height: 86px;
+                    height: 76px;
+                    border-radius: 20px;
                     align-items: center;
+                    background: #1a1a1a;
                     justify-content: space-around;
                 }
                 .igroup {
@@ -432,7 +431,7 @@ onBeforeUnmount(() => {
                     // height: 76px;
                     align-self: flex-start;
                     .ig_inner {
-                        height: 76px;
+                        height: 70px;
                         display: flex;
                         align-items: center;
                         justify-content: space-around;

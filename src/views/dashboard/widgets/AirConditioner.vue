@@ -6,9 +6,12 @@
                     cx="170"
                     cy="170"
                     r="150"
-                    class="circle1"
                     transform="rotate(145,170,170)"
                     stroke-dasharray="655, 10000"
+                    fill="none"
+                    stroke-width="20"
+                    stroke="rgb(var(--theme-background))"
+                    stroke-linecap="round"
                 />
                 <circle
                     cx="170"
@@ -17,23 +20,35 @@
                     class="circle2 circle4"
                     transform="rotate(145,170,170)"
                     :stroke-dasharray="`${circles.value * 21.833}, 10000`"
+                    fill="none"
+                    stroke-width="20"
+                    stroke="#7f85f9"
+                    stroke-linecap="round"
                 />
                 <circle
                     cx="170"
                     cy="170"
                     r="150"
-                    class="circle3"
                     :transform="`rotate(${circles.angle},170,170)`"
                     stroke-dasharray="0, 10000"
+                    fill="none"
+                    stroke-width="30"
+                    stroke="#b4b8fc"
+                    stroke-linecap="round"
+                    style="cursor: pointer"
                 />
                 <circle
                     cx="170"
                     cy="170"
                     r="150"
-                    class="circle2"
                     :transform="`rotate(${circles.angle},170,170)`"
                     ref="svgCircleDom"
                     stroke-dasharray="0, 10000"
+                    fill="none"
+                    stroke-width="20"
+                    stroke="#7f85f9"
+                    stroke-linecap="round"
+                    style="cursor: pointer"
                 />
             </svg>
             <div class="deg">
@@ -74,18 +89,18 @@
     </v-card>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 
 const svgCircleDom = ref<HTMLDivElement | null>(null);
 const circles = reactive({
     icon: 'snowflake',
     angle: 145,
-    // angle: 145 + 175,
     value: 0,
 });
 const onAdd = () => {
     circles.angle = circles.angle + 8.33;
     circles.value = circles.value + 1;
+    console.log(circles);
 };
 const onReduce = () => {
     circles.angle = circles.angle - 8.33;
@@ -104,6 +119,7 @@ const add = setInterval(() => {
     .circle_wrap {
         width: 340px;
         margin: 0 auto;
+        position: relative;
         height: 280px;
         overflow: hidden;
         .deg {
@@ -111,38 +127,15 @@ const add = setInterval(() => {
             text-align: center;
             position: absolute;
             z-index: 2;
-            top: 145px;
+            top: 110px;
         }
         circle {
             transition: all 0.1s;
         }
         .svg_circle {
             width: 340px;
-            height: 340px;
+            height: 280px;
             margin: 0 auto;
-        }
-        .circle1 {
-            fill: none;
-            stroke-width: 20;
-            // stroke: rgb(0, 0, 0);
-            stroke: rgb(var(--theme-background));
-            stroke-linecap: round;
-        }
-
-        .circle2 {
-            fill: none;
-            stroke-width: 20;
-            stroke: #7f85f9;
-            stroke-linecap: round;
-        }
-        .circle3 {
-            fill: none;
-            stroke-width: 30;
-            stroke-linecap: round;
-            stroke: #b4b8fc;
-        }
-        .circle4 {
-            stroke: #7f85f9;
         }
     }
     .btn_tool {
