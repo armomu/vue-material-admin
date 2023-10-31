@@ -4,37 +4,54 @@
 <script setup lang="ts">
 import { shallowRef, onMounted } from 'vue';
 import * as PIXI from 'pixi.js';
-import _ from 'lodash';
+import { Button } from '@pixi/ui';
 
 const pixiDom = shallowRef<HTMLDivElement>();
-
-const init = () => {
+const init = async () => {
     const app = new PIXI.Application({
         width: 1024,
         height: 580,
     });
     pixiDom.value?.appendChild(app.view as any);
     addSceneBackground(app);
-    loadAnimatedSprite('/fishcatcher/fishimg/fish10/live/', 'fish10_live00', 30, app).then(
-        (sprite) => {
-            sprite.animationSpeed = 0.06;
-            app.stage.addChild(sprite);
-        }
-    );
-    loadAnimatedSprite('/fishcatcher/cannon/cannon1/', 'cannon100', 7, app).then((sprite) => {
-        // sprite.animationSpeed = 0.06;
-        sprite.x = app.screen.width / 2;
+    await loadFishFlock(app);
+    await addBottomBar(app);
+    loadAnimatedSprite('/fishcatcher/cannon/cannon6/', 'cannon600', 7, app).then((sprite) => {
+        sprite.animationSpeed = 0.5;
+        sprite.x = app.screen.width / 2 + 42;
         sprite.y = app.screen.height;
         sprite.anchor.set(0.5, 1);
+        sprite.scale.set(0.7);
+        app.stage.interactive = true;
         app.stage.addChild(sprite);
+        app.stage.on('pointermove', (event) => {
+            // 计算鱼需要旋转的角度
+            const radians = Math.atan2(event.global.y - sprite.y, event.global.x - sprite.x);
+            // 将鱼旋转到目标角度
+            sprite.rotation = Math.PI / 2 - Math.abs(radians);
+        });
+        app.stage.on('pointerdown', (event) => {
+            sprite.play();
+            // sprite2.x = event.globalX;
+            // sprite2.y = event.globalY;
+        });
+        sprite.onLoop = () => {
+            // 停止动画
+            sprite.stop();
+        };
     });
+};
+
+const addBottomBar = async (app: PIXI.Application) => {
     const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
     bottomBar.y = 580 - 34;
+    const button = new Button();
+
+    button.onPress.connect(() => console.log('Button pressed!'));
+    return Promise.resolve();
 };
 const addSceneBackground = (app: PIXI.Application) => {
-    const background = PIXI.Sprite.from(
-        import.meta.env.BASE_URL + '/fishcatcher/img/game_bg_2_hd.jpg'
-    );
+    const background = PIXI.Sprite.from(import.meta.env.BASE_URL + '/fishcatcher/img/BG01.png');
     background.width = app.screen.width;
     background.height = app.screen.height;
     app.stage.addChild(background);
@@ -43,6 +60,7 @@ const addSceneBackground = (app: PIXI.Application) => {
 const loadSprite = (
     filePath: string,
     app: PIXI.Application,
+    add = true,
     x = app.screen.width / 2,
     y = app.screen.height / 2,
     anchor = 0.5
@@ -51,8 +69,26 @@ const loadSprite = (
     sprite.x = x;
     sprite.y = y;
     sprite.anchor.set(anchor);
-    app.stage.addChild(sprite);
+    add && app.stage.addChild(sprite);
     return sprite;
+};
+
+const loadFishFlock = async (app: PIXI.Application) => {
+    const arr: PIXI.AnimatedSprite[] = [];
+    const fish = await loadAnimatedSprite(
+        '/fishcatcher/fishimg/fish5/live/',
+        'fish5_live00',
+        30,
+        app
+    );
+    const numCopies = 5;
+    for (let i = 0; i < numCopies; i++) {
+        const copySprite = new PIXI.AnimatedSprite(fish.textures);
+        copySprite.play();
+        copySprite.position.set(200 + i * 100, 200);
+        app.stage.addChild(copySprite);
+    }
+    return Promise.resolve(arr);
 };
 
 /**
@@ -71,9 +107,10 @@ const loadAnimatedSprite = async (
     num: number,
     app: PIXI.Application,
     mcswspj = true,
-    animationSpeed = 0.1
-) => {
-    const fileNames: string[] = [];
+    animationSpeed = 0.1,
+    add = false
+): Promise<PIXI.AnimatedSprite> => {
+    const textures: PIXI.Texture[] = [];
     for (let i = 0; i < num; i++) {
         let name = '';
         if (mcswspj) {
@@ -81,21 +118,21 @@ const loadAnimatedSprite = async (
         } else {
             name = `${fileName}${i + 1}`;
         }
-        PIXI.Assets.add(name, import.meta.env.BASE_URL + `${localPath}${name}.png`);
-        fileNames.push(name);
-    }
-    const textures = await PIXI.Assets.load(fileNames);
-    const frames: PIXI.Texture[] = [];
 
-    Object.keys(textures).forEach((key) => {
-        frames.push(textures[key]);
-    });
-    const sprite = new PIXI.AnimatedSprite(frames);
+        // PIXI.Assets.add(name, import.meta.env.BASE_URL + `${localPath}${name}.png`);
+        const res = PIXI.Texture.from(import.meta.env.BASE_URL + `${localPath}${name}.png`);
+        textures.push(res);
+    }
+
+    const sprite = new PIXI.AnimatedSprite(textures);
     sprite.x = app.screen.width * 0.25;
     sprite.y = app.screen.height / 2;
     sprite.anchor.set(0.5);
     sprite.animationSpeed = animationSpeed;
     sprite.play();
+    if (add) {
+        app.stage.addChild(sprite);
+    }
     return Promise.resolve(sprite);
 };
 
