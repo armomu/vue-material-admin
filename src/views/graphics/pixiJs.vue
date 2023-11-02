@@ -22,7 +22,8 @@ const init = async () => {
         sprite.y = app.screen.height;
         sprite.anchor.set(0.5, 1);
         sprite.scale.set(0.7);
-        app.stage.interactive = true;
+        // app.stage.interactive = true;
+        app.stage.eventMode = 'dynamic';
         app.stage.addChild(sprite);
         app.stage.on('pointermove', (event) => {
             const radian = Math.atan2(event.globalY - sprite.y, event.globalX - sprite.x);
@@ -80,7 +81,7 @@ const loadFishFlock = async (app: PIXI.Application) => {
         30,
         app
     );
-    const numCopies = 1;
+    const numCopies = 3;
     for (let i = 0; i < numCopies; i++) {
         const sprite_ = new PIXI.AnimatedSprite(fish.textures);
         sprite_.anchor.set(0.5);
@@ -89,32 +90,8 @@ const loadFishFlock = async (app: PIXI.Application) => {
         sprite_.animationSpeed = 0.08;
         container.addChild(sprite_);
     }
-    // 创建一个新的点精灵
-    const pointA = new PIXI.Sprite(PIXI.Texture.WHITE);
-    pointA.width = 5;
-    pointA.height = 5;
-    pointA.zIndex = 999;
-
-    // 将点精灵的颜色更改为白色以外的颜色，以便更容易看到它
-    pointA.tint = 0xffffff;
-    pointA.anchor.set(0.5);
-    container.addChild(pointA);
-
-    container.y = app.screen.height - 30;
+    container.y = app.screen.height / 2;
     container.x = 30;
-
-    const pointB = new PIXI.Sprite(PIXI.Texture.WHITE);
-    const pointC = new PIXI.Sprite(PIXI.Texture.WHITE);
-    pointB.zIndex = 999;
-    pointC.zIndex = 999;
-    pointB.tint = 0xffffff;
-    pointC.tint = 0xffffff;
-    pointB.width = 5;
-    pointB.height = 5;
-    pointC.width = 5;
-    pointC.height = 5;
-    app.stage.addChild(pointB);
-    app.stage.addChild(pointC);
     // 精灵原始位置为A点，随机点击点位置为B点，AB两点直角交叉点为C点
     const data = {
         b_x: 0,
@@ -143,14 +120,9 @@ const loadFishFlock = async (app: PIXI.Application) => {
                 container.y -= data.speed_y * delta;
                 break;
             case Direction.RightDown:
-                container.x -= data.speed_x * delta;
+                container.x += data.speed_x * delta;
                 container.y += data.speed_y * delta;
                 break;
-        }
-
-        if (data.a2b_l > 0 && container.x < data.b_x) {
-            container.x += data.speed_x * delta;
-            container.y -= data.speed_y * delta;
         }
     });
     app.stage.on('pointerdown', (event) => {
@@ -183,10 +155,6 @@ const loadFishFlock = async (app: PIXI.Application) => {
         if (event.globalX < container.x && event.globalY < container.y) {
             data.direction = Direction.LeftUp;
         }
-        pointB.x = data.b_x;
-        pointB.y = data.b_y;
-        pointC.x = data.c_x;
-        pointC.y = data.c_y;
     });
     return Promise.resolve(arr);
 };
@@ -242,6 +210,14 @@ onMounted(async () => {
 onUnmounted(() => {
     _app?.destroy();
 });
+
+function random() {
+    const result = Math.random() * (1024 - 1) + 1;
+    const result2 = Math.random() * (580 - 1) + 1;
+
+    return {};
+}
+random();
 </script>
 <style scoped lang="scss">
 .pixijs {
