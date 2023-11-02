@@ -2,7 +2,7 @@
     <div class="pixijs" ref="pixiDom"></div>
 </template>
 <script setup lang="ts">
-import { shallowRef, onMounted } from 'vue';
+import { shallowRef, onMounted, onUnmounted } from 'vue';
 import * as PIXI from 'pixi.js';
 import { Button } from '@pixi/ui';
 
@@ -25,7 +25,7 @@ const init = async () => {
         app.stage.interactive = true;
         app.stage.addChild(sprite);
         app.stage.on('pointermove', (event) => {
-            const radian = Math.atan2(event.global.y - sprite.y, event.global.x - sprite.x);
+            const radian = Math.atan2(event.globalY - sprite.y, event.globalX - sprite.x);
             sprite.rotation = Math.PI / 2 - Math.abs(radian);
         });
         app.stage.on('pointerdown', () => {
@@ -36,6 +36,7 @@ const init = async () => {
             sprite.stop();
         };
     });
+    return Promise.resolve(app);
 };
 
 const addBottomBar = async (app: PIXI.Application) => {
@@ -79,44 +80,131 @@ const loadFishFlock = async (app: PIXI.Application) => {
         30,
         app
     );
-    const numCopies = 5;
+    const numCopies = 1;
     for (let i = 0; i < numCopies; i++) {
         const sprite_ = new PIXI.AnimatedSprite(fish.textures);
+        sprite_.anchor.set(0.5);
         sprite_.play();
         sprite_.position.set((i % 5) * 100, 0);
         sprite_.animationSpeed = 0.08;
         container.addChild(sprite_);
     }
-    container.y = app.screen.height / 2;
-    // container.x = app.screen.width / 2;
-    let ticker = 0;
-    let count = 0;
+    // 创建一个新的点精灵
+    const pointA = new PIXI.Sprite(PIXI.Texture.WHITE);
+    pointA.width = 5;
+    pointA.height = 5;
+    pointA.zIndex = 999;
+
+    // 将点精灵的颜色更改为白色以外的颜色，以便更容易看到它
+    pointA.tint = 0xffffff;
+    pointA.anchor.set(0.5);
+    container.addChild(pointA);
+
+    container.y = app.screen.height - 30;
+    container.x = 30;
+
+    const pointB = new PIXI.Sprite(PIXI.Texture.WHITE);
+    const pointC = new PIXI.Sprite(PIXI.Texture.WHITE);
+    pointB.zIndex = 999;
+    pointC.zIndex = 999;
+    pointB.tint = 0xffffff;
+    pointC.tint = 0xffffff;
+    pointB.width = 5;
+    pointB.height = 5;
+    pointC.width = 5;
+    pointC.height = 5;
+    app.stage.addChild(pointB);
+    app.stage.addChild(pointC);
+    // 精灵原始位置为A点，随机点击点位置为B点，AB两点直角交叉点为C点
+    const data = {
+        b_x: 0,
+        b_y: 0,
+        a2b_l: 0, // 边的长度
+        c_x: 0,
+        c_y: 0,
+        b2c_l: 0, //
+        a2c_l: 0, // a到c的长度,
+        speed_x: 0,
+        speed_y: 0,
+        direction: 0,
+    };
     app.ticker.add((delta) => {
-        ticker++;
-        container.x += 1 * delta;
-        if (ticker <= 60) {
-            count += delta;
-            console.log(count, delta);
+        switch (data.direction) {
+            case Direction.LeftUp:
+                container.x -= data.speed_x * delta;
+                container.y -= data.speed_y * delta;
+                break;
+            case Direction.LeftDown:
+                container.x -= data.speed_x * delta;
+                container.y += data.speed_y * delta;
+                break;
+            case Direction.RightUp:
+                container.x += data.speed_x * delta;
+                container.y -= data.speed_y * delta;
+                break;
+            case Direction.RightDown:
+                container.x -= data.speed_x * delta;
+                container.y += data.speed_y * delta;
+                break;
         }
-        // container.y -= 1 * delta;
+
+        if (data.a2b_l > 0 && container.x < data.b_x) {
+            container.x += data.speed_x * delta;
+            container.y -= data.speed_y * delta;
+        }
     });
     app.stage.on('pointerdown', (event) => {
-        const radian = Math.atan2(event.global.y - container.y, event.global.x - container.x);
+        const radian = Math.atan2(event.globalY - container.y, event.globalX - container.x);
         container.rotation = radian;
-        console.log(radian);
+
+        // 鼠标点击坐标
+        data.b_x = event.globalX;
+        data.b_y = event.globalY;
+        // c点坐标
+        data.c_x = event.globalX;
+        data.c_y = container.y;
+        data.b2c_l = Math.abs(data.c_y - event.globalY);
+        data.a2c_l = Math.abs(data.c_x - container.x);
+        data.a2b_l = Math.abs(data.b2c_l + data.a2c_l);
+        data.speed_x = data.a2c_l / data.a2b_l;
+        data.speed_y = data.b2c_l / data.a2b_l;
+        // 右上
+        if (event.globalX > container.x && event.globalY < container.y) {
+            data.direction = Direction.RightUp;
+        }
+        // 右下
+        if (event.globalX > container.x && event.globalY > container.y) {
+            data.direction = Direction.RightDown;
+        }
+        // 左下
+        if (event.globalX < container.x && event.globalY > container.y) {
+            data.direction = Direction.LeftDown;
+        }
+        if (event.globalX < container.x && event.globalY < container.y) {
+            data.direction = Direction.LeftUp;
+        }
+        pointB.x = data.b_x;
+        pointB.y = data.b_y;
+        pointC.x = data.c_x;
+        pointC.y = data.c_y;
     });
     return Promise.resolve(arr);
 };
-
+enum Direction {
+    LeftUp,
+    RightUp,
+    LeftDown,
+    RightDown,
+}
 /**
  * 加载本地动画精灵图集
  * @param localPath 本地路径 import.meta.env.BASE_URL + `${localPath}${name}.png
  * @param fileName 文件名称
  * @param app PIXI.Application
  * @param num 图集数量
+ * @param add 是否添加到场景
  * @param mcswspj 命名是否是0001格式，默认true, 否则是
  * @param animationSpeed 动画速度
- * @returns {Promise<PIXI.AnimatedSprite> }
  */
 const loadAnimatedSprite = async (
     localPath: string,
@@ -147,8 +235,13 @@ const loadAnimatedSprite = async (
     }
     return Promise.resolve(sprite);
 };
-
-onMounted(init);
+let _app: PIXI.Application;
+onMounted(async () => {
+    _app = await init();
+});
+onUnmounted(() => {
+    _app?.destroy();
+});
 </script>
 <style scoped lang="scss">
 .pixijs {
