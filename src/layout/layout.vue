@@ -123,6 +123,9 @@
                             <v-icon size="small"></v-icon>
                         </v-badge>
                     </v-btn>
+                    <v-btn variant="text" icon="mdi-github" @click="toGithub">
+                        <v-icon size="small"></v-icon>
+                    </v-btn>
                     <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
                         <v-avatar size="x-small" class="avatar mr-2">
                             <v-img :src="wxtx" alt="陈咩啊"></v-img>
