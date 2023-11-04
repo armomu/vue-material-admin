@@ -25,7 +25,7 @@ const init = async () => {
     app.stage.eventMode = 'dynamic';
     pixiDom.value?.appendChild(app.view as any);
     addSceneBackground(app);
-    // await addFishFlock(app);
+    await addFishFlock(app);
     await addCannon(app);
     return Promise.resolve(app);
 };
@@ -102,9 +102,9 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
             randomEndPoint(data, fish);
         }
     });
-    app.stage.on('pointerdown', (event) => {
-        pointApply(data, fish, { x: event.globalX, y: event.globalY });
-    });
+    // app.stage.on('pointerdown', (event) => {
+    //     pointApply(data, fish, { x: event.globalX, y: event.globalY });
+    // });
     return Promise.resolve(arr);
 };
 
@@ -174,9 +174,11 @@ const pointApply = (
     // c点坐标
     _data.c_x = _position.x;
     _data.c_y = _sprite.y;
+    // 直角三角形边长
     _data.b2c_l = Math.abs(_data.c_y - _position.y);
     _data.a2c_l = Math.abs(_data.c_x - _sprite.x);
     _data.a2b_l = Math.abs(_data.b2c_l + _data.a2c_l);
+    // 速度比例 x =
     _data.speed_x = _data.a2c_l / _data.a2b_l;
     _data.speed_y = _data.b2c_l / _data.a2b_l;
     if (_position.x > _sprite.x && _position.y < _sprite.y) {
@@ -230,9 +232,9 @@ const randomEndPoint = (
     pointApply(_data, _sprite, { x, y });
 };
 const addCannon = async (app: PIXI.Application) => {
-    const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
-    bottomBar.y = 580 - 34;
-    bottomBar.zIndex = 999;
+    // const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
+    // bottomBar.y = 580 - 34;
+    // bottomBar.zIndex = 999;
     const cannon = await loadAnimatedSprite(
         '/fishcatcher/cannon/cannon6/',
         'cannon600',
@@ -241,9 +243,9 @@ const addCannon = async (app: PIXI.Application) => {
         true
     );
     cannon.anchor.set(0.5, 1);
-    cannon.scale.set(0.7);
+    cannon.scale.set(0.5);
     cannon.animationSpeed = 0.8;
-    cannon.x = screen.width / 2 + 42;
+    cannon.x = screen.width / 2;
     cannon.y = screen.height;
     cannon.onLoop = () => {
         cannon.stop();
@@ -256,7 +258,12 @@ const addCannon = async (app: PIXI.Application) => {
         true
     );
     bullet6.visible = false;
-    const bullets: PIXI.AnimatedSprite[] = [bullet6];
+    bullet6.scale.set(0.5);
+    bullet6.anchor.set(0.5);
+    bullet6.onLoop = () => {
+        bullet6.stop();
+    };
+    const bullets: BulletTicker[] = [{ speed_x: 0, speed_y: 0, bulletSprite: bullet6 }];
     app.stage.on('pointermove', (event) => {
         const radian = Math.atan2(event.globalY - cannon.y, event.globalX - cannon.x);
         cannon.rotation = Math.PI / 2 - Math.abs(radian);
@@ -265,42 +272,74 @@ const addCannon = async (app: PIXI.Application) => {
         pushBullet(app, bullets, cannon, event);
         cannon.play();
     });
+
+    app.ticker.add(() => {
+        for (let i = 0; i < bullets.length; i++) {
+            if (bullets[i].bulletSprite.visible) {
+                bullets[i].bulletSprite.x += bullets[i].speed_x;
+                bullets[i].bulletSprite.y += bullets[i].speed_y;
+            }
+            if (bullets[i].bulletSprite.x > screen.width || bullets[i].bulletSprite.y < 0) {
+                bullets[i].bulletSprite.visible = false;
+            }
+        }
+    });
 };
 const pushBullet = (
     app: PIXI.Application,
-    bullets: PIXI.AnimatedSprite[],
+    bullets: BulletTicker[],
     cannon: PIXI.AnimatedSprite,
     event: PIXI.FederatedPointerEvent
 ) => {
-    const [bullet] = bullets;
+    let bulletTicker = bullets[0];
+    let has = false;
+    bullets.forEach((item) => {
+        if (!item.bulletSprite.visible) {
+            bulletTicker = item;
+            has = true;
+        }
+    });
+    if (!has) {
+        bulletTicker = { ...bulletTicker };
+        bulletTicker.bulletSprite = new PIXI.AnimatedSprite(bulletTicker.bulletSprite.textures);
+        bulletTicker.bulletSprite.anchor.set(0.5);
+        bulletTicker.bulletSprite.scale.set(0.5);
+        bulletTicker.bulletSprite.onLoop = () => {
+            bulletTicker.bulletSprite.stop();
+        };
+        bulletTicker.bulletSprite.visible = false;
+        app.stage.addChild(bulletTicker.bulletSprite);
+        bullets.push(bulletTicker);
+    }
+    bulletTicker.bulletSprite.x = cannon.x + 0;
+    bulletTicker.bulletSprite.y = cannon.y + 0;
+    bulletTicker.bulletSprite.rotation = cannon.rotation + 0;
+    bulletTicker.bulletSprite.visible = true;
+    // c点坐标
+    const c_x = event.x;
+    const c_y = bulletTicker.bulletSprite.y;
+    // 直角三角形边长
+    const b2c_l = Math.abs(c_y - event.y);
+    const a2c_l = Math.abs(c_x - bulletTicker.bulletSprite.x);
+    const a2b_l = Math.abs(b2c_l + a2c_l);
 
-    // 已知参数
-    const x_c = event.x; // 直角顶点 c 的 x 坐标
-    const y_c = screen.height; // 直角顶点 c 的 y 坐标
-
-    const x_a = cannon.x; // 圆心 a 的 x 坐标
-    const y_a = cannon.y; // 圆心 a 的 y 坐标
-    const x_b = event.x; // 斜边上的点 b 的 x 坐标
-    const y_b = event.y; // 斜边上的点 b 的 y 坐标
-    const r = cannon.height; // 圆的半径
-
-    // 计算斜边的方向向量
-    const v_x = x_b - x_c;
-    const v_y = y_b - y_c;
-
-    // 计算斜边的长度
-    const d = event.x - cannon.x + (screen.height - event.y);
-
-    // 计算斜边的单位向量
-    const u_x = v_x / d;
-    const u_y = v_y / d;
-
-    // 计算与斜边相交的两个点的坐标
-    const p1_x = x_a + r * u_x;
-    const p1_y = y_a + r * u_y;
-    bullet.visible = true;
-    bullet.x = p1_x;
-    bullet.y = p1_y;
+    // 速度比例 x =
+    const speed_x = (a2c_l / a2b_l) * 30;
+    const speed_y = (b2c_l / a2b_l) * 30;
+    bulletTicker.speed_y = -speed_y;
+    // Direction.RightUp
+    if (event.x > bulletTicker.bulletSprite.x && event.y < bulletTicker.bulletSprite.y) {
+        // fish.x += next_x;
+        // fish.y -= next_y;
+        bulletTicker.speed_x = +speed_x;
+    }
+    // Direction.LeftUp
+    if (event.x < bulletTicker.bulletSprite.x && event.y < bulletTicker.bulletSprite.y) {
+        // fish.x += next_x;
+        // fish.y -= next_y;
+        bulletTicker.speed_x = -speed_x;
+    }
+    console.log(bullets.length, '个炮弹');
 };
 const loadSprite = (
     filePath: string,
@@ -380,6 +419,11 @@ interface DataInterface {
 interface Position {
     x: number;
     y: number;
+}
+interface BulletTicker {
+    speed_x: number;
+    speed_y: number;
+    bulletSprite: PIXI.AnimatedSprite;
 }
 </script>
 <style scoped lang="scss">
