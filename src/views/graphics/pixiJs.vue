@@ -22,40 +22,14 @@ const init = async () => {
         width: screen.width,
         height: screen.height,
     });
+    app.stage.eventMode = 'dynamic';
     pixiDom.value?.appendChild(app.view as any);
     addSceneBackground(app);
-    addBottomBar(app);
-    addFishFlock(app);
-    loadAnimatedSprite('/fishcatcher/cannon/cannon6/', 'cannon600', 7, app).then((sprite) => {
-        sprite.animationSpeed = 0.5;
-        sprite.x = screen.width / 2 + 42;
-        sprite.y = screen.height;
-        sprite.anchor.set(0.5, 1);
-        sprite.scale.set(0.7);
-        // app.stage.interactive = true;
-        app.stage.eventMode = 'dynamic';
-        app.stage.addChild(sprite);
-        app.stage.on('pointermove', (event) => {
-            const radian = Math.atan2(event.globalY - sprite.y, event.globalX - sprite.x);
-            sprite.rotation = Math.PI / 2 - Math.abs(radian);
-        });
-        app.stage.on('pointerdown', () => {
-            sprite.play();
-        });
-        sprite.onLoop = () => {
-            // 停止动画
-            sprite.stop();
-        };
-    });
+    // await addFishFlock(app);
+    await addCannon(app);
     return Promise.resolve(app);
 };
 
-const addBottomBar = async (app: PIXI.Application) => {
-    const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
-    bottomBar.y = 580 - 34;
-    bottomBar.zIndex = 1000;
-    return Promise.resolve();
-};
 const addSceneBackground = (app: PIXI.Application) => {
     const background = PIXI.Sprite.from(import.meta.env.BASE_URL + '/fishcatcher/img/BG01.png');
     background.width = screen.width;
@@ -134,50 +108,51 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
     return Promise.resolve(arr);
 };
 
-const addFishFlock = (app: PIXI.Application) => {
+const addFishFlock = async (app: PIXI.Application) => {
     // 头顶有个灯的大鱼
     for (let i = 0; i < 3; i++) {
-        addFishSprite(app, '1');
+        await await addFishSprite(app, '1');
     }
-    addFishSprite(app, '2');
+    await addFishSprite(app, '2');
     // 河豚🐡
     for (let i = 0; i < 3; i++) {
-        addFishSprite(app, '3');
+        await addFishSprite(app, '3');
     }
     // 黄色小鱼
     for (let i = 0; i < 10; i++) {
-        addFishSprite(app, '5');
+        await addFishSprite(app, '5');
     }
     // 青色小小鱼
     for (let i = 0; i < 20; i++) {
-        addFishSprite(app, '8');
+        await addFishSprite(app, '8');
     }
     // 蓝黄条纹鱼
     for (let i = 0; i < 8; i++) {
-        addFishSprite(app, '9');
+        await addFishSprite(app, '9');
     }
     // 乌贼
     for (let i = 0; i < 5; i++) {
-        addFishSprite(app, '10');
+        await addFishSprite(app, '10');
     }
     // 乌龟
     for (let i = 0; i < 4; i++) {
-        addFishSprite(app, '11');
+        await addFishSprite(app, '11');
     }
     // 红色小小鱼
     for (let i = 0; i < 20; i++) {
-        addFishSprite(app, '12');
+        await addFishSprite(app, '12');
     }
     // 长嘴鱼
     for (let i = 0; i < 2; i++) {
-        addFishSprite(app, '7');
+        await addFishSprite(app, '7');
     }
     // 黑色鲸鱼
     for (let i = 0; i < 2; i++) {
-        addFishSprite(app, '4');
+        await addFishSprite(app, '4');
     }
     // 蓝色鲨鱼
-    addFishSprite(app, '6');
+    await addFishSprite(app, '6');
+    return Promise.resolve();
 };
 const pointApply = (
     _data: DataInterface,
@@ -253,6 +228,79 @@ const randomEndPoint = (
     const x = Math.floor(Math.random() * screen.width) + 1;
     const y = Math.floor(Math.random() * screen.height) + 1;
     pointApply(_data, _sprite, { x, y });
+};
+const addCannon = async (app: PIXI.Application) => {
+    const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
+    bottomBar.y = 580 - 34;
+    bottomBar.zIndex = 999;
+    const cannon = await loadAnimatedSprite(
+        '/fishcatcher/cannon/cannon6/',
+        'cannon600',
+        7,
+        app,
+        true
+    );
+    cannon.anchor.set(0.5, 1);
+    cannon.scale.set(0.7);
+    cannon.animationSpeed = 0.8;
+    cannon.x = screen.width / 2 + 42;
+    cannon.y = screen.height;
+    cannon.onLoop = () => {
+        cannon.stop();
+    };
+    const bullet6 = await loadAnimatedSprite(
+        '/fishcatcher/bullet/bullet6/',
+        'bullet600',
+        9,
+        app,
+        true
+    );
+    bullet6.visible = false;
+    const bullets: PIXI.AnimatedSprite[] = [bullet6];
+    app.stage.on('pointermove', (event) => {
+        const radian = Math.atan2(event.globalY - cannon.y, event.globalX - cannon.x);
+        cannon.rotation = Math.PI / 2 - Math.abs(radian);
+    });
+    app.stage.on('pointerdown', (event) => {
+        pushBullet(app, bullets, cannon, event);
+        cannon.play();
+    });
+};
+const pushBullet = (
+    app: PIXI.Application,
+    bullets: PIXI.AnimatedSprite[],
+    cannon: PIXI.AnimatedSprite,
+    event: PIXI.FederatedPointerEvent
+) => {
+    const [bullet] = bullets;
+
+    // 已知参数
+    const x_c = event.x; // 直角顶点 c 的 x 坐标
+    const y_c = screen.height; // 直角顶点 c 的 y 坐标
+
+    const x_a = cannon.x; // 圆心 a 的 x 坐标
+    const y_a = cannon.y; // 圆心 a 的 y 坐标
+    const x_b = event.x; // 斜边上的点 b 的 x 坐标
+    const y_b = event.y; // 斜边上的点 b 的 y 坐标
+    const r = cannon.height; // 圆的半径
+
+    // 计算斜边的方向向量
+    const v_x = x_b - x_c;
+    const v_y = y_b - y_c;
+
+    // 计算斜边的长度
+    const d = event.x - cannon.x + (screen.height - event.y);
+
+    // 计算斜边的单位向量
+    const u_x = v_x / d;
+    const u_y = v_y / d;
+
+    // 计算与斜边相交的两个点的坐标
+    const p1_x = x_a + r * u_x;
+    const p1_y = y_a + r * u_y;
+    bullet.visible = true;
+    bullet.x = p1_x;
+    bullet.y = p1_y;
 };
 const loadSprite = (
     filePath: string,
