@@ -22,40 +22,14 @@ const init = async () => {
         width: screen.width,
         height: screen.height,
     });
+    app.stage.eventMode = 'dynamic';
     pixiDom.value?.appendChild(app.view as any);
     addSceneBackground(app);
-    addBottomBar(app);
-    addFishFlock(app);
-    loadAnimatedSprite('/fishcatcher/cannon/cannon6/', 'cannon600', 7, app).then((sprite) => {
-        sprite.animationSpeed = 0.5;
-        sprite.x = screen.width / 2 + 42;
-        sprite.y = screen.height;
-        sprite.anchor.set(0.5, 1);
-        sprite.scale.set(0.7);
-        // app.stage.interactive = true;
-        app.stage.eventMode = 'dynamic';
-        app.stage.addChild(sprite);
-        app.stage.on('pointermove', (event) => {
-            const radian = Math.atan2(event.globalY - sprite.y, event.globalX - sprite.x);
-            sprite.rotation = Math.PI / 2 - Math.abs(radian);
-        });
-        app.stage.on('pointerdown', () => {
-            sprite.play();
-        });
-        sprite.onLoop = () => {
-            // 停止动画
-            sprite.stop();
-        };
-    });
+    const fishFlock = await addFishFlock(app);
+    await addCannon(app, fishFlock);
     return Promise.resolve(app);
 };
 
-const addBottomBar = async (app: PIXI.Application) => {
-    const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
-    bottomBar.y = 580 - 34;
-    bottomBar.zIndex = 1000;
-    return Promise.resolve();
-};
 const addSceneBackground = (app: PIXI.Application) => {
     const background = PIXI.Sprite.from(import.meta.env.BASE_URL + '/fishcatcher/img/BG01.png');
     background.width = screen.width;
@@ -63,7 +37,6 @@ const addSceneBackground = (app: PIXI.Application) => {
     app.stage.addChild(background);
 };
 const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
-    const arr: PIXI.AnimatedSprite[] = [];
     const fish = await loadAnimatedSprite(
         `/fishcatcher/fishimg/fish${key}/live/`,
         `fish${key}_live00`,
@@ -71,7 +44,8 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
         app,
         true
     );
-
+    fish.animationSpeed = 0.1;
+    fish.play();
     const data: DataInterface = {
         b_x: 0,
         b_y: 0,
@@ -128,56 +102,70 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
             randomEndPoint(data, fish);
         }
     });
-    app.stage.on('pointerdown', (event) => {
-        pointApply(data, fish, { x: event.globalX, y: event.globalY });
-    });
-    return Promise.resolve(arr);
+    // app.stage.on('pointerdown', (event) => {
+    //     pointApply(data, fish, { x: event.globalX, y: event.globalY });
+    // });
+    return Promise.resolve(fish);
 };
 
-const addFishFlock = (app: PIXI.Application) => {
+const addFishFlock = async (app: PIXI.Application) => {
+    const arr: PIXI.AnimatedSprite[] = [];
     // 头顶有个灯的大鱼
     for (let i = 0; i < 3; i++) {
-        addFishSprite(app, '1');
+        const fish = await addFishSprite(app, '1');
+        arr.push(fish);
     }
-    addFishSprite(app, '2');
     // 河豚🐡
     for (let i = 0; i < 3; i++) {
-        addFishSprite(app, '3');
+        const fish = await addFishSprite(app, '3');
+        arr.push(fish);
     }
     // 黄色小鱼
     for (let i = 0; i < 10; i++) {
-        addFishSprite(app, '5');
+        const fish = await addFishSprite(app, '5');
+        arr.push(fish);
     }
     // 青色小小鱼
     for (let i = 0; i < 20; i++) {
-        addFishSprite(app, '8');
+        const fish = await addFishSprite(app, '8');
+        arr.push(fish);
     }
     // 蓝黄条纹鱼
     for (let i = 0; i < 8; i++) {
-        addFishSprite(app, '9');
+        const fish = await addFishSprite(app, '9');
+        arr.push(fish);
     }
     // 乌贼
     for (let i = 0; i < 5; i++) {
-        addFishSprite(app, '10');
+        const fish = await addFishSprite(app, '10');
+        arr.push(fish);
     }
     // 乌龟
     for (let i = 0; i < 4; i++) {
-        addFishSprite(app, '11');
+        const fish = await addFishSprite(app, '11');
+        arr.push(fish);
     }
     // 红色小小鱼
     for (let i = 0; i < 20; i++) {
-        addFishSprite(app, '12');
+        const fish = await addFishSprite(app, '12');
+        arr.push(fish);
     }
     // 长嘴鱼
     for (let i = 0; i < 2; i++) {
-        addFishSprite(app, '7');
+        const fish = await addFishSprite(app, '7');
+        arr.push(fish);
     }
     // 黑色鲸鱼
     for (let i = 0; i < 2; i++) {
-        addFishSprite(app, '4');
+        const fish = await addFishSprite(app, '4');
+        arr.push(fish);
     }
-    // 蓝色鲨鱼
-    addFishSprite(app, '6');
+    // 蓝色鲨鱼;
+    const fish6 = await addFishSprite(app, '6');
+    arr.push(fish6);
+    const fish2 = await addFishSprite(app, '2');
+    arr.push(fish2);
+    return Promise.resolve(arr);
 };
 const pointApply = (
     _data: DataInterface,
@@ -199,9 +187,11 @@ const pointApply = (
     // c点坐标
     _data.c_x = _position.x;
     _data.c_y = _sprite.y;
+    // 直角三角形边长
     _data.b2c_l = Math.abs(_data.c_y - _position.y);
     _data.a2c_l = Math.abs(_data.c_x - _sprite.x);
     _data.a2b_l = Math.abs(_data.b2c_l + _data.a2c_l);
+    // 速度比例 x =
     _data.speed_x = _data.a2c_l / _data.a2b_l;
     _data.speed_y = _data.b2c_l / _data.a2b_l;
     if (_position.x > _sprite.x && _position.y < _sprite.y) {
@@ -254,6 +244,157 @@ const randomEndPoint = (
     const y = Math.floor(Math.random() * screen.height) + 1;
     pointApply(_data, _sprite, { x, y });
 };
+const addCannon = async (app: PIXI.Application, fishFlock: PIXI.AnimatedSprite[] = []) => {
+    const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
+    bottomBar.x = bottomBar.x - 48;
+    bottomBar.y = 580 - 34;
+    bottomBar.zIndex = 999;
+    const cannon = await loadAnimatedSprite(
+        '/fishcatcher/cannon/cannon6/',
+        'cannon600',
+        7,
+        app,
+        true
+    );
+    cannon.anchor.set(0.5, 1);
+    cannon.scale.set(0.5);
+    cannon.animationSpeed = 0.8;
+    cannon.x = screen.width / 2;
+    cannon.y = screen.height;
+    cannon.onLoop = () => {
+        cannon.stop();
+    };
+    const bullets = await addBulletTicker(app);
+    app.stage.on('pointermove', (event) => {
+        const radian = Math.atan2(event.globalY - cannon.y, event.globalX - cannon.x);
+        cannon.rotation = Math.PI / 2 - Math.abs(radian);
+    });
+    app.stage.on('pointerdown', (event) => {
+        pushBullet(app, bullets, cannon, event);
+        cannon.play();
+    });
+    app.ticker.add((delta) => {
+        for (let i = 0; i < bullets.length; i++) {
+            if (bullets[i].bulletSprite.visible) {
+                bullets[i].bulletSprite.x += bullets[i].speed_x * delta;
+                bullets[i].bulletSprite.y += bullets[i].speed_y * delta;
+            }
+            if (bullets[i].bulletSprite.x > screen.width || bullets[i].bulletSprite.y < 0) {
+                bullets[i].bulletSprite.visible = false;
+            }
+
+            if (bullets[i].bulletSprite.visible) {
+                bullets[i].graphics.position = bullets[i].bulletSprite.position;
+                const buonds = bullets[i].graphics.getBounds();
+                // console.log(buonds);
+                for (let key = 0; key < fishFlock.length; key++) {
+                    const fishBounds = fishFlock[key].getBounds();
+                    if (buonds.intersects(fishBounds)) {
+                        bullets[i].bulletSprite.play();
+                        // bullets[i].bulletSprite.hitArea;
+                        bullets[i].speed_x = 0;
+                        bullets[i].speed_y = 0;
+                    }
+                }
+            }
+        }
+    });
+};
+
+const addBulletTicker = async (app: PIXI.Application) => {
+    const bullet6 = await loadAnimatedSprite(
+        '/fishcatcher/bullet/bullet6/',
+        'bullet600',
+        9,
+        app,
+        true
+    );
+    bullet6.visible = false;
+    bullet6.scale.set(0.5);
+    bullet6.anchor.set(0.5);
+    bullet6.onLoop = () => {
+        bullet6.stop();
+        bullet6.visible = false;
+    };
+    const graphics = new PIXI.Graphics();
+    // 设置点的样式
+    graphics.beginFill(0xffffff); // 白色
+    graphics.drawCircle(0, 0, 5); // 在 (100, 100) 处绘制一个半径为 5 的圆
+    graphics.visible = false;
+    // 将绘制的图形添加到舞台
+    app.stage.addChild(graphics);
+    const obj = { speed_x: 0, speed_y: 0, bulletSprite: bullet6, graphics };
+    return Promise.resolve([obj]);
+};
+
+const pushBullet = (
+    app: PIXI.Application,
+    bullets: BulletTicker[],
+    cannon: PIXI.AnimatedSprite,
+    event: PIXI.FederatedPointerEvent
+) => {
+    let bulletTicker = bullets[0];
+    let has = false;
+    bullets.forEach((item) => {
+        if (!item.bulletSprite.visible) {
+            bulletTicker = item;
+            has = true;
+        }
+    });
+    if (!has) {
+        bulletTicker = { ...bulletTicker };
+        bulletTicker.bulletSprite = new PIXI.AnimatedSprite(bulletTicker.bulletSprite.textures);
+        bulletTicker.bulletSprite.anchor.set(0.5);
+        bulletTicker.bulletSprite.scale.set(0.5);
+        bulletTicker.bulletSprite.onLoop = () => {
+            bulletTicker.bulletSprite.stop();
+            bulletTicker.bulletSprite.visible = false;
+        };
+        bulletTicker.graphics = bulletTicker.graphics.clone();
+        bulletTicker.graphics.visible = false;
+        bulletTicker.bulletSprite.visible = false;
+        bulletTicker.bulletSprite.animationSpeed = 0.5;
+        app.stage.addChild(bulletTicker.bulletSprite);
+        app.stage.addChild(bulletTicker.graphics);
+        bullets.push(bulletTicker);
+    }
+    bulletTicker.bulletSprite.x = cannon.x + 0;
+    bulletTicker.bulletSprite.y = cannon.y + 0;
+    bulletTicker.bulletSprite.rotation = cannon.rotation + 0;
+    bulletTicker.bulletSprite.visible = true;
+
+    // c点坐标
+    const c_x = event.globalX;
+    const c_y = cannon.y;
+    // 直角三角形边长
+    const b2c_l = Math.abs(c_y - event.globalY);
+
+    let a2c_l = 0;
+    if (event.globalX > bulletTicker.bulletSprite.x) {
+        a2c_l = c_x - cannon.x;
+    } else {
+        a2c_l = cannon.x - c_x;
+    }
+    const a2b_l = Math.abs(b2c_l + a2c_l);
+
+    // 速度比例 x =
+    const speed_x = (a2c_l / a2b_l) * 30;
+    const speed_y = (b2c_l / a2b_l) * 30;
+    // 只往上
+    bulletTicker.speed_y = -speed_y;
+    if (
+        event.globalX > bulletTicker.bulletSprite.x &&
+        event.globalY < bulletTicker.bulletSprite.y
+    ) {
+        bulletTicker.speed_x = +speed_x;
+    }
+    if (
+        event.globalX < bulletTicker.bulletSprite.x &&
+        event.globalY < bulletTicker.bulletSprite.y
+    ) {
+        bulletTicker.speed_x = -speed_x;
+    }
+};
 const loadSprite = (
     filePath: string,
     app: PIXI.Application,
@@ -285,7 +426,6 @@ const loadAnimatedSprite = async (
     num: number,
     app: PIXI.Application,
     add = false,
-    animationSpeed = 0.1,
     mcswspj = true
 ): Promise<PIXI.AnimatedSprite> => {
     const textures: PIXI.Texture[] = [];
@@ -301,8 +441,6 @@ const loadAnimatedSprite = async (
     }
     const sprite = new PIXI.AnimatedSprite(textures);
     sprite.anchor.set(0.5);
-    sprite.animationSpeed = animationSpeed;
-    sprite.play();
     sprite.zIndex = 1;
     if (add) {
         app.stage.addChild(sprite);
@@ -332,6 +470,12 @@ interface DataInterface {
 interface Position {
     x: number;
     y: number;
+}
+interface BulletTicker {
+    speed_x: number;
+    speed_y: number;
+    bulletSprite: PIXI.AnimatedSprite;
+    graphics: PIXI.Graphics;
 }
 </script>
 <style scoped lang="scss">
