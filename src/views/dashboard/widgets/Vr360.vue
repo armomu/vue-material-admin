@@ -74,6 +74,7 @@ function init() {
     pmremGenerator = new THREE.PMREMGenerator(renderer);
     scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
     controls = new OrbitControls(camera, renderer.domElement);
+    controls.rotateSpeed = -1;
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.autoRotate = true;
