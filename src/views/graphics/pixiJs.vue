@@ -410,7 +410,8 @@ const castNetFishing = (bullet: PIXI.AnimatedSprite, fishFlock: PIXI.AnimatedSpr
         const fishBounds = fishFlock[i].getBounds();
         if (bulletBounds.intersects(fishBounds)) {
             fishFlock[i].alpha = 0.5;
-            console.log(fishFlock[i].name, '在网区域');
+            const [k] = fishFlock[i].children;
+            if (k) k.alpha = 0.6;
         }
     }
     // 最后再给炮弹隐藏
@@ -463,6 +464,13 @@ const loadAnimatedSprite = async (
     const sprite = new PIXI.AnimatedSprite(textures);
     sprite.anchor.set(0.5);
     sprite.zIndex = 1;
+    // 创建一个Graphics对象并设置背景颜色
+    const background = new PIXI.Graphics();
+    background.beginFill(0xff0000); // 设置背景颜色，这里是红色
+    background.drawRect(-sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height); // 绘制矩形，大小与精灵相同
+    background.endFill();
+    background.alpha = 0.6;
+    sprite.addChild(background);
     if (add) {
         app.stage.addChild(sprite);
     }
