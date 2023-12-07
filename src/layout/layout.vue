@@ -42,8 +42,8 @@
                         <template v-slot:activator="{ props }">
                             <v-list-item
                                 v-bind="props"
-                                :prepend-icon="item.meta.icon"
-                                :title="item.meta.title"
+                                :prepend-icon="(item.meta.icon as any)"
+                                :title="(item.meta.title as any)"
                             />
                         </template>
                         <template v-for="(row, i) in item.children">
