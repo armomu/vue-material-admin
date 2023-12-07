@@ -26,6 +26,7 @@ stage.glb
 /cypress/videos/
 /cypress/screenshots/
 /src/views/graphics/babylonjs/
+/src/views/dashboard/lamborghini.vue
 .vite/
 
 # Editor directories and files
