@@ -5,7 +5,6 @@ import vuetify from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    // base: env.APP_ENV === 'production' ? '/vue-material-admin' : '/',
     base: '/vue-material-admin',
     plugins: [
         vue(),
