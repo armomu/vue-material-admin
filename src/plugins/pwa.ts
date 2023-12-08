@@ -25,8 +25,7 @@ window.getVersion = (version: string) => {
         localStorage.frontendVersion = version;
     }
     if (version !== old && old) {
-        const mainStore = useMainStore();
-        old && mainStore.onShowUp(version);
+        onUpVersion(version);
     }
 };
 

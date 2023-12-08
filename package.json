@@ -1,6 +1,6 @@
 {
   "name": "material-ul",
-  "version": "2.0.3",
+  "version": "2.1.1",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -12,10 +12,8 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@babylonjs/core": "^6.13.0",
-    "@babylonjs/gui": "^6.13.0",
-    "@babylonjs/havok": "^1.1.0",
-    "@babylonjs/loaders": "^6.13.0",
+    "@babylonjs/core": "^6.33.0",
+    "@babylonjs/loaders": "^6.33.0",
     "@pixi/filter-displacement": "^7.3.2",
     "@pixi/graphics-extras": "^7.3.1",
     "@pixi/ui": "^0.9.1",
