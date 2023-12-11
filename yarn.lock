@@ -285,18 +285,6 @@
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-6.33.0.tgz#475864d00c84f9ed3f2055ab881aabaebd7cf490"
   integrity sha512-h7VjM2zemYob8d8ZSlSwH353fKnCXO4YEKjxkzMyl5VKX/i0tgxa22ma6orYknhDEAevxNoglvFAR1VVes84BQ==
 
-"@babylonjs/gui@^6.33.0":
-  version "6.33.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-6.33.0.tgz#782782e3bd9a93822db76b3945ada55f19d57918"
-  integrity sha512-gfw5zDnvwhail1aqJ1BSSCNkXicDTFY4z9ma/ZlOy3r9SDWTvIqdiqcTg9zkTEsm05XfjQwrYVjZMtmeKMfClg==
-
-"@babylonjs/havok@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/havok/-/havok-1.3.0.tgz#b7721a6c728aa02f2c02ea69f0d362a0f041ee63"
-  integrity sha512-mnSe/0A+JJ1vVjDOd1MkysLOW6WB96n3+ALiGTTXzhDLRfMEjG7P8+qC9SL+TSWj2HgaiDzpwsMDZjqLBDIdWw==
-  dependencies:
-    "@types/emscripten" "^1.39.6"
-
 "@babylonjs/loaders@^6.33.0":
   version "6.33.0"
   resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-6.33.0.tgz#9fc7ea1bfd5465278783ce1a60487f051817c235"
@@ -768,11 +756,6 @@
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@types/earcut/-/earcut-2.1.4.tgz#5811d7d333048f5a7573b22ddc84923e69596da6"
   integrity sha512-qp3m9PPz4gULB9MhjGID7wpo3gJ4bTGXm7ltNDsmOvsPduTeHp8wSW9YckBj3mljeOh4F0m2z/0JKAALRKbmLQ==
-
-"@types/emscripten@^1.39.6":
-  version "1.39.10"
-  resolved "https://registry.yarnpkg.com/@types/emscripten/-/emscripten-1.39.10.tgz#da6e58a6171b46a41d3694f812d845d515c77e18"
-  integrity sha512-TB/6hBkYQJxsZHSqyeuO1Jt0AB/bW6G7rHt9g7lML7SOF6lbgcHvw/Lr+69iqN0qxgXLhWKScAon73JNnptuDw==
 
 "@types/json-schema@^7.0.9":
   version "7.0.15"

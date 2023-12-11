@@ -11,21 +11,12 @@ lerna-debug.log*
 node_modules
 .DS_Store
 dist
-dist-ssr
-dev-dist
+dist-ssrs
 coverage
 *.local
 
 stage.glb
 
-/public/zombie77/
-/public/textures/xnh.gltf
-/public/mond/
-/public/smier/
-/public/city.glb
-/cypress/videos/
-/cypress/screenshots/
-/src/views/graphics/babylonjs/
 /src/views/dashboard/lamborghini.vue
 .vite/
 
