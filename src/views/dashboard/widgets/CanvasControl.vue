@@ -8,33 +8,54 @@
     >
         <div class="deg">
             <div>
-                <span class="text-h1">{{ airData.temperature }}&deg;</span
-                ><span class="text-h3">c</span>
+                <span class="text-h1 pl-4">{{ airData.temperature }}&deg;</span>
             </div>
             <div>Centigrade</div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { shallowRef, onMounted, onUnmounted, reactive } from 'vue';
+import { shallowRef, onMounted, onUnmounted, reactive, watch, computed } from 'vue';
 import { Application, Graphics, Color } from 'pixi.js';
+import { useMainStore } from '@/stores/appMain';
+const mainStore = useMainStore();
+const dark = computed(() => {
+    return mainStore.theme === 'dark';
+});
+
 const pixiDom = shallowRef<HTMLDivElement>();
 const screen = {
     width: 340,
     height: 320,
+    background: 'ffffff',
+    d_color: '121212', // 底部圆圈颜色
 };
 const airData = reactive({
     temperature: 16,
     cursorPointer: false,
 });
 let app!: Application;
-onMounted(async () => {
+
+const init = async () => {
+    const nodes = pixiDom.value?.childNodes;
+    if (nodes && (nodes?.length || 0) > 1) {
+        app?.destroy();
+        pixiDom.value?.removeChild(nodes[nodes?.length - 1]);
+    }
+    if (dark.value) {
+        screen.background = '212121';
+        screen.d_color = '121212';
+    } else {
+        screen.background = 'ffffff';
+        screen.d_color = 'f7fafc';
+    }
+
     const _app = new Application({
         width: screen.width,
         height: screen.height,
         antialias: true, // 开启抗锯齿
         // background: new Color('ffffff'),
-        background: new Color('212121'),
+        background: new Color(screen.background),
     });
     app = _app;
     // Enable interactivity!
@@ -46,13 +67,13 @@ onMounted(async () => {
     const centerY = screen.height / 2 + 20;
     const radius = 140;
     const graphics = new Graphics();
-    graphics.lineStyle(22, new Color('121212'), 1, 1);
+    graphics.lineStyle(22, new Color(screen.d_color), 1, 1);
     // arc(cx, cy, 半径，开始点的角度，结束点的角度)
     graphics.arc(centerX, centerY, radius - 11, Math.PI - Math.PI / 4, Math.PI * 2 + Math.PI / 4);
     graphics.endFill();
     app.stage.addChild(graphics);
 
-    graphics.lineStyle(0, new Color('121212'), 1, 1);
+    graphics.lineStyle(0, new Color(screen.d_color), 1, 1);
     graphics.beginFill(new Color('7f85f9'));
     graphics.endFill();
 
@@ -64,7 +85,7 @@ onMounted(async () => {
     graphics.drawCircle(startX, startY, 11);
     graphics.endFill();
     // 结束修饰圆点
-    graphics.beginFill(new Color('121212'));
+    graphics.beginFill(new Color(screen.d_color));
     graphics.drawCircle(
         centerX + radius * -Math.cos(Math.PI - Math.PI / 4),
         centerY + radius * -Math.cos(Math.PI - Math.PI / 4),
@@ -142,7 +163,9 @@ onMounted(async () => {
     app.stage.on('pointerup', () => {
         dragging = false;
     });
-});
+};
+watch(dark, init);
+onMounted(init);
 onUnmounted(() => {
     app?.destroy();
 });
