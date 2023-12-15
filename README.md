@@ -19,6 +19,7 @@
 
 Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台模版。使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js`、`PWA`等案例技术栈，在 [Material Design](https://m3.material.io/) 设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件的基础上，继续向上构建开发，可以于学习参考，也可用来作为项目的启动模版，该项目持续保持更新
 
+
 ## 页面截图
 
 <p align="center">
@@ -30,7 +31,8 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台�
 
 ## 预览地址
 -   [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin/)
--   [https://armomu.github.io/vue-material-admin](https://armomu.github.io/vue-material-admin/)
+
+> ⚠️如果你是第二次打开左下角弹出更新提示的时候按f12清除一下缓存硬性重新加载一下吧！那个PWA缓存搞不定，代码已经删了但是还是会有缓存
 
 ## TODO
 1. 特斯拉仪表盘
@@ -39,23 +41,23 @@ Vue Material Admin 是一个基于 `Vuetify` 免费开源的纯前端中后台�
 2. 智能家居控制中心组件
     - ✅ Apexcharts
     - ✅ 滑块控制器
-    - ❌ 滑块控制器增加鼠标滑动
+    - ✅ 滑块控制器增加鼠标滑动
     - ✅ 音乐播放器UI
     - ❌ 播放音频
     - ✅ 360度全景图预览
 4. [Three.js](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/three-js)
     - ✅ 360度全景图预览
     - ✅ 动态导入glb、gltf三维模型
-    - ❌ 全景图陀螺仪重力感应
+    - ❌ 全景图陀螺仪重力感应(不搞，直接用Babylonjs XR相机即可)
 5. [Babylon.js](https://github.com/armomu/ergoudan) 
     - ✅ 物理引擎
     - ✅ 角色控制器
-    - ❌ 上下楼梯
-    - ❌ 上下坡
+    - ✅ 上下楼梯
+    - ✅ 上下坡
 6. [Pixi.js](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/pixijs) 
     - ✅ 小鱼自动移动算法
+    - ❌ 小鱼获取新位置后旋转对应角度方向
     - ✅ 射击撒网
-    - ❌ 撒金币
 7. 页面拖拽编辑
     - ✅ 元素大小调整、组件拖拽、顺序拖拽、显示删除
     - ✅ 右键菜单

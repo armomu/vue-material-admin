@@ -265,7 +265,7 @@ const test = () => {
             showLabel: false,
             center: [116.478935, 39.997761],
             pitch: 55,
-            zoom: 17.8,
+            zoom: 16.8,
             viewMode: '3D',
             skyColor: '#1a1a1a',
             mapStyle: 'amap://styles/dark',
@@ -313,9 +313,6 @@ const onStart = () => {
         autoRotation: true,
     });
 };
-setTimeout(() => {
-    onStart();
-}, 3000);
 onBeforeUnmount(() => {
     map_.value?.destroy();
     marker.stopMove();

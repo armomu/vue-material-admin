@@ -1,23 +1,23 @@
-import { registerSW } from 'virtual:pwa-register';
+// import { registerSW } from 'virtual:pwa-register';
 import { useMainStore } from '@/stores/appMain';
 
-let pwaReg: ServiceWorkerRegistration | undefined;
-registerSW({
-    onRegisteredSW(swScriptUrl, registration) {
-        pwaReg = registration;
-        console.log('onRegisteredSW');
-        if (import.meta.env.MODE !== 'production') {
-            pwaReg
-                ?.update()
-                .then(() => {
-                    console.log('update ok');
-                })
-                .catch(() => {
-                    location.reload();
-                });
-        }
-    },
-});
+// let pwaReg: ServiceWorkerRegistration | undefined;
+// registerSW({
+//     onRegisteredSW(swScriptUrl, registration) {
+//         pwaReg = registration;
+//         console.log('onRegisteredSW');
+//         if (import.meta.env.MODE !== 'production') {
+//             pwaReg
+//                 ?.update()
+//                 .then(() => {
+//                     console.log('update ok');
+//                 })
+//                 .catch(() => {
+//                     location.reload();
+//                 });
+//         }
+//     },
+// });
 
 window.getVersion = (version: string) => {
     const old = localStorage.frontendVersion;
@@ -25,23 +25,14 @@ window.getVersion = (version: string) => {
         localStorage.frontendVersion = version;
     }
     if (version !== old && old) {
-        const mainStore = useMainStore();
-        old && mainStore.onShowUp(version);
+        onUpVersion(version);
     }
 };
 
 export function onUpVersion(code: string) {
-    console.log(pwaReg);
-    pwaReg
-        ?.update()
-        .then(() => {
-            console.log('update ok');
-            localStorage.frontendVersion = code;
-            location.reload();
-        })
-        .catch(() => {
-            location.reload();
-        });
+    console.log('update ok');
+    localStorage.frontendVersion = code;
+    location.reload();
 }
 
 export function checkVersion() {

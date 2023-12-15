@@ -11,5 +11,5 @@ app.use(vuetify);
 app.use(router);
 app.mount('#app').$nextTick(() => {
     const d = document.getElementById('_loading_');
-    d?.setAttribute('class', 'la-ball-climbing-dot hide');
+    d?.setAttribute('class', 'loading_ hide');
 });

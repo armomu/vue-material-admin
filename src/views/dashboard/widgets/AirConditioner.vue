@@ -1,68 +1,6 @@
 <template>
     <v-card title="Air Conditioner" class="elevation-0 air_conditioner">
-        <div class="circle_wrap">
-            <svg class="svg_circle">
-                <circle
-                    cx="170"
-                    cy="170"
-                    r="150"
-                    transform="rotate(145,170,170)"
-                    stroke-dasharray="655, 10000"
-                    fill="none"
-                    stroke-width="20"
-                    stroke="rgb(var(--theme-background))"
-                    stroke-linecap="round"
-                />
-                <circle
-                    cx="170"
-                    cy="170"
-                    r="150"
-                    class="circle2 circle4"
-                    transform="rotate(145,170,170)"
-                    :stroke-dasharray="`${circles.value * 21.833}, 10000`"
-                    fill="none"
-                    stroke-width="20"
-                    stroke="#7f85f9"
-                    stroke-linecap="round"
-                />
-                <circle
-                    cx="170"
-                    cy="170"
-                    r="150"
-                    :transform="`rotate(${circles.angle},170,170)`"
-                    stroke-dasharray="0, 10000"
-                    fill="none"
-                    stroke-width="30"
-                    stroke="#b4b8fc"
-                    stroke-linecap="round"
-                    style="cursor: pointer"
-                />
-                <circle
-                    cx="170"
-                    cy="170"
-                    r="150"
-                    :transform="`rotate(${circles.angle},170,170)`"
-                    ref="svgCircleDom"
-                    stroke-dasharray="0, 10000"
-                    fill="none"
-                    stroke-width="20"
-                    stroke="#7f85f9"
-                    stroke-linecap="round"
-                    style="cursor: pointer"
-                />
-            </svg>
-            <div class="deg">
-                <div>
-                    <span class="text-h1">{{ circles.value }}&deg;</span
-                    ><span class="text-h3">c</span>
-                </div>
-                <div>Centigrade</div>
-            </div>
-        </div>
-        <div class="ac_btns d-flex jsb">
-            <v-btn icon="mdi-minus" variant="tonal" size="small" @click="onReduce"> </v-btn>
-            <v-btn icon="mdi-plus" variant="tonal" size="small" @click="onAdd"> </v-btn>
-        </div>
+        <PixiCanvas />
         <div class="d-flex jsb mt-5 btn_tool" style="width: 350px; margin: 0 auto">
             <div class="item">
                 <v-btn variant="tonal" color="primary" rounded="pill" size="large"
@@ -89,55 +27,116 @@
     </v-card>
 </template>
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue';
-
-const svgCircleDom = ref<HTMLDivElement | null>(null);
-const circles = reactive({
-    icon: 'snowflake',
-    angle: 145,
-    value: 0,
+import { shallowRef, onMounted, onUnmounted, reactive } from 'vue';
+import { Application, Graphics, Color } from 'pixi.js';
+import PixiCanvas from './CanvasControl.vue';
+// import SvgControl from './SvgControl.vue';
+const pixiDom = shallowRef<HTMLDivElement>();
+const screen = {
+    width: 340,
+    height: 320,
+};
+const airData = reactive({
+    temperature: 16,
+    cursorPointer: false,
 });
-const onAdd = () => {
-    circles.angle = circles.angle + 8.33;
-    circles.value = circles.value + 1;
-    console.log(circles);
-};
-const onReduce = () => {
-    circles.angle = circles.angle - 8.33;
-    circles.value = circles.value - 1;
-};
-const add = setInterval(() => {
-    if (circles.value > 20) {
-        clearInterval(add);
-    }
-    circles.angle = circles.angle + 8.33;
-    circles.value = circles.value + 1;
-}, 100);
+let app!: Application;
+onMounted(async () => {
+    const _app = new Application({
+        width: screen.width,
+        height: screen.height,
+        antialias: true, // 开启抗锯齿
+        // background: new Color('ffffff'),
+        background: new Color('212121'),
+    });
+    app = _app;
+    // Enable interactivity!
+    app.stage.eventMode = 'static';
+    app.stage.hitArea = app.screen;
+    pixiDom.value?.appendChild(app.view as any);
+
+    const centerX = screen.width / 2;
+    const centerY = screen.height / 2 + 20;
+    const radius = 140;
+    const graphics = new Graphics();
+    graphics.lineStyle(26, new Color('121212'), 1, 1);
+    // arc(cx, cy, 半径，开始点的角度，结束点的角度)
+    graphics.arc(centerX, centerY, radius - 13, Math.PI - Math.PI / 4, Math.PI * 2 + Math.PI / 4);
+    graphics.endFill();
+    app.stage.addChild(graphics);
+
+    graphics.lineStyle(0, new Color('121212'), 1, 1);
+    graphics.beginFill(new Color('7f85f9'));
+    graphics.endFill();
+
+    const startX = centerX + radius * Math.cos(Math.PI - Math.PI / 4); // x 弧度的余弦值
+    const startY = centerY + radius * Math.sin(Math.PI - Math.PI / 4); // y 弧度的正弦值
+    // 开始修饰圆点
+    graphics.beginFill(new Color('121212'));
+    graphics.drawCircle(startX, startY, 13);
+    graphics.endFill();
+    // 结束修饰圆点
+    graphics.beginFill(new Color('121212'));
+    graphics.drawCircle(
+        centerX + radius * -Math.cos(Math.PI - Math.PI / 4),
+        centerY + radius * -Math.cos(Math.PI - Math.PI / 4),
+        13
+    );
+    graphics.endFill();
+
+    const smallCircle = new Graphics();
+
+    const smallCircleRadius = 14;
+    smallCircle.drawRect(
+        smallCircleRadius / 2,
+        smallCircleRadius / 2,
+        smallCircleRadius,
+        smallCircleRadius
+    );
+
+    smallCircle.lineStyle(5, new Color('b4b8fc'), 1, 1);
+    smallCircle.beginFill(new Color('7f85f9'));
+    smallCircle.drawCircle(0, 0, smallCircleRadius);
+    smallCircle.endFill();
+
+    smallCircle.position.x = startX;
+    smallCircle.position.y = startY;
+    app.stage.addChild(smallCircle);
+
+    let dragging = false;
+    smallCircle.eventMode = 'static';
+    smallCircle.on('pointerdown', (e) => {
+        dragging = true;
+    });
+    smallCircle.on('pointerenter', (e) => {
+        airData.cursorPointer = true;
+    });
+    smallCircle.on('pointerleave', () => {
+        airData.cursorPointer = false;
+    });
+    app.stage.on('pointermove', (e) => {
+        if (dragging) {
+            const position = e.global;
+            const dx = position.x - centerX;
+            const dy = position.y - centerY;
+
+            const angle = Math.atan2(dy, dx);
+            const y = centerY + radius * Math.sin(angle);
+            if (y > startY) return;
+            smallCircle.x = centerX + radius * Math.cos(angle);
+            smallCircle.y = y;
+        }
+    });
+    app.stage.on('pointerup', () => {
+        dragging = false;
+    });
+});
+onUnmounted(() => {
+    app?.destroy();
+});
 </script>
 <style scoped lang="scss">
 .air_conditioner {
-    .circle_wrap {
-        width: 340px;
-        margin: 0 auto;
-        position: relative;
-        height: 280px;
-        overflow: hidden;
-        .deg {
-            width: 340px;
-            text-align: center;
-            position: absolute;
-            z-index: 2;
-            top: 110px;
-        }
-        circle {
-            transition: all 0.1s;
-        }
-        .svg_circle {
-            width: 340px;
-            height: 280px;
-            margin: 0 auto;
-        }
-    }
     .btn_tool {
         padding-bottom: 14px;
         .item {
@@ -150,10 +149,6 @@ const add = setInterval(() => {
                 font-size: 12px;
             }
         }
-    }
-    .ac_btns {
-        width: 234px;
-        margin: 0 auto;
     }
 }
 </style>

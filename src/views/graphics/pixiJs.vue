@@ -4,6 +4,7 @@
 <script setup lang="ts">
 import { shallowRef, onMounted, onUnmounted } from 'vue';
 import * as PIXI from 'pixi.js';
+// import * as Matter from 'matter-js';
 
 const pixiDom = shallowRef<HTMLDivElement>();
 const screen = {
@@ -26,15 +27,63 @@ const init = async () => {
     pixiDom.value?.appendChild(app.view as any);
     addSceneBackground(app);
     const fishFlock = await addFishFlock(app);
-    await addCannon(app, fishFlock);
-    return Promise.resolve(app);
-};
+    // engine = Matter.Engine.create();
 
-const addSceneBackground = (app: PIXI.Application) => {
-    const background = PIXI.Sprite.from(import.meta.env.BASE_URL + '/fishcatcher/img/BG01.png');
-    background.width = screen.width;
-    background.height = screen.height;
-    app.stage.addChild(background);
+    // const wallTop = Matter.Bodies.rectangle(screen.width / 2, 0, screen.width, 10, {
+    //     isStatic: true,
+    // });
+    // const wallBottom = Matter.Bodies.rectangle(screen.width / 2, screen.height, screen.width, 10, {
+    //     isStatic: true,
+    // });
+    // const wallRight = Matter.Bodies.rectangle(screen.width, screen.height / 2, 10, screen.height, {
+    //     isStatic: true,
+    // });
+    // const wallLeft = Matter.Bodies.rectangle(0, screen.height / 2, 10, screen.height, {
+    //     isStatic: true,
+    // });
+    // Matter.World.add(engine.world, [wallBottom, wallTop, wallLeft, wallRight]);
+    // const testArr: Matter.Body[] = [];
+    // fishFlock.forEach((item) => {
+    //     const imageBody = Matter.Bodies.rectangle(
+    //         item.position.x,
+    //         item.position.y,
+    //         item.width,
+    //         item.height,
+    //         {
+    //             restitution: 0.8,
+    //             // isStatic: true,
+    //         }
+    //     );
+    //     Matter.World.addBody(engine.world, imageBody);
+    //     testArr.push(imageBody);
+    // });
+
+    // app.ticker.add(() => {
+    //     testArr.forEach((object, index) => {
+    //         fishFlock[index].position.x = object.position.x;
+    //         fishFlock[index].position.y = object.position.y;
+    //         // object.position.x = fishFlock[index].position.x;
+    //         // object.position.y = fishFlock[index].position.y;
+    //     });
+    // });
+
+    // const mouseConstraint = Matter.MouseConstraint.create(engine, {
+    //     mouse: Matter.Mouse.create(document.querySelector('.pixijs canvas')!),
+    // });
+
+    // Matter.World.add(engine.world, mouseConstraint);
+    // Matter.Runner.run(engine);
+    // Matter.Render.create({
+    //     engine: engine,
+    //     options: {
+    //         wireframes: true, // 将该选项设置为 true，以显示物体的线框
+    //     },
+    // });
+    // Matter.Runner.create
+    // Matter.Runner.run(engine);
+    await addCannon(app, fishFlock);
+
+    return Promise.resolve(app);
 };
 const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
     const fish = await loadAnimatedSprite(
@@ -59,6 +108,8 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
         direction: 0,
         inScene: true,
     };
+    fish.position.x = screen.width / 2;
+    fish.position.y = 60;
     randomStartPoint(fish);
     randomEndPoint(data, fish);
     app.ticker.add((delta) => {
@@ -150,18 +201,18 @@ const addFishFlock = async (app: PIXI.Application) => {
     //     arr.push(fish);
     // }
     // 长嘴鱼
-    for (let i = 0; i < 2; i++) {
-        const fish = await addFishSprite(app, '7');
-        arr.push(fish);
-    }
+    // for (let i = 0; i < 2; i++) {
+    //     const fish = await addFishSprite(app, '7');
+    //     arr.push(fish);
+    // }
     // 黑色鲸鱼
     // for (let i = 0; i < 2; i++) {
     //     const fish = await addFishSprite(app, '4');
     //     arr.push(fish);
     // }
     // 蓝色鲨鱼;
-    // const fish6 = await addFishSprite(app, '6');
-    // arr.push(fish6);
+    const fish6 = await addFishSprite(app, '6');
+    arr.push(fish6);
     const fish2 = await addFishSprite(app, '2');
     arr.push(fish2);
     return Promise.resolve(arr);
@@ -404,13 +455,15 @@ const pushBullet = (
     }
 };
 const castNetFishing = (bullet: PIXI.AnimatedSprite, fishFlock: PIXI.AnimatedSprite[]) => {
+    bullet.texture.uvMatrix;
     console.log('撒🕸️');
     const bulletBounds = bullet.getBounds();
     for (let i = 0; i < fishFlock.length; i++) {
         const fishBounds = fishFlock[i].getBounds();
         if (bulletBounds.intersects(fishBounds)) {
             fishFlock[i].alpha = 0.5;
-            console.log(fishFlock[i].name, '在网区域');
+            const [k] = fishFlock[i].children;
+            if (k) k.alpha = 0.1;
         }
     }
     // 最后再给炮弹隐藏
@@ -431,6 +484,13 @@ const loadSprite = (
     add && app.stage.addChild(sprite);
     return sprite;
 };
+
+const addSceneBackground = (app: PIXI.Application) => {
+    const background = PIXI.Sprite.from(import.meta.env.BASE_URL + '/fishcatcher/img/BG01.png');
+    background.width = screen.width;
+    background.height = screen.height;
+    app.stage.addChild(background);
+};
 /**
  * 加载本地动画精灵图集
  * @param localPath 本地路径 import.meta.env.BASE_URL + `${localPath}${name}.png
@@ -450,6 +510,7 @@ const loadAnimatedSprite = async (
     mcswspj = true
 ): Promise<PIXI.AnimatedSprite> => {
     const textures: PIXI.Texture[] = [];
+    let url = '';
     for (let i = 0; i < num; i++) {
         let name = '';
         if (mcswspj) {
@@ -457,17 +518,28 @@ const loadAnimatedSprite = async (
         } else {
             name = `${fileName}${i + 1}`;
         }
-        const res = await PIXI.Texture.from(import.meta.env.BASE_URL + `${localPath}${name}.png`);
+        url = import.meta.env.BASE_URL + `${localPath}${name}.png`;
+        const res = await PIXI.Texture.from(url);
         textures.push(res);
     }
     const sprite = new PIXI.AnimatedSprite(textures);
     sprite.anchor.set(0.5);
     sprite.zIndex = 1;
+
+    // 创建一个Graphics对象并设置背景颜色
+    const background = new PIXI.Graphics();
+    background.beginFill(new PIXI.Color('blue')); // 设置背景颜色，这里是红色
+    background.drawRect(-sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height); // 绘制矩形，大小与精灵相同
+    background.endFill();
+    background.alpha = 0.1;
+    sprite.addChild(background);
+
     if (add) {
         app.stage.addChild(sprite);
     }
     return Promise.resolve(sprite);
 };
+
 enum Direction {
     LeftUp,
     RightUp,

@@ -21,6 +21,18 @@ const router = createRouter({
             component: Layout,
             children: [
                 {
+                    path: '/dashboard/lamborghini',
+                    name: 'lamborghini',
+                    meta: {
+                        title: 'Lamborghini',
+                        icon: 'mdi-alpha-l',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/dashboard/lamborghini.vue'),
+                    children: [],
+                },
+                {
                     path: '/dashboard/tesla-model-s',
                     name: 'teslaModelS',
                     meta: {
