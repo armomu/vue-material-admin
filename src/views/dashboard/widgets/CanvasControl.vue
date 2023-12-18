@@ -106,7 +106,6 @@ const init = async () => {
         smallCircleRadius,
         smallCircleRadius
     );
-
     //
     smallCircle.lineStyle(5, new Color('b4b8fc'), 1, 1);
     smallCircle.beginFill(new Color('7f85f9'));
