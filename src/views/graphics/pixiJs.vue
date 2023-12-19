@@ -4,7 +4,6 @@
 <script setup lang="ts">
 import { shallowRef, onMounted, onUnmounted } from 'vue';
 import * as PIXI from 'pixi.js';
-// import * as Matter from 'matter-js';
 
 const pixiDom = shallowRef<HTMLDivElement>();
 const screen = {
@@ -15,6 +14,7 @@ let _app: PIXI.Application;
 onMounted(async () => {
     _app = await init();
 });
+
 onUnmounted(() => {
     _app?.destroy();
 });
@@ -23,7 +23,8 @@ const init = async () => {
         width: screen.width,
         height: screen.height,
     });
-    app.stage.eventMode = 'dynamic';
+    app.stage.eventMode = 'static';
+    app.stage.hitArea = app.screen;
     pixiDom.value?.appendChild(app.view as any);
     addSceneBackground(app);
     const fishFlock = await addFishFlock(app);
@@ -85,6 +86,66 @@ const init = async () => {
 
     return Promise.resolve(app);
 };
+const addFishFlock = async (app: PIXI.Application) => {
+    const arr: PIXI.AnimatedSprite[] = [];
+    // 头顶有个灯的大鱼
+    for (let i = 0; i < 3; i++) {
+        const fish = await addFishSprite(app, '1');
+        arr.push(fish);
+    }
+    // 河豚🐡
+    for (let i = 0; i < 3; i++) {
+        const fish = await addFishSprite(app, '3');
+        arr.push(fish);
+    }
+    // 黄色小鱼
+    // for (let i = 0; i < 10; i++) {
+    //     const fish = await addFishSprite(app, '5');
+    //     arr.push(fish);
+    // }
+    // 青色小小鱼
+    for (let i = 0; i < 20; i++) {
+        const fish = await addFishSprite(app, '8');
+        arr.push(fish);
+    }
+    // 蓝黄条纹鱼
+    for (let i = 0; i < 8; i++) {
+        const fish = await addFishSprite(app, '9');
+        arr.push(fish);
+    }
+    // 乌贼
+    // for (let i = 0; i < 5; i++) {
+    //     const fish = await addFishSprite(app, '10');
+    //     arr.push(fish);
+    // }
+    // 乌龟
+    for (let i = 0; i < 4; i++) {
+        const fish = await addFishSprite(app, '11');
+        arr.push(fish);
+    }
+    // 红色小小鱼
+    // for (let i = 0; i < 20; i++) {
+    //     const fish = await addFishSprite(app, '12');
+    //     arr.push(fish);
+    // }
+    // 长嘴鱼
+    // for (let i = 0; i < 2; i++) {
+    //     const fish = await addFishSprite(app, '7');
+    //     arr.push(fish);
+    // }
+    // 黑色鲸鱼
+    // for (let i = 0; i < 2; i++) {
+    //     const fish = await addFishSprite(app, '4');
+    //     arr.push(fish);
+    // }
+    // 蓝色鲨鱼;
+    // const fish6 = await addFishSprite(app, '6');
+    // arr.push(fish6);
+    const fish2 = await addFishSprite(app, '2');
+    arr.push(fish2);
+    return Promise.resolve(arr);
+};
+
 const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
     const fish = await loadAnimatedSprite(
         `/fishcatcher/fishimg/fish${key}/live/`,
@@ -98,20 +159,25 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
     const data: DataInterface = {
         b_x: 0,
         b_y: 0,
-        a2b_l: 0, // 边的长度
+        a2b_l: 0,
         c_x: 0,
         c_y: 0,
-        b2c_l: 0, //
-        a2c_l: 0, // a到c的长度,
+        b2c_l: 0,
+        a2c_l: 0,
         speed_x: 0,
         speed_y: 0,
         direction: 0,
-        inScene: true,
+        inScene: false,
+        rotation: 0,
+        to_radian: 0,
     };
     fish.position.x = screen.width / 2;
+    // fish.position.y = screen.height / 2;
+    // fish.rotation = -Math.PI / 4;
     fish.position.y = 60;
     randomStartPoint(fish);
     randomEndPoint(data, fish);
+    const count_radian = 0;
     app.ticker.add((delta) => {
         const next_x = data.speed_x * delta;
         const next_y = data.speed_y * delta;
@@ -151,6 +217,19 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
         if (!data.inScene) {
             randomEndPoint(data, fish);
         }
+        // if (data.to_radian !== 0) {
+        //     const to_radian = 0.1 * delta;
+        //     count_radian += to_radian;
+        //     if (count_radian > Math.abs(data.to_radian)) {
+        //         count_radian = 0;
+        //         data.to_radian = 0;
+        //     }
+        //     if (data.to_radian > 0) {
+        //         fish.rotation += to_radian;
+        //     } else {
+        //         fish.rotation -= to_radian;
+        //     }
+        // }
     });
     // app.stage.on('pointerdown', (event) => {
     //     pointApply(data, fish, { x: event.globalX, y: event.globalY });
@@ -158,65 +237,6 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
     return Promise.resolve(fish);
 };
 
-const addFishFlock = async (app: PIXI.Application) => {
-    const arr: PIXI.AnimatedSprite[] = [];
-    // 头顶有个灯的大鱼
-    for (let i = 0; i < 3; i++) {
-        const fish = await addFishSprite(app, '1');
-        arr.push(fish);
-    }
-    // 河豚🐡
-    // for (let i = 0; i < 3; i++) {
-    //     const fish = await addFishSprite(app, '3');
-    //     arr.push(fish);
-    // }
-    // 黄色小鱼
-    for (let i = 0; i < 10; i++) {
-        const fish = await addFishSprite(app, '5');
-        arr.push(fish);
-    }
-    // 青色小小鱼
-    // for (let i = 0; i < 20; i++) {
-    //     const fish = await addFishSprite(app, '8');
-    //     arr.push(fish);
-    // }
-    // 蓝黄条纹鱼
-    for (let i = 0; i < 8; i++) {
-        const fish = await addFishSprite(app, '9');
-        arr.push(fish);
-    }
-    // 乌贼
-    // for (let i = 0; i < 5; i++) {
-    //     const fish = await addFishSprite(app, '10');
-    //     arr.push(fish);
-    // }
-    // 乌龟
-    for (let i = 0; i < 4; i++) {
-        const fish = await addFishSprite(app, '11');
-        arr.push(fish);
-    }
-    // 红色小小鱼
-    // for (let i = 0; i < 20; i++) {
-    //     const fish = await addFishSprite(app, '12');
-    //     arr.push(fish);
-    // }
-    // 长嘴鱼
-    // for (let i = 0; i < 2; i++) {
-    //     const fish = await addFishSprite(app, '7');
-    //     arr.push(fish);
-    // }
-    // 黑色鲸鱼
-    // for (let i = 0; i < 2; i++) {
-    //     const fish = await addFishSprite(app, '4');
-    //     arr.push(fish);
-    // }
-    // 蓝色鲨鱼;
-    const fish6 = await addFishSprite(app, '6');
-    arr.push(fish6);
-    const fish2 = await addFishSprite(app, '2');
-    arr.push(fish2);
-    return Promise.resolve(arr);
-};
 const pointApply = (
     _data: DataInterface,
     _sprite: PIXI.Sprite | PIXI.AnimatedSprite | PIXI.Container,
@@ -229,8 +249,6 @@ const pointApply = (
         };
     }
     _data.inScene = true;
-    const radian = Math.atan2(_position.y - _sprite.y, _position.x - _sprite.x);
-    _sprite.rotation = radian;
     // 鼠标点击坐标
     _data.b_x = _position.x;
     _data.b_y = _position.y;
@@ -244,18 +262,63 @@ const pointApply = (
     // 速度比例 x =
     _data.speed_x = _data.a2c_l / _data.a2b_l;
     _data.speed_y = _data.b2c_l / _data.a2b_l;
+
+    let direction = -1;
     if (_position.x > _sprite.x && _position.y < _sprite.y) {
-        _data.direction = Direction.RightUp;
+        direction = Direction.RightUp;
     }
     if (_position.x > _sprite.x && _position.y > _sprite.y) {
-        _data.direction = Direction.RightDown;
+        direction = Direction.RightDown;
     }
     if (_position.x < _sprite.x && _position.y > _sprite.y) {
-        _data.direction = Direction.LeftDown;
+        direction = Direction.LeftDown;
     }
     if (_position.x < _sprite.x && _position.y < _sprite.y) {
-        _data.direction = Direction.LeftUp;
+        direction = Direction.LeftUp;
     }
+    const _y = _position.y - _sprite.y;
+    const _x = _position.x - _sprite.x;
+
+    // 获取基于精灵本身新的转向角度
+    const radian = Math.atan2(_y, _x);
+    // // 算出需要转向的夹角角度
+    // const diff = Math.abs(_data.rotation - radian);
+    // let to_radian = Math.min(diff, 2 * Math.PI - diff);
+    // if (_data.rotation > 0) {
+    //     // 镜像角度
+    //     const d = -Math.PI + _data.rotation;
+    //     if (radian > _data.rotation && radian > d) {
+    //         to_radian;
+    //         console.log('顺时针');
+    //     } else {
+    //         to_radian = -to_radian;
+    //         console.log('逆时针');
+    //     }
+    // } else {
+    //     // 镜像角度
+    //     const d = Math.PI + _data.rotation;
+
+    //     if (radian > _data.rotation && radian < d && radian > 0) {
+    //         console.log('顺时针');
+    //         to_radian;
+    //     } else {
+    //         to_radian = -to_radian;
+    //         console.log('逆时针');
+    //     }
+    // }
+    // // 初始
+    // if (_data.rotation === 0 && radian < 0) {
+    //     to_radian = -to_radian;
+    // }
+    // 设置新的角度
+    _data.rotation = radian;
+    // 设置新的朝向
+    _data.direction = direction;
+    // // 保存算出来的角度以供计算
+    // _data.to_radian = to_radian;
+    _sprite.rotation = radian;
+
+    // console.log(to_radian, '需要转向的角度');
 };
 // 随机开始的点位
 const randomStartPoint = (_sprite: PIXI.Sprite | PIXI.AnimatedSprite | PIXI.Container) => {
@@ -282,6 +345,11 @@ const randomStartPoint = (_sprite: PIXI.Sprite | PIXI.AnimatedSprite | PIXI.Cont
             y = sh2 + sh2 * r1_9;
             break;
     }
+
+    // 获取基于精灵本身新的转向角度
+    const radian = Math.atan2(screen.height / 2 - y, screen.width / 2 - x);
+
+    _sprite.rotation = radian;
     _sprite.x = x;
     _sprite.y = y;
     return { x, y };
@@ -393,6 +461,8 @@ const pushBullet = (
     fishFlock: PIXI.AnimatedSprite[]
 ) => {
     let bulletTicker = bullets[0];
+
+    //
     let has = false;
     bullets.forEach((item) => {
         if (!item.bulletSprite.visible) {
@@ -550,14 +620,16 @@ interface DataInterface {
     b_x: number;
     b_y: number;
     a2b_l: number; // 边的长度
-    c_x: number;
-    c_y: number;
+    c_x: number; // 直角x
+    c_y: number; //
     b2c_l: number; //
     a2c_l: number; // a到c的长度,
     speed_x: number;
     speed_y: number;
-    direction: number;
+    direction: number; // 方向
     inScene: boolean; // 精灵的中心点是否离开了场景，从非场景中进入场景中也被判定为true
+    rotation: number; // 保存当前转向角度 因为计算的转向角度是一只加加加的
+    to_radian: number; // 需要转向的夹角角度
 }
 
 interface Position {
