@@ -4,8 +4,6 @@
 <script setup lang="ts">
 import { shallowRef, onMounted, onUnmounted } from 'vue';
 import * as PIXI from 'pixi.js';
-import * as THREE from 'three';
-// import * as Matter from 'matter-js';
 
 const pixiDom = shallowRef<HTMLDivElement>();
 const screen = {
@@ -28,7 +26,7 @@ const init = async () => {
     app.stage.eventMode = 'static';
     app.stage.hitArea = app.screen;
     pixiDom.value?.appendChild(app.view as any);
-    // addSceneBackground(app);
+    addSceneBackground(app);
     const fishFlock = await addFishFlock(app);
     // engine = Matter.Engine.create();
 
@@ -84,47 +82,47 @@ const init = async () => {
     // });
     // Matter.Runner.create
     // Matter.Runner.run(engine);
-    // await addCannon(app, fishFlock);
+    await addCannon(app, fishFlock);
 
     return Promise.resolve(app);
 };
 const addFishFlock = async (app: PIXI.Application) => {
     const arr: PIXI.AnimatedSprite[] = [];
     // 头顶有个灯的大鱼
-    // for (let i = 0; i < 3; i++) {
-    //     const fish = await addFishSprite(app, '1');
-    //     arr.push(fish);
-    // }
+    for (let i = 0; i < 3; i++) {
+        const fish = await addFishSprite(app, '1');
+        arr.push(fish);
+    }
     // 河豚🐡
-    // for (let i = 0; i < 3; i++) {
-    //     const fish = await addFishSprite(app, '3');
-    //     arr.push(fish);
-    // }
+    for (let i = 0; i < 3; i++) {
+        const fish = await addFishSprite(app, '3');
+        arr.push(fish);
+    }
     // 黄色小鱼
     // for (let i = 0; i < 10; i++) {
     //     const fish = await addFishSprite(app, '5');
     //     arr.push(fish);
     // }
     // 青色小小鱼
-    // for (let i = 0; i < 20; i++) {
-    //     const fish = await addFishSprite(app, '8');
-    //     arr.push(fish);
-    // }
+    for (let i = 0; i < 20; i++) {
+        const fish = await addFishSprite(app, '8');
+        arr.push(fish);
+    }
     // 蓝黄条纹鱼
-    // for (let i = 0; i < 8; i++) {
-    //     const fish = await addFishSprite(app, '9');
-    //     arr.push(fish);
-    // }
+    for (let i = 0; i < 8; i++) {
+        const fish = await addFishSprite(app, '9');
+        arr.push(fish);
+    }
     // 乌贼
     // for (let i = 0; i < 5; i++) {
     //     const fish = await addFishSprite(app, '10');
     //     arr.push(fish);
     // }
     // 乌龟
-    // for (let i = 0; i < 4; i++) {
-    //     const fish = await addFishSprite(app, '11');
-    //     arr.push(fish);
-    // }
+    for (let i = 0; i < 4; i++) {
+        const fish = await addFishSprite(app, '11');
+        arr.push(fish);
+    }
     // 红色小小鱼
     // for (let i = 0; i < 20; i++) {
     //     const fish = await addFishSprite(app, '12');
@@ -172,58 +170,70 @@ const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
         inScene: false,
         rotation: 0,
         to_radian: 0,
-        old_dir_num: 0,
     };
     fish.position.x = screen.width / 2;
-    fish.position.y = screen.height / 2;
-    // fish.position.y = 60;
-    // randomStartPoint(fish);
-    // randomEndPoint(data, fish);
-
+    // fish.position.y = screen.height / 2;
+    // fish.rotation = -Math.PI / 4;
+    fish.position.y = 60;
+    randomStartPoint(fish);
+    randomEndPoint(data, fish);
+    const count_radian = 0;
     app.ticker.add((delta) => {
         const next_x = data.speed_x * delta;
         const next_y = data.speed_y * delta;
         // 负数转为正数的时候和上一个位置比下一个位置更近场景的时候为进场
         // 由正熟转换为负数的时候和上一个位置比下一个位置更远场景的时候为离场
-        // switch (data.direction) {
-        //     case Direction.LeftUp:
-        //         fish.x -= next_x;
-        //         fish.y -= next_y;
-        //         if (fish.x < data.b_x && (fish.x < 0 - fish.width || fish.y < 0 - fish.height)) {
-        //             // console.log('离开屏幕了 左上');
-        //             data.inScene = false;
-        //         }
-        //         break;
-        //     case Direction.LeftDown:
-        //         fish.x -= next_x;
-        //         fish.y += next_y;
-        //         if (fish.x < data.b_x && (fish.x < 0 || fish.y > screen.height)) {
-        //             data.inScene = false;
-        //         }
-        //         break;
-        //     case Direction.RightUp:
-        //         fish.x += next_x;
-        //         fish.y -= next_y;
-        //         if (fish.x > data.b_x && (fish.x < screen.width || fish.y < 0)) {
-        //             data.inScene = false;
-        //         }
-        //         break;
-        //     case Direction.RightDown:
-        //         fish.x += next_x;
-        //         fish.y += next_y;
-        //         if (fish.x > data.b_x && (fish.x < screen.width || fish.y < 0)) {
-        //             data.inScene = false;
-        //         }
-        //         break;
+        switch (data.direction) {
+            case Direction.LeftUp:
+                fish.x -= next_x;
+                fish.y -= next_y;
+                if (fish.x < data.b_x && (fish.x < 0 - fish.width || fish.y < 0 - fish.height)) {
+                    // console.log('离开屏幕了 左上');
+                    data.inScene = false;
+                }
+                break;
+            case Direction.LeftDown:
+                fish.x -= next_x;
+                fish.y += next_y;
+                if (fish.x < data.b_x && (fish.x < 0 || fish.y > screen.height)) {
+                    data.inScene = false;
+                }
+                break;
+            case Direction.RightUp:
+                fish.x += next_x;
+                fish.y -= next_y;
+                if (fish.x > data.b_x && (fish.x < screen.width || fish.y < 0)) {
+                    data.inScene = false;
+                }
+                break;
+            case Direction.RightDown:
+                fish.x += next_x;
+                fish.y += next_y;
+                if (fish.x > data.b_x && (fish.x < screen.width || fish.y < 0)) {
+                    data.inScene = false;
+                }
+                break;
+        }
+        if (!data.inScene) {
+            randomEndPoint(data, fish);
+        }
+        // if (data.to_radian !== 0) {
+        //     const to_radian = 0.1 * delta;
+        //     count_radian += to_radian;
+        //     if (count_radian > Math.abs(data.to_radian)) {
+        //         count_radian = 0;
+        //         data.to_radian = 0;
+        //     }
+        //     if (data.to_radian > 0) {
+        //         fish.rotation += to_radian;
+        //     } else {
+        //         fish.rotation -= to_radian;
+        //     }
         // }
-        // if (!data.inScene) {
-        //     randomEndPoint(data, fish);
-        // }
-        // fish.rotation -= 0.1 * delta;
     });
-    app.stage.on('pointerdown', (event) => {
-        pointApply(data, fish, { x: event.globalX, y: event.globalY });
-    });
+    // app.stage.on('pointerdown', (event) => {
+    //     pointApply(data, fish, { x: event.globalX, y: event.globalY });
+    // });
     return Promise.resolve(fish);
 };
 
@@ -271,30 +281,44 @@ const pointApply = (
 
     // 获取基于精灵本身新的转向角度
     const radian = Math.atan2(_y, _x);
-    // 算出需要转向的夹角角度
-    const diff = Math.abs(radian - _data.rotation);
-    const to_radian = Math.min(diff, 2 * Math.PI - diff);
+    // // 算出需要转向的夹角角度
+    // const diff = Math.abs(_data.rotation - radian);
+    // let to_radian = Math.min(diff, 2 * Math.PI - diff);
+    // if (_data.rotation > 0) {
+    //     // 镜像角度
+    //     const d = -Math.PI + _data.rotation;
+    //     if (radian > _data.rotation && radian > d) {
+    //         to_radian;
+    //         console.log('顺时针');
+    //     } else {
+    //         to_radian = -to_radian;
+    //         console.log('逆时针');
+    //     }
+    // } else {
+    //     // 镜像角度
+    //     const d = Math.PI + _data.rotation;
 
-    // if(_data.rotation > 0 && radian <) {
-    //     if (radian > 0) {
-
+    //     if (radian > _data.rotation && radian < d && radian > 0) {
+    //         console.log('顺时针');
+    //         to_radian;
+    //     } else {
+    //         to_radian = -to_radian;
+    //         console.log('逆时针');
     //     }
     // }
-
-    // if()
-
-    console.log(_data.rotation, '旧的角度');
-    console.log(radian, '新的角度');
-    console.log(Direction[_data.direction], '旧的朝向');
+    // // 初始
+    // if (_data.rotation === 0 && radian < 0) {
+    //     to_radian = -to_radian;
+    // }
     // 设置新的角度
     _data.rotation = radian;
     // 设置新的朝向
     _data.direction = direction;
-    // 保存算出来的角度以供计算
-    _data.to_radian = to_radian;
+    // // 保存算出来的角度以供计算
+    // _data.to_radian = to_radian;
     _sprite.rotation = radian;
-    console.log(Direction[_data.direction], '新的朝向');
-    console.log(to_radian, '需要转向的角度');
+
+    // console.log(to_radian, '需要转向的角度');
 };
 // 随机开始的点位
 const randomStartPoint = (_sprite: PIXI.Sprite | PIXI.AnimatedSprite | PIXI.Container) => {
@@ -604,9 +628,8 @@ interface DataInterface {
     speed_y: number;
     direction: number; // 方向
     inScene: boolean; // 精灵的中心点是否离开了场景，从非场景中进入场景中也被判定为true
-    rotation: number; // 需要转换到某个角度
+    rotation: number; // 保存当前转向角度 因为计算的转向角度是一只加加加的
     to_radian: number; // 需要转向的夹角角度
-    old_dir_num: number; // 正数为顺时针
 }
 
 interface Position {
