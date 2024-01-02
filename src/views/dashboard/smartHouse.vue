@@ -182,8 +182,14 @@ const widgets = reactive({
     }
     .music_card {
         // padding: ;
-        .zjbg {
-            display: none;
+        .music_wrap {
+            display: block;
+            .zjbg {
+                width: 180px;
+            }
+            .slider {
+                margin-left: 0;
+            }
         }
     }
 }
