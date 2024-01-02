@@ -64,7 +64,7 @@ const audioData = reactive({
     play: false,
     duration: 0,
     curTime: 0,
-    url: '/sound/jntm.mp3',
+    url: '/vue-material-admin/sound/jntm.mp3',
 });
 let timer = setInterval(() => {});
 const onNext = () => {};
