@@ -10,7 +10,6 @@
             :rail="navState.rail"
             expand-on-hover
             rail-width="77"
-            @update:rail="navigationRail"
             :permanent="permanent"
             v-model="navState.menuVisible"
             style="position: fixed"
@@ -123,7 +122,11 @@
                             <v-icon size="small"></v-icon>
                         </v-badge>
                     </v-btn>
-                    <v-btn variant="text" icon="mdi-github" @click="toGithub">
+                    <v-btn
+                        variant="text"
+                        icon="mdi-github"
+                        @click="link('https://github.com/armomu/vue-material-admin')"
+                    >
                         <v-icon size="small"></v-icon>
                     </v-btn>
                     <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
@@ -136,12 +139,12 @@
                                 <v-list-item
                                     title="Github"
                                     prepend-icon="mdi-github"
-                                    @click="toGithub"
+                                    @click="link('https://github.com/armomu/vue-material-admin')"
                                 />
                                 <v-list-item
                                     title="Email"
                                     prepend-icon="mdi-email"
-                                    @click="toEmail"
+                                    @click="link('mailto:894620576@qq.com')"
                                 />
                                 <v-list-item
                                     title="Sign out"
@@ -164,8 +167,8 @@
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
-import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
-import { reactive, computed, watch } from 'vue';
+import Breadcrumbs from '@/components/Breadcrumbs/index.vue';
+import { reactive, computed } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
 const mainStore = useMainStore();
@@ -180,25 +183,23 @@ const permanent = computed(() => {
     return !mainStore.isMobile;
 });
 
-watch(permanent, () => {
-    navState.menuVisible = true;
-    changeRail();
-});
-const navigationRail = (e: boolean) => {
-    if (!navState.rail) return;
-    navState.isMini = e;
-};
+// watch(permanent, () => {
+//     navState.menuVisible = true;
+//     changeRail();
+// });
+// const navigationRail = (e: boolean) => {
+//     if (!navState.rail) return;
+//     navState.isMini = e;
+//     console.log('222');
+// };
 
 const changeRail = () => {
     navState.rail = !navState.rail;
     navState.isMini = navState.rail;
 };
 
-const toGithub = () => {
-    window.open('https://github.com/armomu/vue-material-admin', '_blank');
-};
-const toEmail = () => {
-    window.open('mailto:894620576@qq.com', '_blank');
+const link = (url: string, target = '_blank') => {
+    window.open(url, target);
 };
 </script>
 <style scoped lang="scss"></style>

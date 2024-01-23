@@ -7,6 +7,7 @@
         margin: 16px 0 16px 16px !important;
         overflow: hidden;
         height: calc(100vh - 2rem) !important;
+        // border: 0;
         .v-list-item__prepend > .v-icon, .v-list-item__append > .v-icon {
             opacity: 1 !important;
         }
@@ -57,6 +58,7 @@
     .app_main {
         flex: 1;
         margin-left: 288px;
+        // margin-left: 108px;
         padding-right: 16px;
         transition: all 0.2s;
         margin-top: 92px;
@@ -73,7 +75,8 @@
             border-radius: 10px;
             position: fixed;
             top: 16px;
-            left: 288px;
+            // width: calc(100vw - 204px);
+            // width: calc(100vw - 130px);
             width: calc(100vw - 312px);
             z-index: 2;
 

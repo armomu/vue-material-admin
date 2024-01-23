@@ -14,27 +14,28 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const $route = useRoute();
-const routes = ref();
+// const routes = ref();
 const pageTitle = computed(() => $route.meta.title);
 
-function init() {
+const routes = computed(() => {
     const { matched } = $route;
+
+    const arr: any[] = [];
     if (matched[0].path === '/dashboard') {
-        routes.value = [
+        return [
             {
                 title: 'Dashboard',
                 disabled: false,
                 href: '/dashboard',
             },
         ];
-        return;
     }
     if (matched[0].path === matched[1].path) {
-        routes.value = [
+        return [
             {
                 title: 'Index',
                 disabled: false,
@@ -46,19 +47,17 @@ function init() {
                 href: matched[0].path,
             },
         ];
-        return;
     }
-    routes.value = [];
     matched.forEach((route, index) => {
         if (index === matched.length - 1) {
-            routes.value.push({
+            arr.push({
                 title: route.meta.title,
                 exact: true,
                 disabled: false,
                 href: $route.path,
             });
         } else {
-            routes.value.push({
+            arr.push({
                 title: route.meta.title,
                 exact: false,
                 disabled: true,
@@ -66,9 +65,8 @@ function init() {
             });
         }
     });
-}
-init();
-watch($route, init);
+    return arr;
+});
 </script>
 <style lang="scss">
 .v-breadcrumbs__prepend {
