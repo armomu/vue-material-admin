@@ -132,6 +132,9 @@ const widgets = reactive({
 </script>
 <style lang="scss">
 .smart_house {
+    .v-card {
+        border-radius: 10px;
+    }
     .camera_wrap {
         position: relative;
         border-radius: 6px;

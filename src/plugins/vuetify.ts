@@ -9,7 +9,7 @@ export const vuetify = createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    primary: '#7F85F9', // #E53935 6B38FB 1C1E2C 7F85F9
+                    primary: '#f7fafc', // #E53935 6B38FB 1C1E2C 7F85F9
                 },
             },
         },

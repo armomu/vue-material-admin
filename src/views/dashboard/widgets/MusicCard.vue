@@ -17,13 +17,13 @@
                     <img src="../../../assets/cd-mine.png" class="zj_cd_bg" width="120" />
                 </div>
             </div>
-            <div class="slider">
+            <div class="slider pt-2">
                 <div class="d-flex">
                     <div class="">
                         <div class="text-h6">Music Card</div>
                         <v-card-subtitle class="pl-0">Vocalist</v-card-subtitle>
                     </div>
-                    <div class="icon_group d-flex justify-space-around">
+                    <div class="icon_group d-flex justify-space-around mt-2">
                         <v-btn variant="text" icon="mdi-skip-previous" />
                         <v-btn
                             v-if="audioData.play"
