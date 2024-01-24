@@ -10,7 +10,7 @@
             </v-card>
         </v-dialog>
         <div class="tips">
-            <span>Mobile device supports gyroscope </span>
+            <span>Mobile device supports gyroscope</span>
             <v-btn
                 variant="text"
                 icon="mdi-fullscreen"

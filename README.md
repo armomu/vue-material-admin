@@ -44,11 +44,10 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
     - ✅ 滑块控制器增加鼠标滑动
     - ✅ 音乐播放器UI
     - ✅ 播放音频
-    - ✅ 360度全景图预览
+    - ✅ 360度全景图预览(支持移动设备陀螺仪)
 4. [Three.js](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/three-js)
     - ✅ 360度全景图预览
     - ✅ 动态导入glb、gltf三维模型
-    - ✅ 全景图陀螺仪重力感应(不搞，直接用Babylonjs XR相机即可)
 5. [Babylon.js](https://github.com/armomu/ergoudan) 
     - ✅ 物理引擎
     - ✅ 角色控制器
@@ -58,6 +57,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
     - ✅ 小鱼自动移动算法
     - ✅ 射击撒网
     - ❌ 小鱼获取新位置后旋转对应角度方向
+    - ❌ 音频
 7. 页面拖拽编辑
     - ✅ 元素大小调整、组件拖拽、顺序拖拽、显示删除
     - ✅ 右键菜单
@@ -76,8 +76,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
     - ❌ 角色权限
     - ❌ 按钮权限
 11. 管理后台
-    - ❌ 使用NestJs + TypeORM + Redis + MySql构建后台
-    - ❌ 权限管理 + CRUD
+    - ❌ Nest.js
 
 ## 本地开发
 
