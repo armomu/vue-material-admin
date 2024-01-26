@@ -1,14 +1,6 @@
 <template>
-    <div class="vr360">
+    <div class="vr360" id="PhotoDome">
         <canvas id="vr360" height="365" ref="canvasDom"></canvas>
-        <v-dialog v-model="loading" :scrim="false" width="200px" persistent>
-            <v-card color="primary">
-                <v-card-text>
-                    Loading model...
-                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
         <div class="tips">
             <span>Mobile device supports gyroscope</span>
             <v-btn
@@ -18,31 +10,52 @@
                 @click="onFullscreen"
             ></v-btn>
         </div>
+        <div v-if="loading" class="photo_loading">
+            <v-card color="primary">
+                <v-card-text>
+                    Loading Photo...
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
 import { shallowRef, ref, onMounted } from 'vue';
 import * as BABYLON from '@babylonjs/core';
-
+import { useMainStore } from '@/stores/appMain';
 const canvasDom = shallowRef<HTMLCanvasElement>();
-const loading = ref(true);
 const isFullscreen = ref(false);
+const loading = ref(true);
+const mainStore = useMainStore();
 onMounted(() => {
     const engine = new BABYLON.Engine(canvasDom.value!, true);
     const scene = new BABYLON.Scene(engine);
-    // This creates and positions a device orientation camera
-    const camera = new BABYLON.DeviceOrientationCamera(
-        'DevOr_camera',
-        new BABYLON.Vector3(0, -2, 0),
-        scene
-    );
 
+    let camera: any = null;
+    if (mainStore.isMobile) {
+        camera = new BABYLON.DeviceOrientationCamera(
+            'DevOr_camera',
+            new BABYLON.Vector3(0, -2, 0),
+            scene
+        );
+    } else {
+        camera = new BABYLON.ArcRotateCamera(
+            'arcCamera1',
+            -2.79,
+            -1.62,
+            1.82,
+            BABYLON.Vector3.Zero(),
+            scene
+        );
+    }
     // This targets the camera to scene origin
-    camera.setTarget(new BABYLON.Vector3(-2.98, -2.84, 3.32));
+    if (mainStore) {
+        camera.setTarget(new BABYLON.Vector3(-2.98, -2.84, 3.32));
+    }
 
     // This attaches the camera to the canvas
     camera.attachControl(canvasDom.value!, true);
-
     const dome = new BABYLON.PhotoDome(
         'testdome',
         import.meta.env.BASE_URL + '/textures/full.jpg',
@@ -52,20 +65,26 @@ onMounted(() => {
         },
         scene
     );
-    loading.value = false;
     dome.imageMode = BABYLON.PhotoDome.MODE_SIDEBYSIDE;
     engine.runRenderLoop(() => {
         scene.render();
     });
+
+    dome.onReady = () => {
+        loading.value = false;
+    };
     // camera.rotationQuaternion = new BABYLON.Quaternion();
-    scene.onAfterRenderCameraObservable.add(() => {
+    scene.onAfterRenderObservable.add(() => {
         // 自转逻辑
         // console.log(camera.target);
+        if (!mainStore.isMobile) {
+            camera.alpha -= 0.001;
+        }
     });
     window.addEventListener('resize', () => {
         engine.resize();
     });
-    document.addEventListener('fullscreenchange', (e) => {
+    document.addEventListener('fullscreenchange', () => {
         if (isFullscreen.value) {
             isFullscreen.value = false;
         }
@@ -92,6 +111,12 @@ const onFullscreen = () => {
         right: 6px;
         bottom: 6px;
         z-index: 2;
+    }
+    .photo_loading {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 .vr360 {
