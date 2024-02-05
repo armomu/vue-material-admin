@@ -16,8 +16,6 @@ coverage
 *.local
 
 stage.glb
-
-/src/views/dashboard/lamborghini.vue
 .vite/
 
 # Editor directories and files
