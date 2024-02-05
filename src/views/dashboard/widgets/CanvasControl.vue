@@ -34,7 +34,7 @@ const airData = reactive({
     temperature: 16,
     cursorPointer: false,
 });
-let app!: Application;
+let app: Application;
 
 const init = async () => {
     const nodes = pixiDom.value?.childNodes;
@@ -47,7 +47,7 @@ const init = async () => {
         screen.d_color = '121212';
     } else {
         screen.background = 'ffffff';
-        screen.d_color = 'f7fafc';
+        screen.d_color = 'eef2f6';
     }
 
     const _app = new Application({

@@ -3,7 +3,7 @@
     // color: #344767!important;
     background: rgb(var(--theme-background)) !important;
     .layout_navigation {
-        border-radius: 12px;
+        border-radius: 8px;
         margin: 16px 0 16px 16px !important;
         overflow: hidden;
         height: calc(100vh - 2rem) !important;
@@ -72,7 +72,7 @@
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            border-radius: 10px;
+            border-radius: 8px;
             position: fixed;
             top: 16px;
             // width: calc(100vw - 204px);

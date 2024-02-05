@@ -32,6 +32,7 @@
                         :to="{ name: item.name }"
                         class="mx-1"
                         active-class="nav_active"
+                        rounded="lg"
                     ></v-list-item>
 
                     <v-list-group
@@ -43,6 +44,7 @@
                                 v-bind="props"
                                 :prepend-icon="(item.meta.icon as any)"
                                 :title="(item.meta.title as any)"
+                                rounded="lg"
                             />
                         </template>
                         <template v-for="(row, i) in item.children">
@@ -52,20 +54,21 @@
                                 :prepend-icon="navState.isMini ? (row.meta?.icon as any) : ''"
                                 :key="i"
                                 :to="{ name: row.name }"
+                                rounded="lg"
                             />
                         </template>
                     </v-list-group>
                     <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
                     <v-list-subheader v-if="item.name === 'Miscellaneous'">Other</v-list-subheader>
                 </template>
-                <v-list-item prepend-icon="mdi-text-box" class="mx-1">
+                <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
                     <v-list-item-title
                         ><a target="_blank" href="https://vuetifyjs.com/" class="link"
                             >Document</a
                         ></v-list-item-title
                     >
                 </v-list-item>
-                <v-list-item prepend-icon="mdi-github" class="mx-1">
+                <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
                     <v-list-item-title
                         ><a
                             target="_blank"
