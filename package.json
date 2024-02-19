@@ -17,6 +17,7 @@
     "@pixi/filter-displacement": "^7.3.2",
     "@pixi/graphics-extras": "^7.3.1",
     "@pixi/ui": "^0.9.1",
+    "@tweenjs/tween.js": "^23.1.1",
     "apexcharts": "^3.36.3",
     "axios": "^1.2.2",
     "lodash": "^4.17.21",

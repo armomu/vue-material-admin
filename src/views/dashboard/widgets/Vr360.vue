@@ -2,7 +2,8 @@
     <div class="vr360" id="PhotoDome">
         <canvas id="vr360" height="365" ref="canvasDom"></canvas>
         <div class="tips">
-            <span>Mobile device supports gyroscope</span>
+            <v-icon icon="mdi-panorama-variant-outline" />
+            <span> Mobile device supports gyroscope</span>
             <v-btn
                 variant="text"
                 icon="mdi-fullscreen"
@@ -13,7 +14,7 @@
         <div v-if="loading" class="photo_loading">
             <v-card color="primary">
                 <v-card-text>
-                    Loading Photo...
+                    Loading...
                     <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
                 </v-card-text>
             </v-card>
@@ -32,7 +33,7 @@ onMounted(() => {
     const engine = new BABYLON.Engine(canvasDom.value!, true);
     const scene = new BABYLON.Scene(engine);
 
-    let camera: any = null;
+    let camera: BABYLON.DeviceOrientationCamera | BABYLON.ArcRotateCamera;
     if (mainStore.isMobile) {
         camera = new BABYLON.DeviceOrientationCamera(
             'DevOr_camera',
@@ -45,13 +46,15 @@ onMounted(() => {
             -2.79,
             -1.62,
             1.82,
-            BABYLON.Vector3.Zero(),
+            new BABYLON.Vector3(0, -2, 0),
             scene
         );
     }
     // This targets the camera to scene origin
-    if (mainStore) {
+    if (mainStore.isMobile) {
         camera.setTarget(new BABYLON.Vector3(-2.98, -2.84, 3.32));
+    } else {
+        camera.position = new BABYLON.Vector3(667, 98, -301);
     }
 
     // This attaches the camera to the canvas
@@ -72,12 +75,18 @@ onMounted(() => {
 
     dome.onReady = () => {
         loading.value = false;
+        if (!mainStore.isMobile) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            cameraPositionAnimation(new BABYLON.Vector3(63, 10, -61), camera, 'position', scene);
+        }
     };
     // camera.rotationQuaternion = new BABYLON.Quaternion();
     scene.onAfterRenderObservable.add(() => {
         // 自转逻辑
-        // console.log(camera.target);
-        if (!mainStore.isMobile) {
+        if (!mainStore.isMobile && loading.value === false) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             camera.alpha -= 0.001;
         }
     });
@@ -90,6 +99,36 @@ onMounted(() => {
         }
     });
 });
+
+function cameraPositionAnimation(
+    value: BABYLON.Vector3,
+    mesh: BABYLON.AbstractMesh | BABYLON.ArcRotateCamera,
+    targetProperty = 'position',
+    scene: BABYLON.Scene,
+    frame = 120
+) {
+    return new Promise<void>((resolve) => {
+        const animation = new BABYLON.Animation(
+            'cameraAnimation',
+            targetProperty,
+            60,
+            BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT,
+            true
+        );
+        const keys = [];
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        keys.push({ frame: 0, value: mesh[targetProperty] });
+        keys.push({ frame: frame, value: value });
+
+        animation.setKeys(keys);
+        mesh.animations.push(animation);
+        scene.beginAnimation(mesh, 0, frame, false, 1, () => {
+            resolve();
+        });
+    });
+}
 
 const onFullscreen = () => {
     const element = document.getElementById('vr360')!;
@@ -142,10 +181,10 @@ const onFullscreen = () => {
         bottom: 0;
         width: 100%;
         line-height: 40px;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.2);
+        text-align: right;
+        // background: rgba(0, 0, 0, 0.2);
         color: rgba(255, 255, 255, 0.8);
-        padding: 0 12px;
+        padding: 0 0px;
     }
 }
 #vr360 {

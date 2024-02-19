@@ -18,7 +18,8 @@
                                 /> -->
                                 <Vr360 />
                                 <div class="label"><span /> Live</div>
-                                <div class="label lk">4K Resolution</div>
+                                <div class="label lk">4K 360&deg; Panoramic</div>
+                                <!-- 360&deg;  -->
                             </div>
                         </v-window-item>
                         <v-window-item :value="2"
@@ -128,6 +129,7 @@ const widgets = reactive({
     speaker: false,
     thermostat: true,
     humidifier: false,
+    air: 24,
 });
 </script>
 <style lang="scss">
@@ -141,7 +143,6 @@ const widgets = reactive({
         overflow: hidden;
         height: 365px;
         .label {
-            max-width: 112px;
             line-height: 25px;
             padding: 0 6px;
             background: rgba(0, 0, 0, 0.2);

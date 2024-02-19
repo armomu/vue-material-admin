@@ -2,8 +2,13 @@
     <div class="test"></div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, defineEmits } from 'vue';
-
+import { defineEmits } from 'vue';
+const props = withDefaults(
+    defineProps<{
+        visible: boolean;
+    }>(),
+    {}
+);
 const emits = defineEmits<{
     change: [id: number];
 }>();
