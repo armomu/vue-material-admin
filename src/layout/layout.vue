@@ -10,7 +10,6 @@
             :rail="navState.rail"
             expand-on-hover
             rail-width="77"
-            @update:rail="navigationRail"
             :permanent="permanent"
             v-model="navState.menuVisible"
             style="position: fixed"
@@ -33,6 +32,7 @@
                         :to="{ name: item.name }"
                         class="mx-1"
                         active-class="nav_active"
+                        rounded="lg"
                     ></v-list-item>
 
                     <v-list-group
@@ -44,6 +44,7 @@
                                 v-bind="props"
                                 :prepend-icon="(item.meta.icon as any)"
                                 :title="(item.meta.title as any)"
+                                rounded="lg"
                             />
                         </template>
                         <template v-for="(row, i) in item.children">
@@ -53,20 +54,21 @@
                                 :prepend-icon="navState.isMini ? (row.meta?.icon as any) : ''"
                                 :key="i"
                                 :to="{ name: row.name }"
+                                rounded="lg"
                             />
                         </template>
                     </v-list-group>
                     <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
                     <v-list-subheader v-if="item.name === 'Miscellaneous'">Other</v-list-subheader>
                 </template>
-                <v-list-item prepend-icon="mdi-text-box" class="mx-1">
+                <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
                     <v-list-item-title
                         ><a target="_blank" href="https://vuetifyjs.com/" class="link"
                             >Document</a
                         ></v-list-item-title
                     >
                 </v-list-item>
-                <v-list-item prepend-icon="mdi-github" class="mx-1">
+                <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
                     <v-list-item-title
                         ><a
                             target="_blank"
@@ -123,7 +125,11 @@
                             <v-icon size="small"></v-icon>
                         </v-badge>
                     </v-btn>
-                    <v-btn variant="text" icon="mdi-github" @click="toGithub">
+                    <v-btn
+                        variant="text"
+                        icon="mdi-github"
+                        @click="link('https://github.com/armomu/vue-material-admin')"
+                    >
                         <v-icon size="small"></v-icon>
                     </v-btn>
                     <v-btn variant="text" append-icon="mdi-chevron-down" class="mr-2">
@@ -136,12 +142,12 @@
                                 <v-list-item
                                     title="Github"
                                     prepend-icon="mdi-github"
-                                    @click="toGithub"
+                                    @click="link('https://github.com/armomu/vue-material-admin')"
                                 />
                                 <v-list-item
                                     title="Email"
                                     prepend-icon="mdi-email"
-                                    @click="toEmail"
+                                    @click="link('mailto:894620576@qq.com')"
                                 />
                                 <v-list-item
                                     title="Sign out"
@@ -164,8 +170,8 @@
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
-import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.vue';
-import { reactive, computed, watch } from 'vue';
+import Breadcrumbs from '@/components/Breadcrumbs/index.vue';
+import { reactive, computed } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
 const mainStore = useMainStore();
@@ -180,25 +186,23 @@ const permanent = computed(() => {
     return !mainStore.isMobile;
 });
 
-watch(permanent, () => {
-    navState.menuVisible = true;
-    changeRail();
-});
-const navigationRail = (e: boolean) => {
-    if (!navState.rail) return;
-    navState.isMini = e;
-};
+// watch(permanent, () => {
+//     navState.menuVisible = true;
+//     changeRail();
+// });
+// const navigationRail = (e: boolean) => {
+//     if (!navState.rail) return;
+//     navState.isMini = e;
+//     console.log('222');
+// };
 
 const changeRail = () => {
     navState.rail = !navState.rail;
     navState.isMini = navState.rail;
 };
 
-const toGithub = () => {
-    window.open('https://github.com/armomu/vue-material-admin', '_blank');
-};
-const toEmail = () => {
-    window.open('mailto:894620576@qq.com', '_blank');
+const link = (url: string, target = '_blank') => {
+    window.open(url, target);
 };
 </script>
 <style scoped lang="scss"></style>

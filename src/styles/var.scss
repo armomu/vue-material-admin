@@ -3,7 +3,7 @@
     --content-height: calc(100vh - 124px);
 }
 .v-application.v-theme--light {
-    --theme-background: 247, 250, 252;
+    --theme-background: 238,242,246;
     --v-theme-on-surface: 0,0,0;
     --v-high-emphasis-opacity: 0.87;
     --header-bg: 255, 255, 255;
@@ -18,7 +18,7 @@
     --grid: #2b2b2b;
 }
 :root {
-    --theme-background: 247, 250, 252;
+    --theme-background: 238,242,246;
     --scrollbar: #e5e5e5;
 }
 :root[theme="dark"] {

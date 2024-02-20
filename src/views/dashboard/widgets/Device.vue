@@ -22,7 +22,7 @@
         </template>
         <template v-else>
             <div class="d-flex jsb px-4">
-                <div class="text-h6">{{ value ? 'On' : 'Off' }}</div>
+                <div class="text-h6">{{ value ? 'ON' : 'OFF' }}</div>
                 <div>
                     <v-switch v-model="value" color="primary" hide-details inset></v-switch>
                 </div>
