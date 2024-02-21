@@ -1,145 +1,208 @@
 <template>
     <div class="tables_page">
         <v-row align="center" no-gutters style="margin: 0 -8px">
-            <v-col cols="12" sm="4">
-                <v-card class="elevation-0 tjjj pa-4 mx-2 mb-sm-0 mb-4" append-icon="">
-                    <div class="d-flex jsb">
-                        <div class="text-h6">Statistics</div>
-                        <v-icon icon="mdi-dots-horizontal" />
-                    </div>
-                    <div class="d-flex jsb mt-5">
-                        <div class="text-h4">2,524</div>
-                        <v-chip class="ms-0 me-2" small color="red">
-                            <v-icon size="mini" icon="mdi-arrow-up" />20%
-                        </v-chip>
-                    </div>
-                </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-                <v-card class="elevation-0 tjjj pa-4 mx-2 mb-sm-0 mb-4" append-icon="">
-                    <div class="d-flex jsb">
-                        <div class="text-h6">Statistics</div>
-                        <v-icon icon="mdi-dots-horizontal" />
-                    </div>
-                    <div class="d-flex jsb mt-5">
-                        <div class="text-h4">1,312</div>
-                        <v-chip class="ms-0 me-2" small color="green">
-                            <v-icon size="mini" icon="mdi-arrow-down" />5%
-                        </v-chip>
-                    </div>
-                </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-                <v-card class="elevation-0 tjjj pa-4 mx-2 mb-sm-0 mb-4" append-icon="">
-                    <div class="d-flex jsb">
-                        <div class="text-h6">Statistics</div>
-                        <v-icon icon="mdi-dots-horizontal" />
-                    </div>
-                    <div class="d-flex jsb mt-5">
-                        <div class="text-h4">14,324</div>
-                        <v-chip class="ms-0 me-2" small color="red">
-                            <v-icon size="mini" icon="mdi-arrow-up" />15%
-                        </v-chip>
-                    </div>
-                </v-card>
-            </v-col>
+            <v-col cols="12" sm="4"><Statistic /></v-col>
+            <v-col cols="12" sm="4"
+                ><Statistic
+                    :up="false"
+                    value="360"
+                    chart-color="#4caf50"
+                    :chart-data="[30, 47, 75, 47, 65]"
+            /></v-col>
+            <v-col cols="12" sm="4"
+                ><Statistic value="15,260" :chart-data="[68, 58, 65, 72]"
+            /></v-col>
         </v-row>
-        <div class="search_bar mt-4 d-flex jsb">
-            <div class="d-flex jsb search_tool">
-                <div class="search_wrap mr-4">
-                    <v-text-field
-                        rounded
-                        class="elevation-0"
-                        density="compact"
-                        variant="solo"
-                        label="Search sample"
-                        append-inner-icon="mdi-magnify"
-                        single-line
-                        hide-details
-                    ></v-text-field>
+        <v-card class="elevation-0 my-4">
+            <div class="search-bar ma-4 d-flex">
+                <div class="filter d-flex">
+                    <div class="row">
+                        <v-text-field
+                            clearable
+                            hide-details
+                            label="Search"
+                            placeholder="Company name"
+                            prepend-inner-icon="mdi-magnify"
+                            density="comfortable"
+                        ></v-text-field>
+                    </div>
+                    <div class="row">
+                        <div class="px-4">
+                            <v-select
+                                clearable
+                                hide-details
+                                label="Status"
+                                placeholder="Status"
+                                density="comfortable"
+                                :items="['secondary', 'red', 'green', 'pink', 'blue']"
+                            ></v-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="px-4">
+                            <v-select
+                                clearable
+                                hide-details
+                                label="License use"
+                                placeholder="License use"
+                                density="comfortable"
+                                :items="[
+                                    '0% - 20%',
+                                    '20% - 40%',
+                                    '40% - 60%',
+                                    '60% - 80%',
+                                    '80% - 100%',
+                                ]"
+                            ></v-select>
+                        </div>
+                    </div>
                 </div>
-                <v-btn class="btn" variant="flat" prepend-icon="mdi-filter-variant" @click="onTest"
-                    ><span> More</span></v-btn
+                <v-btn
+                    size="large"
+                    class="btn mr-4"
+                    variant="tonal"
+                    prepend-icon="mdi-filter-variant"
+                    >Filter</v-btn
                 >
+                <div class="d-flex jsb">
+                    <v-divider vertical></v-divider>
+                    <v-btn size="large" class="btn ml-4" variant="tonal"
+                        ><v-icon icon="mdi-tray-arrow-down" size="large"
+                    /></v-btn>
+                    <v-btn size="large" class="btn ml-4" variant="tonal"
+                        ><v-icon icon="mdi-share" size="large"
+                    /></v-btn>
+                    <v-dialog width="500">
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" size="large" class="btn ml-4" color="primary">
+                                <v-icon icon="mdi-plus" size="large" />
+                            </v-btn>
+                        </template>
+
+                        <template v-slot:default="{ isActive }">
+                            <v-card title="New">
+                                <v-sheet width="350" class="ma-10 mx-auto">
+                                    <v-form @submit.prevent>
+                                        <v-text-field
+                                            clearable
+                                            :rules="[(firstName) => !!firstName || 'required']"
+                                            label="Company name"
+                                            density="comfortable"
+                                        ></v-text-field>
+                                        <v-file-input label="Logo"></v-file-input>
+                                        <v-select
+                                            clearable
+                                            :rules="[(firstName) => !!firstName || 'required']"
+                                            label="Status"
+                                            density="comfortable"
+                                            :items="['secondary', 'red', 'green', 'pink', 'blue']"
+                                        ></v-select>
+                                        <div class="mt-4" />
+                                        <v-slider
+                                            label="License use"
+                                            thumb-label="always"
+                                            model-value="30"
+                                            color="primary"
+                                        ></v-slider>
+                                        <v-textarea
+                                            label="About"
+                                            clearable
+                                            :rules="[(firstName) => !!firstName || 'required']"
+                                        ></v-textarea>
+                                        <v-btn
+                                            type="submit"
+                                            block
+                                            class="mt-4"
+                                            color="primary"
+                                            size="large"
+                                            @click="isActive.value = false"
+                                            >Submit</v-btn
+                                        >
+                                    </v-form>
+                                </v-sheet>
+                            </v-card>
+                        </template>
+                    </v-dialog>
+                </div>
             </div>
-            <div>
-                <v-chip class="mx-2" closable color="pink"> Secondary </v-chip>
-                <v-chip class="mx-2" closable color="secondary"> Label </v-chip>
-                <v-chip class="mx-2"> Status </v-chip>
-            </div>
-        </div>
-        <v-table class="mt-4 table">
-            <thead>
-                <tr>
-                    <th class="text-left">Company</th>
-                    <th class="text-left">Status</th>
-                    <th class="text-left">About</th>
-                    <th class="text-left">Users</th>
-                    <th class="text-left">License use</th>
-                    <th class="text-left"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, i) in list" :key="i">
-                    <td class="td1 py-4">
-                        <div class="d-flex">
-                            <v-btn variant="flat" :icon="item.icon" />
+            <v-divider class="ma-4"></v-divider>
+            <v-table class="ma-4 table">
+                <thead>
+                    <tr>
+                        <th class="text-left">Company</th>
+                        <th class="text-left">Status</th>
+                        <th class="text-left">About</th>
+                        <th class="text-left">License use</th>
+                        <th class="text-left"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, i) in list" :key="i">
+                        <td class="td1 py-4">
+                            <div class="d-flex">
+                                <v-btn variant="flat" :icon="item.icon" :color="item.color" />
+                                <div class="ml-2">
+                                    <div class="name">{{ item.name }}</div>
+                                    <div class="sub_title">{{ item.net }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <v-chip :color="item.color"> Secondary </v-chip>
+                        </td>
+                        <td class="td1">
                             <div class="ml-2">
-                                <div class="name">{{ item.name }}</div>
-                                <div class="sub_title">{{ item.net }}</div>
+                                <div class="name">
+                                    Online software source code hosting service platform
+                                </div>
+                                <div class="sub_title">
+                                    GitHub is where over 94 million developers shape the future of
+                                    software, together....
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <v-chip :color="item.color"> Secondary </v-chip>
-                    </td>
-                    <td class="td1">
-                        <div class="ml-2">
-                            <div class="name">
-                                Online software source code hosting service platform
+                        </td>
+                        <td>
+                            <div style="width: 200px">
+                                <v-progress-linear
+                                    v-model="item.progress"
+                                    :color="item.color"
+                                    rounded
+                                    height="6"
+                                ></v-progress-linear>
                             </div>
-                            <div class="sub_title">
-                                GitHub is where over 94 million developers shape the future of
-                                software, together....
+                        </td>
+                        <td>
+                            <div>
+                                <v-icon
+                                    icon="mdi-message-text"
+                                    color="#999"
+                                    @click="dialog = true"
+                                />
+                                <v-icon
+                                    icon="mdi-share-variant"
+                                    class="mx-4"
+                                    color="#999"
+                                    @click="dialog = true"
+                                />
+                                <v-icon
+                                    icon="mdi-trash-can-outline"
+                                    color="#999"
+                                    @click="dialog = true"
+                                />
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <v-avatar color="info">
-                            <v-icon icon="mdi-account-circle"></v-icon>
-                        </v-avatar>
-                    </td>
-                    <td>
-                        <v-progress-linear
-                            v-model="item.progress"
-                            :color="item.color"
-                            rounded
-                            height="6"
-                        ></v-progress-linear>
-                    </td>
-                    <td>
-                        <div>
-                            <v-icon icon="mdi-message-text" color="#999" @click="dialog = true" />
-                            <v-icon
-                                icon="mdi-share-variant"
-                                class="ml-2"
-                                color="#999"
-                                @click="dialog = true"
-                            />
-                            <v-icon
-                                icon="mdi-trash-can-outline"
-                                class="ml-2"
-                                color="#999"
-                                @click="dialog = true"
-                            />
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </v-table>
-        <div class="d-flex py-2" style="justify-content: center">
-            <v-pagination :model-value="1" :length="4" size="small" rounded="circle"></v-pagination>
-        </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </v-table>
+            <div class="d-flex py-2" style="justify-content: center">
+                <v-pagination
+                    :model-value="1"
+                    :length="4"
+                    size="small"
+                    rounded="circle"
+                ></v-pagination>
+            </div>
+        </v-card>
         <v-dialog v-model="dialog" width="30%">
             <v-card title="Dialog">
                 <v-card-text>
@@ -154,7 +217,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import router from '@/router';
+import Statistic from '@/components/Statistic/index.vue';
 import { ref, onMounted } from 'vue';
 const dialog = ref(false);
 const list = ref([
@@ -206,8 +269,7 @@ onMounted(() => {
         list.value.forEach((item) => {
             item.progress = Math.floor(Math.random() * 100) + 1;
         });
-        console.log(list.value);
-    }, 300);
+    }, 600);
 });
 const onTest = () => {
     // router.push({
@@ -217,28 +279,12 @@ const onTest = () => {
 </script>
 <style lang="scss">
 .tables_page {
-    .tjjj {
-        .tj_label {
-            padding: 4px 8px;
-            border-radius: 15px;
-            background: rgba(244, 67, 54, 0.2);
-            color: #f44336;
-        }
-        .v-chip {
-            margin-inline-end: 0 !important;
-        }
-    }
-    .search_bar {
-        .search_tool {
-            .search_wrap {
-                flex: 0 0 260px;
+    .search-bar {
+        .filter {
+            flex: 1;
+            .row {
+                width: 33.3%;
             }
-            .btn {
-                height: 40px;
-            }
-        }
-        .v-field--variant-solo {
-            box-shadow: none;
         }
     }
     .table {

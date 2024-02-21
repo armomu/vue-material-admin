@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 export const useMainStore = defineStore('main', () => {
     // 初始化是否是移动端设备
     window.addEventListener('resize', () => {
-        const res = getIsMobile();
+        const res = getMobile();
         if (res !== isMobile.value) {
             isMobile.value = res;
         }
