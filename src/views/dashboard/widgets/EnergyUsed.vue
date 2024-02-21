@@ -35,6 +35,9 @@ const chartOptions = computed(() => {
                 show: false,
             },
         },
+        grid: {
+            borderColor: '#efefef',
+        },
         theme: {
             mode: mainStore.theme, // light
         },

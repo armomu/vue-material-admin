@@ -29,7 +29,12 @@
             </div>
             <div class="d-flex jsb px-4 t_row">
                 <div>
-                    <v-icon :icon="icon" :color="value ? 'primary' : ''" size="46" />
+                    <v-icon
+                        :icon="icon"
+                        :color="value ? 'primary' : ''"
+                        size="46"
+                        :class="{ pbg: value }"
+                    />
                     <div class="dv_name my-4">{{ title }}</div>
                 </div>
                 <div class="dv_tool mb-4">
@@ -56,12 +61,14 @@ const props = withDefaults(
         devModel?: string;
         toolw?: boolean;
         toolp?: boolean;
+        theme?: string;
     }>(),
     {
         title: 'title',
         icon: 'mdi-snowflake',
         toolw: true,
         toolp: true,
+        theme: 'light',
     }
 );
 const emit = defineEmits(['update:modelValue']);
