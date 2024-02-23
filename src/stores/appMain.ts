@@ -1,5 +1,6 @@
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
+import { vuetify } from '@/plugins/vuetify';
 
 export const useMainStore = defineStore('main', () => {
     // 初始化是否是移动端设备
@@ -9,9 +10,8 @@ export const useMainStore = defineStore('main', () => {
             isMobile.value = res;
         }
     });
-    const { body } = document;
     const getMobile = () => {
-        const rect = body.getBoundingClientRect();
+        const rect = document.body.getBoundingClientRect();
         if (!document.hidden) {
             const res = rect.width - 1 < 777;
             return res;
@@ -34,5 +34,35 @@ export const useMainStore = defineStore('main', () => {
         root?.setAttribute('theme', theme.value);
     };
 
-    return { theme, isMobile, onTheme };
+    const settings = reactive({
+        plain: true,
+        drawer: false,
+        primary: '#7F85F9',
+        cardStyle: 'shadow', // border // default
+        colors: [
+            '#7F85F9',
+            '#2196F3',
+            '#03A9F4',
+            '#8E24AA',
+            '#3F51B5',
+            '#FFEB3B',
+            '#4CAF50',
+            '#8BC34A',
+            '#CDDC39',
+            '#F44336',
+            '#FF5722',
+        ],
+    });
+
+    const onDrawer = () => {
+        settings.drawer = !settings.drawer;
+    };
+
+    const onPrimary = (val: string) => {
+        settings.primary = val;
+        vuetify.theme.themes.value.light.colors.primary = val;
+        vuetify.theme.themes.value.dark.colors.primary = val;
+    };
+
+    return { theme, isMobile, onTheme, settings, onDrawer, onPrimary };
 });

@@ -13,7 +13,7 @@
                 ><Statistic value="15,260" :chart-data="[68, 58, 65, 72]"
             /></v-col>
         </v-row>
-        <v-card class="elevation-0 my-4">
+        <v-card class="my-4">
             <div class="search-bar ma-4 d-flex">
                 <div class="filter d-flex">
                     <div class="row">
@@ -24,6 +24,7 @@
                             placeholder="Company name"
                             prepend-inner-icon="mdi-magnify"
                             density="comfortable"
+                            variant="outlined"
                         ></v-text-field>
                     </div>
                     <div class="row">
@@ -34,6 +35,7 @@
                                 label="Status"
                                 placeholder="Status"
                                 density="comfortable"
+                                variant="outlined"
                                 :items="['secondary', 'red', 'green', 'pink', 'blue']"
                             ></v-select>
                         </div>
@@ -46,6 +48,7 @@
                                 label="License use"
                                 placeholder="License use"
                                 density="comfortable"
+                                variant="outlined"
                                 :items="[
                                     '0% - 20%',
                                     '20% - 40%',
@@ -80,21 +83,36 @@
                         </template>
 
                         <template v-slot:default="{ isActive }">
-                            <v-card title="New">
+                            <v-card title="New Company">
                                 <v-sheet width="350" class="ma-10 mx-auto">
                                     <v-form @submit.prevent>
                                         <v-text-field
+                                            prepend-icon="mdi-account"
                                             clearable
                                             :rules="[(firstName) => !!firstName || 'required']"
                                             label="Company name"
                                             density="comfortable"
+                                            variant="outlined"
                                         ></v-text-field>
-                                        <v-file-input label="Logo"></v-file-input>
+                                        <v-text-field
+                                            prepend-icon="mdi"
+                                            clearable
+                                            :rules="[(firstName) => !!firstName || 'required']"
+                                            label="Official site"
+                                            density="comfortable"
+                                            variant="outlined"
+                                        ></v-text-field>
+                                        <v-file-input
+                                            label="Logo"
+                                            variant="outlined"
+                                        ></v-file-input>
                                         <v-select
+                                            prepend-icon="s"
                                             clearable
                                             :rules="[(firstName) => !!firstName || 'required']"
                                             label="Status"
                                             density="comfortable"
+                                            variant="outlined"
                                             :items="['secondary', 'red', 'green', 'pink', 'blue']"
                                         ></v-select>
                                         <div class="mt-4" />
@@ -105,21 +123,25 @@
                                             color="primary"
                                         ></v-slider>
                                         <v-textarea
+                                            prepend-icon="mdi-"
                                             label="About"
                                             clearable
+                                            variant="outlined"
                                             :rules="[(firstName) => !!firstName || 'required']"
                                         ></v-textarea>
-                                        <v-btn
-                                            type="submit"
-                                            block
-                                            class="mt-4"
-                                            color="primary"
-                                            size="large"
-                                            @click="isActive.value = false"
-                                            >Submit</v-btn
-                                        >
                                     </v-form>
                                 </v-sheet>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        type="submit"
+                                        class="ma-2"
+                                        color="primary"
+                                        size="large"
+                                        @click="isActive.value = false"
+                                        >Submit</v-btn
+                                    >
+                                </v-card-actions>
                             </v-card>
                         </template>
                     </v-dialog>

@@ -181,7 +181,7 @@ const router = createRouter({
             meta: {
                 title: 'Login',
                 icon: 'mdi-shield-account',
-                visible: true,
+                visible: false,
             },
             component: () => import('@/views/login/login.vue'),
         },

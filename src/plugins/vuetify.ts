@@ -23,3 +23,4 @@ export const vuetify = createVuetify({
         sets: {},
     },
 });
+// vuetify.theme.themes.value.light.colors.primary = '#E53935';

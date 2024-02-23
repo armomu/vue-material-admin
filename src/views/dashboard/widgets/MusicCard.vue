@@ -1,5 +1,5 @@
 <template>
-    <v-card class="music_card elevation-0" theme="dark">
+    <v-card class="music_card" theme="dark">
         <img src="../../../assets/cover2.jpg" class="card_bg" />
         <audio ref="audio" preload="auto" id="audio" hidden :src="audioData.url">
             <!-- <source type="audio/mpeg" />
@@ -29,7 +29,7 @@
                         <v-btn
                             v-if="audioData.play"
                             variant="tonal"
-                            color="primary"
+                            :color="mainStore.settings.primary"
                             icon="mdi-pause"
                             size="large"
                             @click="onPlay"
@@ -38,7 +38,7 @@
                         <v-btn
                             v-else
                             variant="tonal"
-                            color="primary"
+                            :color="mainStore.settings.primary"
                             icon="mdi-play-circle"
                             size="large"
                             @click="onPlay"
@@ -51,7 +51,7 @@
                 <v-slider
                     class="mt-4 ml-0"
                     v-model="audioData.curTime"
-                    color="primary"
+                    :color="mainStore.settings.primary"
                     hide-details
                 />
             </div>
@@ -60,6 +60,9 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onBeforeUnmount } from 'vue';
+import { useMainStore } from '@/stores/appMain';
+const mainStore = useMainStore();
+
 const audio = ref<HTMLAudioElement>()!;
 const audioData = reactive({
     play: false,

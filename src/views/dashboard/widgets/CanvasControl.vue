@@ -38,6 +38,10 @@ const dark = computed(() => {
     return mainStore.theme === 'dark';
 });
 
+const primary_ = computed(() => {
+    return mainStore.settings.primary;
+});
+
 // 这里不知道咋写了，父级组件更新数据或者这个组件更新数据，都会同时触发get或者watch
 // 同时触发了就意味着无法检测到这个值的变化是当前组件触发的还是父级组件触发的
 // 所以这里用一个变量来存储当前组件的值，如果这个值和当前组件的值不一样，就说明是父级组件触发的
@@ -67,6 +71,7 @@ const screen = {
     height: 320,
     background: 'ffffff',
     d_color: '121212', // 底部圆圈颜色
+    color: new Color(mainStore.settings.primary),
 };
 const airData = reactive({
     temperature: 16,
@@ -136,7 +141,7 @@ function airValToAngle(_airVal: number) {
 // 画出对应值的圆
 const setTemperature = (_angleVal: number) => {
     temperatureGraphics.clear();
-    temperatureGraphics.lineStyle(22, new Color('7f85f9'), 1, 1);
+    temperatureGraphics.lineStyle(22, screen.color, 1, 1);
     temperatureGraphics.arc(centerX, centerY, radius - 11, Math.PI - Math.PI / 4, _angleVal);
     temperatureGraphics.endFill();
     const y = centerY + radius * Math.sin(_angleVal);
@@ -152,6 +157,7 @@ const init = async () => {
         temperatureGraphics = new Graphics();
         smallCircle = new Graphics();
     }
+    screen.color = new Color(mainStore.settings.primary);
     if (dark.value) {
         screen.background = '212121';
         screen.d_color = '121212';
@@ -164,7 +170,6 @@ const init = async () => {
         width: screen.width,
         height: screen.height,
         antialias: true, // 开启抗锯齿
-        // background: new Color('ffffff'),
         background: new Color(screen.background),
     });
     app = _app;
@@ -181,14 +186,14 @@ const init = async () => {
     app.stage.addChild(graphics);
 
     graphics.lineStyle(0, new Color(screen.d_color), 1, 1);
-    graphics.beginFill(new Color('7f85f9'));
+    graphics.beginFill(screen.color);
     graphics.endFill();
 
     const startX = centerX + radius * Math.cos(Math.PI - Math.PI / 4); // x 弧度的余弦值
     const startY = centerY + radius * Math.sin(Math.PI - Math.PI / 4); // y 弧度的正弦值
 
     // 开始修饰圆点
-    graphics.beginFill(new Color('7f85f9'));
+    graphics.beginFill(screen.color);
     graphics.drawCircle(startX, startY, 11);
     graphics.endFill();
     // 结束修饰圆点
@@ -210,8 +215,8 @@ const init = async () => {
         smallCircleRadius
     );
     //
-    smallCircle.lineStyle(5, new Color('b4b8fc'), 1, 1);
-    smallCircle.beginFill(new Color('7f85f9'));
+    smallCircle.lineStyle(5, screen.color, 0.7, 1);
+    smallCircle.beginFill(screen.color);
     smallCircle.drawCircle(0, 0, smallCircleRadius);
     smallCircle.endFill();
     // 控制器圆点位置
@@ -272,6 +277,7 @@ const init = async () => {
 };
 
 watch(dark, init);
+watch(primary_, init);
 onMounted(init);
 onUnmounted(() => {
     app?.destroy();
@@ -283,6 +289,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     position: relative;
+    height: 300px;
     &.cursorPointer {
         cursor: pointer;
     }

@@ -1,3 +1,4 @@
+<!-- 已废弃 -->
 <template>
     <v-card class="r_card play_item" dark ref="player">
         <audio controls ref="audio" preload="auto" id="audio" hidden>
@@ -14,10 +15,7 @@
                 <v-icon class="mr-2">mdi-battery</v-icon>
                 <span>12:30</span>
             </v-system-bar>
-            <div
-                class="image"
-                :class="{ image_in: listOut, image_out: listIn }"
-            >
+            <div class="image" :class="{ image_in: listOut, image_out: listIn }">
                 <div class="image_wrap">
                     <img class="img" :src="img" />
                 </div>
@@ -38,10 +36,7 @@
                     </template>
                 </v-slider>
             </div>
-            <div
-                class="icon_play"
-                :class="{ icon_play_in: listOut, icon_play_out: listIn }"
-            >
+            <div class="icon_play" :class="{ icon_play_in: listOut, icon_play_out: listIn }">
                 <v-btn fab dark color="purple" @click="onPlayPause" v-if="play">
                     <v-icon dark class="mdi-36px">mdi-roman-numeral-2</v-icon>
                 </v-btn>
@@ -67,9 +62,7 @@
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        <v-list-item-subtitle>{{
-                            item.subtitle
-                        }}</v-list-item-subtitle>
+                        <v-list-item-subtitle>{{ item.subtitle }}</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-icon>08:34</v-list-item-icon>
                 </v-list-item>
@@ -110,14 +103,14 @@ export default {
                     avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
                     title: 'Recipe to try',
                     subtitle: 'Britta Holt We should eat ',
-                }
+                },
             ],
             duration: 0, //
-            curVal: 0
+            curVal: 0,
         };
     },
     watch: {
-        play: function(bool) {
+        play: function (bool) {
             if (bool) {
                 this.listOut = true;
                 setTimeout(() => {
@@ -131,8 +124,7 @@ export default {
                     this.listIn = false;
                 }, 1000);
             }
-
-        }
+        },
     },
     async mounted() {
         await this.$refs.audio.play();
@@ -158,10 +150,11 @@ export default {
             this.play = true;
         },
         timeFormatter(duration) {
-            let secondTime = parseInt(duration);// 秒
-            let minuteTime = 0;// 分
-            let hourTime = 0;// 小时
-            if (secondTime > 60) { // 如果秒数大于60，将秒数转换成整数
+            let secondTime = parseInt(duration); // 秒
+            let minuteTime = 0; // 分
+            let hourTime = 0; // 小时
+            if (secondTime > 60) {
+                // 如果秒数大于60，将秒数转换成整数
                 // 获取分钟，除以60取整数，得到整数分钟
                 minuteTime = parseInt(secondTime / 60);
                 // 获取秒数，秒数取佘，得到整数秒数
@@ -174,19 +167,19 @@ export default {
                     minuteTime = parseInt(minuteTime % 60);
                 }
             }
-            let result = secondTime > 9 ? secondTime : ('0' + secondTime);
+            let result = secondTime > 9 ? secondTime : '0' + secondTime;
             if (minuteTime > 0) {
-                result = (minuteTime > 9 ? minuteTime : ('0' + minuteTime)) + ':' + result;
+                result = (minuteTime > 9 ? minuteTime : '0' + minuteTime) + ':' + result;
             }
             if (hourTime > 0) {
-                result = (hourTime > 9 ? hourTime : ('0' + hourTime)) + ':' + result;
+                result = (hourTime > 9 ? hourTime : '0' + hourTime) + ':' + result;
             }
             return result;
         },
         onPlayPause() {
             this.$refs.audio.pause();
             this.play = false;
-        }
-    }
+        },
+    },
 };
 </script>

@@ -1,5 +1,5 @@
 
-.v-application {
+.v-layout {
     // color: #344767!important;
     background: rgb(var(--theme-background)) !important;
     .layout_navigation {
@@ -7,6 +7,8 @@
         margin: 16px 0 16px 16px !important;
         overflow: hidden;
         height: calc(100vh - 2rem) !important;
+        transition: all 0.2s;
+        z-index: 900 !important;
         // border: 0;
         .v-list-item__prepend > .v-icon, .v-list-item__append > .v-icon {
             opacity: 1 !important;
@@ -143,6 +145,9 @@
     .layout_navigation {
         .v-list-item__prepend {
             padding-left: 0;
+            .v-icon {
+                left: -1px;
+            }
         }
         .v-list-group__items {
             .v-list-item {
@@ -158,6 +163,41 @@
             width: calc(100vw - 132px);
         }
     }
+}
+
+.plain_ {
+    .v-layout {
+        .layout_navigation {
+            margin: 0 !important;
+            height: 100vh !important;
+            border-radius: 0px;
+        }
+        .app_main {
+            margin-left: 272px;
+            margin-top: 76px;
+            .header {
+                width: calc(100vw - 256px);
+                border-radius: 0;
+                left: 256px;
+                top: 0;
+                background: rgba(var(--header-bg), 0.5);
+                .tool_btns {
+                    padding-right: 16px;
+                }
+            }
+        }
+    }
+
+    .isMini {
+        .app_main {
+            margin-left: 92px;
+            .header {
+                left: 77px;
+                width: calc(100vw - 77px);
+            }
+        }
+    }
+
 }
 .h_a_menu {
     .v-list-item--density-default.v-list-item--one-line {

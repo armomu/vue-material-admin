@@ -321,7 +321,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 #amap {
-    height: calc(100vh - 488px);
+    height: 500px;
     position: relative;
 }
 .tesla {

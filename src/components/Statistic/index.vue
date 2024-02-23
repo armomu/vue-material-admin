@@ -1,5 +1,5 @@
 <template>
-    <v-card class="elevation-0 tjjj pa-4 mx-2 mb-sm-0 mb-4">
+    <v-card class="tjjj pa-4 mx-2 mb-sm-0 mb-4">
         <div class="d-flex jsb">
             <div class="text-h6">Statistics</div>
             <v-icon icon="mdi-dots-horizontal" />
@@ -19,8 +19,20 @@
                 :class="{ 'than-text-green': !up }"
                 icon="mdi-arrow-down-bold"
             />
-            <div class="than-text" :class="{ 'than-text-green': !up }">20</div>
-            <div class="than-text" :class="{ 'than-text-green': !up }">%</div>
+            <div
+                class="than-text"
+                :class="{ 'than-text-green': !up }"
+                style="font-size: 15px; font-weight: 500"
+            >
+                20
+            </div>
+            <div
+                class="than-text"
+                :class="{ 'than-text-green': !up }"
+                style="font-size: 15px; font-weight: 500"
+            >
+                %
+            </div>
             <div class="ml-1">than last month</div>
         </div>
         <div class="d-flex jsb mt-5">

@@ -15,14 +15,14 @@
             style="position: fixed"
         >
             <v-list class="py-4 mx-2 logo" nav>
-                <v-list-item :prepend-avatar="logo" class="mx-1">
+                <v-list-item rounded :prepend-avatar="logo" class="mx-1" to="/vue-material-admin/">
                     <v-list-item-title class="title">Material UI</v-list-item-title>
                     <v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
                 </v-list-item>
             </v-list>
             <v-divider></v-divider>
 
-            <v-list nav class="mx-2">
+            <v-list nav class="mx-2" color="primary">
                 <v-list-subheader>Dashboard</v-list-subheader>
                 <template v-for="(item, key) in navState.routes" :key="key">
                     <v-list-item
@@ -99,15 +99,16 @@
                     <v-icon size="small"></v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <div v-if="!mainStore.isMobile" style="width: 220px" class="search_ip mr-2">
+                <div v-if="!mainStore.isMobile" style="width: 320px" class="search_ip mr-2">
                     <!-- <div id="docsearch"></div> -->
                     <v-text-field
                         rounded
-                        density="compact"
                         variant="outlined"
-                        label="Search here"
+                        density="compact"
+                        label="Search"
+                        color="primary"
+                        autofocus
                         prepend-inner-icon="mdi-magnify"
-                        single-line
                         hide-details
                         clearable
                     ></v-text-field>
@@ -158,12 +159,10 @@
                         </v-menu>
                     </v-btn>
                 </div>
-                <div style="position: fixed; right: 20px; bottom: 100px; z-index: 99999">
-                    <v-btn icon="mdi-cog" />
-                </div>
             </header>
             <div class="router"><RouterView /></div>
         </main>
+        <Settings />
     </v-layout>
 </template>
 <script setup lang="ts">
@@ -171,6 +170,7 @@ import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 import { RouterView, useRouter } from 'vue-router';
 import Breadcrumbs from '@/components/Breadcrumbs/index.vue';
+import Settings from '@/components/Settings/index.vue';
 import { reactive, computed } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
@@ -190,11 +190,6 @@ const permanent = computed(() => {
 //     navState.menuVisible = true;
 //     changeRail();
 // });
-// const navigationRail = (e: boolean) => {
-//     if (!navState.rail) return;
-//     navState.isMini = e;
-//     console.log('222');
-// };
 
 const changeRail = () => {
     navState.rail = !navState.rail;
