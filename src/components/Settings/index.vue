@@ -26,15 +26,24 @@
         </v-list-item>
         <v-divider></v-divider>
         <div class="pa-4">
-            <div class="text-h7">Styles</div>
-            <v-radio-group class="mt-4" v-model="mainStore.settings.plain" color="primary">
-                <v-radio label="White" :value="true"></v-radio>
-                <v-radio label="Light gray" :value="false"></v-radio>
-            </v-radio-group>
-            <div class="text-h7">Theme Color</div>
-            <div class="my-4 colors-picker">
+            <div class="text-h7">Background Colors</div>
+            <div class="my-4 settings-btns-picker">
                 <v-btn
-                    v-for="item in mainStore.settings.colors"
+                    v-for="item in mainStore.settings.backgroundColors"
+                    :key="item"
+                    density="comfortable"
+                    icon=""
+                    :color="item"
+                    variant="elevated"
+                    @click="mainStore.onBackgroundColor(item)"
+                >
+                    <v-icon v-if="item === mainStore.settings.backgroundColor" icon="mdi-check" />
+                </v-btn>
+            </div>
+            <div class="text-h7">Theme Color</div>
+            <div class="my-4 settings-btns-picker">
+                <v-btn
+                    v-for="item in mainStore.settings.primaryColors"
                     :key="item"
                     density="comfortable"
                     icon=""
@@ -45,8 +54,33 @@
                     <v-icon v-if="item === mainStore.settings.primary" icon="mdi-check" />
                 </v-btn>
             </div>
+            <div class="text-h7">Navigation</div>
+            <v-radio-group color="primary" inline v-model="mainStore.settings.welt" hide-details>
+                <v-radio label="Welt" :value="true"></v-radio>
+                <v-radio label="Spacing" :value="false"></v-radio>
+            </v-radio-group>
+            <v-switch
+                color="primary"
+                label="Active highlight"
+                class="ml-2"
+                v-model="mainStore.settings.highlightNav"
+            ></v-switch>
+            <!-- <div class="d-flex jsb">
+                <div class="text-h7">Navigation active highlight</div>
+                <v-switch
+                    hide-details
+                    label="Active highlight"
+                    v-model="mainStore.settings.highlightNav"
+                ></v-switch>
+            </div> -->
             <div class="text-h7">Card Styles</div>
-            <v-radio-group class="mt-4" v-model="mainStore.settings.cardStyle" color="primary">
+            <v-radio-group
+                class="mt-4"
+                inline
+                v-model="mainStore.settings.cardStyle"
+                color="primary"
+                hide-details
+            >
                 <v-radio label="plain" value="shadow"></v-radio>
                 <v-radio label="border" value="border"></v-radio>
                 <v-radio label="default" value="default"></v-radio>
@@ -55,13 +89,11 @@
     </v-navigation-drawer>
 </template>
 <script setup lang="ts">
-import { reactive, computed } from 'vue';
-import { storeToRefs } from 'pinia';
 import { useMainStore } from '@/stores/appMain';
 const mainStore = useMainStore();
 </script>
 <style lang="scss">
-.colors-picker {
+.settings-btns-picker {
     display: flex;
     flex-wrap: wrap;
     .v-btn {

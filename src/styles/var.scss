@@ -3,16 +3,18 @@
     --content-height: calc(100vh - 124px);
 }
 .v-theme--light {
-    --theme-background: 238,242,246;
-    // --theme-background: 255,255,255;
     --v-border-opacity: 0.1;
-
-    --v-theme-border-color: 229,234,239;
     --header-bg: 255, 255, 255;
     --grid: #efefef;
 }
-.plain_.v-theme--light {
+.ffbg.v-theme--light {
     --theme-background: 255,255,255;
+}
+.e5gb.v-theme--light {
+    --theme-background: 238,242,246;
+}
+.f8bg.v-theme--light {
+    --theme-background: 248, 248, 248;
 }
 .v-theme--dark {
     --theme-background: 18, 18, 18;
@@ -30,7 +32,7 @@
 :root[theme="dark"] {
     --theme-background: 18, 18, 18;
     --scrollbar: #515151;
-    --text: rgba(229,234,239, 1);
+    --text: #f8f8f8;
     .text_ {
         color: #e5eaef;
     }

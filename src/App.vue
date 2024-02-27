@@ -2,20 +2,15 @@
     <v-app
         :theme="mainStore.theme"
         :class="{
-            plain_: mainStore.settings.plain,
-            shadow_: mainStore.settings.cardStyle === 'shadow',
-            border_: mainStore.settings.cardStyle === 'border',
+            ffbg: mainStore.settings.backgroundColor === '#ffffff',
+            e5bg: mainStore.settings.backgroundColor === '#e5eaef',
+            f8bg: mainStore.settings.backgroundColor === '#f8f8f8',
+            welt: mainStore.settings.welt,
+            shadowCard: mainStore.settings.cardStyle === 'shadow',
+            borderCard: mainStore.settings.cardStyle === 'border',
         }"
     >
         <router-view />
-        <!-- <v-snackbar location="bottom right" vertical v-model="mainStore.upVisible" :timeout="-1">
-            <p>New content available, click on reload button to update</p>
-
-            <template v-slot:actions>
-                <v-btn color="blue" @click="mainStore.onUp"> Reload </v-btn>
-                <v-btn color="blue" variant="text" @click="mainStore.onHideUp"> Close </v-btn>
-            </template>
-        </v-snackbar> -->
     </v-app>
 </template>
 <script setup lang="ts">

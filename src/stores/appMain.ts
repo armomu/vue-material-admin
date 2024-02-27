@@ -34,23 +34,27 @@ export const useMainStore = defineStore('main', () => {
         root?.setAttribute('theme', theme.value);
     };
 
-    const settings = reactive({
-        plain: true,
+    const settings: Settings = reactive({
+        welt: true,
+        backgroundColor: '#ffffff',
         drawer: false,
         primary: '#7F85F9',
         cardStyle: 'shadow', // border // default
-        colors: [
+        backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
+        highlightNav: false,
+        primaryColors: [
             '#7F85F9',
             '#2196F3',
             '#03A9F4',
             '#8E24AA',
             '#3F51B5',
-            '#FFEB3B',
-            '#4CAF50',
+            '#0A7EA4',
+            '#01C0C8',
             '#8BC34A',
             '#CDDC39',
             '#F44336',
             '#FF5722',
+            '#FA896B',
         ],
     });
 
@@ -58,11 +62,24 @@ export const useMainStore = defineStore('main', () => {
         settings.drawer = !settings.drawer;
     };
 
+    const onBackgroundColor = (val: string) => {
+        settings.backgroundColor = val;
+    };
+
     const onPrimary = (val: string) => {
         settings.primary = val;
         vuetify.theme.themes.value.light.colors.primary = val;
         vuetify.theme.themes.value.dark.colors.primary = val;
     };
-
-    return { theme, isMobile, onTheme, settings, onDrawer, onPrimary };
+    return { theme, isMobile, onTheme, settings, onDrawer, onPrimary, onBackgroundColor };
 });
+interface Settings {
+    welt: boolean;
+    backgroundColor: string;
+    drawer: boolean;
+    highlightNav: boolean;
+    primary: string;
+    cardStyle: 'shadow' | 'border' | 'none';
+    primaryColors: string[];
+    backgroundColors: string[];
+}
