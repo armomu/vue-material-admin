@@ -10,7 +10,6 @@
 ![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
 ![version](https://img.shields.io/badge/Vuetify-3.5.x-red.svg)
 ![version](https://img.shields.io/badge/Vite-4.x-green.svg)
-[![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
 ![stars](https://img.shields.io/github/stars/armomu/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
@@ -38,8 +37,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 ## TODO
 1. 智能家居控制中心组件
     - ✅ Apexcharts
-    - ✅ 滑块控制器
-    - ✅ 滑块控制器增加鼠标滑动
+    - ✅ 环形控制器(支持鼠标拖动进度)
     - ✅ 音乐播放器
     - ✅ 360度全景图预览(支持移动设备陀螺仪)
 2. 高德地图
@@ -67,7 +65,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 7. 适配
     - ✅ 夜间模式
     - ✅ 适配移动设备(大部分适配)
-    - ❌ 主题颜色动态修改
+    - ✅ 主题颜色修改
 8. 权限
     - ❌ 角色权限
     - ❌ 按钮权限
