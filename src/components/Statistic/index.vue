@@ -50,6 +50,10 @@
 <script lang="ts" setup>
 import VueApexCharts from 'vue3-apexcharts';
 import { computed } from 'vue';
+import { useMainStore } from '@/stores/appMain';
+// import * as TWEEN from '@tweenjs/tween.js';
+
+const mainStore = useMainStore();
 const props = withDefaults(
     defineProps<{
         chartData?: any;
@@ -60,7 +64,6 @@ const props = withDefaults(
     {
         chartData: [47, 23, 42, 30, 47, 75, 65],
         up: true,
-        chartColor: '#FF5722',
         value: '2,524',
     }
 );
@@ -92,7 +95,7 @@ const chartOptions = computed(() => {
                 show: false,
             },
         },
-        colors: [props.chartColor],
+        colors: [props.chartColor ? props.chartColor : mainStore.settings.primary],
     };
 });
 const series = computed(() => {

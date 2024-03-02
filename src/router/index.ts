@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Layout from '@/layout/layout.vue';
+import Layout from '@/layout/index.vue';
 
 import { checkVersion } from '@/plugins/pwa';
 
@@ -90,6 +90,18 @@ const router = createRouter({
                         visible: true,
                     },
                     component: () => import('@/views/componets/table.vue'),
+                    children: [],
+                },
+                {
+                    path: 'calendar',
+                    name: 'calendar',
+                    meta: {
+                        title: 'Calendar',
+                        icon: 'mdi-alpha-c',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/componets/calendar.vue'),
                     children: [],
                 },
             ],

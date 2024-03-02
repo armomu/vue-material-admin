@@ -8,6 +8,7 @@
             welt: mainStore.settings.welt,
             shadowCard: mainStore.settings.cardStyle === 'shadow',
             borderCard: mainStore.settings.cardStyle === 'border',
+            mobile: mainStore.isMobile,
         }"
     >
         <router-view />

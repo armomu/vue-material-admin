@@ -40,7 +40,7 @@
                     <v-icon v-if="item === mainStore.settings.backgroundColor" icon="mdi-check" />
                 </v-btn>
             </div>
-            <div class="text-h7">Theme Color</div>
+            <div class="text-h7">Theme Colors</div>
             <div class="my-4 settings-btns-picker">
                 <v-btn
                     v-for="item in mainStore.settings.primaryColors"

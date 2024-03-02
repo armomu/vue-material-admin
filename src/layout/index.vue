@@ -2,7 +2,6 @@
     <v-layout
         :class="{
             mini_nav: navState.isMini,
-            mobile: mainStore.isMobile,
         }"
     >
         <Navigation
@@ -11,7 +10,11 @@
             :routes="navState.routes"
         />
         <main class="app_main">
-            <Header v-model:rail="navState.rail" v-model:mini="navState.isMini" />
+            <Header
+                v-model:rail="navState.rail"
+                v-model:mini="navState.isMini"
+                v-model:visible="navState.menuVisible"
+            />
             <div class="router"><RouterView /></div>
         </main>
         <Settings />

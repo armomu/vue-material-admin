@@ -165,7 +165,7 @@ const widgets = reactive({
         }
     }
 }
-.isMobile {
+.mobile {
     .px-sm-3 {
         padding-right: 12px !important;
         padding-left: 12px !important;

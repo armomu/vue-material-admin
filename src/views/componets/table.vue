@@ -10,7 +10,7 @@
                     :chart-data="[30, 47, 75, 47, 65]"
             /></v-col>
             <v-col cols="12" sm="4"
-                ><Statistic value="15,260" :chart-data="[68, 58, 65, 72]"
+                ><Statistic value="15,260" chart-color="#FF5722" :chart-data="[68, 58, 65, 72]"
             /></v-col>
         </v-row>
         <v-card class="my-4">
@@ -23,7 +23,8 @@
                             label="Search"
                             placeholder="Company name"
                             prepend-inner-icon="mdi-magnify"
-                            density="comfortable"
+                            density="compact"
+                            dense
                             variant="outlined"
                         ></v-text-field>
                     </div>
@@ -34,20 +35,22 @@
                                 hide-details
                                 label="Status"
                                 placeholder="Status"
-                                density="comfortable"
+                                density="compact"
+                                dense
                                 variant="outlined"
                                 :items="['secondary', 'red', 'green', 'pink', 'blue']"
                             ></v-select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="px-4">
+                        <div class="pr-4">
                             <v-select
                                 clearable
                                 hide-details
                                 label="License use"
                                 placeholder="License use"
-                                density="comfortable"
+                                density="compact"
+                                dense
                                 variant="outlined"
                                 :items="[
                                     '0% - 20%',
@@ -60,24 +63,20 @@
                         </div>
                     </div>
                 </div>
-                <v-btn
-                    size="large"
-                    class="btn mr-4"
-                    variant="tonal"
-                    prepend-icon="mdi-filter-variant"
+                <v-btn class="btn mr-4" variant="tonal" prepend-icon="mdi-filter-variant"
                     >Filter</v-btn
                 >
                 <div class="d-flex jsb">
                     <v-divider vertical></v-divider>
-                    <v-btn size="large" class="btn ml-4" variant="tonal"
+                    <v-btn class="btn ml-4" variant="tonal"
                         ><v-icon icon="mdi-tray-arrow-down" size="large"
                     /></v-btn>
-                    <v-btn size="large" class="btn ml-4" variant="tonal"
+                    <v-btn class="btn ml-4" variant="tonal"
                         ><v-icon icon="mdi-share" size="large"
                     /></v-btn>
                     <v-dialog width="500">
                         <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" size="large" class="btn ml-4" color="primary">
+                            <v-btn v-bind="props" class="btn ml-4" color="primary">
                                 <v-icon icon="mdi-plus" size="large" />
                             </v-btn>
                         </template>
@@ -327,7 +326,7 @@ const onTest = () => {
         }
     }
 }
-.isMobile {
+.mobile {
     .tables_page {
         .search_bar {
             display: block !important;

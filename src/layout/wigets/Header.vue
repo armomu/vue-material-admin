@@ -8,7 +8,7 @@
         <div v-if="mainStore.isMobile" class="head_logo ml-4 mr-1">
             <img :src="logo" height="40" />
         </div>
-        <v-btn v-if="mainStore.isMobile" variant="text" icon="mdi-menu" @click="miniVal = !miniVal">
+        <v-btn v-if="mainStore.isMobile" variant="text" icon="mdi-menu" @click="onShowMenu">
             <v-icon size="small"></v-icon>
         </v-btn>
         <v-spacer></v-spacer>
@@ -73,13 +73,14 @@ import { defineEmits, computed } from 'vue';
 import logo from '@/assets/admin-logo.png';
 import wxtx from '@/assets/wx.png';
 
-const emit = defineEmits(['update:rail', 'update:mini']);
+const emit = defineEmits(['update:rail', 'update:mini', 'update:visible']);
 
 const mainStore = useMainStore();
 const props = withDefaults(
     defineProps<{
         rail: boolean;
         mini: boolean;
+        visible: boolean;
     }>(),
     {}
 );
@@ -106,5 +107,8 @@ const changeRail = () => {
 };
 const link = (url: string, target = '_blank') => {
     window.open(url, target);
+};
+const onShowMenu = () => {
+    emit('update:visible', true);
 };
 </script>

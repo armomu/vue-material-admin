@@ -370,7 +370,7 @@ onBeforeUnmount(() => {
     }
     .car_sys {
         overflow: hidden;
-        height: calc(100vh - 464px);
+        // height: calc(100vh - 464px);
         background: #212121;
         border-radius: 12px;
         margin-bottom: 16px;
@@ -490,7 +490,7 @@ onBeforeUnmount(() => {
         }
     }
 }
-.isMobile {
+.mobile {
     .tesla {
         .car {
             .tesla_img {

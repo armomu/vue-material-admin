@@ -41,7 +41,7 @@ export const useMainStore = defineStore('main', () => {
         primary: '#7F85F9',
         cardStyle: 'shadow', // border // default
         backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
-        highlightNav: false,
+        highlightNav: true,
         primaryColors: [
             '#7F85F9',
             '#2196F3',
