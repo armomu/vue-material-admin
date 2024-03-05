@@ -3,45 +3,50 @@
         <v-card class="mr-4">
             <v-date-picker color="primary" show-adjacent-months></v-date-picker>
             <v-divider class="mx-4"></v-divider>
-            <v-list v-model:opened="open">
-                <v-list-item prepend-icon="mdi-home" title="Home"></v-list-item>
-
-                <v-list-group value="Users">
+            <v-list v-model:opened="open" class="mx-4 my-2" density="comfortable">
+                <v-list-group value="myCalendars">
                     <template v-slot:activator="{ props }">
-                        <v-list-item
-                            v-bind="props"
-                            prepend-icon="mdi-account-circle"
-                            title="Users"
-                        ></v-list-item>
+                        <v-list-item v-bind="props" title="My Calendars"></v-list-item>
                     </template>
 
-                    <v-list-group value="Admin">
-                        <template v-slot:activator="{ props }">
-                            <v-list-item v-bind="props" title="Admin"></v-list-item>
+                    <v-list-item
+                        v-for="([title, color, activator], i) in myCalendars"
+                        :key="i"
+                        :title="title + ''"
+                        :value="title"
+                        style="padding-inline-start: 16px !important"
+                    >
+                        <template v-slot:prepend>
+                            <v-list-item-action start>
+                                <v-checkbox-btn
+                                    :color="color + ''"
+                                    :model-value="activator"
+                                ></v-checkbox-btn>
+                            </v-list-item-action>
                         </template>
+                    </v-list-item>
+                </v-list-group>
+                <v-list-group value="others">
+                    <template v-slot:activator="{ props }">
+                        <v-list-item v-bind="props" title="Colors"></v-list-item>
+                    </template>
 
-                        <v-list-item
-                            v-for="([title, icon], i) in admins"
-                            :key="i"
-                            :title="title"
-                            :prepend-icon="icon"
-                            :value="title"
-                        ></v-list-item>
-                    </v-list-group>
-
-                    <v-list-group value="Actions">
-                        <template v-slot:activator="{ props }">
-                            <v-list-item v-bind="props" title="Actions"></v-list-item>
+                    <v-list-item
+                        v-for="([title, color, activator], i) in others"
+                        :key="i"
+                        :title="title + ''"
+                        :value="title"
+                        style="padding-inline-start: 16px !important"
+                    >
+                        <template v-slot:prepend>
+                            <v-list-item-action start>
+                                <v-checkbox-btn
+                                    :color="color + ''"
+                                    :model-value="activator"
+                                ></v-checkbox-btn>
+                            </v-list-item-action>
                         </template>
-
-                        <v-list-item
-                            v-for="([title, icon], i) in cruds"
-                            :key="i"
-                            :value="title"
-                            :title="title"
-                            :prepend-icon="icon"
-                        ></v-list-item>
-                    </v-list-group>
+                    </v-list-item>
                 </v-list-group>
             </v-list>
         </v-card>
@@ -55,7 +60,10 @@
             >
                 <template #header="{ title }">
                     <v-sheet :height="77" class="d-flex jsb">
+                        <v-btn variant="tonal" class="mr-4">today</v-btn>
                         <span class="text-h4">{{ title }}</span>
+                        <v-btn icon="mdi-chevron-left" variant="text" class="ml-4"></v-btn>
+                        <v-btn icon="mdi-chevron-right" variant="text"></v-btn>
                         <v-spacer></v-spacer>
                         <v-sheet :width="120" class="d-flex jsb">
                             <v-select
@@ -67,6 +75,21 @@
                                 hide-details
                             ></v-select>
                         </v-sheet>
+                        <v-btn-toggle
+                            variant="outlined"
+                            color="primary"
+                            divided
+                            density="comfortable"
+                            class="ml-4"
+                            model-value="0"
+                        >
+                            <v-btn value="0" icon="mdi-calendar-month" class="px-7"></v-btn>
+                            <v-btn
+                                value="1"
+                                icon="mdi-checkbox-marked-circle-outline"
+                                class="px-7"
+                            ></v-btn>
+                        </v-btn-toggle>
                     </v-sheet>
                 </template>
             </VCalendar>
@@ -99,20 +122,25 @@ const events = [
 const type = ref<'month' | 'week' | 'day'>('month');
 const types = ['month', 'week', 'day'];
 
-const today = ref([new Date()]);
+const today = ref([new Date('2024-02-16')]);
 
-const open = ref(['Users']);
+const open = ref(['myCalendars', 'others']);
 
-const admins = [
-    ['Management', 'mdi-account-multiple-outline'],
-    ['Settings', 'mdi-cog-outline'],
+const myCalendars = [
+    ['咩咩咩啊', 'pink', true],
+    ['Birthday', 'teal', true],
+    ['Tasks', 'cyan', true],
 ];
-const cruds = [
-    ['Create', 'mdi-plus-outline'],
-    ['Read', 'mdi-file-outline'],
-    ['Update', 'mdi-update'],
-    ['Delete', 'mdi-delete'],
+const others = [
+    ['red', 'red', true],
+    ['green', 'green', true],
+    ['blue', 'blue', true],
+    ['yellow', 'yellow', true],
+    ['purple', 'purple', true],
+    ['orange', 'orange', true],
+    ['grey', 'grey', true],
 ];
+
 onMounted(() => {
     // console.log(calendar.value.onNext());
 });

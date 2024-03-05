@@ -507,6 +507,12 @@ onBeforeUnmount(() => {
             .v-card {
                 width: auto;
             }
+            .battery {
+                margin-right: 0;
+            }
+            .Trip {
+                margin-left: 0;
+            }
         }
         .car_sys {
             .search_bar {

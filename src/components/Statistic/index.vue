@@ -1,5 +1,5 @@
 <template>
-    <v-card class="tjjj pa-4 mx-2 mb-sm-0 mb-4">
+    <v-card class="tjjj pa-4">
         <div class="d-flex jsb">
             <div class="text-h6">Statistics</div>
             <v-icon icon="mdi-dots-horizontal" />

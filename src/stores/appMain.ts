@@ -36,7 +36,7 @@ export const useMainStore = defineStore('main', () => {
 
     const settings: Settings = reactive({
         welt: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#e5eaef',
         drawer: false,
         primary: '#7F85F9',
         cardStyle: 'shadow', // border // default

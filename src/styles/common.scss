@@ -9,10 +9,6 @@
 .arphl {
     background-color: #ddffe9;
 }
-
-.v-list-item__prepend {
-    width: 40px;
-}
 .v-field__outline {
     color: rgba(var(--v-theme-on-surface), var(--v-border-opacity));
     --v-field-border-opacity: 1 !important;
@@ -27,6 +23,9 @@
 .text-h7 {
     font-size: 16px;
     font-weight: 500;
+}
+.v-card {
+    border-radius: 6px;
 }
 .shadowCard {
     .v-card {

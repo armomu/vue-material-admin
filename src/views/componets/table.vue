@@ -1,12 +1,13 @@
 <template>
     <div class="tables_page">
-        <v-row align="center" no-gutters style="margin: 0 -8px">
+        <v-row no-gutters>
             <v-col cols="12" sm="4"><Statistic /></v-col>
-            <v-col cols="12" sm="4"
+            <v-col cols="12" sm="4" class="my-sm-0 my-4"
                 ><Statistic
                     :up="false"
                     value="360"
                     chart-color="#4caf50"
+                    class="mx-0 mx-sm-4"
                     :chart-data="[30, 47, 75, 47, 65]"
             /></v-col>
             <v-col cols="12" sm="4"
@@ -28,8 +29,8 @@
                             variant="outlined"
                         ></v-text-field>
                     </div>
-                    <div class="row">
-                        <div class="px-4">
+                    <div class="row my-4 my-sm-0">
+                        <div class="px-sm-4 px-0">
                             <v-select
                                 clearable
                                 hide-details
@@ -43,7 +44,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="pr-4">
+                        <div class="pr-0 pr-sm-4">
                             <v-select
                                 clearable
                                 hide-details
@@ -63,26 +64,39 @@
                         </div>
                     </div>
                 </div>
-                <v-btn class="btn mr-4" variant="tonal" prepend-icon="mdi-filter-variant"
+                <v-btn
+                    class="btn mr-4 my-4 my-sm-0"
+                    variant="tonal"
+                    prepend-icon="mdi-filter-variant"
                     >Filter</v-btn
                 >
                 <div class="d-flex jsb">
-                    <v-divider vertical></v-divider>
-                    <v-btn class="btn ml-4" variant="tonal"
+                    <v-divider vertical class="d-none d-sm-flex"></v-divider>
+                    <v-btn class="btn" variant="tonal"
                         ><v-icon icon="mdi-tray-arrow-down" size="large"
                     /></v-btn>
-                    <v-btn class="btn ml-4" variant="tonal"
+                    <v-btn class="btn mx-4" variant="tonal"
                         ><v-icon icon="mdi-share" size="large"
                     /></v-btn>
                     <v-dialog width="500">
                         <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="btn ml-4" color="primary">
+                            <v-btn v-bind="props" class="btn" color="primary">
                                 <v-icon icon="mdi-plus" size="large" />
                             </v-btn>
                         </template>
 
                         <template v-slot:default="{ isActive }">
                             <v-card title="New Company">
+                                <template #append>
+                                    <div class="mr-n4">
+                                        <v-btn
+                                            type="submit"
+                                            variant="text"
+                                            @click="isActive.value = false"
+                                            icon="mdi-close"
+                                        />
+                                    </div>
+                                </template>
                                 <v-sheet width="350" class="ma-10 mx-auto">
                                     <v-form @submit.prevent>
                                         <v-text-field
@@ -328,17 +342,21 @@ const onTest = () => {
 }
 .mobile {
     .tables_page {
-        .search_bar {
+        .search-bar {
             display: block !important;
-            .search_tool {
-                margin-bottom: 16px;
-                .search_wrap {
-                    flex: 1;
+            .filter {
+                display: block !important;
+                flex: 1;
+                .row {
+                    width: 100%;
                 }
+            }
+            .d-flex {
+                display: block !important;
             }
         }
         .table {
-            width: calc(100vw - 32px);
+            width: calc(100vw - 64px);
             overflow: hidden;
         }
     }

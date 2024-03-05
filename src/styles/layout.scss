@@ -8,7 +8,7 @@
         overflow: hidden;
         height: calc(100vh - 2rem) !important;
         transition: all 0.2s;
-        z-index: 900 !important;
+        // z-index: 900 !important;
         // border: 0;
 
         .nav_active {
@@ -68,9 +68,8 @@
     }
     .app_main {
         flex: 1;
-        margin-left: 288px;
+        margin-left: 256px;
         // margin-left: 108px;
-        padding-right: 16px;
         transition: all 0.2s;
         margin-top: 92px;
         .header {
@@ -145,7 +144,7 @@
             }
         }
         .router {
-            padding-top: 16px;
+            padding: 16px;
         }
     }
 }
@@ -166,7 +165,7 @@
 
     }
     .app_main {
-        margin-left: 108px;
+        margin-left: 77px;
         .header {
             left: 108px;
             width: calc(100vw - 132px);
@@ -182,7 +181,7 @@
             border-radius: 0px;
         }
         .app_main {
-            margin-left: 272px;
+            margin-left: 256px;
             margin-top: 76px;
             .header {
                 width: calc(100vw - 256px);
@@ -199,7 +198,7 @@
 
     .mini_nav {
         .app_main {
-            margin-left: 92px;
+            margin-left: 77px;
             .header {
                 left: 77px;
                 width: calc(100vw - 77px);

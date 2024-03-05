@@ -25,7 +25,7 @@ import { RouterView, useRouter } from 'vue-router';
 import Settings from '@/components/Settings/index.vue';
 import Navigation from './wigets/Navigation.vue';
 import Header from './wigets/Header.vue';
-import { reactive } from 'vue';
+import { reactive, computed, watch } from 'vue';
 import { useMainStore } from '@/stores/appMain';
 
 const mainStore = useMainStore();
@@ -35,5 +35,11 @@ const navState = reactive({
     rail: !mainStore.isMobile,
     isMini: !mainStore.isMobile,
     routes: router.options.routes,
+});
+const device = computed(() => mainStore.isMobile);
+watch(device, (val) => {
+    if (val) {
+        navState.rail = false;
+    }
 });
 </script>
