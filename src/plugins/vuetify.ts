@@ -1,9 +1,13 @@
 // plugins/vuetify/vuetify.js
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
 import '@mdi/font/css/materialdesignicons.css';
 
 export const vuetify = createVuetify({
+    components,
+    directives,
     theme: {
         themes: {
             light: {
@@ -19,3 +23,4 @@ export const vuetify = createVuetify({
         sets: {},
     },
 });
+// vuetify.theme.themes.value.light.colors.primary = '#E53935';

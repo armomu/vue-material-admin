@@ -95,7 +95,7 @@
                     size="small"
                 />
                 <v-btn variant="text" icon="mdi-hand-back-right-outline" size="small" />
-                <v-slider
+                <!-- <v-slider
                     v-model="scaleState.slider"
                     color="primary"
                     :step="1"
@@ -125,7 +125,7 @@
                             </v-list>
                         </v-menu>
                     </template>
-                </v-slider>
+                </v-slider> -->
             </div>
         </div>
 
@@ -157,7 +157,7 @@
                                 }"
                                 @click.stop="onMinLayout(index)"
                             >
-                                <div class="title">
+                                <div class="title cursor-move">
                                     {{ element.widget }}
                                 </div>
                                 <div class="icons">

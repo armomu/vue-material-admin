@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Layout from '@/layout/layout.vue';
+import Layout from '@/layout/index.vue';
 
 import { checkVersion } from '@/plugins/pwa';
 
@@ -81,15 +81,27 @@ const router = createRouter({
                     children: [],
                 },
                 {
-                    path: 'tables',
-                    name: 'tables',
+                    path: 'table',
+                    name: 'table',
                     meta: {
-                        title: 'Tables',
+                        title: 'Table',
                         icon: 'mdi-alpha-t',
                         keepAlive: false,
                         visible: true,
                     },
                     component: () => import('@/views/componets/table.vue'),
+                    children: [],
+                },
+                {
+                    path: 'calendar',
+                    name: 'calendar',
+                    meta: {
+                        title: 'Calendar',
+                        icon: 'mdi-alpha-c',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/componets/calendar.vue'),
                     children: [],
                 },
             ],
@@ -150,10 +162,10 @@ const router = createRouter({
             component: Layout,
             children: [
                 {
-                    path: 'layer-edit-example',
+                    path: 'layer-edit',
                     name: 'layerEdit',
                     meta: {
-                        title: 'Layer Edit Example',
+                        title: 'Layer Edit',
                         icon: 'mdi-alpha-l',
                         keepAlive: false,
                         visible: true,
@@ -181,7 +193,7 @@ const router = createRouter({
             meta: {
                 title: 'Login',
                 icon: 'mdi-shield-account',
-                visible: true,
+                visible: false,
             },
             component: () => import('@/views/login/login.vue'),
         },

@@ -2,17 +2,25 @@
     // 常用内容高度
     --content-height: calc(100vh - 124px);
 }
-.v-application.v-theme--light {
-    --theme-background: 238,242,246;
-    --v-theme-on-surface: 0,0,0;
-    --v-high-emphasis-opacity: 0.87;
+.v-theme--light {
+    --v-border-opacity: 0.1;
     --header-bg: 255, 255, 255;
     --grid: #efefef;
 }
-.v-application.v-theme--dark {
+.ffbg.v-theme--light {
+    --theme-background: 255,255,255;
+}
+.e5gb.v-theme--light {
+    --theme-background: 238,242,246;
+}
+.f8bg.v-theme--light {
+    --theme-background: 248, 248, 248;
+}
+.v-theme--dark {
     --theme-background: 18, 18, 18;
     --v-theme-on-surface: 255,255,255;
     --v-high-emphasis-opacity: 0.87;
+
     --header-bg: 33, 33, 33;
     --scrollbar: #515151;
     --grid: #2b2b2b;
@@ -24,4 +32,8 @@
 :root[theme="dark"] {
     --theme-background: 18, 18, 18;
     --scrollbar: #515151;
+    --text: #f8f8f8;
+    .text_ {
+        color: #e5eaef;
+    }
 }

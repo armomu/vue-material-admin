@@ -23,7 +23,6 @@ const pageTitle = computed(() => $route.meta.title);
 
 const routes = computed(() => {
     const { matched } = $route;
-
     const arr: any[] = [];
     if (matched[0].path === '/dashboard') {
         return [

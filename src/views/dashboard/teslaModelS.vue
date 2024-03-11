@@ -321,7 +321,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 #amap {
-    height: calc(100vh - 488px);
+    height: 500px;
     position: relative;
 }
 .tesla {
@@ -370,7 +370,7 @@ onBeforeUnmount(() => {
     }
     .car_sys {
         overflow: hidden;
-        height: calc(100vh - 464px);
+        // height: calc(100vh - 464px);
         background: #212121;
         border-radius: 12px;
         margin-bottom: 16px;
@@ -490,7 +490,7 @@ onBeforeUnmount(() => {
         }
     }
 }
-.isMobile {
+.mobile {
     .tesla {
         .car {
             .tesla_img {
@@ -506,6 +506,12 @@ onBeforeUnmount(() => {
             }
             .v-card {
                 width: auto;
+            }
+            .battery {
+                margin-right: 0;
+            }
+            .Trip {
+                margin-left: 0;
             }
         }
         .car_sys {

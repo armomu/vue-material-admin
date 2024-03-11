@@ -259,14 +259,13 @@ div {
         height: 6px;
     }
     &::-webkit-scrollbar-thumb {
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
         border-radius: 8px;
         background-color: var(--scrollbar);
     }
 }
-body, html {
-
+iframe, body, html {
     &::-webkit-scrollbar {
         // 定义了滚动条整体的样式；
         width: 6px;
@@ -274,13 +273,15 @@ body, html {
         background-color: var(--scrollbar);
     }
     &::-webkit-scrollbar-thumb {
-        width: 5px;
-        height: 5px;
-        border-radius: 8px;
-        background-color: var(--scrollbar);
+        // width: 6px;
+        // height: 6px;
+        // border-radius: 8px;
+        // background-color: var(--scrollbar);
     }
     &::-webkit-scrollbar-track {
-        border-radius: 10px; // 轨道圆角
+        width: 0;
+        height: 0;
+        border-radius: 20px; // 轨道圆角
         background-color: rgb(var(--theme-background)) !important // 轨道颜色
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="elevation-0 dv_widget">
+    <v-card class="dv_widget">
         <template v-if="imgSrc">
             <div class="d-flex jsb px-4">
                 <div class="pt-4"><img :src="imgSrc" height="120" /></div>
@@ -22,14 +22,22 @@
         </template>
         <template v-else>
             <div class="d-flex jsb px-4">
-                <div class="text-h6">{{ value ? 'ON' : 'OFF' }}</div>
+                <div class="text">{{ value ? 'ON' : 'OFF' }}</div>
                 <div>
                     <v-switch v-model="value" color="primary" hide-details inset></v-switch>
                 </div>
             </div>
             <div class="d-flex jsb px-4 t_row">
                 <div>
-                    <v-icon :icon="icon" :color="value ? 'primary' : ''" size="46" />
+                    <!-- <v-icon
+                        :icon="icon"
+                        :color="value ? 'primary' : ''"
+                        size="42"
+                        :class="{ pbg: value }"
+                    /> -->
+                    <v-btn variant="tonal" icon="" :color="value ? 'primary' : ''">
+                        <v-icon :icon="icon" />
+                    </v-btn>
                     <div class="dv_name my-4">{{ title }}</div>
                 </div>
                 <div class="dv_tool mb-4">
@@ -56,12 +64,14 @@ const props = withDefaults(
         devModel?: string;
         toolw?: boolean;
         toolp?: boolean;
+        theme?: string;
     }>(),
     {
         title: 'title',
         icon: 'mdi-snowflake',
         toolw: true,
         toolp: true,
+        theme: 'light',
     }
 );
 const emit = defineEmits(['update:modelValue']);
@@ -85,6 +95,7 @@ const value = computed({
     }
     .t_row {
         align-items: flex-start;
+        margin-top: -2px;
     }
     .img_v {
         .dv_tool {
@@ -95,10 +106,10 @@ const value = computed({
     .dv_tool {
         align-self: flex-end;
         .item {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 9px;
             background-color: rgba(0, 0, 0, 0.1);
         }
         .pbg {

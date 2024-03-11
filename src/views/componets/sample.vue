@@ -6,23 +6,7 @@
             <a href="https://next.vuetifyjs.com/en/" target="_black">documentation</a>
         </div>
     </div>
-    <v-card title="Application" class="elevation-0 my-4">
-        <v-layout>
-            <v-navigation-drawer permanent></v-navigation-drawer>
-            <v-app-bar>
-                <v-spacer></v-spacer>
-                <v-btn
-                    :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
-                    @click="onTheme"
-                    >Toggle Theme</v-btn
-                >
-            </v-app-bar>
-            <v-main>
-                <v-container>Content area</v-container>
-            </v-main>
-        </v-layout>
-    </v-card>
-    <v-card title="Alerts" class="elevation-0 my-4">
+    <v-card title="Alerts" class="my-4">
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="12" sm="6" class="pr-0 pr-sm-2">
                 <v-alert type="success">I'm a success alert.</v-alert>
@@ -65,7 +49,7 @@
             </v-col>
         </v-row>
     </v-card>
-    <v-card title="Badges" class="elevation-0 my-4">
+    <v-card title="Badges" class="my-4">
         <v-toolbar color="blue-grey-darken-3">
             <v-spacer></v-spacer>
 
@@ -98,7 +82,7 @@
             <v-spacer></v-spacer>
         </v-toolbar>
     </v-card>
-    <v-card title="Buttons" class="elevation-0">
+    <v-card title="Buttons">
         <div class="pa-4">
             <v-row>
                 <v-col cols="6" sm="3">
@@ -166,117 +150,7 @@
             </v-row>
         </div>
     </v-card>
-
-    <v-card title="Cards" class="elevation-0 my-4">
-        <v-row align="center" no-gutters class="pa-4">
-            <v-col cols="12" sm="4" class="pr-0 pr-sm-2">
-                <v-card class="mx-auto" variant="outlined">
-                    <v-card-item>
-                        <div>
-                            <div class="text-overline mb-1">OVERLINE</div>
-                            <div class="text-h6 mb-1">Headline</div>
-                            <div class="text-caption">
-                                Greyhound divisely hello coldly fonwderfully
-                            </div>
-                        </div>
-                    </v-card-item>
-
-                    <v-card-actions>
-                        <v-btn variant="outlined"> Button </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-            <v-col cols="12" sm="4" class="pl-0 pl-sm-2">
-                <v-card class="mx-auto">
-                    <v-card-text>
-                        <div>Word of the Day</div>
-                        <p class="text-h4 text--primary">el·ee·mos·y·nar·y</p>
-                        <p>adjective</p>
-                        <div class="text--primary">
-                            relating to or dependent on charity; charitable.<br />
-                            "an eleemosynary educational institution."
-                        </div>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn variant="text" color="teal-accent-4" @click="cards.reveal = true">
-                            Learn More
-                        </v-btn>
-                    </v-card-actions>
-
-                    <v-expand-transition>
-                        <v-card
-                            v-if="cards.reveal"
-                            class="transition-fast-in-fast-out v-card--reveal"
-                            style="height: 100%"
-                        >
-                            <v-card-text class="pb-0">
-                                <p class="text-h4 text--primary">Origin</p>
-                                <p>
-                                    late 16th century (as a noun denoting a place where alms were
-                                    distributed): from medieval Latin eleemosynarius, from late
-                                    Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’
-                                </p>
-                            </v-card-text>
-                            <v-card-actions class="pt-0">
-                                <v-btn
-                                    variant="text"
-                                    color="teal-accent-4"
-                                    @click="cards.reveal = false"
-                                >
-                                    Close
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-expand-transition>
-                </v-card>
-            </v-col>
-            <v-col cols="12" sm="4" class="pr-0 pr-sm-2">
-                <v-card
-                    class="mx-auto"
-                    color="#26c6da"
-                    theme="dark"
-                    max-width="400"
-                    prepend-icon="mdi-twitter"
-                    title="Twitter"
-                >
-                    <template v-slot:prepend>
-                        <v-icon size="x-large"></v-icon>
-                    </template>
-
-                    <v-card-text class="text-h5 py-2">
-                        "Turns out semicolon-less style is easier and safer in TS because most
-                        gotcha edge cases are type invalid as well."
-                    </v-card-text>
-
-                    <v-card-actions>
-                        <v-list-item class="w-100">
-                            <template v-slot:prepend>
-                                <v-avatar
-                                    color="grey-darken-3"
-                                    image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                                ></v-avatar>
-                            </template>
-
-                            <v-list-item-title>Evan You</v-list-item-title>
-
-                            <v-list-item-subtitle>Vue Creator</v-list-item-subtitle>
-
-                            <template v-slot:append>
-                                <div class="justify-self-end">
-                                    <v-icon class="mr-1" icon="mdi-heart"></v-icon>
-                                    <span class="subheading mr-2">256</span>
-                                    <span class="mr-1">·</span>
-                                    <v-icon class="mr-1" icon="mdi-share-variant"></v-icon>
-                                    <span class="subheading">45</span>
-                                </div>
-                            </template>
-                        </v-list-item>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-card>
-    <v-card title="Alerts" class="elevation-0 my-4">
+    <v-card title="Alerts" class="my-4">
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="6" class="pr-2"> </v-col>
             <v-col cols="6" class="pl-2"> </v-col>
@@ -290,9 +164,5 @@ const cards = reactive({
 });
 
 const theme = ref('light');
-
-function onTheme() {
-    theme.value = theme.value === 'light' ? 'dark' : 'light';
-}
 </script>
 <style scoped lang="scss"></style>

@@ -1,5 +1,6 @@
 <template>
-    <v-card class="music_card elevation-0">
+    <v-card class="music_card" theme="dark">
+        <img src="../../../assets/cover2.jpg" class="card_bg" />
         <audio ref="audio" preload="auto" id="audio" hidden :src="audioData.url">
             <!-- <source type="audio/mpeg" />
             <source src="/sound/ngm.mp3" type="audio/mpeg" /> -->
@@ -28,7 +29,7 @@
                         <v-btn
                             v-if="audioData.play"
                             variant="tonal"
-                            color="primary"
+                            :color="mainStore.settings.primary"
                             icon="mdi-pause"
                             size="large"
                             @click="onPlay"
@@ -37,7 +38,7 @@
                         <v-btn
                             v-else
                             variant="tonal"
-                            color="primary"
+                            :color="mainStore.settings.primary"
                             icon="mdi-play-circle"
                             size="large"
                             @click="onPlay"
@@ -50,7 +51,7 @@
                 <v-slider
                     class="mt-4 ml-0"
                     v-model="audioData.curTime"
-                    color="primary"
+                    :color="mainStore.settings.primary"
                     hide-details
                 />
             </div>
@@ -59,6 +60,9 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onBeforeUnmount } from 'vue';
+import { useMainStore } from '@/stores/appMain';
+const mainStore = useMainStore();
+
 const audio = ref<HTMLAudioElement>()!;
 const audioData = reactive({
     play: false,
@@ -97,6 +101,16 @@ onBeforeUnmount(() => {
 .music_card {
     overflow: hidden;
     position: relative;
+    .card_bg {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        z-index: -1;
+        filter: blur(25px);
+        // opacity: 0.6;
+    }
     .bg {
         height: 100%;
         position: absolute;
@@ -128,7 +142,6 @@ onBeforeUnmount(() => {
                 top: 0;
                 animation-fill-mode: forwards;
                 transition: all 0.2s;
-
                 animation-fill-mode: forwards;
 
                 &::after {
@@ -136,7 +149,7 @@ onBeforeUnmount(() => {
                     display: block;
                     width: 16px;
                     height: 16px;
-                    background: rgba(var(--header-bg), 1);
+                    background: #efefef;
                     border-radius: 50%;
                     position: absolute;
                     z-index: 2;

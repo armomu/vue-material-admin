@@ -2,7 +2,7 @@
     <div class="smart_house pb-5">
         <v-row>
             <v-col cols="12" sm="6">
-                <v-card title="Cameras" class="elevation-0">
+                <v-card title="Cameras">
                     <v-tabs v-model="tab" align-tabs="end" class="mx-4" color="primary">
                         <v-tab :value="1">Living Room</v-tab>
                         <v-tab :value="2">Bed Room</v-tab>
@@ -40,7 +40,7 @@
             <v-col cols="12" sm="2" class="px-sm-1 px-3 py-1 py-sm-3">
                 <Device v-model="widgets.wifi" title="5G WI-FI" icon="mdi-wifi" :toolw="false" />
                 <Device v-model="widgets.tv" class="my-4" title="Apple TV" icon="mdi-television" />
-                <Device v-model="widgets.ts" title="Thermostat" icon="mdi-snowflake" />
+                <Device v-model="widgets.ts" title="Air Conditioner" icon="mdi-snowflake" />
             </v-col>
             <v-col cols="12" sm="4"> <AirConditioner /></v-col>
         </v-row>
@@ -48,7 +48,7 @@
             <v-col cols="12" sm="8" class="py-1">
                 <v-row>
                     <v-col cols="12" sm="5">
-                        <v-card class="elevation-0">
+                        <v-card>
                             <div class="d-flex justify-space-between">
                                 <v-avatar size="120" rounded="0" class="ma-4">
                                     <img src="../../assets/cloud.png" height="120" />
@@ -135,7 +135,7 @@ const widgets = reactive({
 <style lang="scss">
 .smart_house {
     .v-card {
-        border-radius: 8px;
+        border-radius: 6px;
     }
     .camera_wrap {
         position: relative;
@@ -165,7 +165,7 @@ const widgets = reactive({
         }
     }
 }
-.isMobile {
+.mobile {
     .px-sm-3 {
         padding-right: 12px !important;
         padding-left: 12px !important;

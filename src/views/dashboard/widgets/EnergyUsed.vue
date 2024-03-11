@@ -1,5 +1,5 @@
 <template>
-    <v-card class="elevation-0 energy_used" title="Energy Used">
+    <v-card class="energy_used" title="Energy Used">
         <VueApexCharts
             :height="props.height"
             type="area"
@@ -18,7 +18,7 @@ const props = withDefaults(
         height?: string | number;
     }>(),
     {
-        height: 300,
+        height: 308,
     }
 );
 const mainStore = useMainStore();
@@ -34,6 +34,9 @@ const chartOptions = computed(() => {
             toolbar: {
                 show: false,
             },
+        },
+        grid: {
+            borderColor: '#efefef',
         },
         theme: {
             mode: mainStore.theme, // light
@@ -57,6 +60,7 @@ const chartOptions = computed(() => {
                 show: false,
             },
         },
+        colors: [mainStore.settings.primary],
     };
 });
 const series = ref([

@@ -30,7 +30,13 @@
                 ></v-text-field>
             </div>
             <div class="my-6">
-                <v-btn color="primary" variant="flat" block size="large" type="submit" href="/"
+                <v-btn
+                    color="primary"
+                    variant="flat"
+                    block
+                    size="large"
+                    type="submit"
+                    href="/vue-material-admin/"
                     >Login</v-btn
                 >
             </div>
