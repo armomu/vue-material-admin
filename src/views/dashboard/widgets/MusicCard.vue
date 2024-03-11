@@ -1,6 +1,6 @@
 <template>
-    <v-card class="music_card" theme="dark">
-        <img src="../../../assets/cover2.jpg" class="card_bg" />
+    <v-card class="music_card">
+        <!-- <img src="../../../assets/cover2.jpg" class="card_bg" /> -->
         <audio ref="audio" preload="auto" id="audio" hidden :src="audioData.url">
             <!-- <source type="audio/mpeg" />
             <source src="/sound/ngm.mp3" type="audio/mpeg" /> -->

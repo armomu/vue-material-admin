@@ -2,6 +2,7 @@
 .v-layout {
     // color: #344767!important;
     background: rgb(var(--theme-background)) !important;
+
     .layout_navigation {
         border-radius: 8px;
         margin: 16px 0 16px 16px !important;
@@ -10,7 +11,6 @@
         transition: all 0.2s;
         // z-index: 900 !important;
         // border: 0;
-
         .nav_active {
             background-color: rgb(var(--v-theme-primary));
 
@@ -68,13 +68,12 @@
     }
     .app_main {
         flex: 1;
-        margin-left: 256px;
+        margin-left: 272px;
         // margin-left: 108px;
         transition: all 0.2s;
         margin-top: 92px;
         .header {
-            // background: ;
-            background: rgba(var(--header-bg), 0.8);
+            background: rgba(var(--header-bg), var(--header-bg-opacity));
             // filter: blur(25px);
             backdrop-filter: saturate(200%) blur(30px);
             // box-shadow: inset 0 0 1px 1px hsla(0,0%,99.6%,.9),0 20px 27px 0 rgba(0,0,0,.05)!important;
@@ -88,6 +87,7 @@
             // width: calc(100vw - 204px);
             // width: calc(100vw - 130px);
             width: calc(100vw - 312px);
+            left: 288px;
             z-index: 2;
 
             .header_title {
@@ -165,7 +165,7 @@
 
     }
     .app_main {
-        margin-left: 77px;
+        margin-left: 92px;
         .header {
             left: 108px;
             width: calc(100vw - 132px);

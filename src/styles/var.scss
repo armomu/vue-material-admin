@@ -5,16 +5,20 @@
 .v-theme--light {
     --v-border-opacity: 0.1;
     --header-bg: 255, 255, 255;
+    --header-bg-opacity: 0.8;
     --grid: #efefef;
 }
 .ffbg.v-theme--light {
     --theme-background: 255,255,255;
+    --header-bg-opacity: 1;
 }
 .e5gb.v-theme--light {
     --theme-background: 238,242,246;
+    --header-bg-opacity: 1;
 }
 .f8bg.v-theme--light {
     --theme-background: 248, 248, 248;
+    --header-bg-opacity: 1;
 }
 .v-theme--dark {
     --theme-background: 18, 18, 18;
@@ -22,6 +26,7 @@
     --v-high-emphasis-opacity: 0.87;
 
     --header-bg: 33, 33, 33;
+    --header-bg-opacity: 0.8;
     --scrollbar: #515151;
     --grid: #2b2b2b;
 }

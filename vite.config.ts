@@ -2,14 +2,15 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vuetify from 'vite-plugin-vuetify';
+// import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/vue-material-admin',
     plugins: [
         vue(),
-        // vueJsx(),
-        vuetify() as any,
+        // vueJsx(), 都用Vue还用什么JSX
+        vuetify(),
     ],
     server: {
         open: true,
