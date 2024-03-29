@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lamborghini Aventador J
+* source:	https://sketchfab.com/3d-models/lamborghini-aventador-j-e1123c75f743401e8aacef17abbe31a7
+* author:	iSteven (https://sketchfab.com/OneSteven)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lamborghini Aventador J" (https://sketchfab.com/3d-models/lamborghini-aventador-j-e1123c75f743401e8aacef17abbe31a7) by iSteven (https://sketchfab.com/OneSteven) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
