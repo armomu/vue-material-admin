@@ -35,13 +35,13 @@ export const useMainStore = defineStore('main', () => {
     };
 
     const settings: Settings = reactive({
-        welt: true,
+        welt: false,
         backgroundColor: '#e5eaef',
         drawer: false,
         primary: '#7F85F9',
         cardStyle: 'shadow', // border // default
         backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
-        highlightNav: true,
+        // highlightNav: true,
         primaryColors: [
             '#7F85F9',
             '#2196F3',
@@ -77,7 +77,7 @@ interface Settings {
     welt: boolean;
     backgroundColor: string;
     drawer: boolean;
-    highlightNav: boolean;
+    // highlightNav: boolean;
     primary: string;
     cardStyle: 'shadow' | 'border' | 'none';
     primaryColors: string[];

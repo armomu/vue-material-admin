@@ -4,7 +4,7 @@
 <script setup lang="ts">
 import VueApexCharts from 'vue3-apexcharts';
 import { ref, computed } from 'vue';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 
 const mainStore = useMainStore();
 const chartOptions = computed(() => {
@@ -53,3 +53,4 @@ const chartOptions = computed(() => {
 });
 const series = ref([44, 55, 13, 43]);
 </script>
+@/stores/useMainStore

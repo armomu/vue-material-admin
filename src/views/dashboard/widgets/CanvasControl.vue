@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { shallowRef, onMounted, onUnmounted, reactive, watch, computed } from 'vue';
 import { Application, Graphics, Color } from 'pixi.js';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 // import * as TWEEN from '@tweenjs/tween.js';
 
 const mainStore = useMainStore();
@@ -303,3 +303,4 @@ onUnmounted(() => {
     }
 }
 </style>
+@/stores/useMainStore

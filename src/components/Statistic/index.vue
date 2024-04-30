@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import VueApexCharts from 'vue3-apexcharts';
 import { computed } from 'vue';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 // import * as TWEEN from '@tweenjs/tween.js';
 
 const mainStore = useMainStore();
@@ -121,3 +121,4 @@ const series = computed(() => {
     }
 }
 </style>
+@/stores/useMainStore

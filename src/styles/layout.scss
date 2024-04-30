@@ -68,7 +68,7 @@
     }
     .app_main {
         flex: 1;
-        margin-left: 256px;
+        margin-left: 272px;
         // margin-left: 108px;
         transition: all 0.2s;
         margin-top: 92px;
@@ -85,9 +85,10 @@
             border-radius: 8px;
             position: fixed;
             top: 16px;
+            left: 286px;
             // width: calc(100vw - 204px);
             // width: calc(100vw - 130px);
-            width: calc(100vw - 312px);
+            width: calc(100vw - 306px);
             z-index: 2;
 
             .header_title {
@@ -165,7 +166,7 @@
 
     }
     .app_main {
-        margin-left: 77px;
+        margin-left: 93px;
         .header {
             left: 108px;
             width: calc(100vw - 132px);
