@@ -26,7 +26,7 @@ import Settings from '@/components/Settings/index.vue';
 import Navigation from './wigets/Navigation.vue';
 import Header from './wigets/Header.vue';
 import { reactive, computed, watch } from 'vue';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 
 const mainStore = useMainStore();
 const router = useRouter();
@@ -43,3 +43,4 @@ watch(device, (val) => {
     }
 });
 </script>
+@/stores/useMainStore

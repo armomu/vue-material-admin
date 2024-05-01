@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import VueApexCharts from 'vue3-apexcharts';
 import { ref, computed } from 'vue';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 
 const props = withDefaults(
     defineProps<{
@@ -78,3 +78,4 @@ const series = ref([
     }
 }
 </style>
+@/stores/useMainStore

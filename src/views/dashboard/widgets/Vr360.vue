@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { shallowRef, ref, onMounted } from 'vue';
 import * as BABYLON from '@babylonjs/core';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 const canvasDom = shallowRef<HTMLCanvasElement>();
 const isFullscreen = ref(false);
 const loading = ref(true);
@@ -194,3 +194,4 @@ const onFullscreen = () => {
     // height: 365px;
 }
 </style>
+@/stores/useMainStore

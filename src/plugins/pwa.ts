@@ -1,5 +1,5 @@
 // import { registerSW } from 'virtual:pwa-register';
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 
 // let pwaReg: ServiceWorkerRegistration | undefined;
 // registerSW({

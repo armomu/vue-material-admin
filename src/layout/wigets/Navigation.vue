@@ -37,7 +37,7 @@
                             v-bind="props"
                             :prepend-icon="(item.meta.icon as any)"
                             :title="(item.meta.title as any)"
-                            :active-class="mainStore.settings.highlightNav ? 'nav_active' : ''"
+                            active-class="nav_active"
                             rounded="lg"
                         />
                     </template>
@@ -79,9 +79,6 @@
 import logo from '@/assets/admin-logo.png';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineEmits, computed } from 'vue';
-import { useMainStore } from '@/stores/appMain';
-
-const mainStore = useMainStore();
 const emit = defineEmits(['update:value']);
 
 const props = withDefaults(
@@ -102,3 +99,4 @@ const val = computed({
     },
 });
 </script>
+@/stores/useMainStore

@@ -42,9 +42,6 @@
                 padding-inline-start: 47px !important;
             }
         }
-        .v-icon {
-            // font-size: 21px !important;
-        }
         .logo {
             .v-avatar {
                 border-radius: 0;
@@ -84,10 +81,10 @@
             border-radius: 8px;
             position: fixed;
             top: 16px;
+            left: 286px;
             // width: calc(100vw - 204px);
             // width: calc(100vw - 130px);
-            width: calc(100vw - 312px);
-            left: 288px;
+            width: calc(100vw - 306px);
             z-index: 2;
 
             .header_title {
@@ -153,9 +150,6 @@
     .layout_navigation {
         .v-list-item__prepend {
             padding-left: 0;
-            .v-icon {
-                // left: -1px;
-            }
         }
         .v-list-group__items {
             .v-list-item {
@@ -165,7 +159,7 @@
 
     }
     .app_main {
-        margin-left: 92px;
+        margin-left: 93px;
         .header {
             left: 108px;
             width: calc(100vw - 132px);

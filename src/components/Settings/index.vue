@@ -59,21 +59,13 @@
                 <v-radio label="Welt" :value="true"></v-radio>
                 <v-radio label="Spacing" :value="false"></v-radio>
             </v-radio-group>
-            <v-switch
+            <!-- <v-switch
                 color="primary"
                 label="Active highlight"
                 class="ml-2"
                 v-model="mainStore.settings.highlightNav"
-            ></v-switch>
-            <!-- <div class="d-flex jsb">
-                <div class="text-h7">Navigation active highlight</div>
-                <v-switch
-                    hide-details
-                    label="Active highlight"
-                    v-model="mainStore.settings.highlightNav"
-                ></v-switch>
-            </div> -->
-            <div class="text-h7">Card Styles</div>
+            ></v-switch> -->
+            <div class="text-h7 mt-4">Card Styles</div>
             <v-radio-group
                 class="mt-4"
                 inline
@@ -89,7 +81,7 @@
     </v-navigation-drawer>
 </template>
 <script setup lang="ts">
-import { useMainStore } from '@/stores/appMain';
+import { useMainStore } from '@/stores/useMainStore';
 const mainStore = useMainStore();
 </script>
 <style lang="scss">
@@ -102,3 +94,4 @@ const mainStore = useMainStore();
     }
 }
 </style>
+@/stores/useMainStore
