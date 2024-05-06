@@ -28,38 +28,42 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
   <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/edit_layer.png">
 </p>
 
-## 🌟 PreView
-- [ 👉 Vercel](https://vue-material-admin-prji-gw3j39akm-armomus-projects.vercel.app/)
--  👉 Github https://armomu.github.io/vue-material-admin (构建失败)
-- 👉 Gitee https://chenhuajie.gitee.io/vue-material-admin (不给用了)
+## 🍭 PreView
+
+😠 原来的Gitee预览地址没了，不知道为啥Gitee不给用了，暂时用Vercel的吧！打不开的同学自行跑本地环境
+
+- 🌍 [ Vercel https://vue-material-admin-prji-gw3j39akm-armomus-projects.vercel.app/](https://vue-material-admin-prji-gw3j39akm-armomus-projects.vercel.app/)
+- 🍱 Github https://armomu.github.io/vue-material-admin (构建失败)
+- 🍦 Gitee https://chenhuajie.gitee.io/vue-material-admin (不给用了)
 
 
 ## 👊 TODO
-1. Vuetify Componets
+1. 🍳 Vuetify Componets
     - ✅ Buttons
     - ✅ CardS
     - ✅ Table
     - ✅ Calendar...
-2. 智能家居控制组件
+2. 🏡 智能家居控制组件
     - ✅ Apexcharts
     - ✅ 环形控制器(支持鼠标拖动进度)
     - ✅ 音乐播放器
     - ✅ 360度全景图预览(支持移动设备陀螺仪)
-3. [Babylon.js](https://github.com/armomu/ergoudan) 
+3. 🎥 [Babylon.js](https://github.com/armomu/ergoudan) 
     - ✅ Havok物理引擎
-    - ✅ 使用WSAD、空格键控制角色
-    - ✅ 上下楼梯
-    - ✅ 上下坡
-4. [Pixi.js捕鱼DEMO](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/pixijs) 
+    - ✅ 使用W、S、A、D键控制角色移动
+    - ✅ 使用空格键跳跃
+    - ✅ 上楼梯
+4. 🔥 [Pixi.js捕鱼DEMO](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/pixijs) 
     - ✅ 小鱼自动移动
     - ✅ 射击撒网
     - ❌ 小鱼获取新位置后旋转对应角度方向
+    - ❌ 击落效果获取金币
     - ❌ 音频
-5. 适配
+5. 🐝 适配
     - ✅ 夜间模式
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
-6. 后端
+6. 💻 后端
     - ❌ Nest.js
 
 ## 📑 本地开发
