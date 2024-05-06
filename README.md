@@ -32,9 +32,9 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 😠 原来的Gitee预览地址没了，不知道为啥Gitee不给用了，暂时用Vercel的吧！打不开的同学自行跑本地环境
 
-- 🌍 [ Vercel https://vue-material-admin-prji-gw3j39akm-armomus-projects.vercel.app/](https://vue-material-admin-prji-gw3j39akm-armomus-projects.vercel.app/)
-- 🍱 Github https://armomu.github.io/vue-material-admin (构建失败)
-- 🍦 Gitee https://chenhuajie.gitee.io/vue-material-admin (不给用了)
+- 🌍 Vercel [https://vue-material-admin.vercel.app/](https://vue-material-admin-prji-gw3j39akm-armomus-projects.vercel.app/)
+- 🍱 Github [https://armomu.github.io/vue-material-admin](https://armomu.github.io/vue-material-admin) (构建失败)
+- 🍦 Gitee [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin) (不给用了)
 
 
 ## 👊 TODO
