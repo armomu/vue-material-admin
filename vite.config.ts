@@ -6,7 +6,8 @@ import vuetify from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/vue-material-admin',
+    base: '/',
+    // base: '/vue-material-admin',
     plugins: [
         vue(),
         // vueJsx(), 都用Vue还用什么JSX

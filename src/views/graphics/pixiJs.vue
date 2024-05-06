@@ -148,7 +148,7 @@ const addFishFlock = async (app: PIXI.Application) => {
 
 const addFishSprite = async (app: PIXI.Application, key = '5', num = 30) => {
     const fish = await loadAnimatedSprite(
-        `/fishcatcher/fishimg/fish${key}/live/`,
+        `fishcatcher/fishimg/fish${key}/live/`,
         `fish${key}_live00`,
         num,
         app,
@@ -363,12 +363,12 @@ const randomEndPoint = (
     pointApply(_data, _sprite, { x, y });
 };
 const addCannon = async (app: PIXI.Application, fishFlock: PIXI.AnimatedSprite[] = []) => {
-    const bottomBar = loadSprite('/fishcatcher/img/bottom-bar.png', app);
+    const bottomBar = loadSprite('fishcatcher/img/bottom-bar.png', app);
     bottomBar.x = bottomBar.x - 48;
     bottomBar.y = 580 - 34;
     bottomBar.zIndex = 999;
     const cannon = await loadAnimatedSprite(
-        '/fishcatcher/cannon/cannon6/',
+        'fishcatcher/cannon/cannon6/',
         'cannon600',
         7,
         app,
@@ -429,7 +429,7 @@ const addCannon = async (app: PIXI.Application, fishFlock: PIXI.AnimatedSprite[]
 
 const addBulletTicker = async (app: PIXI.Application, fishFlock: PIXI.AnimatedSprite[]) => {
     const bullet6 = await loadAnimatedSprite(
-        '/fishcatcher/bullet/bullet6/',
+        'fishcatcher/bullet/bullet6/',
         'bullet600',
         9,
         app,
@@ -556,7 +556,7 @@ const loadSprite = (
 };
 
 const addSceneBackground = (app: PIXI.Application) => {
-    const background = PIXI.Sprite.from(import.meta.env.BASE_URL + '/fishcatcher/img/BG01.png');
+    const background = PIXI.Sprite.from(import.meta.env.BASE_URL + 'fishcatcher/img/BG01.png');
     background.width = screen.width;
     background.height = screen.height;
     app.stage.addChild(background);

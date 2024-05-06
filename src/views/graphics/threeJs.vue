@@ -93,7 +93,7 @@ const clock = new THREE.Clock();
 let mixer: THREE.AnimationMixer;
 const textureLoader = new THREE.TextureLoader();
 const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}/draco/`);
+dracoLoader.setDecoderPath(`${import.meta.env.BASE_URL}draco/`);
 loader.setDRACOLoader(dracoLoader);
 
 // var stats: Stats;
@@ -175,7 +175,7 @@ function init() {
     controls.autoRotateSpeed = 2.0;
     controls.update();
 
-    loader.load('/vue-material-admin/RobotExpressive/RobotExpressive.glb', function (gltf) {
+    loader.load('/RobotExpressive/RobotExpressive.glb', function (gltf) {
         model = gltf.scene;
         animations = gltf.animations;
         scene.add(model);

@@ -39,7 +39,7 @@ export function checkVersion() {
     try {
         const createVersionScript = document.createElement('script');
         createVersionScript.src =
-            location.origin + `${import.meta.env.BASE_URL}/version.js?v=${new Date().getTime()}`;
+            location.origin + `${import.meta.env.BASE_URL}version.js?v=${new Date().getTime()}`;
         const script = document.getElementsByTagName('script')[0];
         script.parentNode?.insertBefore(createVersionScript, script);
     } catch (err) {

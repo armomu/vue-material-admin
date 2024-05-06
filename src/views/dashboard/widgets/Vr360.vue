@@ -61,7 +61,7 @@ onMounted(() => {
     camera.attachControl(canvasDom.value!, true);
     const dome = new BABYLON.PhotoDome(
         'testdome',
-        import.meta.env.BASE_URL + '/textures/full.jpg',
+        import.meta.env.BASE_URL + 'textures/full.jpg',
         {
             resolution: 32,
             size: 600,
