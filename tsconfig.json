@@ -1,6 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["src/**/*", "src/**/*.vue", "typings/*"],
+  "include": [
+    "src/**/*",
+    "src/**/*.vue",
+    "typings/*"
+  ],
   "compilerOptions": {
     "module": "ESNext",
     "baseUrl": ".",
