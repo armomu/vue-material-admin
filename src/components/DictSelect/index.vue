@@ -3,6 +3,7 @@
         v-model="value"
         :items="items"
         item-title="name"
+        item-value="department"
         :clearable="props.clearable"
         :hide-details="props.hideDetails"
         :dense="props.dense"
@@ -12,9 +13,9 @@
         :variant="props.variant"
         @update:model-value="change"
     >
-        <template v-slot:item="{ props, item }">
+        <!-- <template v-slot:item="{ props, item }">
             <v-list-item v-bind="props" :subtitle="item.raw.department"></v-list-item>
-        </template>
+        </template> -->
     </v-select>
 </template>
 <script lang="ts" setup>
@@ -47,7 +48,7 @@ const change = (val: any) => {
 const items = [
     {
         name: 'John',
-        department: 'Marketing',
+        department: 'Marketing1',
     },
     {
         name: 'Jane',
@@ -55,11 +56,11 @@ const items = [
     },
     {
         name: 'Joe',
-        department: 'Sales',
+        department: 'Sales1',
     },
     {
         name: 'Janet',
-        department: 'Engineering',
+        department: 'Engineering1',
     },
     {
         name: 'Jake',
