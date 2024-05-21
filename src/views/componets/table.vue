@@ -31,7 +31,9 @@
                     </div>
                     <div class="row my-4 my-sm-0">
                         <div class="px-sm-4 px-0">
-                            <v-select
+                            <DictSelect v-model="query.status" />
+                            <!-- <v-select
+                                v-model="query.status"
                                 clearable
                                 hide-details
                                 label="Status"
@@ -40,12 +42,13 @@
                                 dense
                                 variant="outlined"
                                 :items="['secondary', 'red', 'green', 'pink', 'blue']"
-                            ></v-select>
+                            ></v-select> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="pr-0 pr-sm-4">
                             <v-select
+                                v-model="query.license"
                                 clearable
                                 hide-details
                                 label="License use"
@@ -253,8 +256,13 @@
 </template>
 <script setup lang="ts">
 import Statistic from '@/components/Statistic/index.vue';
-import { ref, onMounted } from 'vue';
+import DictSelect from '@/components/DictSelect/index.vue';
+import { ref, onMounted, reactive } from 'vue';
 const dialog = ref(false);
+const query = reactive({
+    status: '',
+    license: '',
+});
 const list = ref([
     {
         icon: 'mdi-github',

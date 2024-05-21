@@ -131,6 +131,7 @@ enum actions {
     Wave,
     Yes,
 }
+
 function init() {
     renderer = new THREE.WebGLRenderer({ canvas: nodeDom.value, antialias: true, alpha: true });
     renderer.shadowMap.enabled = true;

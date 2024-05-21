@@ -170,7 +170,7 @@ const router = createRouter({
                         keepAlive: false,
                         visible: true,
                     },
-                    component: () => import('@/views/low-code/layer-edit.vue'),
+                    component: () => import('@/views/layer-edit/layer-edit.vue'),
                     children: [],
                 },
                 {

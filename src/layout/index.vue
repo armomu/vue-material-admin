@@ -43,4 +43,3 @@ watch(device, (val) => {
     }
 });
 </script>
-@/stores/useMainStore

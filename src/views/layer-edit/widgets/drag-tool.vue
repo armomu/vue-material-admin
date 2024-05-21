@@ -50,7 +50,6 @@ const _top = computed(() => props.top);
 const _left = computed(() => props.left);
 
 const resize = (e: any) => {
-    console.log(e);
     emit('update:width', e.width);
     emit('update:height', e.height);
     emit('update:top', e.top);
@@ -64,25 +63,4 @@ const onActivated = () => {
 const onDeactivated = () => {
     emit('update:active', false);
 };
-
-// const _options = computed(() => props.options);
-// const _options = computed(() => props.options);
-// const obj = {
-//     x: parseInt(position.x - props.options.width / 2 + ''),
-//     y: parseInt(position.y - props.options.height / 2 + ''),
-// };
-// const resize = (e: any) => {
-//     _options.value.width = e.width;
-//     _options.value.height = e.height;
-//     _options.value.top = e.top;
-//     _options.value.left = e.left;
-//     emit('change', e);
-// };
-
-// const onActivated = () => {
-//     _options.value.active = true;
-// };
-// const onDeactivated = () => {
-//     _options.value.active = false;
-// };
 </script>
