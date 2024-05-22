@@ -22,7 +22,6 @@
 </template>
 <script setup lang="ts">
 import { RouterView, useRouter } from 'vue-router';
-import Settings from '@/components/Settings/index.vue';
 import Navigation from './wigets/Navigation.vue';
 import Header from './wigets/Header.vue';
 import { reactive, computed, watch } from 'vue';

@@ -2,8 +2,8 @@
     <v-select
         v-model="value"
         :items="items"
-        item-title="name"
-        item-value="department"
+        item-title="label"
+        :item-value="props.itemValue"
         :clearable="props.clearable"
         :hide-details="props.hideDetails"
         :dense="props.dense"
@@ -11,6 +11,8 @@
         :placeholder="props.placeholder"
         :density="props.density"
         :variant="props.variant"
+        :rules="props.rules"
+        :prepend-icon="props.prependIcon"
         @update:model-value="change"
     >
         <!-- <template v-slot:item="{ props, item }">
@@ -19,7 +21,7 @@
     </v-select>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 const emit = defineEmits(['update:modelValue', 'change']);
 
 const props = withDefaults(defineProps<Props>(), {
@@ -27,14 +29,15 @@ const props = withDefaults(defineProps<Props>(), {
     hideDetails: true,
     dense: true,
     label: 'label',
-    placeholder: 'label',
+    itemValue: 'value',
+    placeholder: '',
     density: 'compact',
     variant: 'outlined',
+    dict: 'StatusDict',
 });
-
 const value = computed({
     get() {
-        return props.modelValue;
+        return props.modelValue || null;
     },
     set(val) {
         emit('update:modelValue', val);
@@ -45,40 +48,44 @@ const change = (val: any) => {
     emit('change', val);
 };
 
-const items = [
-    {
-        name: 'John',
-        department: 'Marketing1',
-    },
-    {
-        name: 'Jane',
-        department: 'Engineering',
-    },
-    {
-        name: 'Joe',
-        department: 'Sales1',
-    },
-    {
-        name: 'Janet',
-        department: 'Engineering1',
-    },
-    {
-        name: 'Jake',
-        department: 'Marketing',
-    },
-    {
-        name: 'Jack',
-        department: 'Sales',
-    },
-];
+const dict_list = ref<any>({});
 
+const modules = import.meta.glob('../../dict/*.ts');
+
+(function initDict() {
+    const paths = [];
+    const obj = {};
+    for (const path in modules) {
+        paths.push(modules[path]());
+    }
+    Promise.all(paths).then((res) => {
+        for (const mod in res) {
+            // @ts-ignore
+            for (const item in res[mod]) {
+                // @ts-ignore
+                obj[item] = res[mod][item];
+            }
+        }
+        dict_list.value = obj;
+    });
+})();
+const items = computed(() => {
+    const list = [];
+    for (const item in dict_list.value[props.dict]) {
+        list.push(dict_list.value[props.dict][item]);
+    }
+    return list;
+});
 interface Props {
     modelValue: any;
+    itemValue?: string;
     clearable?: boolean;
+    dict?: string;
     hideDetails?: boolean;
     dense?: boolean;
     label?: string;
     placeholder?: string;
+    prependIcon?: string;
     density?: 'default' | 'comfortable' | 'compact';
     variant?:
         | 'underlined'
@@ -88,5 +95,6 @@ interface Props {
         | 'solo'
         | 'solo-inverted'
         | 'solo-filled';
+    rules?: any[];
 }
 </script>

@@ -67,7 +67,6 @@
     </header>
 </template>
 <script lang="ts" setup>
-import Breadcrumbs from '@/components/Breadcrumbs/index.vue';
 import { useMainStore } from '@/stores/useMainStore';
 import { defineEmits, computed } from 'vue';
 import logo from '@/assets/admin-logo.png';

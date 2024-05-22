@@ -21,8 +21,7 @@
                         <v-text-field
                             clearable
                             hide-details
-                            label="Search"
-                            placeholder="Company name"
+                            label="Company name"
                             prepend-inner-icon="mdi-magnify"
                             density="compact"
                             dense
@@ -31,39 +30,16 @@
                     </div>
                     <div class="row my-4 my-sm-0">
                         <div class="px-sm-4 px-0">
-                            <DictSelect v-model="query.status" />
-                            <!-- <v-select
-                                v-model="query.status"
-                                clearable
-                                hide-details
-                                label="Status"
-                                placeholder="Status"
-                                density="compact"
-                                dense
-                                variant="outlined"
-                                :items="['secondary', 'red', 'green', 'pink', 'blue']"
-                            ></v-select> -->
+                            <DictSelect v-model="query.status" label="Status" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="pr-0 pr-sm-4">
-                            <v-select
+                            <DictSelect
                                 v-model="query.license"
-                                clearable
-                                hide-details
                                 label="License use"
-                                placeholder="License use"
-                                density="compact"
-                                dense
-                                variant="outlined"
-                                :items="[
-                                    '0% - 20%',
-                                    '20% - 40%',
-                                    '40% - 60%',
-                                    '60% - 80%',
-                                    '80% - 100%',
-                                ]"
-                            ></v-select>
+                                dict="LiceseUseDict"
+                            />
                         </div>
                     </div>
                 </div>
@@ -81,86 +57,9 @@
                     <v-btn class="btn mx-4" variant="tonal"
                         ><v-icon icon="mdi-share" size="large"
                     /></v-btn>
-                    <v-dialog width="500">
-                        <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="btn" color="primary">
-                                <v-icon icon="mdi-plus" size="large" />
-                            </v-btn>
-                        </template>
-
-                        <template v-slot:default="{ isActive }">
-                            <v-card title="New Company">
-                                <template #append>
-                                    <div class="mr-n4">
-                                        <v-btn
-                                            type="submit"
-                                            variant="text"
-                                            @click="isActive.value = false"
-                                            icon="mdi-close"
-                                        />
-                                    </div>
-                                </template>
-                                <v-sheet width="350" class="ma-10 mx-auto">
-                                    <v-form @submit.prevent>
-                                        <v-text-field
-                                            prepend-icon="mdi-account"
-                                            clearable
-                                            :rules="[(firstName) => !!firstName || 'required']"
-                                            label="Company name"
-                                            density="comfortable"
-                                            variant="outlined"
-                                        ></v-text-field>
-                                        <v-text-field
-                                            prepend-icon="mdi"
-                                            clearable
-                                            :rules="[(firstName) => !!firstName || 'required']"
-                                            label="Official site"
-                                            density="comfortable"
-                                            variant="outlined"
-                                        ></v-text-field>
-                                        <v-file-input
-                                            label="Logo"
-                                            variant="outlined"
-                                        ></v-file-input>
-                                        <v-select
-                                            prepend-icon="s"
-                                            clearable
-                                            :rules="[(firstName) => !!firstName || 'required']"
-                                            label="Status"
-                                            density="comfortable"
-                                            variant="outlined"
-                                            :items="['secondary', 'red', 'green', 'pink', 'blue']"
-                                        ></v-select>
-                                        <div class="mt-4" />
-                                        <v-slider
-                                            label="License use"
-                                            thumb-label="always"
-                                            model-value="30"
-                                            color="primary"
-                                        ></v-slider>
-                                        <v-textarea
-                                            prepend-icon="mdi-"
-                                            label="About"
-                                            clearable
-                                            variant="outlined"
-                                            :rules="[(firstName) => !!firstName || 'required']"
-                                        ></v-textarea>
-                                    </v-form>
-                                </v-sheet>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        type="submit"
-                                        class="ma-2"
-                                        color="primary"
-                                        size="large"
-                                        @click="isActive.value = false"
-                                        >Submit</v-btn
-                                    >
-                                </v-card-actions>
-                            </v-card>
-                        </template>
-                    </v-dialog>
+                    <v-btn class="btn" color="primary">
+                        <v-icon icon="mdi-plus" size="large" @click="form.visible = true" />
+                    </v-btn>
                 </div>
             </div>
             <v-divider class="ma-4"></v-divider>
@@ -252,17 +151,90 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog width="500" v-model="form.visible">
+            <v-card title="New Company">
+                <template #append>
+                    <div class="mr-n4">
+                        <v-btn
+                            type="submit"
+                            variant="text"
+                            @click="form.visible = false"
+                            icon="mdi-close"
+                        />
+                    </div>
+                </template>
+                <v-sheet width="350" class="ma-10 mx-auto">
+                    <v-form ref="formRef" @submit.prevent>
+                        <v-text-field
+                            v-model="form.name"
+                            prepend-icon="mdi-account"
+                            clearable
+                            :rules="[(firstName: any) => !!firstName || 'required']"
+                            label="Company name"
+                            density="comfortable"
+                            variant="outlined"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="form.net"
+                            prepend-icon="mdi"
+                            clearable
+                            :rules="[(firstName: any) => !!firstName || 'required']"
+                            label="Official site"
+                            density="comfortable"
+                            variant="outlined"
+                        ></v-text-field>
+                        <v-file-input label="Logo" variant="outlined"></v-file-input>
+                        <DictSelect
+                            v-model="form.color"
+                            label="Status"
+                            prepend-icon="s"
+                            item-value="color"
+                            :rules="[(firstName: any) => !!firstName || 'required']"
+                        />
+                        <div class="mt-4" />
+                        <v-slider
+                            v-model="form.progress"
+                            label="License use"
+                            thumb-label="always"
+                            color="primary"
+                        ></v-slider>
+                        <v-textarea
+                            prepend-icon="mdi-"
+                            label="About"
+                            clearable
+                            variant="outlined"
+                        ></v-textarea>
+                    </v-form>
+                </v-sheet>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-2" color="primary" size="large" @click="onSubmit"
+                        >Submit</v-btn
+                    >
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 <script setup lang="ts">
-import Statistic from '@/components/Statistic/index.vue';
-import DictSelect from '@/components/DictSelect/index.vue';
 import { ref, onMounted, reactive } from 'vue';
+import type { VForm } from 'vuetify/components';
 const dialog = ref(false);
+const formRef = ref<any>();
 const query = reactive({
     status: '',
     license: '',
 });
+const form = reactive({
+    icon: 'mdi-github',
+    name: '',
+    net: '',
+    color: '',
+    progress: 0,
+    visible: false,
+});
+
 const list = ref([
     {
         icon: 'mdi-github',
@@ -307,6 +279,7 @@ const list = ref([
         progress: 0,
     },
 ]);
+
 onMounted(() => {
     setTimeout(() => {
         list.value.forEach((item) => {
@@ -314,10 +287,15 @@ onMounted(() => {
         });
     }, 600);
 });
-const onTest = () => {
-    // router.push({
-    //     path: '/graphics/oasis-engine',
-    // });
+const onSubmit = async () => {
+    const res = await formRef.value.validate();
+    console.log(form);
+    if (res.valid) {
+        list.value.unshift({
+            ...form,
+        });
+        form.visible = false;
+    }
 };
 </script>
 <style lang="scss">

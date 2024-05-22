@@ -1,5 +1,5 @@
-/* eslint-disable no-var */
-declare function getVersion(version: string): void;
+
+declare const getVersion = (version: string) => null;
 declare const createObjectURL: any;
 declare const frontendVersion: string;
 
