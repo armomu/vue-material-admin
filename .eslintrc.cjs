@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 require('@rushstack/eslint-patch/modern-module-resolution');
 
 // eslint-disable-next-line no-undef
@@ -25,6 +26,7 @@ module.exports = {
                 },
             },
         ],
+        '@typescript-eslint/ban-ts-comment': 0,
         '@typescript-eslint/no-unused-vars': 1,
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
