@@ -68,7 +68,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 ## 📑 本地开发
 
-> ⚠️ 本地开发需要 `nodejs` 16.18+以上版本，
+> ⚠️ 本地开发需要 `nodejs 18/20` vite 不支持更低的nodejs版本
 
 ```
 git clone https://github.com/armomu/vue-material-admin.git
@@ -77,10 +77,12 @@ git clone https://github.com/armomu/vue-material-admin.git
 cd vue-material-admin
 
 # install
-// yarn & npm install & pnpm install
 
-run
-......
+yarn install || npm install || pnpm install
+
+# dev
+
+yarn run dev || npm run dev || pnpm  run dev
 
 ```
 
