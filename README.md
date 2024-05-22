@@ -8,7 +8,7 @@
 
 ![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
 ![version](https://img.shields.io/badge/Vuetify-3.5.x-red.svg)
-![version](https://img.shields.io/badge/Vite-4.x-green.svg)
+![version](https://img.shields.io/badge/Vite-5.x-green.svg)
 ![stars](https://img.shields.io/github/stars/armomu/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
@@ -16,10 +16,10 @@
 </h1>
 
 
-Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以学习为主，用于功能展示和测试用例，也可用来作为项目的启动模版，会持续保持更新～
+Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以学习为主，用于功能展示和测试用例，也可用来作为项目的启动模版，会持续保持更新～ 🔥🔥🔥
 
 
-## ✂ 页面截图
+## 🌻 页面截图
 
 <p align="center">
   <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/tesla.png">
@@ -38,7 +38,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 
 ## 👊 TODO
-1. 🍳 Vuetify Componets
+1. 🍳 Vuetify 组件
     - ✅ Buttons
     - ✅ CardS
     - ✅ Table
@@ -68,7 +68,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 ## 📑 本地开发
 
-> ⚠️ 本地开发需要 `nodejs 18/20` vite 不支持更低的nodejs版本
+> ⚠️ 本地开发需要 `nodejs 18/20` vite5不支持更低的nodejs版本
 
 ```
 git clone https://github.com/armomu/vue-material-admin.git
