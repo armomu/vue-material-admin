@@ -42,7 +42,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "@vuetify/loader-shared": "^2.0.3",
-    "eslint": "^9.3.0",
+    "eslint": "^8.2.2",
     "eslint-plugin-vue": "^9.3.0",
     "prettier": "^3.2.5",
     "sass": "^1.57.1",
