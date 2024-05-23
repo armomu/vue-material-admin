@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
     export interface GlobalComponents {
         Breadcrumbs: typeof import('../src/components/Breadcrumbs/index.vue')['default']
-        BubbleCharts: typeof import('../src/components/BubbleCharts/index.vue')['default']
         DictSelect: typeof import('../src/components/DictSelect/index.vue')['default']
         DragResizeble: typeof import('../src/components/DragResizeble/index.vue')['default']
         Settings: typeof import('../src/components/Settings/index.vue')['default']
