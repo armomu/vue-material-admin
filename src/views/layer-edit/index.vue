@@ -200,7 +200,7 @@
 import { reactive } from 'vue';
 import { chartKeys } from './widgets/widgets';
 import DragResizeble from './widgets/drag-resizeble.vue';
-import Grid from '@/views/low-code/widgets/Grid.vue';
+import Grid from './widgets/Grid.vue';
 import vuedraggable from 'vuedraggable';
 
 import type { LeftMenuOptions, EditBoxOptions, SnapLine } from './hook/layout-edit';
