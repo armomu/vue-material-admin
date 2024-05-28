@@ -95,37 +95,6 @@
                     size="small"
                 />
                 <v-btn variant="text" icon="mdi-hand-back-right-outline" size="small" />
-                <!-- <v-slider
-                    v-model="scaleState.slider"
-                    color="primary"
-                    :step="1"
-                    class="slider"
-                    :max="200"
-                    :min="25"
-                    density="compact"
-                    direction="vertical"
-                    hide-details
-                    hidden
-                >
-                    <template v-slot:append>
-                        <v-menu>
-                            <template v-slot:activator="{ props }">
-                                <div style="width: 56px; text-align: center" v-bind="props">
-                                    {{ scaleState.slider }}%
-                                </div>
-                            </template>
-                            <v-list class="h_a_menu">
-                                <v-list-item
-                                    v-for="item in scaleState.sliderStep"
-                                    :key="item"
-                                    @click="onScale(item)"
-                                >
-                                    <v-list-item-title>{{ item }}%</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                    </template>
-                </v-slider> -->
             </div>
         </div>
 
@@ -192,7 +161,6 @@
                 <div class="layout_min_item">下一层</div>
                 <div class="layout_min_item">上一层</div>
             </div>
-            <v-dialog> </v-dialog>
         </v-card>
     </div>
 </template>

@@ -5,12 +5,12 @@ import App from './App.vue';
 import router from './router';
 import { vuetify } from '@/plugins/vuetify';
 import '@/plugins/pwa';
-import registeComponent from './components'
+import registeComponent from './components';
 const app = createApp(App);
 app.use(createPinia());
 app.use(vuetify);
 app.use(router);
-registeComponent(app)
+registeComponent(app);
 app.mount('#app').$nextTick(() => {
     const d = document.getElementById('_loading_');
     d?.setAttribute('class', 'loading_ hide');

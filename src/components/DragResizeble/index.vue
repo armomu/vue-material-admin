@@ -29,7 +29,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { matchesSelectorToParentElements, getComputedSize, addEvent, removeEvent } from './dom';
 import { computeWidth, computeHeight, restrictToBounds, snapToGrid } from './fns';
 import { defineComponent } from 'vue';

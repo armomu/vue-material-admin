@@ -162,6 +162,18 @@ const router = createRouter({
                     children: [],
                 },
                 {
+                    path: 'oreom-editor',
+                    name: 'oreom',
+                    meta: {
+                        title: 'Oreom Editor',
+                        icon: 'mdi-alpha-o',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/oreom-editor/index.vue'),
+                    children: [],
+                },
+                {
                     path: 'amap',
                     name: 'amap',
                     meta: {
