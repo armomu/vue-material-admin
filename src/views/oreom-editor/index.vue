@@ -1,16 +1,11 @@
 <!-- eslint-disable vue/no-deprecated-v-on-native-modifier -->
 <template>
     <div class="oreom-editor">
-        <v-card class="widgets_area">
-            <div v-for="item in widgets" :key="item.name" class="item">
-                <div class="icon" draggable="true">
-                    <v-icon :icon="item.icon"></v-icon>
-                </div>
-            </div>
-        </v-card>
+        <v-card class="widgets_area"><BasicWidget :data="widgets" /></v-card>
         <div class="works_area">
             <div class="work_content">
-                <LayerTree v-model:data="appTree" @ondrop="onDrag" @over="onOver" />
+                <LayerTree v-model:items="appTree" @tap="onTap" />
+                <!-- <Nested :items="list" /> -->
             </div>
         </div>
 
@@ -20,39 +15,11 @@
             <v-btn variant="text" icon="mdi-reply" size="small" />
             <v-btn variant="text" icon="mdi-share" size="small" />
         </div>
-        <v-card class="tools_area">
+        <!-- <v-card class="tools_area">
             <div class="widget_layouts" title="Layers">
-                <div class="layout_min_wrap" hidden>
-                    <!-- <vuedraggable v-model="data.layouts" item-key="index">
-                        <template #item="{ element, index }">
-                            <div
-                                class="layout_min_item d-flex jsb"
-                                :key="index"
-                                :class="{
-                                    active: element.active,
-                                }"
-                                @click.stop="onMinLayout(index)"
-                            >
-                                <div class="title cursor-move">
-                                    {{ element.widget }}
-                                </div>
-                                <div class="icons">
-                                    <v-icon
-                                        :icon="element.visible ? 'mdi-eye' : 'mdi-eye-off'"
-                                        @click.stop="
-                                            () => {
-                                                element.visible = !element.visible;
-                                            }
-                                        "
-                                    />
-                                    <v-icon icon="mdi-delete" @click.stop="onDelLayer(index)" />
-                                </div>
-                            </div>
-                        </template>
-                    </vuedraggable> -->
-                </div>
+                <div class="layout_min_wrap"></div>
             </div>
-        </v-card>
+        </v-card> -->
         <v-card
             class="contextmenu"
             v-if="contextmenu.visible"
@@ -73,9 +40,10 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import './css.scss';
-import vuedraggable from 'vuedraggable';
 import LayerTree from './widgets/LayerTree.vue';
 import { useMain } from './hooks/useMain';
+import Nested from './widgets/Nested.vue';
+import BasicWidget from './widgets/BasicWidget.vue';
 const { appTree, widgets, onDrag, onOver } = useMain();
 const contextmenu = reactive({
     left: 0,
@@ -91,5 +59,43 @@ const openMenu = (e: PointerEvent) => {
     contextmenu.top = e.clientY;
     contextmenu.visible = true;
     document.body.addEventListener('click', hideMenu);
+};
+
+const list = ref([
+    {
+        name: 'task 1',
+        id: 1,
+        items: [
+            {
+                name: 'task 2',
+                id: 2,
+                items: [],
+            },
+        ],
+    },
+    {
+        name: 'task 3',
+        id: 3,
+        items: [
+            {
+                name: 'task 4',
+                id: 4,
+                items: [],
+            },
+        ],
+    },
+    {
+        name: 'task 5',
+        id: 5,
+        items: [],
+    },
+]);
+const onTap = (e: AppTree) => {
+    console.log(e);
+    // e.items.push({
+    //     name: 'task 6',
+    //     id: 6,
+    //     items: [],
+    // });
 };
 </script>

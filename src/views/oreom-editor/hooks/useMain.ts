@@ -2,14 +2,15 @@ import { reactive, ref } from 'vue';
 import { throttle } from 'lodash';
 
 export const useMain = () => {
-    let beaseTreeID = 4;
+    let beaseTreeID = 1;
     const beaseTree = {
         id: 1,
         name: 'container',
+        icon: 'mdi-auto-fix',
         active: false,
         visible: true,
         width: 100,
-        height: 90,
+        height: 0,
         marginTop: 0,
         marginRight: 0,
         marginButtom: 0,
@@ -31,51 +32,57 @@ export const useMain = () => {
     const appTree = ref<AppTree[]>([
         {
             ...beaseTree,
-            items: [
-                { ...beaseTree, id: 2 },
-                { ...beaseTree, id: 3, items: [{ ...beaseTree, id: 4 }] },
-            ],
         },
     ]);
-    const widgets = ref([
-        {
-            name: 'Widgets',
-            icon: 'mdi-auto-fix',
-            open: false,
-        },
-    ]);
-    function find(tree: AppTree, id: number) {
-        const item = tree;
+
+    console.log(JSON.stringify(appTree.value));
+    const widgets = ref<AppTree[]>([]);
+    const icons = [
+        'account-arrow-up',
+        'arrow-all',
+        'arrow-collapse-down',
+        'church-outline',
+        'library-outline',
+    ];
+    for (let i = 0; i < 5; i++) {
+        beaseTree.icon = icons[i];
+        widgets.value.push({ ...beaseTree, id: i });
+    }
+    function find(tree: AppTree, id: number): AppTree | null {
         if (tree.id === id) {
             return tree;
         } else {
             for (let i = 0; i < tree.items.length; i++) {
-                find(tree.items[i], id);
+                return find(tree.items[i], id);
             }
         }
+        return null;
     }
     // const onDrag = throttle();
     const onDrag = (e: DragEvent, obj: AppTree) => {
-        beaseTreeID++;
-        // obj.items.push({
-        //     ...beaseTree,
-        //     id: beaseTreeID++,
-        // });
-        appTree.value[0].items[0].items.push({
-            ...beaseTree,
-            id: beaseTreeID,
-        });
-        const object = find(appTree.value[0], obj.id);
-        console.log(object);
-        console.log('appTree.value');
+        try {
+            beaseTreeID++;
+            const object = find(appTree.value[0], obj.id);
+            object?.items.push({
+                ...beaseTree,
+                id: beaseTreeID++,
+            });
+            console.log('appTree.value');
+        } catch (err) {
+            console.log(err);
+        }
     };
     const onOver = (e: DragEvent, obj: AppTree) => {
         // obj.items.push({
         //     ...beaseTree,
         //     id: beaseTreeID++,
         // });
-        const object = find(appTree.value[0], obj.id);
-        console.log(object);
+        // const object = find(appTree.value[0], obj.id);
+        // console.log(object);
+    };
+
+    const onTap = (e) => {
+        console.log(e);
     };
 
     return {
@@ -83,12 +90,14 @@ export const useMain = () => {
         widgets,
         onDrag,
         onOver,
+        onTap,
     };
 };
 
 export interface AppTree {
     id: number;
     name: string;
+    icon: string;
     active: boolean;
     visible: boolean;
     width: number;

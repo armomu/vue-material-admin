@@ -49,7 +49,12 @@
             background: #fff;
             padding: 0.01px;
             .layerTree {
+                // min-height: 90px;
                 border: 1px dashed slateblue;
+            }
+            .dragArea {
+                min-height: 90px;
+                // padding-inline-start: 40px;
             }
         }
 
