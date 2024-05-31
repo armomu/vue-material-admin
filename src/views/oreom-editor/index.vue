@@ -21,6 +21,7 @@
                         icon="mdi-reply"
                         size="small"
                         @click="onUndo"
+                        :disabled="useUrState.disabledUndo"
                     />
                 </template>
             </v-tooltip>
@@ -32,11 +33,12 @@
                         icon="mdi-share"
                         size="small"
                         @click="onRedo"
+                        :disabled="useUrState.disabledRedo"
                     />
                 </template>
             </v-tooltip>
         </div>
-        <v-card class="tools_area"> </v-card>
+        <v-card class="tools_area"></v-card>
         <v-card
             class="contextmenu"
             v-if="contextmenu.visible"
@@ -56,7 +58,7 @@
 </template>
 <script lang="ts" setup>
 import './css.scss';
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import BasicWidget from './widgets/BasicWidget.vue';
 import LayerTree from './widgets/LayerTree.vue';
 import { useMain } from './hooks/useMain';
@@ -64,7 +66,7 @@ import { useUndoRedo } from './hooks/useUndoRedo';
 
 const { appTree, widgets, onDrag, onOver } = useMain();
 
-const { appWatch, onUndo, onRedo } = useUndoRedo(appTree);
+const { useUrState, onUndo, onRedo, appWatch } = useUndoRedo(appTree);
 
 const contextmenu = reactive({
     left: 0,

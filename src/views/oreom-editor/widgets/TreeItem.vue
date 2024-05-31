@@ -1,6 +1,5 @@
 <template>
-    <div class="layerTree" @click.stop="onClick">
-        <div>{{ props.data.name + props.data.id }}</div>
+    <div class="layerTree" @click.stop="onClick" :style="styles">
         <slot></slot>
     </div>
 </template>
@@ -18,20 +17,20 @@ const props = withDefaults(
 const onClick = () => {
     emit('tap', props.data);
 };
-// const styles = computed(() => {
-//     return {
-//         width: props.data.width + '%',
-//         minHeight: props.data.height + 'px',
-//         marginTop: props.data.marginTop + 'px',
-//         marginRight: props.data.marginRight + 'px',
-//         marginButtom: props.data.marginButtom + 'px',
-//         marginLeft: props.data.marginLeft + 'px',
-//         paddingTop: props.data.paddingTop + 'px',
-//         paddingRight: props.data.paddingRight + 'px',
-//         paddingButtom: props.data.paddingButtom + 'px',
-//         paddingLeft: props.data.paddingLeft + 'px',
-//         background: props.data.background,
-//         color: props.data.color,
-//     };
-// });
+const styles = computed(() => {
+    return {
+        width: props.data.styles.width + '%',
+        minHeight: props.data.styles.height + 'px',
+        marginTop: props.data.styles.marginTop + 'px',
+        marginRight: props.data.styles.marginRight + 'px',
+        marginButtom: props.data.styles.marginButtom + 'px',
+        marginLeft: props.data.styles.marginLeft + 'px',
+        paddingTop: props.data.styles.paddingTop + 'px',
+        paddingRight: props.data.styles.paddingRight + 'px',
+        paddingButtom: props.data.styles.paddingButtom + 'px',
+        paddingLeft: props.data.styles.paddingLeft + 'px',
+        background: props.data.styles.background,
+        color: props.data.styles.color,
+    };
+});
 </script>
