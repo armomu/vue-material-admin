@@ -1,25 +1,42 @@
-<!-- eslint-disable vue/no-deprecated-v-on-native-modifier -->
 <template>
     <div class="oreom-editor">
-        <v-card class="widgets_area"><BasicWidget :data="widgets" /></v-card>
+        <div class="widgets_area"><BasicWidget :data="widgets" /></div>
         <div class="works_area">
             <div class="work_content">
-                <LayerTree v-model:items="appTree" @tap="onTap" />
-                <!-- <Nested :items="list" /> -->
+                <LayerTree v-model:items="appTree" @tap="onTap" @update:items="appWatch" />
             </div>
         </div>
 
-        <div class="column_tools">
-            <v-btn variant="text" icon="mdi-play-circle" size="small" />
-            <v-btn variant="text" icon="mdi-hand-back-right-outline" size="small" />
-            <v-btn variant="text" icon="mdi-reply" size="small" />
-            <v-btn variant="text" icon="mdi-share" size="small" />
+        <div class="column_tools mr-4">
+            <v-tooltip text="Finish Editing" location="top">
+                <template v-slot:activator="{ props }">
+                    <v-btn v-bind="props" variant="text" icon="mdi-play-circle" size="small" />
+                </template>
+            </v-tooltip>
+            <v-tooltip text="Undo" location="top">
+                <template v-slot:activator="{ props }">
+                    <v-btn
+                        v-bind="props"
+                        variant="text"
+                        icon="mdi-reply"
+                        size="small"
+                        @click="onUndo"
+                    />
+                </template>
+            </v-tooltip>
+            <v-tooltip text="Repdo" location="top">
+                <template v-slot:activator="{ props }">
+                    <v-btn
+                        v-bind="props"
+                        variant="text"
+                        icon="mdi-share"
+                        size="small"
+                        @click="onRedo"
+                    />
+                </template>
+            </v-tooltip>
         </div>
-        <!-- <v-card class="tools_area">
-            <div class="widget_layouts" title="Layers">
-                <div class="layout_min_wrap"></div>
-            </div>
-        </v-card> -->
+        <v-card class="tools_area"> </v-card>
         <v-card
             class="contextmenu"
             v-if="contextmenu.visible"
@@ -38,13 +55,17 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
 import './css.scss';
+import { reactive, ref } from 'vue';
+import BasicWidget from './widgets/BasicWidget.vue';
 import LayerTree from './widgets/LayerTree.vue';
 import { useMain } from './hooks/useMain';
-import Nested from './widgets/Nested.vue';
-import BasicWidget from './widgets/BasicWidget.vue';
+import { useUndoRedo } from './hooks/useUndoRedo';
+
 const { appTree, widgets, onDrag, onOver } = useMain();
+
+const { appWatch, onUndo, onRedo } = useUndoRedo(appTree);
+
 const contextmenu = reactive({
     left: 0,
     top: 0,
@@ -61,35 +82,6 @@ const openMenu = (e: PointerEvent) => {
     document.body.addEventListener('click', hideMenu);
 };
 
-const list = ref([
-    {
-        name: 'task 1',
-        id: 1,
-        items: [
-            {
-                name: 'task 2',
-                id: 2,
-                items: [],
-            },
-        ],
-    },
-    {
-        name: 'task 3',
-        id: 3,
-        items: [
-            {
-                name: 'task 4',
-                id: 4,
-                items: [],
-            },
-        ],
-    },
-    {
-        name: 'task 5',
-        id: 5,
-        items: [],
-    },
-]);
 const onTap = (e: AppTree) => {
     console.log(e);
     // e.items.push({

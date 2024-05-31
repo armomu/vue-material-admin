@@ -140,11 +140,11 @@ const router = createRouter({
             ],
         },
         {
-            path: '/miscellaneous',
-            name: 'Miscellaneous',
+            path: '/editor',
+            name: 'Editor',
             meta: {
                 visible: true,
-                title: 'Miscellaneous',
+                title: 'Editor',
                 icon: 'mdi-view-module',
             },
             component: Layout,
@@ -171,18 +171,6 @@ const router = createRouter({
                         visible: true,
                     },
                     component: () => import('@/views/oreom-editor/index.vue'),
-                    children: [],
-                },
-                {
-                    path: 'amap',
-                    name: 'amap',
-                    meta: {
-                        title: 'Amap',
-                        icon: 'mdi-alpha-a',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/map/amap.vue'),
                     children: [],
                 },
             ],

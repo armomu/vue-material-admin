@@ -1,5 +1,5 @@
 <template>
-    <VueDraggableNext v-model="data" tag="div" :group="{ name: 'people' }" class="dragArea">
+    <VueDraggableNext v-model="data" tag="div" :group="{ name: 'g1' }" class="dragArea">
         <TreeItem v-for="item in data" :data="item" :key="item.id" @tap="onClick">
             <LayerTree v-model:items="item.items" @tap="onClick" />
         </TreeItem>
@@ -25,6 +25,7 @@ const data = computed({
         return props.items;
     },
     set(val) {
+        console.log('set');
         emit('update:items', val);
     },
 });
@@ -33,3 +34,10 @@ const onClick = (e: AppTree) => {
     emit('tap', e);
 };
 </script>
+<style scoped>
+.dragArea {
+    padding: 2px;
+    min-height: 50px;
+    outline: 1px dashed;
+}
+</style>

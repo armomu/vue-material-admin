@@ -1,6 +1,11 @@
 <template>
     <div class="bg-white">
-        <draggable class="dragArea" tag="ul" :list="items" :group="{ name: 'g1' }">
+        <draggable
+            class="dragArea"
+            tag="ul"
+            :list="items"
+            :group="{ name: 'people', pull: 'clone', put: false }"
+        >
             <li v-for="(el, index) in items" :key="index">
                 <p>{{ el.name }}</p>
                 <nested-draggable :items="el.items" class="bg-gray-100 pl-5" />

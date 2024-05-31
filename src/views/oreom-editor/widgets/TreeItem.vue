@@ -1,6 +1,6 @@
 <template>
     <div class="layerTree" @click.stop="onClick">
-        <div>{{ props.data.name }}</div>
+        <div>{{ props.data.name + props.data.id }}</div>
         <slot></slot>
     </div>
 </template>

@@ -1,76 +1,123 @@
 import { reactive, ref } from 'vue';
-import { throttle } from 'lodash';
 
-export const useMain = () => {
-    let beaseTreeID = 1;
-    const beaseTree = {
+export const beaseTree: AppTree[] = [
+    {
         id: 1,
         name: 'container',
-        icon: 'mdi-auto-fix',
         active: false,
         visible: true,
-        width: 100,
-        height: 0,
-        marginTop: 0,
-        marginRight: 0,
-        marginButtom: 0,
-        marginLeft: 0,
-        paddingTop: 16,
-        paddingRight: 16,
-        paddingButtom: 16,
-        paddingLeft: 16,
-        background: '#ffffff',
-        color: '#333333',
-        radius: 0,
-        shadow: 0,
-        flexDirection: '',
-        fillSpace: '',
-        alignItems: '',
-        justifyContent: '',
-        items: [],
-    };
-    const appTree = ref<AppTree[]>([
-        {
-            ...beaseTree,
+        type: 'container',
+        content: {
+            text: '',
+            label: '',
+            icon: 'mdi-card-outline',
         },
-    ]);
+        styles: {
+            width: 100,
+            height: 0,
+            marginTop: 0,
+            marginRight: 0,
+            marginButtom: 0,
+            marginLeft: 0,
+            paddingTop: 16,
+            paddingRight: 16,
+            paddingButtom: 16,
+            paddingLeft: 16,
+            background: '#ffffff',
+            color: '#333333',
+            radius: 0,
+            shadow: 0,
+            flexDirection: '',
+            fillSpace: '',
+            alignItems: '',
+            justifyContent: '',
+        },
+        items: [],
+    },
+    {
+        id: 2,
+        name: 'button',
+        active: false,
+        visible: true,
+        type: 'button',
+        content: {
+            text: 'button',
+            label: '',
+            icon: 'mdi-button-pointer',
+        },
+        styles: {
+            width: 100,
+            height: 0,
+            marginTop: 0,
+            marginRight: 0,
+            marginButtom: 0,
+            marginLeft: 0,
+            paddingTop: 16,
+            paddingRight: 16,
+            paddingButtom: 16,
+            paddingLeft: 16,
+            background: '#ffffff',
+            color: '#333333',
+            radius: 0,
+            shadow: 0,
+            flexDirection: '',
+            fillSpace: '',
+            alignItems: '',
+            justifyContent: '',
+        },
+        items: [],
+    },
+    {
+        id: 2,
+        name: 'text',
+        active: false,
+        visible: true,
+        type: 'text',
+        content: {
+            text: '这是一个开放源码的中后台管理系统，Oreom editor可提供基础拖放编辑页面',
+            label: '',
+            icon: 'mdi-format-color-text',
+        },
+        styles: {
+            width: 100,
+            height: 0,
+            marginTop: 0,
+            marginRight: 0,
+            marginButtom: 0,
+            marginLeft: 0,
+            paddingTop: 16,
+            paddingRight: 16,
+            paddingButtom: 16,
+            paddingLeft: 16,
+            background: '#ffffff',
+            color: '#333333',
+            radius: 0,
+            shadow: 0,
+            flexDirection: '',
+            fillSpace: '',
+            alignItems: '',
+            justifyContent: '',
+        },
+        items: [],
+    },
+];
 
-    console.log(JSON.stringify(appTree.value));
-    const widgets = ref<AppTree[]>([]);
-    const icons = [
-        'account-arrow-up',
-        'arrow-all',
-        'arrow-collapse-down',
-        'church-outline',
-        'library-outline',
-    ];
-    for (let i = 0; i < 5; i++) {
-        beaseTree.icon = icons[i];
-        widgets.value.push({ ...beaseTree, id: i });
-    }
-    function find(tree: AppTree, id: number): AppTree | null {
-        if (tree.id === id) {
-            return tree;
-        } else {
-            for (let i = 0; i < tree.items.length; i++) {
-                return find(tree.items[i], id);
-            }
-        }
-        return null;
-    }
+export const useMain = () => {
+    const appTree = ref<AppTree[]>([]);
+    const widgets = ref<AppTree[]>([...beaseTree]);
     // const onDrag = throttle();
     const onDrag = (e: DragEvent, obj: AppTree) => {
-        try {
-            beaseTreeID++;
-            const object = find(appTree.value[0], obj.id);
-            object?.items.push({
-                ...beaseTree,
-                id: beaseTreeID++,
-            });
-            console.log('appTree.value');
-        } catch (err) {
-            console.log(err);
-        }
+        // try {
+        //     beaseTreeID++;
+        //     const object = find(appTree.value[0], obj.id);
+        //     object?.items.push({
+        //         ...beaseTree,
+        //         id: beaseTreeID++,
+        //     });
+        //     console.log('appTree.value');
+        // } catch (err) {
+        //     console.log(err);
+        // }
     };
     const onOver = (e: DragEvent, obj: AppTree) => {
         // obj.items.push({
@@ -81,10 +128,9 @@ export const useMain = () => {
         // console.log(object);
     };
 
-    const onTap = (e) => {
+    const onTap = (e: any) => {
         console.log(e);
     };
-
     return {
         appTree,
         widgets,
@@ -93,13 +139,22 @@ export const useMain = () => {
         onTap,
     };
 };
-
 export interface AppTree {
     id: number;
     name: string;
-    icon: string;
     active: boolean;
     visible: boolean;
+    type: 'button' | 'container' | 'text' | 'image';
+    styles: ContainerStyles;
+    content: ContainerContent;
+    items: AppTree[];
+}
+export interface ContainerContent {
+    icon: string;
+    label: string;
+    text: string;
+}
+export interface ContainerStyles {
     width: number;
     height: number;
     marginTop: number;
@@ -118,5 +173,4 @@ export interface AppTree {
     fillSpace: string;
     alignItems: string;
     justifyContent: string;
-    items: AppTree[];
 }
