@@ -34,10 +34,14 @@
             min-height: 300px;
             .layerTree {
                 position: relative;
+                margin: 4px;
+                z-index: 1;
             }
             .dragArea {
+                z-index: 2;
                 position: absolute;
-
+                left: 0;
+                top: 0;
                 border: 1px dashed slateblue;
                 width: 100%;
                 height: 100%;
@@ -58,6 +62,9 @@
     .column_tools {
         display: flex;
         flex-direction: column;
+        position: absolute;
+        right: 280px;
+        top: 0;
         // position: absolute;
         // text-align: center;
         // right: 0;

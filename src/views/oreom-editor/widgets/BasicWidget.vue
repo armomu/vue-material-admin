@@ -24,17 +24,17 @@
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { AppTree } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useMain';
 import { VueDraggableNext } from 'vue-draggable-next';
 import { beaseTree } from '../hooks/useMain';
 import { cloneDeep } from 'lodash';
 const props = withDefaults(
     defineProps<{
-        data: AppTree[];
+        data: VirtualDom[];
     }>(),
     {}
 );
-const onClone = (a: AppTree) => {
+const onClone = (a: VirtualDom) => {
     return {
         ...cloneDeep(a),
         id: new Date().getTime(),

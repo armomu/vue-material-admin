@@ -5,12 +5,12 @@
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { AppTree } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useMain';
 
 const emit = defineEmits(['tap']);
 const props = withDefaults(
     defineProps<{
-        data: AppTree;
+        data: VirtualDom;
     }>(),
     {}
 );

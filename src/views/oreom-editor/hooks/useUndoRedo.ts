@@ -1,9 +1,9 @@
 import { reactive, computed, type Ref } from 'vue';
-import type { AppTree } from './useMain';
+import type { VirtualDom } from './useMain';
 import { cloneDeep } from 'lodash';
 
-export const useUndoRedo = (sourceAppTree: Ref<AppTree[]>) => {
-    const keepData: AppTree[][] = [];
+export const useUndoRedo = (sourceAppTree: Ref<VirtualDom[]>) => {
+    const keepData: VirtualDom[][] = [];
 
     const useUrState = reactive({
         index: -1,
@@ -32,8 +32,8 @@ export const useUndoRedo = (sourceAppTree: Ref<AppTree[]>) => {
         sourceAppTree.value = cloneDeep(keepData[useUrState.index]);
         useUrState.disabledRedo = false;
     };
-    const appWatch = () => {
-        console.log('set');
+    const appChange = () => {
+        console.log('change');
         keepData.push(cloneDeep(sourceAppTree.value));
         useUrState.index = keepData.length - 1;
         console.log(keepData.length);
@@ -42,6 +42,6 @@ export const useUndoRedo = (sourceAppTree: Ref<AppTree[]>) => {
         useUrState,
         onUndo,
         onRedo,
-        appWatch,
+        appChange,
     };
 };

@@ -1,24 +1,30 @@
 <template>
-    <VueDraggableNext v-model="data" tag="div" :group="{ name: 'people' }" class="dragArea">
+    <VueDraggableNext
+        v-model="data"
+        tag="div"
+        :group="{ name: 'people' }"
+        class="dragArea"
+        @change="onEnd"
+    >
         <TreeItem v-for="item in data" :data="item" :key="item.id" @tap="onClick">
-            <LayerTree v-model:items="item.items" @tap="onClick" />
+            <LayerTree v-model:items="item.items" @tap="onClick" @change="onEnd" />
         </TreeItem>
     </VueDraggableNext>
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { AppTree } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useMain';
 import TreeItem from './TreeItem.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 
 const props = withDefaults(
     defineProps<{
-        items: AppTree[];
+        items: VirtualDom[];
     }>(),
     {}
 );
 
-const emit = defineEmits(['tap', 'update:items']);
+const emit = defineEmits(['tap', 'update:items', 'change']);
 
 const data = computed({
     get() {
@@ -29,7 +35,11 @@ const data = computed({
     },
 });
 
-const onClick = (e: AppTree) => {
+const onClick = (e: VirtualDom) => {
     emit('tap', e);
+};
+
+const onEnd = (/** Event*/ evt, /** Event*/ originalEvent) => {
+    emit('change', evt, originalEvent);
 };
 </script>

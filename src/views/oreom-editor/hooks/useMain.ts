@@ -1,6 +1,6 @@
 import { reactive, ref } from 'vue';
 
-export const beaseTree: AppTree[] = [
+export const beaseTree: VirtualDom[] = [
     {
         id: 1,
         name: 'container',
@@ -14,7 +14,7 @@ export const beaseTree: AppTree[] = [
         },
         styles: {
             width: 100,
-            height: 0,
+            height: 90,
             marginTop: 0,
             marginRight: 0,
             marginButtom: 0,
@@ -47,7 +47,7 @@ export const beaseTree: AppTree[] = [
         },
         styles: {
             width: 100,
-            height: 0,
+            height: 90,
             marginTop: 0,
             marginRight: 0,
             marginButtom: 0,
@@ -80,7 +80,7 @@ export const beaseTree: AppTree[] = [
         },
         styles: {
             width: 100,
-            height: 0,
+            height: 90,
             marginTop: 0,
             marginRight: 0,
             marginButtom: 0,
@@ -103,10 +103,11 @@ export const beaseTree: AppTree[] = [
 ];
 
 export const useMain = () => {
-    const appTree = ref<AppTree[]>([]);
-    const widgets = ref<AppTree[]>([...beaseTree]);
+    const appTree = ref<VirtualDom[]>([]);
+    const widgets = ref<VirtualDom[]>([...beaseTree]);
+
     // const onDrag = throttle();
-    const onDrag = (e: DragEvent, obj: AppTree) => {
+    const onDrag = (e: DragEvent, obj: VirtualDom) => {
         // try {
         //     beaseTreeID++;
         //     const object = find(appTree.value[0], obj.id);
@@ -119,7 +120,7 @@ export const useMain = () => {
         //     console.log(err);
         // }
     };
-    const onOver = (e: DragEvent, obj: AppTree) => {
+    const onOver = (e: DragEvent, obj: VirtualDom) => {
         // obj.items.push({
         //     ...beaseTree,
         //     id: beaseTreeID++,
@@ -139,7 +140,7 @@ export const useMain = () => {
         onTap,
     };
 };
-export interface AppTree {
+export interface VirtualDom {
     id: number;
     name: string;
     active: boolean;
@@ -147,7 +148,7 @@ export interface AppTree {
     type: 'button' | 'container' | 'text' | 'image';
     styles: ContainerStyles;
     content: ContainerContent;
-    items: AppTree[];
+    items: VirtualDom[];
 }
 export interface ContainerContent {
     icon: string;
