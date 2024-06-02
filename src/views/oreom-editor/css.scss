@@ -86,6 +86,7 @@
     .tools_area {
         height: calc(100vh - 124px);
         width: 280px;
+        overflow-y: auto;
         .widget_tools {
             height: calc(100vh - 424px);
         }
@@ -125,6 +126,43 @@
             cursor: pointer;
             &:hover {
                 background-color: var(--grid);
+            }
+        }
+    }
+    .input_row {
+        align-items: center;
+        padding: 16px;
+        justify-content: space-around;
+
+    }
+    .input_item {
+        display: flex;
+        align-items: center;
+        .label {
+            color: rgb(128,128,128);
+        }
+        input {
+            flex: 1;
+            margin-left: 8px;
+            width: 70px;
+            height: 32px;
+            border-radius: 43px;
+            padding: 0 8px;
+            background: #efefef;
+        }
+    }
+    .slider {
+        .v-slider__label {
+            width: 46px;
+        }
+    }
+    .alignment {
+        flex-wrap: wrap;
+        .item {
+            width: 50%;
+            margin-top: 16px;
+            .label {
+                color: rgb(128,128,128);
             }
         }
     }

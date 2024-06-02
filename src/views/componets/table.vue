@@ -237,6 +237,41 @@ const form = reactive({
 
 const list = ref([
     {
+        icon: 'mdi-vuejs',
+        name: 'Vuejs',
+        net: 'https://vuejs.com',
+        color: 'pink',
+        progress: 0,
+    },
+    {
+        icon: 'mdi-react',
+        name: 'React',
+        net: 'https://react.com',
+        color: 'red',
+        progress: 0,
+    },
+    {
+        icon: 'mdi-docker',
+        name: 'Docker',
+        net: 'https://docker.com',
+        color: 'green',
+        progress: 0,
+    },
+    {
+        icon: 'mdi-unity',
+        name: 'Unity',
+        net: 'https://unity.com',
+        color: 'pink',
+        progress: 0,
+    },
+    {
+        icon: 'mdi-qqchat',
+        name: 'Tencent',
+        net: 'https://tencent.com',
+        color: 'green',
+        progress: 0,
+    },
+    {
         icon: 'mdi-github',
         name: 'GitHub',
         net: 'https://github.com',

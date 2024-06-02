@@ -3,7 +3,7 @@
         <div class="widgets_area"><BasicWidget :data="widgets" /></div>
         <div class="works_area">
             <div class="work_content">
-                <LayerTree v-model:items="appTree" @tap="onVirtualDomClick" @change="appChange" />
+                <LayerTree v-model:items="appTree" @tap="onVirtualDom" @change="appChange" />
             </div>
         </div>
 
@@ -38,24 +38,9 @@
                 </template>
             </v-tooltip>
         </div>
-        <v-card class="tools_area">
+        <v-card class="tools_area" title="Styles">
             <Styles :data="curVirtualDom" />
         </v-card>
-        <!-- <v-card
-            class="contextmenu"
-            v-if="contextmenu.visible"
-            :style="{
-                left: contextmenu.left + 'px',
-                top: contextmenu.top + 'px',
-            }"
-        >
-            <div class="layout_min_wrap">
-                <div class="layout_min_item">隐藏</div>
-                <div class="layout_min_item">删除</div>
-                <div class="layout_min_item">下一层</div>
-                <div class="layout_min_item">上一层</div>
-            </div>
-        </v-card> -->
     </div>
 </template>
 <script lang="ts" setup>
@@ -67,9 +52,9 @@ import { useMain } from './hooks/useMain';
 import { useUndoRedo } from './hooks/useUndoRedo';
 import { useStyles } from './hooks/useStyles';
 
-const { appTree, widgets, onDrag, onOver } = useMain();
+const { appTree, widgets, curVirtualDom, onVirtualDom } = useMain();
 
 const { useUrState, onUndo, onRedo, appChange } = useUndoRedo(appTree);
 
-const { curVirtualDom, curStyleVisible, onVirtualDomClick } = useStyles();
+// const { curVirtualDom, curStyleVisible, onVirtualDomClick } = useStyles();
 </script>

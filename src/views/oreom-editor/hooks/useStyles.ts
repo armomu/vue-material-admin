@@ -4,13 +4,13 @@ import { cloneDeep } from 'lodash';
 export const useStyles = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // @ts-ignore
-    const curVirtualDom: Ref<VirtualDom | null> = ref();
+    const curVirtualDom: Ref<VirtualDom> = ref();
 
     const curStyleVisible = ref(false);
 
-    const onVirtualDomClick = (val: any) => {
+    const onVirtualDom = (val: any) => {
         // console.log(val);
-        curVirtualDom.value = cloneDeep(val);
+        curVirtualDom.value = val;
         console.log(curVirtualDom);
         curStyleVisible.value = true;
     };
@@ -18,6 +18,6 @@ export const useStyles = () => {
     return {
         curVirtualDom,
         curStyleVisible,
-        onVirtualDomClick,
+        onVirtualDom,
     };
 };

@@ -105,39 +105,16 @@ export const beaseTree: VirtualDom[] = [
 export const useMain = () => {
     const appTree = ref<VirtualDom[]>([]);
     const widgets = ref<VirtualDom[]>([...beaseTree]);
+    const curVirtualDom = ref<VirtualDom>();
 
-    // const onDrag = throttle();
-    const onDrag = (e: DragEvent, obj: VirtualDom) => {
-        // try {
-        //     beaseTreeID++;
-        //     const object = find(appTree.value[0], obj.id);
-        //     object?.items.push({
-        //         ...beaseTree,
-        //         id: beaseTreeID++,
-        //     });
-        //     console.log('appTree.value');
-        // } catch (err) {
-        //     console.log(err);
-        // }
-    };
-    const onOver = (e: DragEvent, obj: VirtualDom) => {
-        // obj.items.push({
-        //     ...beaseTree,
-        //     id: beaseTreeID++,
-        // });
-        // const object = find(appTree.value[0], obj.id);
-        // console.log(object);
-    };
-
-    const onTap = (e: any) => {
-        console.log(e);
+    const onVirtualDom = (e: any) => {
+        curVirtualDom.value = e;
     };
     return {
         appTree,
         widgets,
-        onDrag,
-        onOver,
-        onTap,
+        curVirtualDom,
+        onVirtualDom,
     };
 };
 export interface VirtualDom {
