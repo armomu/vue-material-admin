@@ -34,14 +34,26 @@
             box-shadow: none;
         }
     }
+    .layout_navigation {
+        box-shadow: rgba(146, 158, 171, 0.302) 0 0 2px,rgba(145, 158, 171, 0.122) 0 12px 24px -4px;
+        &.elevation-0 {
+            box-shadow: none;
+        }
+    }
 }
 .borderCard {
+
     .v-card {
         box-shadow: none;
         border: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
         &.elevation-0 {
             border: 0;
         }
+    }
+    .layout_navigation {
+        box-shadow: none;
+        border: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
+        border-right-width: 1px !important;
     }
 }
 .v-theme--dark.border_ {
