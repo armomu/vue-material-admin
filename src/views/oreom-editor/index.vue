@@ -38,7 +38,7 @@
                 </template>
             </v-tooltip>
         </div>
-        <v-card class="tools_area" title="Styles">
+        <v-card class="tools_area" title="Customize">
             <Styles :data="curVirtualDom" />
         </v-card>
     </div>

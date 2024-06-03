@@ -12,8 +12,12 @@
         // border: 0;
         // background: none;
         border-right-width: 0;
-        .v-vard {
-            height: calc(100vh - 2rem);
+        .v-navigation-drawer__content {
+            overflow-y:hidden;
+
+            &:hover {
+                overflow-y:auto;
+            }
         }
         .nav_active {
             background-color: rgb(var(--v-theme-primary));

@@ -153,7 +153,10 @@
     }
     .slider {
         .v-slider__label {
-            width: 46px;
+            width: 60px;
+            font-size: 14px;
+            color: rgb(128,128,128);
+            opacity: 1;
         }
     }
     .alignment {
@@ -164,6 +167,16 @@
             .label {
                 color: rgb(128,128,128);
             }
+            // justify-content: f;
+            display: block;
         }
+    }
+    .textarea {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+
     }
 }

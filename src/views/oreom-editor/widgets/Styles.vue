@@ -24,11 +24,11 @@
             <div class="input_row">
                 <div class="input_item">
                     <div class="label">Background</div>
-                    <input v-model="data.styles.background" />
+                    <input v-model="data.styles.background" type="color" style="background: none" />
                 </div>
                 <div class="input_item mt-4">
                     <div class="label" style="width: 77.4px">Text</div>
-                    <input v-model="data.styles.color" />
+                    <input v-model="data.styles.color" type="color" style="background: none" />
                 </div>
             </div>
         </v-list-group>
@@ -102,13 +102,13 @@
                 <v-slider
                     class="mx-4"
                     v-model="data.styles.radius"
-                    label="Left"
+                    label="Radius"
                     density="compact"
                 ></v-slider>
                 <v-slider
                     class="mx-4"
                     v-model="data.styles.shadow"
-                    label="Right"
+                    label="Shadow"
                     density="compact"
                 ></v-slider>
             </div>
@@ -120,32 +120,32 @@
             <div class="alignment d-flex px-4">
                 <div class="item">
                     <div class="label ml-2">Flex Direction</div>
-                    <v-radio-group hide-details>
-                        <v-radio label="Row" value="one"></v-radio>
-                        <v-radio label="Column" value="two"></v-radio>
+                    <v-radio-group hide-details v-model="data.styles.flexDirection">
+                        <v-radio label="Row" value="row"></v-radio>
+                        <v-radio label="Column" value="column"></v-radio>
                     </v-radio-group>
                 </div>
                 <div class="item">
                     <div class="label ml-2">Fill space</div>
-                    <v-radio-group hide-details>
+                    <v-radio-group hide-details v-model="data.styles.fillSpace">
                         <v-radio label="Yes" value="one"></v-radio>
                         <v-radio label="No" value="two"></v-radio>
                     </v-radio-group>
                 </div>
                 <div class="item">
                     <div class="label ml-2">Align Items</div>
-                    <v-radio-group hide-details>
-                        <v-radio label="Flex start" value="one"></v-radio>
-                        <v-radio label="Center" value="two"></v-radio>
-                        <v-radio label="Flex end" value="two"></v-radio>
+                    <v-radio-group hide-details v-model="data.styles.alignItems">
+                        <v-radio label="Flex start" value="flex-start"></v-radio>
+                        <v-radio label="Center" value="center"></v-radio>
+                        <v-radio label="Flex end" value="flex-end"></v-radio>
                     </v-radio-group>
                 </div>
                 <div class="item">
                     <div class="label ml-2">Justify Content</div>
-                    <v-radio-group hide-details>
-                        <v-radio label="Flex start" value="one"></v-radio>
-                        <v-radio label="Center" value="two"></v-radio>
-                        <v-radio label="Flex end" value="two"></v-radio>
+                    <v-radio-group hide-details v-model="data.styles.justifyContent">
+                        <v-radio label="Flex start" value="flex-start"></v-radio>
+                        <v-radio label="Center" value="center"></v-radio>
+                        <v-radio label="Flex end" value="flex-end"></v-radio>
                     </v-radio-group>
                 </div>
             </div>

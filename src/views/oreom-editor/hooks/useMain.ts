@@ -13,7 +13,7 @@ export const beaseTree: VirtualDom[] = [
             icon: 'mdi-card-outline',
         },
         styles: {
-            width: 100,
+            width: 'auto',
             height: 90,
             marginTop: 0,
             marginRight: 0,
@@ -27,10 +27,10 @@ export const beaseTree: VirtualDom[] = [
             color: '#333333',
             radius: 0,
             shadow: 0,
-            flexDirection: '',
+            flexDirection: 'column',
             fillSpace: '',
-            alignItems: '',
-            justifyContent: '',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
         },
         items: [],
     },
@@ -46,7 +46,7 @@ export const beaseTree: VirtualDom[] = [
             icon: 'mdi-button-pointer',
         },
         styles: {
-            width: 100,
+            width: 'auto',
             height: 90,
             marginTop: 0,
             marginRight: 0,
@@ -79,7 +79,7 @@ export const beaseTree: VirtualDom[] = [
             icon: 'mdi-format-color-text',
         },
         styles: {
-            width: 100,
+            width: 'auto',
             height: 90,
             marginTop: 0,
             marginRight: 0,
@@ -133,7 +133,7 @@ export interface ContainerContent {
     text: string;
 }
 export interface ContainerStyles {
-    width: number;
+    width: string | number;
     height: number;
     marginTop: number;
     marginRight: number;

@@ -255,13 +255,13 @@ body {
 div {
     &::-webkit-scrollbar {
         // 定义了滚动条整体的样式；
-        width: 6px;
-        height: 6px;
+        width: 3px;
+        height: 3px;
     }
     &::-webkit-scrollbar-thumb {
-        width: 6px;
-        height: 6px;
-        border-radius: 8px;
+        width: 3px;
+        height: 3px;
+        border-radius: 1.5px;
         background-color: var(--scrollbar);
     }
 }
