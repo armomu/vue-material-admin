@@ -20,8 +20,8 @@
             <template v-for="(item, key) in routes" :key="key">
                 <v-list-item
                     v-if="item.meta?.visible && !item.children"
-                    :prepend-icon="(item.meta?.icon as any)"
-                    :title="(item.meta?.title as any)"
+                    :prepend-icon="item.meta?.icon as any"
+                    :title="item.meta?.title as any"
                     :to="{ name: item.name }"
                     class="mx-1"
                     active-class="nav_active"
@@ -35,16 +35,16 @@
                     <template v-slot:activator="{ props }">
                         <v-list-item
                             v-bind="props"
-                            :prepend-icon="(item.meta.icon as any)"
-                            :title="(item.meta.title as any)"
+                            :prepend-icon="item.meta.icon as any"
+                            :title="item.meta.title as any"
                             active-class="nav_active"
                             rounded="lg"
                         />
                     </template>
                     <template v-for="(row, i) in item.children">
                         <v-list-item
-                            v-if="(row.meta?.visible as  any)"
-                            :title="(row.meta?.title as any)"
+                            v-if="row.meta?.visible as any"
+                            :title="row.meta?.title as any"
                             :prepend-icon="rail ? (row.meta?.icon as any) : ''"
                             :key="i"
                             :to="{ name: row.name }"
@@ -84,7 +84,7 @@ const emit = defineEmits(['update:value']);
 const props = withDefaults(
     defineProps<{
         rail: boolean;
-        value?: boolean | null | undefined;
+        value?: boolean;
         routes: readonly RouteRecordRaw[];
     }>(),
     {}

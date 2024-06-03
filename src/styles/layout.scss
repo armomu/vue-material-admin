@@ -6,11 +6,15 @@
     .layout_navigation {
         border-radius: 8px;
         margin: 16px 0 16px 16px !important;
-        overflow: hidden;
         height: calc(100vh - 2rem) !important;
         transition: all 0.2s;
         // z-index: 900 !important;
         // border: 0;
+        // background: none;
+        border-right-width: 0;
+        .v-vard {
+            height: calc(100vh - 2rem);
+        }
         .nav_active {
             background-color: rgb(var(--v-theme-primary));
 
@@ -162,7 +166,7 @@
         margin-left: 93px;
         .header {
             left: 108px;
-            width: calc(100vw - 132px);
+            width: calc(100vw - 130px);
         }
     }
 }

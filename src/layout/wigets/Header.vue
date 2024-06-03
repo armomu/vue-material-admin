@@ -1,5 +1,5 @@
 <template>
-    <header class="header">
+    <v-card class="header">
         <Breadcrumbs v-if="!mainStore.isMobile" />
         <div v-if="!mainStore.isMobile" class="mt-3 ml-9 gamepad" @click="changeRail">
             <v-icon v-if="rail" icon="mdi-sort-variant-lock-open" />
@@ -64,7 +64,7 @@
                 </v-menu>
             </v-btn>
         </div>
-    </header>
+    </v-card>
 </template>
 <script lang="ts" setup>
 import { useMainStore } from '@/stores/useMainStore';
