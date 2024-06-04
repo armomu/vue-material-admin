@@ -1,10 +1,10 @@
 import { reactive, ref } from 'vue';
 
-export const beaseTree: VirtualDom[] = [
+export const beaseDom: VirtualDom[] = [
     {
         id: 1,
         name: 'container',
-        active: false,
+        active: true,
         visible: true,
         type: 'container',
         content: {
@@ -13,16 +13,18 @@ export const beaseTree: VirtualDom[] = [
             icon: 'mdi-card-outline',
         },
         styles: {
-            width: 'auto',
+            width: 200,
+            top: 0,
+            left: 0,
             height: 90,
             marginTop: 0,
             marginRight: 0,
             marginButtom: 0,
             marginLeft: 0,
-            paddingTop: 16,
-            paddingRight: 16,
-            paddingButtom: 16,
-            paddingLeft: 16,
+            paddingTop: 0,
+            paddingRight: 0,
+            paddingButtom: 0,
+            paddingLeft: 0,
             background: '#ffffff',
             color: '#333333',
             radius: 0,
@@ -46,16 +48,18 @@ export const beaseTree: VirtualDom[] = [
             icon: 'mdi-button-pointer',
         },
         styles: {
-            width: 'auto',
-            height: 90,
+            width: 100,
+            height: 32,
+            top: 0,
+            left: 0,
             marginTop: 0,
             marginRight: 0,
             marginButtom: 0,
             marginLeft: 0,
-            paddingTop: 16,
-            paddingRight: 16,
-            paddingButtom: 16,
-            paddingLeft: 16,
+            paddingTop: 0,
+            paddingRight: 0,
+            paddingButtom: 0,
+            paddingLeft: 0,
             background: '#ffffff',
             color: '#333333',
             radius: 0,
@@ -70,7 +74,7 @@ export const beaseTree: VirtualDom[] = [
     {
         id: 2,
         name: 'text',
-        active: false,
+        active: true,
         visible: true,
         type: 'text',
         content: {
@@ -79,16 +83,18 @@ export const beaseTree: VirtualDom[] = [
             icon: 'mdi-format-color-text',
         },
         styles: {
-            width: 'auto',
-            height: 90,
+            width: 100,
+            height: 32,
+            top: 0,
+            left: 0,
             marginTop: 0,
             marginRight: 0,
             marginButtom: 0,
             marginLeft: 0,
-            paddingTop: 16,
-            paddingRight: 16,
-            paddingButtom: 16,
-            paddingLeft: 16,
+            paddingTop: 0,
+            paddingRight: 0,
+            paddingButtom: 0,
+            paddingLeft: 0,
             background: '#ffffff',
             color: '#333333',
             radius: 0,
@@ -103,18 +109,40 @@ export const beaseTree: VirtualDom[] = [
 ];
 
 export const useMain = () => {
-    const appTree = ref<VirtualDom[]>([]);
-    const widgets = ref<VirtualDom[]>([...beaseTree]);
-    const curVirtualDom = ref<VirtualDom>();
+    const appDom = ref<VirtualDom[]>([]);
+    const widgets = ref<VirtualDom[]>([...beaseDom]);
 
-    const onVirtualDom = (e: any) => {
-        curVirtualDom.value = e;
+    const curDom = ref<VirtualDom>();
+
+    let dragingDom: VirtualDom;
+    const onDraging = (e: VirtualDom) => {
+        dragingDom = e;
     };
+
+    // 这个为false 才能添加拖拽中的节点
+    const addend = false;
+    const onDragover = (e: DragEvent) => {
+        e.preventDefault();
+        console.log(e, 'onDragover');
+    };
+
+    const onDrop = (e: DragEvent) => {
+        console.log(e, 'onDragEnd');
+        e.preventDefault();
+        if (!dragingDom) return;
+        const { width, height } = dragingDom.styles;
+        dragingDom.styles.top = e.offsetY - height / 2;
+        dragingDom.styles.left = e.offsetX - width / 2;
+        appDom.value.push(dragingDom);
+    };
+
     return {
-        appTree,
+        appDom,
         widgets,
-        curVirtualDom,
-        onVirtualDom,
+        curDom,
+        onDraging,
+        onDragover,
+        onDrop,
     };
 };
 export interface VirtualDom {
@@ -133,8 +161,10 @@ export interface ContainerContent {
     text: string;
 }
 export interface ContainerStyles {
-    width: string | number;
+    width: number;
     height: number;
+    left: number;
+    top: number;
     marginTop: number;
     marginRight: number;
     marginButtom: number;

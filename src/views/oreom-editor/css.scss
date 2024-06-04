@@ -29,22 +29,117 @@
         .work_content {
             width: 1080px;
             margin: 0 auto;
-            background: #fff;
             position: relative;
             min-height: 300px;
-            .layerTree {
-                position: relative;
-                margin: 4px;
-                z-index: 1;
+
+        }
+
+
+        .ref-line {
+            position: absolute;
+            // background-color: rgb(var(--v-theme-primary)) !important;
+            background: yellowgreen;
+            z-index: 9999;
+        }
+
+        .v-line {
+            width: 1px;
+        }
+
+        .h-line {
+            height: 1px;
+        }
+
+        // 拖拽
+        .vdr {
+            touch-action: none;
+            position: absolute;
+            box-sizing: border-box;
+            border: 1px dashed transparent;
+
+            &:hover {
+                border: 1px dashed rgb(86, 86, 245);
             }
-            .dragArea {
-                z-index: 2;
+        }
+        .vdr.active {
+            cursor: move;
+            border: 1px dashed rgb(86, 86, 245);
+        }
+
+        .handle {
+            box-sizing: border-box;
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border: 0.5px solid rgb(86, 86, 245);
+            box-shadow: 0 0 2px #bbb;
+            border-radius: 4px;
+        }
+
+        .handle-tl {
+            top: -5px;
+            left: -5px;
+            cursor: nw-resize;
+        }
+
+
+        .handle-tr {
+            top: -5px;
+            right: -5px;
+            cursor: ne-resize;
+        }
+
+        .handle-ml {
+            top: 2%  !important;
+            height: 96% !important;
+            opacity: 0;
+            cursor: w-resize;
+        }
+
+        .handle-mr {
+            top: 2%  !important;
+            height: 96% !important;
+            opacity: 0;
+            right: -5px;
+            cursor: e-resize;
+        }
+
+        .handle-bl {
+            bottom: -5px;
+            left: -5px;
+            cursor: sw-resize;
+        }
+
+        .handle-bm {
+            bottom: -5px;
+            width: 98% !important;
+            opacity: 0;
+            left: 1% !important;
+            cursor: s-resize;
+        }
+        .handle-tm {
+            top: -5px;
+            width: 98% !important;
+            opacity: 0;
+            left: 1% !important;
+            cursor: n-resize;
+        }
+
+        .handle-br {
+            bottom: -5px;
+            right: -5px;
+            cursor: se-resize;
+        }
+
+        @media only screen and (max-width: 768px) {
+            [class*='handle-']:before {
+                content: '';
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+                top: -10px;
                 position: absolute;
-                left: 0;
-                top: 0;
-                border: 1px dashed slateblue;
-                width: 100%;
-                height: 100%;
             }
         }
 

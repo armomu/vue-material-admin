@@ -25,7 +25,6 @@
     "pixi.js": "^7.3.2",
     "three": "^0.149.0",
     "vue": "^3.2.45",
-    "vue-draggable-next": "^2.2.1",
     "vue-router": "^4.1.6",
     "vue3-apexcharts": "^1.4.1",
     "vuedraggable": "^4.1.0",

@@ -2,7 +2,7 @@ import { reactive, computed, type Ref } from 'vue';
 import type { VirtualDom } from './useMain';
 import { cloneDeep } from 'lodash';
 
-export const useUndoRedo = (sourceAppTree: Ref<VirtualDom[]>) => {
+export const useUndoRedo = (appDom: Ref<VirtualDom[]>) => {
     const keepData: VirtualDom[][] = [];
 
     const useUrState = reactive({
@@ -13,13 +13,13 @@ export const useUndoRedo = (sourceAppTree: Ref<VirtualDom[]>) => {
 
     const onUndo = () => {
         if (useUrState.index === 0) {
-            sourceAppTree.value = [];
+            appDom.value = [];
             useUrState.disabledUndo = true;
             return;
         }
         useUrState.index--;
         console.log(useUrState.index);
-        sourceAppTree.value = cloneDeep(keepData[useUrState.index]);
+        appDom.value = cloneDeep(keepData[useUrState.index]);
 
         useUrState.disabledUndo = false;
     };
@@ -29,12 +29,12 @@ export const useUndoRedo = (sourceAppTree: Ref<VirtualDom[]>) => {
             return;
         }
         useUrState.index++;
-        sourceAppTree.value = cloneDeep(keepData[useUrState.index]);
+        appDom.value = cloneDeep(keepData[useUrState.index]);
         useUrState.disabledRedo = false;
     };
     const appChange = () => {
         console.log('change');
-        keepData.push(cloneDeep(sourceAppTree.value));
+        keepData.push(cloneDeep(appDom.value));
         useUrState.index = keepData.length - 1;
         console.log(keepData.length);
     };

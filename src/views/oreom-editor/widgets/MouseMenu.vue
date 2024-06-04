@@ -1,10 +1,10 @@
 <template>
     <v-card
         class="contextmenu"
-        v-if="contextmenu.visible"
+        v-if="visible"
         :style="{
-            left: contextmenu.left + 'px',
-            top: contextmenu.top + 'px',
+            left: left + 'px',
+            top: top + 'px',
         }"
     >
         <div class="layout_min_wrap">
@@ -21,8 +21,27 @@ import type { VirtualDom } from '../hooks/useMain';
 
 withDefaults(
     defineProps<{
-        data?: Ref<VirtualDom>;
+        visible: boolean;
+        left: number;
+        top: number;
     }>(),
     {}
 );
 </script>
+<style lang="scss">
+.contextmenu {
+    position: fixed;
+    left: 200px;
+    top: 300px;
+    z-index: 999;
+    .layout_min_item {
+        line-height: 36px;
+        height: 36px;
+        padding: 0 16px;
+        cursor: pointer;
+        &:hover {
+            background-color: var(--grid);
+        }
+    }
+}
+</style>

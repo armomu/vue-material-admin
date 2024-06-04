@@ -1,43 +1,35 @@
 <template>
-    <VueDraggableNext
-        :list="data"
-        tag="div"
-        class="dragArea"
-        :group="{ name: 'people', pull: 'clone', put: false }"
-        :clone="onClone"
+    <v-btn
+        v-for="item in props.data"
+        :key="item.id"
+        variant="text"
+        :icon="item.content.icon"
+        size="small"
+        draggable="true"
+        @dragstart="onDragstart(item)"
     >
-        <v-btn
-            v-for="item in props.data"
-            :key="item.id"
-            variant="text"
-            :icon="item.content.icon"
-            size="small"
-        >
-            <v-icon :icon="item.content.icon"></v-icon>
-            <v-tooltip activator="parent" location="end">{{ item.type }}</v-tooltip>
-        </v-btn>
-        <!-- <div v-for="item in props.data" :key="item.id" class="item">
-            <v-icon :icon="item.content.icon"></v-icon>
-            <v-tooltip activator="parent" location="end">{{ item.type }}</v-tooltip>
-        </div> -->
-    </VueDraggableNext>
+        <v-icon :icon="item.content.icon"></v-icon>
+        <v-tooltip activator="parent" location="end">{{ item.type }}</v-tooltip>
+    </v-btn>
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
+
 import type { VirtualDom } from '../hooks/useMain';
-import { VueDraggableNext } from 'vue-draggable-next';
-import { beaseTree } from '../hooks/useMain';
+
 import { cloneDeep } from 'lodash';
+
+const emit = defineEmits(['draging']);
+
 const props = withDefaults(
     defineProps<{
         data: VirtualDom[];
     }>(),
     {}
 );
-const onClone = (a: VirtualDom) => {
-    return {
-        ...cloneDeep(a),
-        id: new Date().getTime(),
-    };
+
+const onDragstart = (e: VirtualDom) => {
+    console.log(e);
+    emit('draging', cloneDeep(e));
 };
 </script>

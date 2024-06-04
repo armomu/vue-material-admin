@@ -150,18 +150,6 @@ const router = createRouter({
             component: Layout,
             children: [
                 {
-                    path: 'layer-edit',
-                    name: 'layerEdit',
-                    meta: {
-                        title: 'Layer Edit',
-                        icon: 'mdi-alpha-l',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/layer-edit/index.vue'),
-                    children: [],
-                },
-                {
                     path: 'oreom-editor',
                     name: 'oreom',
                     meta: {
