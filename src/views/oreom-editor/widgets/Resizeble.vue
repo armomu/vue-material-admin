@@ -85,11 +85,6 @@ const styles = computed(() => {
     //     width = props.data.styles.width;
     // }
     console.log(props.data, 'get styles');
-    let display = 'block';
-    if (props.data.styles.flexDirection === 'row') {
-        display = 'flex';
-    }
-
     return {
         // width: props.data.styles.width,
         // minHeight: props.data.styles.height + 'px',
@@ -101,14 +96,14 @@ const styles = computed(() => {
         // paddingRight: props.data.styles.paddingRight + 'px',
         // paddingButtom: props.data.styles.paddingButtom + 'px',
         // paddingLeft: props.data.styles.paddingLeft + 'px',
-        // background: props.data.styles.background,
-        // color: props.data.styles.color,
+        background: props.data.styles.background,
+        color: props.data.styles.color,
 
-        //
-        display,
-        flexDirection: props.data.styles.flexDirection,
-        alignItems: props.data.styles.alignItems,
-        justifyContent: props.data.styles.justifyContent,
+        // //
+        // display,
+        // flexDirection: props.data.styles.flexDirection,
+        // alignItems: props.data.styles.alignItems,
+        // justifyContent: props.data.styles.justifyContent,
     };
 });
 

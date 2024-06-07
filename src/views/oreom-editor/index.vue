@@ -2,7 +2,12 @@
     <div class="oreom-editor">
         <div class="widgets_area"><BasicWidget :data="widgets" @draging="onDraging" /></div>
         <div class="works_area">
-            <Layout :data="appDom" @on-dragover="onDragover" @on-drop="onDrop" />
+            <Layout
+                :data="appDom"
+                @on-dragover="onDragover"
+                @on-drop="onDrop"
+                @on-active="onVirtualDom"
+            />
         </div>
 
         <div class="column_tools mr-4">
@@ -37,7 +42,7 @@
             </v-tooltip>
         </div>
         <v-card class="tools_area" title="Customize">
-            <Styles :data="curDom" />
+            <Styles :data="curVirtualDom" />
         </v-card>
     </div>
 </template>
@@ -47,6 +52,7 @@ import BasicWidget from './widgets/BasicWidget.vue';
 import Styles from './widgets/Styles.vue';
 import Layout from './widgets/Layout.vue';
 import { useMain } from './hooks/useMain';
+import { useStyles } from './hooks/useStyles';
 import { useUndoRedo } from './hooks/useUndoRedo';
 // import { VSheet } from 'vuetify/components'
 
@@ -54,5 +60,5 @@ const { appDom, widgets, curDom, onDraging, onDragover, onDrop } = useMain();
 
 const { useUrState, onUndo, onRedo, appChange } = useUndoRedo(appDom);
 
-// const { curVirtualDom, curStyleVisible, onVirtualDomClick } = useStyles();
+const { curVirtualDom, curStyleVisible, onVirtualDom } = useStyles();
 </script>

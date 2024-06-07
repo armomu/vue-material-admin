@@ -11,6 +11,7 @@
             v-model:left="item.styles.left"
             @snapLine="onSnapLine"
             @mouser="openMenu"
+            @click="onActivated(item)"
         >
             <!-- @snapLine="onSnapLine"
                         @contextmenu.prevent.native="openMenu" -->
@@ -39,8 +40,9 @@ import { reactive } from 'vue';
 import type { VirtualDom } from '../hooks/useMain';
 import Resizeble from './Resizeble.vue';
 import MouseMenu from './MouseMenu.vue';
+import { debounce } from 'lodash';
 
-const emit = defineEmits(['onDragover', 'onDrop']);
+const emit = defineEmits(['onDragover', 'onDrop', 'onActive']);
 
 const snapLine = reactive<{
     vLine: SnapLine[];
@@ -84,6 +86,10 @@ const openMenu = (e: PointerEvent) => {
     contextmenu.top = e.clientY;
     contextmenu.visible = true;
     document.body.addEventListener('click', hideMenu);
+};
+
+const onActivated = (val: VirtualDom) => {
+    emit('onActive', val);
 };
 
 interface SnapLine {
