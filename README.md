@@ -16,7 +16,7 @@
 </h1>
 
 
-Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以学习为主，用于功能展示和测试用例，也可用来作为项目的启动模版，会持续保持更新～ 🔥🔥🔥
+Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以用于学习、功能展示和测试一些开发用例所以尽量保持轻量化，也可用来作为项目的启动模版，会持续保持更新～ 🔥🔥🔥
 
 
 ## 🌻 页面截图
@@ -30,26 +30,27 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 ## 🍭 PreView
 
-😠 原来的Gitee预览地址没了，不知道为啥Gitee不给用了，暂时用Vercel的吧！打不开的同学自行跑本地环境
+🧱Vercel需要墙！打不开的同学自行下载项目在本地开发环境预览，gitee已经不给用了
 
 - 🌍 Vercel [https://vue-material-admin.vercel.app/](https://vue-material-admin-alpha.vercel.app/)
-- 🍱 Github [https://armomu.github.io/vue-material-admin](https://armomu.github.io/vue-material-admin) (构建失败)
-- 🍦 Gitee [https://chenhuajie.gitee.io/vue-material-admin](https://chenhuajie.gitee.io/vue-material-admin) (不给用了)
+- 🪄 [这是个神奇的链接请不要点😁😁😁😁](https://daisy-kaliman.vercel.app/#/index/)
 
 
 ## 👊 TODO
+
+[oreom-editor](https://vue-material-admin-alpha.vercel.app/#/editor/oreom-editor)
+
+> 拖拽页面小编辑器正在开发中。。。
+
 1. 🍳 Vuetify 组件
-    - ✅ Buttons
-    - ✅ CardS
     - ✅ Table
-    - ✅ Calendar...
+    - ✅ Calendar
+    - ✅ DictSelect(自动注册可枚举字典下拉框)
 2. 🏡 智能家居控制组件
-    - ✅ Apexcharts
     - ✅ 环形控制器(支持鼠标拖动进度)
-    - ✅ 音乐播放器
-    - ✅ 360度全景图预览(支持移动设备陀螺仪)
-3. 🎥 [Babylon.js](https://github.com/armomu/ergoudan) 
-    - ✅ Havok物理引擎
+    - ✅ 360度全景图预览(其实是Babylon.js的一个API而已)
+3. 🎥 [Babylonjs物理角色控制器，已经获得官方库推荐👍](https://github.com/armomu/ergoudan) 
+    - ✅ 使用Havok物理引擎
     - ✅ 使用W、S、A、D键控制角色移动
     - ✅ 使用空格键跳跃
     - ✅ 上楼梯
@@ -63,7 +64,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
     - ✅ 夜间模式
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
-6. 💻 后端
+6. 💻 后端[参考这个](https://github.com/zclzone/isme-nest-serve)
     - ❌ Nest.js
 
 ## 📑 本地开发
@@ -78,11 +79,11 @@ cd vue-material-admin
 
 # install
 
-yarn install || npm install || pnpm install
+pnpm install
 
 # dev
 
-yarn run dev || npm run dev || pnpm  run dev
+pnpm run dev
 
 ```
 
