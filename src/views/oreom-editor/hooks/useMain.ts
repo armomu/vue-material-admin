@@ -7,6 +7,7 @@ export const beaseDom: VirtualDom[] = [
         active: true,
         visible: true,
         type: 'container',
+        edit: 0,
         content: {
             text: '',
             label: '',
@@ -34,7 +35,6 @@ export const beaseDom: VirtualDom[] = [
             alignItems: 'center',
             justifyContent: 'flex-start',
         },
-        items: [],
     },
     {
         id: 2,
@@ -42,6 +42,7 @@ export const beaseDom: VirtualDom[] = [
         active: false,
         visible: true,
         type: 'button',
+        edit: 0,
         content: {
             text: 'button',
             label: '',
@@ -69,7 +70,6 @@ export const beaseDom: VirtualDom[] = [
             alignItems: '',
             justifyContent: '',
         },
-        items: [],
     },
     {
         id: 2,
@@ -77,14 +77,15 @@ export const beaseDom: VirtualDom[] = [
         active: true,
         visible: true,
         type: 'text',
+        edit: 1,
         content: {
             text: '这是一个开放源码的中后台管理系统，Oreom editor可提供基础拖放编辑页面',
             label: '',
             icon: 'mdi-format-color-text',
         },
         styles: {
-            width: 100,
-            height: 32,
+            width: 300,
+            height: 100,
             top: 0,
             left: 0,
             marginTop: 0,
@@ -95,7 +96,7 @@ export const beaseDom: VirtualDom[] = [
             paddingRight: 0,
             paddingButtom: 0,
             paddingLeft: 0,
-            background: '#ffffff',
+            background: '',
             color: '#333333',
             radius: 0,
             shadow: 0,
@@ -104,7 +105,6 @@ export const beaseDom: VirtualDom[] = [
             alignItems: '',
             justifyContent: '',
         },
-        items: [],
     },
 ];
 
@@ -123,7 +123,7 @@ export const useMain = () => {
     const addend = false;
     const onDragover = (e: DragEvent) => {
         e.preventDefault();
-        console.log(e, 'onDragover');
+        // console.log(e, 'onDragover');
     };
 
     const onDrop = (e: DragEvent) => {
@@ -133,7 +133,12 @@ export const useMain = () => {
         const { width, height } = dragingDom.styles;
         dragingDom.styles.top = e.offsetY - height / 2;
         dragingDom.styles.left = e.offsetX - width / 2;
-        appDom.value.push(dragingDom);
+        curDom.value = dragingDom;
+        appDom.value.push(curDom.value);
+    };
+
+    const onVirtualDom = (val: any) => {
+        curDom.value = val;
     };
 
     return {
@@ -143,6 +148,7 @@ export const useMain = () => {
         onDraging,
         onDragover,
         onDrop,
+        onVirtualDom,
     };
 };
 export interface VirtualDom {
@@ -151,9 +157,9 @@ export interface VirtualDom {
     active: boolean;
     visible: boolean;
     type: 'button' | 'container' | 'text' | 'image';
+    edit: number; //
     styles: ContainerStyles;
     content: ContainerContent;
-    items: VirtualDom[];
 }
 export interface ContainerContent {
     icon: string;

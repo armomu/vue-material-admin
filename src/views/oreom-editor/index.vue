@@ -1,7 +1,7 @@
 <template>
     <div class="oreom-editor">
         <div class="widgets_area"><BasicWidget :data="widgets" @draging="onDraging" /></div>
-        <div class="works_area">
+        <div class="works_area" @contextmenu.prevent="() => {}">
             <Layout
                 :data="appDom"
                 @on-dragover="onDragover"
@@ -41,24 +41,24 @@
                 </template>
             </v-tooltip>
         </div>
-        <v-card class="tools_area" title="Customize">
-            <Styles :data="curVirtualDom" />
+        <v-card class="tools_area" title="Customize" @contextmenu.prevent="() => {}">
+            <Customize :data="curDom" />
         </v-card>
     </div>
 </template>
 <script lang="ts" setup>
 import './css.scss';
 import BasicWidget from './widgets/BasicWidget.vue';
-import Styles from './widgets/Styles.vue';
+import Customize from './widgets/Customize.vue';
 import Layout from './widgets/Layout.vue';
 import { useMain } from './hooks/useMain';
 import { useStyles } from './hooks/useStyles';
 import { useUndoRedo } from './hooks/useUndoRedo';
 // import { VSheet } from 'vuetify/components'
 
-const { appDom, widgets, curDom, onDraging, onDragover, onDrop } = useMain();
+const { appDom, widgets, curDom, onDraging, onDragover, onDrop, onVirtualDom } = useMain();
 
 const { useUrState, onUndo, onRedo, appChange } = useUndoRedo(appDom);
 
-const { curVirtualDom, curStyleVisible, onVirtualDom } = useStyles();
+// const { curVirtualDom, curStyleVisible, onVirtualDom } = useStyles();
 </script>

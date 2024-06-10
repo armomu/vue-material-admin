@@ -12,8 +12,10 @@
         @dragstop="resize"
         @refLineParams="getRefLineParams"
         :style="styles"
+        :class="classNames"
         @contextmenu.prevent.native="onMouser"
     >
+        <div v-if="props.data.content.text" class="text">{{ props.data.content.text }}</div>
         <slot></slot>
     </DragResizeBle>
 </template>
@@ -80,31 +82,14 @@ const onDeactivated = () => {
 };
 
 const styles = computed(() => {
-    // let width = '';
-    // if (typeof props.data.styles.width === 'string') {
-    //     width = props.data.styles.width;
-    // }
-    console.log(props.data, 'get styles');
     return {
-        // width: props.data.styles.width,
-        // minHeight: props.data.styles.height + 'px',
-        // marginTop: props.data.styles.marginTop + 'px',
-        // marginRight: props.data.styles.marginRight + 'px',
-        // marginButtom: props.data.styles.marginButtom + 'px',
-        // marginLeft: props.data.styles.marginLeft + 'px',
-        // paddingTop: props.data.styles.paddingTop + 'px',
-        // paddingRight: props.data.styles.paddingRight + 'px',
-        // paddingButtom: props.data.styles.paddingButtom + 'px',
-        // paddingLeft: props.data.styles.paddingLeft + 'px',
+        borderRadius: `${props.data.styles.radius}px`,
         background: props.data.styles.background,
         color: props.data.styles.color,
-
-        // //
-        // display,
-        // flexDirection: props.data.styles.flexDirection,
-        // alignItems: props.data.styles.alignItems,
-        // justifyContent: props.data.styles.justifyContent,
     };
+});
+const classNames = computed(() => {
+    return [`elevation-${props.data.styles.shadow}`];
 });
 
 const onMouser = (e: PointerEvent) => {
