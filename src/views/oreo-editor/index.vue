@@ -1,8 +1,8 @@
 <template>
-    <div class="oreo-editor">
+    <div class="oreo-editor" id="oreoEditor">
         <!-- <v-sheet class="editor-head d-flex">
         </v-sheet> -->
-        <v-sheet class="layers">
+        <v-sheet class="layers" id="layers">
             <a-collapse
                 :default-active-key="['1', '2']"
                 :bordered="false"
@@ -17,7 +17,6 @@
                 <BasicWidget :data="widgets" @draging="onDraging" />
             </v-card>
         </v-sheet>
-        <canvas class="top_ruler" ref="topRulerEle" />
         <!-- <canvas class="left_ruler" ref="leftRulerEle" /> -->
         <div class="work-area" @contextmenu.prevent="() => {}">
             <Layout
@@ -35,6 +34,7 @@
             </v-tooltip> -->
             <v-btn variant="text" icon="mdi-mouse-left-click-outline" size="small" />
             <v-btn variant="text" icon="mdi-hand-back-left-outline" size="small" />
+            <v-btn variant="text" icon="mdi-credit-card-scan-outline" size="small" />
 
             <v-btn
                 variant="text"
