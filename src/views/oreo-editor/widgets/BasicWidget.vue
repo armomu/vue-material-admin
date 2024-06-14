@@ -13,9 +13,7 @@
     </v-btn>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue';
-
-import type { VirtualDom } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useOreoApp';
 
 import { cloneDeep } from 'lodash';
 
@@ -33,3 +31,4 @@ const onDragstart = (e: VirtualDom) => {
     emit('draging', cloneDeep(e));
 };
 </script>
+../hooks/useOreo

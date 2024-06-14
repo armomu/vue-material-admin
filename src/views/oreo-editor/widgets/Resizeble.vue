@@ -21,7 +21,7 @@
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { VirtualDom } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useOreoApp';
 // @ts-ignore
 import DragResizeBle from '@/components/DragResizeble/index.vue';
 
@@ -96,3 +96,4 @@ const onMouser = (e: PointerEvent) => {
     emit('mouser', e);
 };
 </script>
+../hooks/useOreo

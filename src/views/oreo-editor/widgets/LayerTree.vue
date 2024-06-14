@@ -13,7 +13,7 @@
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { VirtualDom } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useOreoApp';
 import TreeItem from './TreeItem.vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 
@@ -43,3 +43,4 @@ const onEnd = (/** Event*/ evt, /** Event*/ originalEvent) => {
     emit('change', evt, originalEvent);
 };
 </script>
+../hooks/useOreo

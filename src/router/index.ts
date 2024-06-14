@@ -150,15 +150,15 @@ const router = createRouter({
             component: Layout,
             children: [
                 {
-                    path: 'oreom-editor',
-                    name: 'oreom',
+                    path: 'oreo-editor',
+                    name: 'oreo',
                     meta: {
-                        title: 'Oreom Editor',
+                        title: 'Oreo Editor',
                         icon: 'mdi-alpha-o',
                         keepAlive: false,
                         visible: true,
                     },
-                    component: () => import('@/views/oreom-editor/index.vue'),
+                    component: () => import('@/views/oreo-editor/index.vue'),
                     children: [],
                 },
             ],

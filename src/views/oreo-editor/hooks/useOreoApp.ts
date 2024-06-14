@@ -108,7 +108,7 @@ export const beaseDom: VirtualDom[] = [
     },
 ];
 
-export const useMain = () => {
+export const useOreoApp = () => {
     const appDom = ref<VirtualDom[]>([]);
     const widgets = ref<VirtualDom[]>([...beaseDom]);
 

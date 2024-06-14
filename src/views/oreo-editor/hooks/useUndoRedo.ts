@@ -1,5 +1,5 @@
 import { reactive, computed, type Ref } from 'vue';
-import type { VirtualDom } from './useMain';
+import type { VirtualDom } from './useOreoApp';
 import { cloneDeep } from 'lodash';
 
 export const useUndoRedo = (appDom: Ref<VirtualDom[]>) => {

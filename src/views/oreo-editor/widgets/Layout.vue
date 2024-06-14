@@ -37,7 +37,7 @@
 </template>
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import type { VirtualDom } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useOreoApp';
 import Resizeble from './Resizeble.vue';
 import MouseMenu from './MouseMenu.vue';
 import { debounce } from 'lodash';
@@ -100,3 +100,4 @@ interface SnapLine {
     position: string;
 }
 </script>
+../hooks/useOreo

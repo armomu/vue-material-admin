@@ -1,39 +1,48 @@
-.oreom-editor {
-    display: flex;
+.oreo-editor {
     position: relative;
-    .v-card.v-card--variant-elevated {
-        box-shadow: none;
-    }
-
-    .widgets_area {
-        width: 40px;
+    height: calc(100vh - 124px);
+    display: flex;
+    .layers {
+        width: 220px;
+        height: calc(100vh - 124px);
+        border-right: 1px solid #efefef;
         position: relative;
-        text-align: center;
-        overflow: inherit;
-        z-index: 3;
-        .item {
-            position: relative;
-            height: 40px;
+        z-index: 2;
+        .tools {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
         }
     }
+    .helper {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+    }
+    .top_ruler {
+        width: 4000px;
+        height: 30px;
+        border-bottom: 1px #efefef;
+        position: absolute;
+    }
 
-    .works_area {
+
+    .work-area {
         flex: 1;
         position: relative;
         height: calc(100vh - 124px);
         overflow: auto;
-
         .work_content {
-            width: 1440px;
-            margin: 0 auto;
+            width: 1080px;
+            margin: 30px auto;
             position: relative;
             height: calc(100vh - 124px);
 
         }
-
 
         .ref-line {
             position: absolute;
@@ -74,7 +83,6 @@
             background: #ffffff;
             border: 0.5px solid rgb(86, 86, 245);
             box-shadow: 0 0 2px #bbb;
-            border-radius: 4px;
         }
 
         .handle-tl {
@@ -153,62 +161,11 @@
         }
     }
 
-
-    .column_tools {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        right: 280px;
-        top: 0;
-
-        // position: absolute;
-        // text-align: center;
-        // right: 0;
-        // top: 0;
-        // z-index: 3;
-        // top: 0;
-        // .v-btn {
-        //     display: block;
-        // }
-        // .slider {
-        //     position: absolute;
-        //     left: 0;
-        //     bottom: 0;
-        //     .v-input__control {
-        //         min-height: 100px;
-        //     }
-        // }
-    }
-    .tools_area {
-        height: calc(100vh - 124px);
-        width: 280px;
+    .customizes {
+        width: 240px;
         overflow-y: auto;
-        .widget_tools {
-            height: calc(100vh - 424px);
-        }
-        .widget_layouts {
-            margin-top: 16px;
-            height: calc(100vh - 604px);
-            .layout_min_wrap {
-                padding: 0 16px;
-            }
-            .layout_min_item {
-                line-height: 44px;
-                height: 44px;
-                padding: 0 16px;
-                .mdi {
-                    font-size: 16px;
-                    color: #999;
-                    cursor: pointer;
-                }
-                .mdi + .mdi {
-                    margin-left: 10px;
-                }
-            }
-            .layout_min_item.active {
-                background-color: var(--grid);
-            }
-        }
+        height: calc(100vh - 124px);
+        border-left: 1px solid #efefef;
     }
     .contextmenu {
         position: fixed;
@@ -225,6 +182,7 @@
             }
         }
     }
+
     .input_item {
         display: flex;
         align-items: center;

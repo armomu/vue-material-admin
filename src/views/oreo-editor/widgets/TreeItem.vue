@@ -7,7 +7,7 @@
 </template>
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { VirtualDom } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useOreoApp';
 
 const emit = defineEmits(['tap']);
 const props = withDefaults(
@@ -52,3 +52,4 @@ const styles = computed(() => {
     };
 });
 </script>
+../hooks/useOreo

@@ -53,7 +53,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, type Ref } from 'vue';
-import type { VirtualDom } from '../hooks/useMain';
+import type { VirtualDom } from '../hooks/useOreoApp';
 
 withDefaults(
     defineProps<{
@@ -62,3 +62,4 @@ withDefaults(
     {}
 );
 </script>
+../hooks/useOreo
