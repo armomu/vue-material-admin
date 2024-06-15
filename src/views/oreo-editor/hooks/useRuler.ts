@@ -30,7 +30,7 @@ export const useRuler = () => {
                 label.style.fontSize = 10;
                 label.style.fill = '#999999';
                 label.x = i + 2;
-                label.y = 10;
+                label.y = 9;
 
                 pixiApp.stage.addChild(label);
             }
@@ -66,7 +66,7 @@ export const useRuler = () => {
                 const label = new Text(y);
                 label.style.fontSize = 10;
                 label.style.fill = '#999999';
-                label.x = 22;
+                label.x = 20;
                 label.y = y + 4;
                 label.rotation = Math.PI / 2;
                 pixiApp.stage.addChild(label);

@@ -1,65 +1,122 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <!-- eslint-disable vue/valid-v-model -->
 <template>
-    <v-list v-if="data" density="compact">
-        <div class="input_item">
-            <div class="label">Width</div>
-            <input class="input" v-model="data.styles.width" />
-        </div>
-        <div class="input_item">
-            <div class="label">Height</div>
-            <input class="input" v-model="data.styles.height" />
-        </div>
-        <div class="input_item">
-            <div class="label">Background</div>
-            <input
-                class="input"
-                v-model="data.styles.background"
-                type="color"
-                style="background: none"
-            />
-        </div>
-        <div class="input_item">
-            <div class="label">Text</div>
-            <input
-                class="input"
-                v-model="data.styles.color"
-                type="color"
-                style="background: none"
-            />
-        </div>
-        <div class="input_item">
-            <div class="label">Radius</div>
-            <v-slider
-                v-model.number="data.styles.radius"
-                hide-details
-                color="primary"
-                class="ml-5"
-            />
-        </div>
-        <div class="input_item">
-            <div class="label">Shadow</div>
-            <v-slider
-                v-model="data.styles.shadow"
-                hide-details
-                :max="20"
-                color="primary"
-                :min="0"
-                :step="1"
-                class="ml-5"
-            />
-        </div>
-    </v-list>
+    <div class="customizes">
+        <a-collapse
+            :default-active-key="['1', '2']"
+            :bordered="false"
+            :show-expand-icon="false"
+            expand-icon-position="right"
+        >
+            <a-collapse-item header="Designed" key="1">
+                <div class="">
+                    <v-btn variant="text" icon="mdi-align-horizontal-center " size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-vertical-top" size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-horizontal-left" size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-horizontal-right" size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-vertical-bottom" size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-vertical-center" size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-vertical-distribute" size="x-small" />
+                    <v-btn variant="text" icon="mdi-align-horizontal-distribute" size="x-small" />
+                </div>
+                <a-divider class="my-2 mb-3"></a-divider>
+                <div v-if="props.data">
+                    <a-row :gutter="8">
+                        <a-col :span="12">
+                            <a-input-number v-model="props.data.styles.left" size="small"
+                                ><template #prepend>X</template></a-input-number
+                            >
+                        </a-col>
+                        <a-col :span="12">
+                            <a-input-number v-model="props.data.styles.top" size="small"
+                                ><template #prepend>Y</template></a-input-number
+                            >
+                        </a-col>
+                        <a-col :span="12" class="mt-3">
+                            <a-input-number v-model="props.data.styles.width" size="small"
+                                ><template #prepend>W</template></a-input-number
+                            >
+                        </a-col>
+                        <a-col :span="12" class="mt-3">
+                            <a-input-number v-model="props.data.styles.height" size="small"
+                                ><template #prepend>H</template></a-input-number
+                            >
+                        </a-col>
+                        <div class="d-flex mt-2">
+                            <v-btn variant="text" icon="mdi-restore" size="x-small" class="mr-4" />
+                            <a-slider style="flex: 1; width: 166px" />
+                        </div>
+                        <div class="d-flex mt-2">
+                            <v-btn
+                                variant="text"
+                                icon="mdi-eye-outline"
+                                size="x-small"
+                                class="mr-4"
+                            />
+                            <a-slider style="flex: 1; width: 166px" />
+                        </div>
+                    </a-row>
+                </div>
+            </a-collapse-item>
+            <a-collapse-item v-if="props.data" header="Exterior" key="2">
+                <a-row :gutter="8">
+                    <a-col :span="6">Fill</a-col>
+                    <a-col :span="16">
+                        <a-color-picker showPreset v-model="props.data.styles.background">
+                            <a-tag
+                                :color="props.data.styles.background"
+                                style="border: 1px #efefef solid"
+                            >
+                                {{ props.data.styles.background }}
+                            </a-tag>
+                        </a-color-picker>
+                    </a-col>
+                    <a-col :span="6" class="mt-2">Border</a-col>
+                    <a-col :span="7" class="mt-2">
+                        <a-color-picker showPreset v-model="props.data.styles.background">
+                            <a-tag
+                                :color="props.data.styles.background"
+                                style="border: 1px #efefef solid"
+                            >
+                                {{ props.data.styles.background }}
+                            </a-tag>
+                        </a-color-picker>
+                    </a-col>
+                    <a-col :span="8" class="mt-2">
+                        <a-select style="width: 90px; line-height: 24px; height: 24px" size="small">
+                            <a-option v-for="item in 30" :key="item" :value="item"
+                                >{{ item }}px</a-option
+                            >
+                        </a-select>
+                    </a-col>
+                    <a-col :span="6" class="mt-2"> </a-col>
+                    <a-col :span="8" class="mt-2">
+                        <a-select style="width: 160px; line-height: 24px; height: 24px">
+                            <a-option v-for="item in 30" :key="item" :value="item"
+                                >{{ item }}px</a-option
+                            >
+                        </a-select>
+                    </a-col>
+                </a-row>
+            </a-collapse-item>
+        </a-collapse>
+    </div>
 </template>
 <script lang="ts" setup>
 import { computed, type Ref } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         data?: VirtualDom;
     }>(),
     {}
 );
+
+const bgColor = computed(() => {
+    if (props?.data?.styles.background) {
+        return true;
+    }
+    return false;
+});
 </script>
-../hooks/useOreo

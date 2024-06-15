@@ -1,7 +1,26 @@
+.editor_wrap {
+    height: calc(100vh - 124px);
+    overflow: hidden;
+}
 .oreo-editor {
     position: relative;
     height: calc(100vh - 124px);
     display: flex;
+    .arco-collapse-item-content {
+        background-color: #ffffff;
+    }
+    .arco-input-prepend, .arco-input-append {
+        font-size: 12px;
+        padding:  0 10px;
+    }
+    .arco-collapse-item-active > .arco-collapse-item-header {
+        border-color: transparent;
+    }
+    .arco-select-view-single.arco-select-view-size-small .arco-select-view-input, .arco-select-view-single.arco-select-view-size-small .arco-select-view-value
+    {
+        font-size: 12px;
+        padding-top: -2px;
+    }
     .layers {
         width: 220px;
         height: calc(100vh - 124px);
@@ -18,7 +37,7 @@
         }
         .left_ruler {
             position: absolute;
-            right: -24px;
+            right: -22px;
             top: 0;
             border-right: 1px solid #efefef;
         }
@@ -166,9 +185,8 @@
             top: 0;
         }
     }
-
-    .customizes {
-        width: 240px;
+    .customizes_wrap {
+        width: 246px;
         overflow-y: auto;
         height: calc(100vh - 124px);
         border-left: 1px solid #efefef;

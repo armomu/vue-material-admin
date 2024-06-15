@@ -112,7 +112,9 @@ export const useOreoApp = () => {
     const appDom = ref<VirtualDom[]>([]);
     const widgets = ref<VirtualDom[]>([...beaseDom]);
 
-    const curDom = ref<VirtualDom>();
+    const curDom = ref<VirtualDom>({
+        ...beaseDom[0],
+    });
 
     let dragingDom: VirtualDom;
     const onDraging = (e: VirtualDom) => {
