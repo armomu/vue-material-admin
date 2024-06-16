@@ -1,4 +1,4 @@
-import { reactive, ref, type DefineComponent } from 'vue';
+import { reactive, ref, onMounted, type DefineComponent } from 'vue';
 
 export const beaseDom: VirtualDom[] = [
     {
@@ -86,10 +86,10 @@ export const beaseDom: VirtualDom[] = [
             textAlign: 'left',
             shadow: false,
             shadowX: 0,
-            shadowY: 4,
-            shadowBlur: 8,
+            shadowY: 1,
+            shadowBlur: 2,
             shadowSpread: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.2)',
+            shadowColor: 'rgba(0, 0, 0, 1)',
             decoration: 'none',
         },
     },
@@ -131,6 +131,45 @@ const OreoApp = () => {
         curDom.value = val;
     };
 
+    const boxSelect = ref({
+        visible: false,
+        width: 0,
+        height: 0,
+        top: 0,
+        left: 0,
+    });
+    const mouseState = {
+        down: false,
+        startX: 0,
+        startY: 0,
+        endX: 0,
+        endY: 0,
+    };
+    const onMouseDown = (e: MouseEvent) => {
+        mouseState.down = true;
+        mouseState.startX = e.offsetX;
+        // @ts-ignore
+        const offsetX = e.clientX - e.target.getBoundingClientRect().left;
+        mouseState.startY = e.offsetY;
+        console.log(e, 'onMouseDown');
+    };
+    const onMouseMove = (e: MouseEvent) => {
+        if (mouseState.down) {
+            boxSelect.value.visible = true;
+        }
+    };
+    const onMouseUp = (e: MouseEvent) => {
+        console.log(e, 'onMouseUp');
+        mouseState.down = false;
+    };
+
+    const mouseEvent = {
+        boxSelect,
+        onMouseDown,
+        onMouseMove,
+        onMouseUp,
+    };
+
     return {
         appDom,
         widgets,
@@ -140,6 +179,7 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
+        ...mouseEvent,
     };
 };
 export default OreoApp;

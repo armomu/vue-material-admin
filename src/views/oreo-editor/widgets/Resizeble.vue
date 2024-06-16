@@ -100,13 +100,19 @@ const styles = computed(() => {
     if (props.data.styles.shadow) {
         boxShadow = `${props.data.styles.shadowX} ${props.data.styles.shadowY}px ${props.data.styles.shadowBlur}px ${props.data.styles.shadowSpread}px ${props.data.styles.shadowColor}`;
     }
-    console.log(border, 'set');
+    // console.log(props.data.fontStyle, 'set');
+
+    // 字体样式
     let fontStyle: any = {};
     if (props.data.fontStyle) {
         fontStyle = {
             ...props.data.fontStyle,
         };
         fontStyle.fontSize = props.data.fontStyle.fontSize + 'px';
+        if (props.data.fontStyle.shadow) {
+            fontStyle.textShadow = `${props.data.fontStyle.shadowX}px ${props.data.fontStyle.shadowY}px ${props.data.fontStyle.shadowBlur}px ${props.data.fontStyle.shadowColor}`;
+        }
+        // console.log(fontStyle, 'fontStyle');
     }
     return {
         borderRadius: `${props.data.styles.radius}px`,

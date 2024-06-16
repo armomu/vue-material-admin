@@ -40,7 +40,6 @@ import { reactive } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
 import Resizeble from './Resizeble.vue';
 import MouseMenu from './MouseMenu.vue';
-import { debounce } from 'lodash';
 
 const emit = defineEmits(['onDragover', 'onDrop', 'onActive']);
 

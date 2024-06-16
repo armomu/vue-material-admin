@@ -220,6 +220,44 @@
                         ><v-icon icon="mdi-format-align-justify" size="x-mall"
                     /></a-radio>
                 </a-radio-group>
+                <a-row :gutter="8">
+                    <a-col :span="4" class="mt-2 pt-1">
+                        <a-checkbox v-model="props.data.fontStyle.shadow"
+                    /></a-col>
+                    <a-col :span="4" class="mt-2">
+                        <a-color-picker showPreset v-model="props.data.fontStyle.shadowColor">
+                            <a-tag :color="props.data.fontStyle.shadowColor" style="display: block">
+                            </a-tag>
+                        </a-color-picker>
+                    </a-col>
+                    <a-trigger position="top" auto-fit-position :unmount-on-close="false">
+                        <a-col :span="16" class="mt-2">Shadow</a-col>
+                        <template #content>
+                            <v-card class="pa-4" width="200px">
+                                <a-row :gutter="8">
+                                    <a-col :span="8" class="mt-2">
+                                        <a-input-number
+                                            v-model="props.data.fontStyle.shadowX"
+                                            size="small"
+                                        />
+                                    </a-col>
+                                    <a-col :span="8" class="mt-2">
+                                        <a-input-number
+                                            v-model="props.data.fontStyle.shadowY"
+                                            size="small"
+                                        />
+                                    </a-col>
+                                    <a-col :span="8" class="mt-2">
+                                        <a-input-number
+                                            v-model="props.data.fontStyle.shadowBlur"
+                                            size="small"
+                                        />
+                                    </a-col>
+                                </a-row>
+                            </v-card>
+                        </template>
+                    </a-trigger>
+                </a-row>
             </a-collapse-item>
         </a-collapse>
     </div>

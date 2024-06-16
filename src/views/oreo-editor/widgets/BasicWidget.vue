@@ -27,7 +27,6 @@ const props = withDefaults(
 );
 
 const onDragstart = (e: VirtualDom) => {
-    console.log(e);
     emit('draging', cloneDeep(e));
 };
 </script>

@@ -19,7 +19,13 @@
                 </v-card>
             </v-sheet>
             <!-- <canvas class="left_ruler" ref="leftRulerEle" /> -->
-            <div class="work-area" @contextmenu.prevent="() => {}">
+            <div
+                class="work-area"
+                @contextmenu.prevent="() => {}"
+                @pointerdown.prevent.stop="oreoApp.onMouseDown"
+                @pointermove.prevent.stop="oreoApp.onMouseMove"
+                @pointerup.prevent.stop="oreoApp.onMouseUp"
+            >
                 <Layout
                     :data="oreoApp.appDom.value"
                     @on-dragover="oreoApp.onDragover"
