@@ -24,6 +24,7 @@ import { computed } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
 // @ts-ignore
 import DragResizeBle from '@/components/DragResizeble/index.vue';
+import { transform } from 'lodash';
 
 const props = withDefaults(
     defineProps<{
@@ -82,10 +83,40 @@ const onDeactivated = () => {
 };
 
 const styles = computed(() => {
+    let background = 'none';
+    if (props.data.styles.fill) {
+        background = props.data.styles.background;
+    }
+    let border = 'none';
+    if (props.data.styles.border) {
+        border =
+            props.data.styles.borderWidth +
+            'px ' +
+            props.data.styles.borderStyle +
+            ' ' +
+            props.data.styles.borderColor;
+    }
+    let boxShadow = 'none';
+    if (props.data.styles.shadow) {
+        boxShadow = `${props.data.styles.shadowX} ${props.data.styles.shadowY}px ${props.data.styles.shadowBlur}px ${props.data.styles.shadowSpread}px ${props.data.styles.shadowColor}`;
+    }
+    console.log(border, 'set');
+    let fontStyle: any = {};
+    if (props.data.fontStyle) {
+        fontStyle = {
+            ...props.data.fontStyle,
+        };
+        fontStyle.fontSize = props.data.fontStyle.fontSize + 'px';
+    }
     return {
         borderRadius: `${props.data.styles.radius}px`,
-        background: props.data.styles.background,
-        color: props.data.styles.color,
+        background,
+        border,
+        opacity: props.data.styles.opacity,
+        // transform: `rotate(${props.data.styles.rotate}deg)`,
+        // transformOrigin: 'left top',
+        boxShadow,
+        ...fontStyle,
     };
 });
 const classNames = computed(() => {
@@ -96,4 +127,3 @@ const onMouser = (e: PointerEvent) => {
     emit('mouser', e);
 };
 </script>
-../hooks/useOreo

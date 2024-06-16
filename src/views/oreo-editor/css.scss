@@ -6,6 +6,7 @@
     position: relative;
     height: calc(100vh - 124px);
     display: flex;
+    // transform: rotate(10deg);
     .arco-collapse-item-content {
         background-color: #ffffff;
     }
@@ -90,15 +91,24 @@
             position: absolute;
             box-sizing: border-box;
             border: 1px dashed transparent;
-
-            &:hover {
-                border: 1px dashed rgb(86, 86, 245);
+            &.active {
+                cursor: move;
+                &::before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    border: 1px dashed rgb(86, 86, 245);
+                }
             }
         }
-        .vdr.active {
-            cursor: move;
-            border: 1px dashed rgb(86, 86, 245);
-        }
+        // .vdr.active {
+        //     cursor: move;
+        //     border: 1px dashed rgb(86, 86, 245);
+        // }
 
         .handle {
             box-sizing: border-box;
@@ -192,6 +202,14 @@
         border-left: 1px solid #efefef;
         position: relative;
         z-index: 2;
+        .arco-row {
+            align-items: center;
+        }
+        .align_group {
+            .v-btn+ .v-btn {
+                margin-left: 4px;
+            }
+        }
     }
     .contextmenu {
         position: fixed;

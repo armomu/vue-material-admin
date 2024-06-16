@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue';
+import { reactive, ref, type DefineComponent } from 'vue';
 
 export const beaseDom: VirtualDom[] = [
     {
@@ -6,8 +6,10 @@ export const beaseDom: VirtualDom[] = [
         name: 'container',
         active: true,
         visible: true,
+        selected: false,
+        locked: false,
         type: 'container',
-        edit: 0,
+        editText: false,
         content: {
             text: '',
             label: '',
@@ -15,106 +17,92 @@ export const beaseDom: VirtualDom[] = [
         },
         styles: {
             width: 200,
-            top: 0,
-            left: 0,
             height: 90,
-            marginTop: 0,
-            marginRight: 0,
-            marginButtom: 0,
-            marginLeft: 0,
-            paddingTop: 0,
-            paddingRight: 0,
-            paddingButtom: 0,
-            paddingLeft: 0,
-            background: '#ffffff',
-            color: '#333333',
-            radius: 0,
-            shadow: 0,
-            flexDirection: 'column',
-            fillSpace: '',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-        },
-    },
-    {
-        id: 2,
-        name: 'button',
-        active: false,
-        visible: true,
-        type: 'button',
-        edit: 0,
-        content: {
-            text: 'button',
-            label: '',
-            icon: 'mdi-button-pointer',
-        },
-        styles: {
-            width: 100,
-            height: 32,
-            top: 0,
             left: 0,
-            marginTop: 0,
-            marginRight: 0,
-            marginButtom: 0,
-            marginLeft: 0,
-            paddingTop: 0,
-            paddingRight: 0,
-            paddingButtom: 0,
-            paddingLeft: 0,
-            background: '#ffffff',
-            color: '#333333',
+            top: 0,
+            opacity: 1,
+            rotate: 0,
             radius: 0,
-            shadow: 0,
-            flexDirection: '',
-            fillSpace: '',
-            alignItems: '',
-            justifyContent: '',
+
+            fill: true,
+            background: '#efefef',
+
+            border: false,
+            borderWidth: '1',
+            borderStyle: 'solid',
+            borderColor: '#999',
+
+            shadow: false,
+            shadowX: 0,
+            shadowY: 4,
+            shadowBlur: 8,
+            shadowSpread: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.2)',
         },
     },
     {
-        id: 2,
-        name: 'text',
+        id: 1,
+        name: 'container',
         active: true,
         visible: true,
+        selected: false,
+        locked: false,
         type: 'text',
-        edit: 1,
+        editText: false,
         content: {
-            text: '这是一个开放源码的中后台管理系统，Oreom editor可提供基础拖放编辑页面',
+            text: 'This is an open source backend management system. Oreo editor can provide basic drag-and-drop editing pages.',
             label: '',
             icon: 'mdi-format-color-text',
         },
         styles: {
-            width: 300,
-            height: 100,
-            top: 0,
+            width: 200,
+            height: 90,
             left: 0,
-            marginTop: 0,
-            marginRight: 0,
-            marginButtom: 0,
-            marginLeft: 0,
-            paddingTop: 0,
-            paddingRight: 0,
-            paddingButtom: 0,
-            paddingLeft: 0,
-            background: '',
-            color: '#333333',
+            top: 0,
+            opacity: 1,
+            rotate: 0,
             radius: 0,
-            shadow: 0,
-            flexDirection: '',
-            fillSpace: '',
-            alignItems: '',
-            justifyContent: '',
+
+            fill: false,
+            background: '#efefef',
+
+            border: false,
+            borderWidth: '1',
+            borderStyle: 'solid',
+            borderColor: '#999',
+
+            shadow: false,
+            shadowX: 0,
+            shadowY: 4,
+            shadowBlur: 8,
+            shadowSpread: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.2)',
+        },
+        fontStyle: {
+            color: '#333333',
+            fontSize: '12',
+            fontFamily: 'inherit',
+            fontWeight: 'normal',
+            textAlign: 'left',
+            shadow: false,
+            shadowX: 0,
+            shadowY: 4,
+            shadowBlur: 8,
+            shadowSpread: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.2)',
+            decoration: 'none',
         },
     },
 ];
 
-export const useOreoApp = () => {
+const OreoApp = () => {
     const appDom = ref<VirtualDom[]>([]);
     const widgets = ref<VirtualDom[]>([...beaseDom]);
 
     const curDom = ref<VirtualDom>({
         ...beaseDom[0],
     });
+    const scale = ref(1);
 
     let dragingDom: VirtualDom;
     const onDraging = (e: VirtualDom) => {
@@ -129,7 +117,7 @@ export const useOreoApp = () => {
     };
 
     const onDrop = (e: DragEvent) => {
-        console.log(e, 'onDragEnd');
+        // console.log(e, 'onDragEnd');
         e.preventDefault();
         if (!dragingDom) return;
         const { width, height } = dragingDom.styles;
@@ -147,20 +135,27 @@ export const useOreoApp = () => {
         appDom,
         widgets,
         curDom,
+        scale,
         onDraging,
         onDragover,
         onDrop,
         onVirtualDom,
     };
 };
+export default OreoApp;
+
 export interface VirtualDom {
     id: number;
     name: string;
-    active: boolean;
+    active: boolean; // 进行拖变大小状态
+    selected: boolean; // 选中状态
+    locked: boolean; // 锁定状态
     visible: boolean;
     type: 'button' | 'container' | 'text' | 'image';
-    edit: number; //
+    editText: boolean; //
     styles: ContainerStyles;
+    fontStyle?: FontStyle;
+    component?: DefineComponent;
     content: ContainerContent;
 }
 export interface ContainerContent {
@@ -168,25 +163,41 @@ export interface ContainerContent {
     label: string;
     text: string;
 }
-export interface ContainerStyles {
+
+// 基础框框
+export interface ContainerStyles extends Shadow {
+    // 变换
     width: number;
     height: number;
     left: number;
     top: number;
-    marginTop: number;
-    marginRight: number;
-    marginButtom: number;
-    marginLeft: number;
-    paddingTop: number;
-    paddingRight: number;
-    paddingButtom: number;
-    paddingLeft: number;
-    background: string;
-    color: string;
+    opacity: number;
+    rotate: number;
     radius: number;
-    shadow: number;
-    flexDirection: string;
-    fillSpace: string;
-    alignItems: string;
-    justifyContent: string;
+
+    fill: boolean;
+    background: string;
+
+    border: boolean;
+    borderWidth: string;
+    borderStyle: 'solid' | 'dashed' | 'dotted';
+    borderColor: string;
+}
+
+// 文本
+export interface FontStyle extends Shadow {
+    color: string;
+    fontSize: string;
+    fontFamily: string;
+    fontWeight: 'bold' | 'bolder' | 'normal' | 'lighter' | 'bolder';
+    textAlign: 'center' | 'left' | 'right' | 'justify' | 'start' | 'end';
+    decoration: 'none' | 'overline' | 'line-through' | 'underline';
+}
+interface Shadow {
+    shadow: boolean;
+    shadowX: number;
+    shadowY: number;
+    shadowBlur: number;
+    shadowSpread: number;
+    shadowColor: string;
 }
