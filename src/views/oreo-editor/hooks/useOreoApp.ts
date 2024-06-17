@@ -151,19 +151,20 @@ const OreoApp = () => {
         startY: 0,
     };
     const onPointerDown = (e: PointerEvent) => {
+        console.log(e, 'onPointerDown');
         for (let i = 0; i < appDom.value.length; i++) {
             appDom.value[i].selected = false;
         }
         let className = '';
         // @ts-ignore
         className = e.target?.className || '';
-        if (className.includes('vdr')) return;
-
-        mouseState.down = true;
-        mouseState.startX = e.clientX + 0;
-        mouseState.startY = e.clientY + 0;
-        boxSelect.left = e.clientX + 'px';
-        boxSelect.top = e.clientY + 'px';
+        if (className.includes('work_content')) {
+            mouseState.down = true;
+            mouseState.startX = e.clientX + 0;
+            mouseState.startY = e.clientY + 0;
+            boxSelect.left = e.clientX + 'px';
+            boxSelect.top = e.clientY + 'px';
+        }
     };
     const onPointerMove = (e: PointerEvent) => {
         if (!mouseState.down) {
