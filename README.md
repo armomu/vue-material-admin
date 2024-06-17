@@ -38,7 +38,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 ## 👊 TODO
 
-[oreom-editor](https://vue-material-admin-alpha.vercel.app/#/editor/oreom-editor)
+[oreo-editor](https://vue-material-admin-alpha.vercel.app/#/editor/oreo-editor)
 
 > 拖拽页面小编辑器正在开发中。。。
 

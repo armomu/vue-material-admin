@@ -1,6 +1,7 @@
 .editor_wrap {
     height: calc(100vh - 124px);
     overflow: hidden;
+    user-select: none;
 }
 .oreo-editor {
     position: relative;
@@ -17,10 +18,21 @@
     .arco-collapse-item-active > .arco-collapse-item-header {
         border-color: transparent;
     }
-    .arco-select-view-single.arco-select-view-size-small .arco-select-view-input, .arco-select-view-single.arco-select-view-size-small .arco-select-view-value
-    {
-        font-size: 12px;
-        padding-top: -2px;
+    // .arco-select-view-single.arco-select-view-size-small .arco-select-view-input, .arco-select-view-single.arco-select-view-size-small .arco-select-view-value
+    // {
+    //     font-size: 12px;
+    //     padding-top: -2px;
+    // }
+    .arco-input-prepend {
+        color: #999;
+    }
+    .shadow_styles_input {
+        .arco-input-wrapper {
+            padding-left: 7px;
+            .arco-input-number-mode-embed .arco-input-number-step {
+                right: 2px;
+            }
+        }
     }
     .layers {
         width: 220px;
@@ -42,6 +54,27 @@
             top: 0;
             border-right: 1px solid #efefef;
         }
+
+        &::after {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 20px;
+            background-color: #ffffff;
+            position: absolute;
+            top: 0;
+            right: -22px;
+            z-index: 1;
+            border-left: 1px solid #efefef;
+            border-right: 1px solid #efefef;
+            border-bottom: 1px solid #efefef;
+        }
+    }
+    .boxSelectHelper {
+        position: fixed;
+        z-index: 999;
+        background: rgba(86, 86, 245, 0.2);
+        border: 1px solid rgb(86, 86, 245);
     }
     .helper {
         position: absolute;
@@ -51,22 +84,22 @@
     }
     .top_ruler {
         position: absolute;
-        left: 0;
+        left: 220px;
         top: 0;
         border-bottom: 1px solid #efefef;
     }
-
-
     .work-area {
         flex: 1;
         position: relative;
         height: calc(100vh - 124px);
         overflow: auto;
+        padding: 20px 20px;
         .work_content {
             width: 1080px;
-            margin: 60px auto;
             position: relative;
-            height: calc(100vh - 124px);
+            left: 80px;
+            top: 80px;
+            height: 1600px;
 
         }
 
@@ -104,6 +137,19 @@
                     border: 1px dashed rgb(86, 86, 245);
                 }
             }
+            &.selected {
+                &::before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    border: 1px solid rgb(86, 86, 245);
+                }
+            }
+
         }
         // .vdr.active {
         //     cursor: move;

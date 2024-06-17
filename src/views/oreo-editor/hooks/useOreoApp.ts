@@ -1,4 +1,5 @@
 import { reactive, ref, onMounted, type DefineComponent } from 'vue';
+import { useRuler } from './useRuler';
 
 export const beaseDom: VirtualDom[] = [
     {
@@ -116,13 +117,19 @@ const OreoApp = () => {
         // console.log(e, 'onDragover');
     };
 
+    let _id_ = 0;
     const onDrop = (e: DragEvent) => {
+        _id_++;
         // console.log(e, 'onDragEnd');
         e.preventDefault();
         if (!dragingDom) return;
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].active = false;
+        }
         const { width, height } = dragingDom.styles;
         dragingDom.styles.top = e.offsetY - height / 2;
         dragingDom.styles.left = e.offsetX - width / 2;
+        dragingDom.id = _id_;
         curDom.value = dragingDom;
         appDom.value.push(curDom.value);
     };
@@ -131,43 +138,97 @@ const OreoApp = () => {
         curDom.value = val;
     };
 
-    const boxSelect = ref({
+    const boxSelect = reactive({
         visible: false,
-        width: 0,
-        height: 0,
-        top: 0,
-        left: 0,
+        width: '',
+        height: '',
+        top: '',
+        left: '',
     });
     const mouseState = {
         down: false,
         startX: 0,
         startY: 0,
-        endX: 0,
-        endY: 0,
     };
-    const onMouseDown = (e: MouseEvent) => {
-        mouseState.down = true;
-        mouseState.startX = e.offsetX;
+    const onPointerDown = (e: PointerEvent) => {
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].selected = false;
+        }
+        let className = '';
         // @ts-ignore
-        const offsetX = e.clientX - e.target.getBoundingClientRect().left;
-        mouseState.startY = e.offsetY;
-        console.log(e, 'onMouseDown');
+        className = e.target?.className || '';
+        if (className.includes('vdr')) return;
+
+        mouseState.down = true;
+        mouseState.startX = e.clientX + 0;
+        mouseState.startY = e.clientY + 0;
+        boxSelect.left = e.clientX + 'px';
+        boxSelect.top = e.clientY + 'px';
     };
-    const onMouseMove = (e: MouseEvent) => {
-        if (mouseState.down) {
-            boxSelect.value.visible = true;
+    const onPointerMove = (e: PointerEvent) => {
+        if (!mouseState.down) {
+            return;
+        }
+        boxSelect.visible = true;
+        boxSelect.width = Math.abs(e.clientX - mouseState.startX) + 'px';
+        boxSelect.height = Math.abs(e.clientY - mouseState.startY) + 'px';
+        if (e.clientX < mouseState.startX) {
+            boxSelect.left = e.clientX + 'px';
+        }
+        if (e.clientY < mouseState.startY) {
+            boxSelect.top = e.clientY + 'px';
         }
     };
-    const onMouseUp = (e: MouseEvent) => {
-        console.log(e, 'onMouseUp');
+    const onPointerUp = () => {
         mouseState.down = false;
+        boxSelect.visible = false;
+        checkSelectBox();
     };
 
-    const mouseEvent = {
+    // 查询哟没有对象被选中
+    const checkSelectBox = () => {
+        const doms = document.getElementsByClassName('vdr');
+        const left = parseFloat(boxSelect.left);
+        const top = parseFloat(boxSelect.top);
+        const width = parseFloat(boxSelect.width);
+        const height = parseFloat(boxSelect.height);
+        const uids: number[] = [];
+        for (let i = 0; i < doms.length; i++) {
+            const rect = doms[i].getBoundingClientRect();
+            const isContained =
+                left <= rect.left &&
+                left + width >= rect.right &&
+                top <= rect.top &&
+                top + height >= rect.bottom;
+            if (isContained) {
+                uids.push(parseFloat(doms[i].getAttribute('uid') + ''));
+            }
+        }
+        for (let i = 0; i < appDom.value.length; i++) {
+            if (uids.includes(appDom.value[i].id)) {
+                appDom.value[i].selected = true;
+            }
+        }
+        // console.log(boxSelect   );
+        boxSelect.height = '';
+        boxSelect.width = '';
+        boxSelect.top = '';
+        boxSelect.left = '';
+    };
+
+    const pointerEvent = {
         boxSelect,
-        onMouseDown,
-        onMouseMove,
-        onMouseUp,
+        onPointerDown,
+        onPointerMove,
+        onPointerUp,
+    };
+
+    // left ruler scroll
+    const workAreaDomRef = ref<HTMLDivElement>();
+    const ruler = useRuler();
+    const onWorkAreaScroll = () => {
+        const leftRulerDom = ruler.leftRulerDom.value as HTMLDivElement;
+        leftRulerDom.style.top = `-${workAreaDomRef.value?.scrollTop}px`;
     };
 
     return {
@@ -179,7 +240,9 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
-        ...mouseEvent,
+        workAreaDomRef,
+        onWorkAreaScroll,
+        ...pointerEvent,
     };
 };
 export default OreoApp;
@@ -192,8 +255,8 @@ export interface VirtualDom {
     locked: boolean; // 锁定状态
     visible: boolean;
     type: 'button' | 'container' | 'text' | 'image';
-    editText: boolean; //
-    styles: ContainerStyles;
+    editText: boolean;
+    styles: ElementStyles;
     fontStyle?: FontStyle;
     component?: DefineComponent;
     content: ContainerContent;
@@ -205,7 +268,7 @@ export interface ContainerContent {
 }
 
 // 基础框框
-export interface ContainerStyles extends Shadow {
+export interface ElementStyles extends Shadow {
     // 变换
     width: number;
     height: number;

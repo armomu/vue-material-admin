@@ -1,5 +1,5 @@
 <template>
-    <v-sheet class="work_content" @dragover="onDragover" @drop="onDrop">
+    <v-sheet class="work_content" id="work_content" @dragover="onDragover" @drop="onDrop">
         <Resizeble
             v-for="(item, key) in props.data"
             :key="key"

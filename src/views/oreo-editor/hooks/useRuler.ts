@@ -1,12 +1,13 @@
 import { Application, Color, Graphics, Text } from 'pixi.js';
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 export const useRuler = () => {
-    const leftRulerEle = ref<HTMLCanvasElement>();
-    const topRulerEle = ref<HTMLCanvasElement>();
+    const topRulerDom = ref();
+    const leftRulerDom = ref();
 
-    function init() {
+    function initTop() {
         const topDom = document.getElementById('oreoEditor') as HTMLDivElement;
+
         // topDom.attributes.
         const pixiApp = new Application({
             width: 4000,
@@ -38,6 +39,11 @@ export const useRuler = () => {
             graphics.endFill();
         }
         pixiApp.stage.addChild(graphics);
+
+        // const zd = new Graphics();
+
+        // graphics.beginFill(new Color('#999999'));
+        topRulerDom.value = pixiApp.view;
         initLeft();
     }
     function initLeft() {
@@ -75,12 +81,13 @@ export const useRuler = () => {
             graphics.endFill();
         }
         pixiApp.stage.addChild(graphics);
+        leftRulerDom.value = pixiApp.view;
     }
 
-    onMounted(init);
+    onMounted(initTop);
 
     return {
-        leftRulerEle,
-        topRulerEle,
+        leftRulerDom,
+        topRulerDom,
     };
 };

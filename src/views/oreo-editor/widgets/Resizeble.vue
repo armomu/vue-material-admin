@@ -13,6 +13,7 @@
         @refLineParams="getRefLineParams"
         :style="styles"
         :class="classNames"
+        :uid="props.data.id"
         @contextmenu.prevent.native="onMouser"
     >
         <div v-if="props.data.content.text" class="text">{{ props.data.content.text }}</div>
@@ -126,7 +127,7 @@ const styles = computed(() => {
     };
 });
 const classNames = computed(() => {
-    return [`elevation-${props.data.styles.shadow}`];
+    return [`elevation-${props.data.styles.shadow}`, props.data.selected ? 'selected' : ''];
 });
 
 const onMouser = (e: PointerEvent) => {
