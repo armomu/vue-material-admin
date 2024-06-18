@@ -47,7 +47,7 @@ export const useRuler = () => {
         initLeft();
     }
     function initLeft() {
-        const topDom = document.getElementById('layers') as HTMLDivElement;
+        const topDom = document.getElementById('workArea') as HTMLDivElement;
         // topDom.attributes.
         const pixiApp = new Application({
             width: 20,

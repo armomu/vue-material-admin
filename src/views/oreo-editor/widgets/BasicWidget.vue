@@ -3,13 +3,13 @@
         v-for="item in props.data"
         :key="item.id"
         variant="text"
-        :icon="item.content.icon"
-        size="small"
+        :icon="item.icon"
+        size="x-small"
         draggable="true"
         @dragstart="onDragstart(item)"
     >
-        <v-icon :icon="item.content.icon"></v-icon>
-        <v-tooltip activator="parent" location="end">{{ item.type }}</v-tooltip>
+        <v-icon :icon="item.icon"></v-icon>
+        <v-tooltip activator="parent" location="end">{{ item.name }}</v-tooltip>
     </v-btn>
 </template>
 <script lang="ts" setup>

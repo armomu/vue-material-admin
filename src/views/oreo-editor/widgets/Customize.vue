@@ -10,20 +10,47 @@
         >
             <a-collapse-item header="Designed" key="1">
                 <div class="align_group">
-                    <v-btn variant="text" icon="mdi-align-horizontal-center " size="x-small" />
-                    <v-btn variant="text" icon="mdi-align-vertical-top" size="x-small" />
-                    <v-btn variant="text" icon="mdi-align-horizontal-left" size="x-small" />
-                    <v-btn variant="text" icon="mdi-align-horizontal-right" size="x-small" />
-                    <v-btn variant="text" icon="mdi-align-vertical-bottom" size="x-small" />
-                    <v-btn variant="text" icon="mdi-align-vertical-center" size="x-small" />
                     <v-btn
                         variant="text"
+                        disabled
+                        icon="mdi-align-horizontal-center "
+                        size="x-small"
+                    />
+                    <v-btn variant="text" disabled icon="mdi-align-vertical-top" size="x-small" />
+                    <v-btn
+                        variant="text"
+                        disabled
+                        icon="mdi-align-horizontal-left"
+                        size="x-small"
+                    />
+                    <v-btn
+                        variant="text"
+                        disabled
+                        icon="mdi-align-horizontal-right"
+                        size="x-small"
+                    />
+                    <v-btn
+                        variant="text"
+                        disabled
+                        icon="mdi-align-vertical-bottom"
+                        size="x-small"
+                    />
+                    <v-btn
+                        variant="text"
+                        disabled
+                        icon="mdi-align-vertical-center"
+                        size="x-small"
+                    />
+                    <v-btn
+                        variant="text"
+                        disabled
                         icon="mdi-align-vertical-distribute"
                         size="x-small"
                         class="ml-0 mt-2"
                     />
                     <v-btn
                         variant="text"
+                        disabled
                         icon="mdi-align-horizontal-distribute"
                         size="x-small"
                         class="mt-2"
@@ -53,7 +80,7 @@
                             >
                         </a-col>
                         <div class="d-flex mt-2">
-                            <v-btn variant="text" icon="mdi-scan-helper" size="x-small" />
+                            <v-btn variant="text" disabled icon="mdi-scan-helper" size="x-small" />
                             <a-slider
                                 v-model="props.data.styles.radius"
                                 style="width: 98px"
@@ -67,13 +94,15 @@
                             />
                         </div>
                         <div class="d-flex mt-2">
-                            <v-btn variant="text" icon="mdi-restore" size="x-small" />
+                            <v-btn variant="text" disabled icon="mdi-restore" size="x-small" />
                             <a-slider
+                                disabled
                                 v-model="props.data.styles.rotate"
                                 style="width: 98px"
                                 class="mx-2"
                             />
                             <a-input-number
+                                disabled
                                 style="width: 72px"
                                 v-model="props.data.styles.rotate"
                                 size="mini"
@@ -81,7 +110,7 @@
                             />
                         </div>
                         <div class="d-flex mt-2">
-                            <v-btn variant="text" icon="mdi-eye-outline" size="x-small" />
+                            <v-btn variant="text" disabled icon="mdi-eye-outline" size="x-small" />
                             <a-slider
                                 v-model="props.data.styles.opacity"
                                 :max="1"
@@ -235,7 +264,7 @@
                         </a-radio-group>
                     </a-col>
                     <a-col :span="12" class="mt-3" style="width: auto">
-                        <a-button-group>
+                        <a-button-group disabled>
                             <a-button style="width: 33px">
                                 <template #icon
                                     ><v-icon icon="mdi-format-bold" size="mall"
@@ -253,7 +282,7 @@
                         ></a-button-group>
                     </a-col>
                     <a-col :span="12" class="mt-3" style="width: auto">
-                        <a-button-group>
+                        <a-button-group disabled>
                             <a-button style="width: 33px">
                                 <template #icon
                                     ><v-icon icon="mdi-format-vertical-align-bottom" size="mall"
@@ -312,6 +341,13 @@ const props = withDefaults(
     }>(),
     {}
 );
+// const emit = defineEmits(['update:data.fontStyle.fontWeight']);
+
+// const onTextFormat = () => {
+//     console.log(props.data.fontStyle.fontWeight);
+//     emit('update:data.fontStyle.fontWeight', 'bold');
+//     console.log(props.data.fontStyle.fontWeight);
+// };
 
 const bgColor = computed(() => {
     if (props?.data?.styles.background) {

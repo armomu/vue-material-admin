@@ -1,31 +1,34 @@
 <template>
-    <DragResizeBle
-        v-if="props.data.visible"
-        :active="_active"
-        :w="_width"
-        :h="_height"
-        :x="_left"
-        :y="_top"
-        @activated="onActivated"
-        @deactivated="onDeactivated"
-        @resizestop="resize"
-        @dragstop="resize"
-        @refLineParams="getRefLineParams"
-        :style="styles"
-        :class="classNames"
-        :uid="props.data.id"
-        @contextmenu.prevent.native="onMouser"
-    >
-        <div v-if="props.data.content.text" class="text">{{ props.data.content.text }}</div>
-        <slot></slot>
-    </DragResizeBle>
+    <template v-if="props.data.visible">
+        <div v-if="isDiv" :style="styles" :class="classNames" :uid="props.data.id"></div>
+        <DragResizeBle
+            v-else
+            :active="_active"
+            :w="_width"
+            :h="_height"
+            :x="_left"
+            :y="_top"
+            @activated="onActivated"
+            @deactivated="onDeactivated"
+            @resizestop="resize"
+            @dragstop="resize"
+            @dragging="onDragging"
+            @refLineParams="getRefLineParams"
+            :style="styles"
+            :class="classNames"
+            :uid="props.data.id"
+            @contextmenu="onMouser"
+        >
+            <div v-if="props.data.label" class="text">{{ props.data.label }}</div>
+            <slot></slot>
+        </DragResizeBle>
+    </template>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
 // @ts-ignore
 import DragResizeBle from '@/components/DragResizeble/index.vue';
-import { transform } from 'lodash';
 
 const props = withDefaults(
     defineProps<{
@@ -55,6 +58,10 @@ const _height = computed(() => props.height);
 const _top = computed(() => props.top);
 const _left = computed(() => props.left);
 
+const isDiv = computed(() => {
+    return props.data.groupId && props.data.type;
+});
+
 const resize = (e: any) => {
     emit('update:width', e.width);
     emit('update:height', e.height);
@@ -81,6 +88,9 @@ const onActivated = () => {
 };
 const onDeactivated = () => {
     emit('update:active', false);
+};
+const onDragging = (left_, top_) => {
+    // console.log(left_, top_);
 };
 
 const styles = computed(() => {

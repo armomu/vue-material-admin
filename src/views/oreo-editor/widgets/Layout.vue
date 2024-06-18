@@ -40,6 +40,7 @@ import { reactive } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
 import Resizeble from './Resizeble.vue';
 import MouseMenu from './MouseMenu.vue';
+import { computed } from 'vue';
 
 const emit = defineEmits(['onDragover', 'onDrop', 'onActive']);
 
@@ -62,6 +63,17 @@ const props = withDefaults(
     }>(),
     {}
 );
+
+// const virtualDomList = computed<VirtualDom[]>(() => {
+//     const list:VirtualDom[] = []
+//     for(let i=0; i<props.data.length; i++) {
+//         if() {
+
+//         }
+//     }
+//     return [];
+// });
+
 const onDragover = (e: DragEvent) => {
     emit('onDragover', e);
 };
@@ -77,7 +89,6 @@ const contextmenu = reactive({
 
 const hideMenu = () => {
     contextmenu.visible = false;
-    // document.body.removeEventListener();
 };
 const openMenu = (e: PointerEvent) => {
     e.preventDefault();
@@ -99,4 +110,3 @@ interface SnapLine {
     position: string;
 }
 </script>
-../hooks/useOreo
