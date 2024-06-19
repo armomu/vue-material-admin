@@ -17,7 +17,7 @@
             :style="styles"
             :class="classNames"
             :uid="props.data.id"
-            @contextmenu="onMouser"
+            @contextmenu.prevent.native="onMouser"
         >
             <div v-if="props.data.label" class="text">{{ props.data.label }}</div>
             <slot></slot>
@@ -86,6 +86,7 @@ const getRefLineParams = (params: any) => {
     emit('snapLine', [vs || [], hl || []]);
 };
 const onActivated = () => {
+    console.log('update:active');
     emit('update:active', true);
     emit('activated', props.data);
 };

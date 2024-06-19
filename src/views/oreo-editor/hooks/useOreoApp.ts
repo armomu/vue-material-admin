@@ -306,9 +306,6 @@ const OreoApp = () => {
     };
     useRuler();
 
-    // 对齐部分
-    const onHorizontalCenter = () => {};
-
     return {
         appDom,
         widgets,
