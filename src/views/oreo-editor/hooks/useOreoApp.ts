@@ -1,7 +1,13 @@
 import { reactive, ref, onMounted, computed, type DefineComponent } from 'vue';
 import { useRuler } from './useRuler';
-import { max } from 'lodash';
-
+enum VirtualDomType {
+    Group,
+    Rect,
+    Circle,
+    Text,
+    Image,
+    Video,
+}
 export const beaseDomStyle: ElementStyles = {
     width: 200,
     height: 90,
@@ -165,8 +171,8 @@ const OreoApp = () => {
         if (className.includes('vdr')) {
             return;
         }
+
         const vg = appDom.value.find((item) => item.virtualGroup);
-        console.log(vg);
         // 取消选中
         for (let i = 0; i < appDom.value.length; i++) {
             appDom.value[i].selected = false;
@@ -175,7 +181,7 @@ const OreoApp = () => {
             }
         }
         vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
-        if (className.includes('work_content')) {
+        if (className.includes('work_content') || className.includes('work-area')) {
             mouseState.down = true;
             mouseState.startX = e.clientX + 0;
             mouseState.startY = e.clientY + 0;
@@ -223,17 +229,23 @@ const OreoApp = () => {
         }
 
         // 获得框选组合
-        // const list: VirtualDom[] = [];
         if (uids.length > 0) _id_++; // 增加虚拟组合
-        let minTop = Infinity;
-        let minLeft = Infinity;
-        let maxBottom = -Infinity;
-        let maxRight = -Infinity;
-        const topList: number[] = [];
-        const leftList: number[] = [];
+        const haSelectedList: VirtualDom[] = [];
         for (let i = 0; i < appDom.value.length; i++) {
             if (uids.includes(appDom.value[i].id)) {
                 appDom.value[i].selected = true;
+                haSelectedList.push(appDom.value[i]);
+            }
+        }
+        // 选中多个对象后 把它们放入一个虚拟组合里
+        if (uids.length > 1) {
+            let minTop = Infinity;
+            let minLeft = Infinity;
+            let maxBottom = -Infinity;
+            let maxRight = -Infinity;
+            const topList: number[] = [];
+            const leftList: number[] = [];
+            for (let i = 0; i < appDom.value.length; i++) {
                 appDom.value[i].groupId = _id_;
                 const { width, height, top, left } = appDom.value[i].styles;
                 topList.push(top);
@@ -253,9 +265,6 @@ const OreoApp = () => {
                     maxRight = right;
                 }
             }
-        }
-        // 选中多个对象后 把它们放入一个虚拟组合里
-        if (uids.length > 1) {
             const obj: VirtualDom = {
                 ...virtualGroup,
                 id: _id_,
@@ -266,6 +275,11 @@ const OreoApp = () => {
             obj.styles.left = Math.min(...leftList);
             curDom.value = obj;
             appDom.value.push(curDom.value);
+        } else {
+            // FIX BUG #01
+            // for (let i = 0; i < appDom.value.length; i++) {
+            //     if (appDom.value[i].groupId === _id_) appDom.value[i].groupId = 0;
+            // }
         }
         boxSelect.height = '';
         boxSelect.width = '';
@@ -291,6 +305,9 @@ const OreoApp = () => {
         onPointerUp,
     };
     useRuler();
+
+    // 对齐部分
+    const onHorizontalCenter = () => {};
 
     return {
         appDom,
@@ -324,14 +341,7 @@ export interface VirtualDom {
     fontStyle?: FontStyle;
     component?: DefineComponent; // 内组件
 }
-enum VirtualDomType {
-    Group,
-    Rect,
-    Circle,
-    Text,
-    Image,
-    Video,
-}
+
 // 基础框框
 export interface ElementStyles extends Shadow {
     // 变换

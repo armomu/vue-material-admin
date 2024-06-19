@@ -51,6 +51,7 @@ const emit = defineEmits([
     'snapLine',
     'mouser',
     'dragging',
+    'activated',
 ]);
 
 const _active = computed(() => props.active);
@@ -86,12 +87,13 @@ const getRefLineParams = (params: any) => {
 };
 const onActivated = () => {
     emit('update:active', true);
+    emit('activated', props.data);
 };
 const onDeactivated = () => {
     emit('update:active', false);
 };
 const onDragging = (left_: number, top_: number, f: object) => {
-    console.log(f, 'f');
+    // console.log(f, 'f');
     emit('dragging', f, props.data);
 };
 
@@ -134,7 +136,6 @@ const styles = computed(() => {
         div.transform = `translate(${props.data.styles.left}px, ${props.data.styles.top}px)`;
     }
 
-    console.log(div, props.data.name);
     return {
         borderRadius: `${props.data.styles.radius}px`,
         background,

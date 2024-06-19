@@ -33,15 +33,19 @@
             v-show="item.display"
             :style="{ top: item.position, left: item.origin, width: item.lineLength }"
         />
-        <MouseMenu :visible="contextmenu.visible" :top="contextmenu.top" :left="contextmenu.left" />
+        <MouseMenu
+            :visible="mouseMenu.menuState.value.visible"
+            :top="mouseMenu.menuState.value.top"
+            :left="mouseMenu.menuState.value.left"
+        />
     </v-sheet>
 </template>
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
+import { useMouseMenu } from '../hooks/useMouseMenu';
 import Resizeble from './Resizeble.vue';
 import MouseMenu from './MouseMenu.vue';
-import { computed } from 'vue';
 
 const emit = defineEmits(['onDragover', 'onDrop', 'onActive', 'onDragging']);
 
@@ -65,15 +69,7 @@ const props = withDefaults(
     {}
 );
 
-// const virtualDomList = computed<VirtualDom[]>(() => {
-//     const list:VirtualDom[] = []
-//     for(let i=0; i<props.data.length; i++) {
-//         if() {
-
-//         }
-//     }
-//     return [];
-// });
+const mouseMenu = useMouseMenu();
 
 const onDragover = (e: DragEvent) => {
     emit('onDragover', e);
@@ -81,24 +77,6 @@ const onDragover = (e: DragEvent) => {
 const onDrop = (e: DragEvent) => {
     emit('onDrop', e);
 };
-
-const contextmenu = reactive({
-    visible: false,
-    top: 0,
-    left: 0,
-});
-
-const hideMenu = () => {
-    contextmenu.visible = false;
-};
-const openMenu = (e: PointerEvent) => {
-    e.preventDefault();
-    contextmenu.left = e.clientX;
-    contextmenu.top = e.clientY;
-    contextmenu.visible = true;
-    document.body.addEventListener('click', hideMenu);
-};
-
 const onActivated = (val: VirtualDom) => {
     emit('onActive', val);
 };

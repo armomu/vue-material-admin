@@ -686,7 +686,6 @@ export default defineComponent({
                 bounds.minBottom,
                 bounds.maxBottom
             );
-            console.log(left - this.left + 0, 'left');
             const f = {
                 offsetX: left - this.left,
                 offsetY: top - this.top,
