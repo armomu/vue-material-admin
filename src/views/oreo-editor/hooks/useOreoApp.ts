@@ -32,7 +32,7 @@ export const beaseDom: VirtualDom[] = [
         name: 'Rect',
         groupId: 0,
         icon: 'mdi-card-outline',
-        type: 1, // 1矩形，2圆形，3文本，4图片，5视频
+        type: VirtualDomType.Rect, // 1矩形，2圆形，3文本，4图片，5视频
         active: true,
         visible: true,
         selected: false,
@@ -44,7 +44,7 @@ export const beaseDom: VirtualDom[] = [
         name: 'Circle',
         groupId: 0,
         icon: 'mdi-circle-outline',
-        type: 2, // 1矩形，2圆形，3文本，4图片，5视频
+        type: VirtualDomType.Circle, // 1矩形，2圆形，3文本，4图片，5视频
         active: true,
         visible: true,
         selected: false,
@@ -61,7 +61,7 @@ export const beaseDom: VirtualDom[] = [
         visible: true,
         selected: false,
         locked: false,
-        type: 3,
+        type: VirtualDomType.Text,
         styles: { ...beaseDomStyle, fill: false },
         fontStyle: {
             color: '#333333',
@@ -121,6 +121,7 @@ const OreoApp = () => {
         e.preventDefault();
     };
 
+    // 各种群组ID索引
     let _id_ = 0;
     const onDrop = (e: DragEvent) => {
         _id_++;
@@ -157,12 +158,23 @@ const OreoApp = () => {
 
     const onPointerDown = (e: PointerEvent) => {
         console.log(e, 'onPointerDown');
-        for (let i = 0; i < appDom.value.length; i++) {
-            appDom.value[i].selected = false;
-        }
         let className = '';
         // @ts-ignore
         className = e.target?.className || '';
+        // 当点击的对象是拖拽框
+        if (className.includes('vdr')) {
+            return;
+        }
+        const vg = appDom.value.find((item) => item.virtualGroup);
+        console.log(vg);
+        // 取消选中
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].selected = false;
+            if (vg && appDom.value[i].groupId === vg.id) {
+                appDom.value[i].groupId = 0;
+            }
+        }
+        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
         if (className.includes('work_content')) {
             mouseState.down = true;
             mouseState.startX = e.clientX + 0;
@@ -190,8 +202,7 @@ const OreoApp = () => {
         boxSelect.visible = false;
         checkSelectBox();
     };
-
-    // 查询哟没有对象被选中
+    // 查询有没有对象被选中
     const checkSelectBox = () => {
         const doms = document.getElementsByClassName('vdr');
         const left = parseFloat(boxSelect.left);
@@ -256,11 +267,21 @@ const OreoApp = () => {
             curDom.value = obj;
             appDom.value.push(curDom.value);
         }
-        console.log(appDom.value);
         boxSelect.height = '';
         boxSelect.width = '';
         boxSelect.top = '';
         boxSelect.left = '';
+    };
+    const onVirtualGroupDragging = (f: VirtualGroupDraggingOffset, item: VirtualDom) => {
+        // console.log(f, b);
+        if (item.virtualGroup || item.type === VirtualDomType.Group) {
+            for (let i = 0; i < appDom.value.length; i++) {
+                if (appDom.value[i].groupId === item.id) {
+                    appDom.value[i].styles.left = appDom.value[i].styles.left + f.offsetX;
+                    appDom.value[i].styles.top = appDom.value[i].styles.top + f.offsetY;
+                }
+            }
+        }
     };
 
     const pointerEvent = {
@@ -280,6 +301,7 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
+        onVirtualGroupDragging,
         ...pointerEvent,
     };
 };
@@ -302,7 +324,14 @@ export interface VirtualDom {
     fontStyle?: FontStyle;
     component?: DefineComponent; // 内组件
 }
-
+enum VirtualDomType {
+    Group,
+    Rect,
+    Circle,
+    Text,
+    Image,
+    Video,
+}
 // 基础框框
 export interface ElementStyles extends Shadow {
     // 变换
@@ -339,4 +368,9 @@ interface Shadow {
     shadowBlur: number;
     shadowSpread: number; // 文本不可用
     shadowColor: string;
+}
+
+interface VirtualGroupDraggingOffset {
+    offsetX: number;
+    offsetY: number;
 }

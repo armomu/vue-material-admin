@@ -686,13 +686,18 @@ export default defineComponent({
                 bounds.minBottom,
                 bounds.maxBottom
             );
+            console.log(left - this.left + 0, 'left');
+            const f = {
+                offsetX: left - this.left,
+                offsetY: top - this.top,
+            };
             this.left = left;
             this.top = top;
             this.right = right;
             this.bottom = bottom;
 
             await this.snapCheck();
-            this.$emit('dragging', this.left, this.top);
+            this.$emit('dragging', this.left, this.top, f);
         },
         moveHorizontally(val) {
             const [deltaX, _] = snapToGrid(this.grid, val, this.top, this.scale);

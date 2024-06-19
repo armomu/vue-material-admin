@@ -29,6 +29,7 @@
                     @on-dragover="oreoApp.onDragover"
                     @on-drop="oreoApp.onDrop"
                     @on-active="oreoApp.onVirtualDom"
+                    @on-dragging="oreoApp.onVirtualGroupDragging"
                 />
                 <div
                     v-if="oreoApp.boxSelect.visible"

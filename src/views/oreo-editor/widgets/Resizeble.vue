@@ -50,6 +50,7 @@ const emit = defineEmits([
     'change',
     'snapLine',
     'mouser',
+    'dragging',
 ]);
 
 const _active = computed(() => props.active);
@@ -59,7 +60,7 @@ const _top = computed(() => props.top);
 const _left = computed(() => props.left);
 
 const isDiv = computed(() => {
-    return props.data.groupId && props.data.type;
+    return !!props.data.groupId && !!props.data.type;
 });
 
 const resize = (e: any) => {
@@ -89,8 +90,9 @@ const onActivated = () => {
 const onDeactivated = () => {
     emit('update:active', false);
 };
-const onDragging = (left_, top_) => {
-    // console.log(left_, top_);
+const onDragging = (left_: number, top_: number, f: object) => {
+    console.log(f, 'f');
+    emit('dragging', f, props.data);
 };
 
 const styles = computed(() => {
@@ -125,6 +127,14 @@ const styles = computed(() => {
         }
         // console.log(fontStyle, 'fontStyle');
     }
+    const div: any = {};
+    if (isDiv.value) {
+        div.width = props.data.styles.width + 'px';
+        div.height = props.data.styles.height + 'px';
+        div.transform = `translate(${props.data.styles.left}px, ${props.data.styles.top}px)`;
+    }
+
+    console.log(div, props.data.name);
     return {
         borderRadius: `${props.data.styles.radius}px`,
         background,
@@ -133,11 +143,12 @@ const styles = computed(() => {
         // transform: `rotate(${props.data.styles.rotate}deg)`,
         // transformOrigin: 'left top',
         boxShadow,
+        ...div,
         ...fontStyle,
     };
 });
 const classNames = computed(() => {
-    return [`elevation-${props.data.styles.shadow}`, props.data.selected ? 'selected' : ''];
+    return ['vdr', props.data.selected ? 'selected' : ''];
 });
 
 const onMouser = (e: PointerEvent) => {

@@ -11,7 +11,8 @@
             v-model:left="item.styles.left"
             @snapLine="onSnapLine"
             @mouser="openMenu"
-            @click="onActivated(item)"
+            @update:active="onActivated(item)"
+            @dragging="onDragging"
         >
             <!-- @snapLine="onSnapLine"
                         @contextmenu.prevent.native="openMenu" -->
@@ -42,7 +43,7 @@ import Resizeble from './Resizeble.vue';
 import MouseMenu from './MouseMenu.vue';
 import { computed } from 'vue';
 
-const emit = defineEmits(['onDragover', 'onDrop', 'onActive']);
+const emit = defineEmits(['onDragover', 'onDrop', 'onActive', 'onDragging']);
 
 const snapLine = reactive<{
     vLine: SnapLine[];
@@ -100,6 +101,9 @@ const openMenu = (e: PointerEvent) => {
 
 const onActivated = (val: VirtualDom) => {
     emit('onActive', val);
+};
+const onDragging = (val: object, item: VirtualDom) => {
+    emit('onDragging', val, item);
 };
 
 interface SnapLine {
