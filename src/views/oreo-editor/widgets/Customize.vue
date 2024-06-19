@@ -12,48 +12,54 @@
                 <div class="align_group">
                     <v-btn
                         variant="text"
-                        disabled
-                        icon="mdi-align-horizontal-center "
+                        icon="mdi-align-horizontal-center"
                         size="x-small"
-                    />
-                    <v-btn variant="text" disabled icon="mdi-align-vertical-top" size="x-small" />
-                    <v-btn
-                        variant="text"
-                        disabled
-                        icon="mdi-align-horizontal-left"
-                        size="x-small"
+                        @click="props.align.horizontalCenter"
                     />
                     <v-btn
                         variant="text"
-                        disabled
-                        icon="mdi-align-horizontal-right"
-                        size="x-small"
-                    />
-                    <v-btn
-                        variant="text"
-                        disabled
-                        icon="mdi-align-vertical-bottom"
-                        size="x-small"
-                    />
-                    <v-btn
-                        variant="text"
-                        disabled
                         icon="mdi-align-vertical-center"
                         size="x-small"
+                        @click="props.align.verticalCenter"
                     />
                     <v-btn
                         variant="text"
-                        disabled
-                        icon="mdi-align-vertical-distribute"
+                        icon="mdi-align-vertical-top"
                         size="x-small"
-                        class="ml-0 mt-2"
+                        @click="props.align.verticalTop"
                     />
                     <v-btn
                         variant="text"
-                        disabled
+                        icon="mdi-align-vertical-bottom"
+                        size="x-small"
+                        @click="props.align.verticalBottom"
+                    />
+                    <v-btn
+                        variant="text"
+                        icon="mdi-align-horizontal-left"
+                        size="x-small"
+                        @click="props.align.horizontalLeft"
+                    />
+                    <v-btn
+                        variant="text"
+                        icon="mdi-align-horizontal-right"
+                        size="x-small"
+                        @click="props.align.horizontalRight"
+                    />
+
+                    <v-btn
+                        variant="text"
                         icon="mdi-align-horizontal-distribute"
                         size="x-small"
                         class="mt-2"
+                        @click="props.align.horizontalDistribute"
+                    />
+                    <v-btn
+                        variant="text"
+                        icon="mdi-align-vertical-distribute"
+                        size="x-small"
+                        class="ml-0 mt-2"
+                        @click="props.align.verticalDistribute"
                     />
                 </div>
                 <a-divider class="my-2 mb-3"></a-divider>
@@ -334,10 +340,12 @@
 <script lang="ts" setup>
 import { computed, type Ref } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
+import type { Align } from '../hooks/useAlign';
 
 const props = withDefaults(
     defineProps<{
         data?: VirtualDom;
+        align: Align;
     }>(),
     {}
 );

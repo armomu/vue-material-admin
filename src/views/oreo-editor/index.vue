@@ -106,7 +106,7 @@
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
             </v-card>
             <v-sheet class="customizes_wrap" @contextmenu.prevent="() => {}">
-                <Customize :data="oreoApp.curDom.value" />
+                <Customize :data="oreoApp.curDom.value" :align="alignFun" />
             </v-sheet>
         </div>
     </div>
@@ -121,9 +121,11 @@ import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
 import useOreoApp from './hooks/useOreoApp';
 import { useMouseMenu } from './hooks/useMouseMenu';
+import { useAlign } from './hooks/useAlign';
 const oreoApp = useOreoApp();
 
 const mouseMenu = useMouseMenu();
+const alignFun = useAlign(oreoApp.appDom.value);
 
 const snapLine = reactive<{
     vLine: SnapLine[];

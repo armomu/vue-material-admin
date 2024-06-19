@@ -12,7 +12,6 @@ export const useRuler = () => {
         const pixiApp = new Application({
             width: 4000,
             height: 20,
-            antialias: true, // 开启抗锯齿
             background: new Color('#ffffff'),
         });
         // @ts-ignore
@@ -52,7 +51,6 @@ export const useRuler = () => {
         const pixiApp = new Application({
             width: 20,
             height: 4000,
-            antialias: true, // 开启抗锯齿
             background: new Color('#ffffff'),
         });
         // @ts-ignore
