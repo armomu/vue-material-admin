@@ -86,7 +86,6 @@ const getRefLineParams = (params: any) => {
     emit('snapLine', [vs || [], hl || []]);
 };
 const onActivated = () => {
-    console.log('update:active');
     emit('update:active', true);
     emit('activated', props.data);
 };

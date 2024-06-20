@@ -1,7 +1,8 @@
-import { reactive } from 'vue';
+import { reactive, type Ref } from 'vue';
+import { virtualGroup } from './useOreoApp';
 import type { VirtualDom } from './useOreoApp';
 
-export const usePointer = (appDom: VirtualDom[], _id_: number) => {
+export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<VirtualDom>) => {
     // 框选
     const boxSelect = reactive({
         visible: false,
@@ -139,5 +140,10 @@ export const usePointer = (appDom: VirtualDom[], _id_: number) => {
         boxSelect.left = '';
     };
 
-    return {};
+    return {
+        boxSelect,
+        onPointerDown,
+        onPointerMove,
+        onPointerUp,
+    };
 };
