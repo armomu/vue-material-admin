@@ -82,6 +82,13 @@
         top: 0;
         border-bottom: 1px solid #efefef;
     }
+
+    .left_ruler {
+        position: absolute;
+        right: -22px;
+        top: 0;
+        border-right: 1px solid #efefef;
+    }
     .work-area {
         flex: 1;
         position: relative;
@@ -89,12 +96,6 @@
         overflow: auto;
         padding: 20px 20px;
 
-        .left_ruler {
-            position: absolute;
-            left: 0px;
-            top: 0;
-            border-right: 1px solid #efefef;
-        }
         .work_content {
             width: 1080px;
             position: relative;

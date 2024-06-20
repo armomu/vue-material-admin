@@ -229,25 +229,27 @@ const OreoApp = () => {
         }
 
         // 获得框选组合
-        if (uids.length > 0) _id_++; // 增加虚拟组合
         const haSelectedList: VirtualDom[] = [];
         for (let i = 0; i < appDom.value.length; i++) {
-            if (uids.includes(appDom.value[i].id)) {
+            // 需要去除包含在组内到的对象
+            if (uids.includes(appDom.value[i].id) && !appDom.value[i].groupId) {
                 appDom.value[i].selected = true;
                 haSelectedList.push(appDom.value[i]);
             }
         }
+
+        if (haSelectedList.length > 0) _id_++; // 增加虚拟组合
         // 选中多个对象后 把它们放入一个虚拟组合里
-        if (uids.length > 1) {
+        if (haSelectedList.length > 1) {
             let minTop = Infinity;
             let minLeft = Infinity;
             let maxBottom = -Infinity;
             let maxRight = -Infinity;
             const topList: number[] = [];
             const leftList: number[] = [];
-            for (let i = 0; i < appDom.value.length; i++) {
-                appDom.value[i].groupId = _id_;
-                const { width, height, top, left } = appDom.value[i].styles;
+            for (let i = 0; i < haSelectedList.length; i++) {
+                haSelectedList[i].groupId = _id_;
+                const { width, height, top, left } = haSelectedList[i].styles;
                 topList.push(top);
                 leftList.push(left);
                 if (top < minTop) {
@@ -275,12 +277,8 @@ const OreoApp = () => {
             obj.styles.left = Math.min(...leftList);
             curDom.value = obj;
             appDom.value.push(curDom.value);
-        } else {
-            // FIX BUG #01
-            // for (let i = 0; i < appDom.value.length; i++) {
-            //     if (appDom.value[i].groupId === _id_) appDom.value[i].groupId = 0;
-            // }
         }
+        // 取消框选的状态
         boxSelect.height = '';
         boxSelect.width = '';
         boxSelect.top = '';
@@ -304,7 +302,7 @@ const OreoApp = () => {
         onPointerMove,
         onPointerUp,
     };
-    useRuler();
+    const rulerBar = useRuler();
 
     return {
         appDom,
@@ -316,6 +314,7 @@ const OreoApp = () => {
         onDrop,
         onVirtualDom,
         onVirtualGroupDragging,
+        ...rulerBar,
         ...pointerEvent,
     };
 };

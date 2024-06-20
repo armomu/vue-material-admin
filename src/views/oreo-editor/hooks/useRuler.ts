@@ -46,7 +46,7 @@ export const useRuler = () => {
         initLeft();
     }
     function initLeft() {
-        const topDom = document.getElementById('workArea') as HTMLDivElement;
+        const topDom = document.getElementById('layers') as HTMLDivElement;
         // topDom.attributes.
         const pixiApp = new Application({
             width: 20,
@@ -82,9 +82,17 @@ export const useRuler = () => {
         leftRulerDom.value = pixiApp.view;
     }
 
+    const workAreaDomRef = ref<HTMLDivElement>();
+    const onWorkAreaScroll = () => {
+        // const leftRulerDom = leftRulerDom.value as HTMLDivElement;
+        leftRulerDom.value.style.top = `-${workAreaDomRef.value?.scrollTop}px`;
+    };
+
     onMounted(initTop);
 
     return {
+        onWorkAreaScroll,
+        workAreaDomRef,
         leftRulerDom,
         topRulerDom,
     };

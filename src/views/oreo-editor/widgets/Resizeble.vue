@@ -17,7 +17,7 @@
             :style="styles"
             :class="classNames"
             :uid="props.data.id"
-            @contextmenu.prevent.native="onMouser"
+            v-on:contextmenu.prevent="onMouser"
         >
             <div v-if="props.data.label" class="text">{{ props.data.label }}</div>
             <slot></slot>
@@ -116,7 +116,10 @@ const styles = computed(() => {
     if (props.data.styles.shadow) {
         boxShadow = `${props.data.styles.shadowX} ${props.data.styles.shadowY}px ${props.data.styles.shadowBlur}px ${props.data.styles.shadowSpread}px ${props.data.styles.shadowColor}`;
     }
-    // console.log(props.data.fontStyle, 'set');
+    let zIndex: any = '';
+    if (props.data.active) {
+        zIndex = 1;
+    }
 
     // 字体样式
     let fontStyle: any = {};
@@ -142,9 +145,8 @@ const styles = computed(() => {
         background,
         border,
         opacity: props.data.styles.opacity,
-        // transform: `rotate(${props.data.styles.rotate}deg)`,
-        // transformOrigin: 'left top',
         boxShadow,
+        zIndex,
         ...div,
         ...fontStyle,
     };

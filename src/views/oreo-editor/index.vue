@@ -17,12 +17,14 @@
                 </v-card>
             </v-sheet>
             <div
+                :ref="oreoApp.workAreaDomRef"
                 class="work-area"
                 id="workArea"
                 @contextmenu.prevent="() => {}"
                 @pointerdown.stop="oreoApp.onPointerDown"
                 @pointermove.stop="oreoApp.onPointerMove"
                 @pointerup.stop="oreoApp.onPointerUp"
+                @scroll="oreoApp.onWorkAreaScroll"
             >
                 <!-- <Layout
                     :data="oreoApp.appDom"

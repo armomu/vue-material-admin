@@ -1,33 +1,79 @@
 import { ref, type Ref } from 'vue';
 import type { VirtualDom } from './useOreoApp';
 
+// Align Hooks
 export const useAlign = (appDom: VirtualDom[]) => {
-    const verticalTop = () => {
-        const minTop = Math.min(...appDom.map((vd) => vd.styles.top + vd.styles.height));
+    function getSelectList(): VirtualDom[] {
+        const list: VirtualDom[] = [];
         for (let i = 0; i < appDom.length; i++) {
-            appDom[i].styles.top = minTop;
+            if (appDom[i].selected || appDom[i].virtualGroup) {
+                list.push(appDom[i]);
+            }
+        }
+        console.log(JSON.parse(JSON.stringify(list)));
+        return list;
+    }
+    // 顶部对齐
+    const verticalTop = () => {
+        const list = getSelectList();
+        const minTop = Math.min(...list.map((vd) => vd.styles.top));
+        for (let i = 0; i < list.length; i++) {
+            list[i].styles.top = minTop;
         }
     };
     const verticalBottom = () => {
-        const maxBottom = Math.max(...appDom.map((vd) => vd.styles.top + vd.styles.height));
-        for (let i = 0; i < appDom.length; i++) {
-            appDom[i].styles.top = maxBottom - appDom[i].styles.height;
+        const list = getSelectList();
+        const maxBottom = Math.max(...list.map((vd) => vd.styles.top + vd.styles.height));
+        for (let i = 0; i < list.length; i++) {
+            if (!list[i].virtualGroup) {
+                list[i].styles.top = maxBottom - list[i].styles.height;
+            }
         }
     };
-    const horizontalLeft = () => {};
-    const horizontalRight = () => {};
+    const horizontalLeft = () => {
+        const list = getSelectList();
+        const minLeft = Math.min(...list.map((vd) => vd.styles.left));
+        console.log(minLeft, 'left');
+        for (let i = 0; i < list.length; i++) {
+            if (!list[i].virtualGroup) {
+                list[i].styles.left = minLeft;
+            }
+        }
+    };
+    const horizontalRight = () => {
+        const list = getSelectList();
+        const maxRight = Math.max(...list.map((vd) => vd.styles.left + vd.styles.width));
+
+        for (let i = 0; i < list.length; i++) {
+            if (!list[i].virtualGroup) {
+                list[i].styles.left = maxRight - list[i].styles.width;
+            }
+        }
+    };
     const horizontalCenter = () => {
-        const totalLeft = appDom.reduce((sum, vd) => sum + vd.styles.left, 0);
-        const averageLeft = totalLeft / appDom.length;
-        const totalWidth = appDom.reduce((sum, vd) => sum + vd.styles.width, 0);
-        const averageWidth = totalWidth / appDom.length;
-        for (let i = 0; i < appDom.length; i++) {
+        const list = getSelectList();
+        const totalLeft = list.reduce((sum, vd) => sum + vd.styles.left, 0);
+        const averageLeft = totalLeft / list.length;
+        const totalWidth = list.reduce((sum, vd) => sum + vd.styles.width, 0);
+        const averageWidth = totalWidth / list.length;
+        for (let i = 0; i < list.length; i++) {
             const offset =
-                averageLeft - appDom[i].styles.left + averageWidth / 2 - appDom[i].styles.width / 2;
-            appDom[i].styles.left += offset;
+                averageLeft - list[i].styles.left + averageWidth / 2 - list[i].styles.width / 2;
+            list[i].styles.left += offset;
         }
     };
-    const verticalCenter = () => {};
+    const verticalCenter = () => {
+        const list = getSelectList();
+        const totalTop = list.reduce((sum, obj) => sum + obj.styles.top, 0);
+        const averageTop = totalTop / list.length;
+        const totalHeight = list.reduce((sum, obj) => sum + obj.styles.height, 0);
+        const averageHeight = totalHeight / list.length;
+        for (let i = 0; i < list.length; i++) {
+            const offset =
+                averageTop - list[i].styles.top + averageHeight / 2 - list[i].styles.height / 2;
+            list[i].styles.top += offset;
+        }
+    };
     const horizontalDistribute = () => {};
     const verticalDistribute = () => {};
 
