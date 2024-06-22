@@ -26,12 +26,10 @@
     .arco-input-prepend {
         color: #999;
     }
-    .shadow_styles_input {
-        .arco-input-wrapper {
-            padding-left: 7px;
-            .arco-input-number-mode-embed .arco-input-number-step {
-                right: 2px;
-            }
+    .arco-input-wrapper {
+        padding-left: 7px;
+        .arco-input-number-mode-embed .arco-input-number-step {
+            right: 2px;
         }
     }
     .layers {
