@@ -3,10 +3,10 @@ import type { VirtualDom } from './useOreoApp';
 
 // Align Hooks
 export const useAlign = (appDom: VirtualDom[]) => {
-    function getSelectList(): VirtualDom[] {
+    function getSelectList(includeVG = true): VirtualDom[] {
         const list: VirtualDom[] = [];
         for (let i = 0; i < appDom.length; i++) {
-            if (appDom[i].selected || appDom[i].virtualGroup) {
+            if (appDom[i].selected || (appDom[i].virtualGroup && includeVG)) {
                 list.push(appDom[i]);
             }
         }
@@ -74,7 +74,25 @@ export const useAlign = (appDom: VirtualDom[]) => {
             list[i].styles.top += offset;
         }
     };
-    const horizontalDistribute = () => {};
+    const horizontalDistribute = () => {
+        const list = getSelectList(false);
+
+        // 找出最左边对象的 left 值和最右边对象的 right 值
+        const minLeft = Math.min(...list.map((obj) => obj.styles.left));
+        const maxRight = Math.max(...list.map((obj) => obj.styles.left + obj.styles.width));
+
+        // 计算总宽度和间隔
+        const totalWidth = maxRight - minLeft;
+        const interval = totalWidth / (list.length - 1);
+
+        // 调整每个对象的 left 值
+        for (let i = 0; i < list.length; i++) {
+            list[i].styles.left = minLeft + i * interval;
+        }
+        // objects.forEach((obj, index) => {
+        //     obj.left = minLeft + index * interval;
+        // });
+    };
     const verticalDistribute = () => {};
 
     return {

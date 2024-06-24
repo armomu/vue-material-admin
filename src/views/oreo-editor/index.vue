@@ -49,7 +49,7 @@
                         v-model:top="item.styles.top"
                         v-model:left="item.styles.left"
                         @snapLine="onSnapLine"
-                        @mouser="mouseMenu.openMenu"
+                        @mouser="oreoApp.openMenu"
                         @activated="oreoApp.onVirtualDom"
                         @dragging="oreoApp.onVirtualGroupDragging"
                     >
@@ -83,9 +83,11 @@
                         />
                     </div>
                     <MouseMenu
-                        :visible="mouseMenu.menuState.value.visible"
-                        :top="mouseMenu.menuState.value.top"
-                        :left="mouseMenu.menuState.value.left"
+                        :data="oreoApp.appDom.value"
+                        :visible="oreoApp.menuState.value.visible"
+                        :top="oreoApp.menuState.value.top"
+                        :left="oreoApp.menuState.value.left"
+                        :actions="oreoApp.meneActions"
                     />
                 </v-sheet>
                 <div
@@ -122,11 +124,10 @@ import Customize from './widgets/Customize.vue';
 import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
 import useOreoApp from './hooks/useOreoApp';
-import { useMouseMenu } from './hooks/useMouseMenu';
 import { useAlign } from './hooks/useAlign';
 const oreoApp = useOreoApp();
 
-const mouseMenu = useMouseMenu();
+// const mouseMenu = useMouseMenu();
 const alignFun = useAlign(oreoApp.appDom.value);
 
 const snapLine = reactive<{

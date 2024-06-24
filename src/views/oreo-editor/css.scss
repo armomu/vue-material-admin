@@ -149,6 +149,18 @@
                     border: 1px solid rgb(86, 86, 245);
                 }
             }
+            // &.virtualGroup {
+            //     &::before {
+            //         content: '';
+            //         display: block;
+            //         width: 100%;
+            //         height: 100%;
+            //         position: absolute;
+            //         left: 0;
+            //         top: 0;
+            //         border: 1px solid rgb(86, 86, 245);
+            //     }
+            // }
 
         }
         // .vdr.active {
@@ -245,21 +257,6 @@
         .align_group {
             .v-btn+ .v-btn {
                 margin-left: 4px;
-            }
-        }
-    }
-    .contextmenu {
-        position: fixed;
-        left: 200px;
-        top: 300px;
-        z-index: 999;
-        .layout_min_item {
-            line-height: 36px;
-            height: 36px;
-            padding: 0 16px;
-            cursor: pointer;
-            &:hover {
-                background-color: var(--grid);
             }
         }
     }

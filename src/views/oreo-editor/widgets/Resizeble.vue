@@ -151,7 +151,12 @@ const styles = computed(() => {
     };
 });
 const classNames = computed(() => {
-    return ['vdr', props.data.selected ? 'selected' : ''];
+    return [
+        'vdr',
+        props.data.selected ? 'selected' : '',
+        props.data.virtualGroup ? 'virtualGroup' : '',
+        props.data.type === 0 ? 'group' : '',
+    ];
 });
 
 const onMouser = (e: PointerEvent) => {

@@ -143,7 +143,6 @@
                     <a-col :span="3">
                         <a-color-picker showPreset v-model="props.data.styles.background">
                             <a-tag
-                                size="mini"
                                 :color="props.data.styles.background"
                                 style="border: 1px #efefef solid; display: block"
                             >
@@ -157,7 +156,6 @@
                     <a-col :span="3" class="mt-2">
                         <a-color-picker showPreset v-model="props.data.styles.borderColor">
                             <a-tag
-                                size="mini"
                                 :color="props.data.styles.borderColor"
                                 style="border: 1px #efefef solid; display: block"
                             >
@@ -193,13 +191,17 @@
                     /></a-col>
                     <a-col :span="3" class="mt-3">
                         <a-color-picker showPreset v-model="props.data.styles.shadowColor">
-                            <a-tag size="mini" :color="props.data.styles.shadowColor" style="display: block">
+                            <a-tag
+                                size="small"
+                                :color="props.data.styles.shadowColor"
+                                style="display: block"
+                            >
                             </a-tag>
                         </a-color-picker>
                     </a-col>
                     <a-col :span="16" class="mt-3">Shadow</a-col>
                 </a-row>
-                <a-row class="shadow_styles_input mb-2" :gutter="8">
+                <a-row v-if="props.data.styles.shadow" class="shadow_styles_input mb-2" :gutter="8">
                     <!-- <a-col :span="4" class="mt-2"> </a-col> -->
                     <a-col :span="6" class="mt-2">
                         <a-input-number v-model="props.data.styles.shadowX" size="mini" />
@@ -218,13 +220,17 @@
             <!-- 文本样式开始 -->
             <a-collapse-item v-if="props.data && props.data.fontStyle" header="Text" key="3">
                 <a-row :gutter="8">
-                    <a-col :span="3" >
+                    <a-col :span="3">
                         <a-color-picker showPreset v-model="props.data.fontStyle.color">
-                            <a-tag size="mini" :color="props.data.fontStyle.color" style="display: block">
+                            <a-tag
+                                size="small"
+                                :color="props.data.fontStyle.color"
+                                style="display: block"
+                            >
                             </a-tag>
                         </a-color-picker>
                     </a-col>
-                    <a-col :span="7" >
+                    <a-col :span="8">
                         <a-select
                             v-model="props.data.fontStyle.fontSize"
                             style="flex: 1"
@@ -235,10 +241,11 @@
                             }}</a-option>
                         </a-select>
                     </a-col>
-                    <a-col :span="14" >
+                    <a-col :span="13">
                         <a-select
                             v-model="props.data.fontStyle.fontFamily"
-                            size="mini"style="flex: 1"
+                            size="mini"
+                            style="flex: 1"
                         >
                             <a-option value="inherit">FollowSystem</a-option>
                             <a-option value="-apple-system">AppleSystem</a-option>
@@ -250,7 +257,6 @@
                         </a-select>
                     </a-col>
 
-                    
                     <a-col :span="19" class="mt-3">
                         <a-radio-group
                             type="button"
@@ -273,7 +279,7 @@
                     </a-col>
                     <a-col :span="12" class="mt-3" style="width: auto">
                         <a-button-group size="mini" disabled>
-                            <a-button  style="width: 33px">
+                            <a-button style="width: 33px">
                                 <template #icon
                                     ><v-icon icon="mdi-format-bold" size="mall"
                                 /></template>
@@ -290,7 +296,7 @@
                         ></a-button-group>
                     </a-col>
                     <a-col :span="12" class="mt-3" style="width: auto">
-                        <a-button-group  size="mini"  disabled>
+                        <a-button-group size="mini" disabled>
                             <a-button style="width: 33px">
                                 <template #icon
                                     ><v-icon icon="mdi-format-vertical-align-bottom" size="mall"
@@ -316,13 +322,17 @@
                     /></a-col>
                     <a-col :span="3" class="mt-3">
                         <a-color-picker showPreset v-model="props.data.fontStyle.shadowColor">
-                            <a-tag  size="mini"  :color="props.data.fontStyle.shadowColor" style="display: block">
+                            <a-tag
+                                size="small"
+                                :color="props.data.fontStyle.shadowColor"
+                                style="display: block"
+                            >
                             </a-tag>
                         </a-color-picker>
                     </a-col>
                     <a-col :span="16" class="mt-3">Shadow</a-col>
                 </a-row>
-                <a-row :gutter="8" class="shadow_styles_input">
+                <a-row v-if="props.data.fontStyle.shadow" :gutter="8" class="shadow_styles_input">
                     <a-col :span="4" class="mt-2"></a-col>
                     <a-col :span="6" class="mt-2">
                         <a-input-number v-model="props.data.fontStyle.shadowX" size="mini" />

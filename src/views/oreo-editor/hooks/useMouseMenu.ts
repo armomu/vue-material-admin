@@ -1,6 +1,7 @@
 import { ref } from 'vue';
+import type { Ref } from 'vue';
 import type { VirtualDom } from './useOreoApp';
-export const useMouseMenu = () => {
+export const useMouseMenu = (appDom: VirtualDom[], curDom: Ref<VirtualDom>) => {
     const menuState = ref({
         visible: false,
         top: 0,
@@ -21,8 +22,46 @@ export const useMouseMenu = () => {
         }, 50);
     };
 
+    const onMenuVisible = () => {
+        console.log('visible');
+        console.log(curDom.value);
+        curDom.value.visible = !curDom.value.visible;
+    };
+    const onMenuDelete = () => {
+        console.log('del');
+        console.log(curDom.value);
+        console.log(appDom);
+        // appDom.splice(appDom.indexOf())
+    };
+    const onMenuLocked = () => {
+        curDom.value.locked = !curDom.value.locked;
+    };
+    const onMenuGroup = () => {
+        const vg = appDom.find((item) => item.virtualGroup);
+
+        // 取消选中
+        for (let i = 0; i < appDom.length; i++) {
+            if (vg && appDom[i].groupId === vg.id) {
+                appDom[i].selected = false;
+            }
+        }
+        if (vg) {
+            vg.name = 'Group';
+            vg.virtualGroup = false;
+            vg.selected = true;
+        }
+    };
+    const onMenuDisbandGroup = () => {};
+
     return {
         menuState,
         openMenu,
+        meneActions: {
+            onMenuVisible,
+            onMenuDelete,
+            onMenuLocked,
+            onMenuGroup,
+            onMenuDisbandGroup,
+        },
     };
 };

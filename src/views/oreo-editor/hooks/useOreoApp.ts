@@ -1,6 +1,7 @@
 import { reactive, ref, onMounted, computed, type DefineComponent } from 'vue';
 import { useRuler } from './useRuler';
 import { usePointer } from './usePointer';
+import { useMouseMenu } from './useMouseMenu';
 
 enum VirtualDomType {
     Group,
@@ -107,7 +108,6 @@ const OreoApp = () => {
     const curDom = ref<VirtualDom>({
         ...beaseDom[0],
     });
-
     // 当前视图放大的倍数
     const _scale = ref(1);
     const scale = computed({
@@ -118,7 +118,6 @@ const OreoApp = () => {
             _scale.value = val / 100;
         },
     });
-
     // 当前拖动中的节点
     let dragingDom: VirtualDom;
     const onDraging = (e: VirtualDom) => {
@@ -141,7 +140,7 @@ const OreoApp = () => {
         const { width, height } = dragingDom.styles;
         dragingDom.styles.top = e.offsetY - height / 2;
         dragingDom.styles.left = e.offsetX - width / 2;
-        dragingDom.id = _id_;
+        dragingDom.id = _id_ + 0;
         curDom.value = dragingDom;
         appDom.value.push(curDom.value);
     };
@@ -150,12 +149,14 @@ const OreoApp = () => {
         curDom.value = val;
     };
     const onVirtualGroupDragging = (f: VirtualGroupDraggingOffset, item: VirtualDom) => {
-        // console.log(f, b);
         if (item.virtualGroup || item.type === VirtualDomType.Group) {
             for (let i = 0; i < appDom.value.length; i++) {
                 if (appDom.value[i].groupId === item.id) {
                     appDom.value[i].styles.left = appDom.value[i].styles.left + f.offsetX;
                     appDom.value[i].styles.top = appDom.value[i].styles.top + f.offsetY;
+                    if (appDom.value[i].type === VirtualDomType.Group) {
+                        onVirtualGroupDragging(f, appDom.value[i]);
+                    }
                 }
             }
         }
@@ -163,6 +164,7 @@ const OreoApp = () => {
 
     const pointerEvent = usePointer(appDom.value, _id_, curDom);
     const rulerBar = useRuler();
+    const mouseMenu = useMouseMenu(appDom.value, curDom);
 
     return {
         appDom,
@@ -174,8 +176,9 @@ const OreoApp = () => {
         onDrop,
         onVirtualDom,
         onVirtualGroupDragging,
-        ...rulerBar,
         ...pointerEvent,
+        ...rulerBar,
+        ...mouseMenu,
     };
 };
 export default OreoApp;

@@ -1,6 +1,7 @@
 import { reactive, type Ref } from 'vue';
 import { virtualGroup } from './useOreoApp';
 import type { VirtualDom } from './useOreoApp';
+import { cloneDeep } from 'lodash';
 
 export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<VirtualDom>) => {
     // 框选
@@ -26,6 +27,10 @@ export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<Virtu
         if (className.includes('vdr')) {
             return;
         }
+        // 但点击的对象是右键菜单项目
+        if (className.includes('contextmenu_item')) {
+            return;
+        }
 
         const vg = appDom.find((item) => item.virtualGroup);
         // 取消选中
@@ -35,7 +40,9 @@ export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<Virtu
                 appDom[i].groupId = 0;
             }
         }
+        // 删除虚拟组合
         vg && appDom.splice(appDom.indexOf(vg), 1);
+        // 设置键菜单位置信息
         if (className.includes('work_content') || className.includes('work-area')) {
             mouseState.down = true;
             mouseState.startX = e.clientX + 0;
@@ -65,7 +72,11 @@ export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<Virtu
     };
     // 查询有没有对象被选中
     const checkSelectBox = () => {
-        const doms = document.getElementsByClassName('vdr');
+        console.log('========', boxSelect.width + '');
+        if (!boxSelect.width || parseFloat(boxSelect.width) < 5) {
+            return;
+        }
+        const doms = document.getElementsByClassName('draggable');
         const left = parseFloat(boxSelect.left);
         const top = parseFloat(boxSelect.top);
         const width = parseFloat(boxSelect.width);
@@ -82,7 +93,7 @@ export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<Virtu
                 uids.push(parseFloat(doms[i].getAttribute('uid') + ''));
             }
         }
-
+        console.log(uids, 'uids');
         // 获得框选组合
         const haSelectedList: VirtualDom[] = [];
         for (let i = 0; i < appDom.length; i++) {
@@ -92,8 +103,8 @@ export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<Virtu
                 haSelectedList.push(appDom[i]);
             }
         }
-
-        if (haSelectedList.length > 0) _id_++; // 增加虚拟组合
+        console.log('haSelectedList', JSON.parse(JSON.stringify(haSelectedList)));
+        if (haSelectedList.length > 0) _id_ = new Date().getSeconds(); // 增加虚拟组合的ID
         // 选中多个对象后 把它们放入一个虚拟组合里
         if (haSelectedList.length > 1) {
             let minTop = Infinity;
@@ -122,16 +133,16 @@ export const usePointer = (appDom: VirtualDom[], _id_: number, curDom: Ref<Virtu
                     maxRight = right;
                 }
             }
-            const obj: VirtualDom = {
-                ...virtualGroup,
-                id: _id_,
-            };
+            const obj = cloneDeep(virtualGroup);
+            obj.id = _id_;
+
             obj.styles.width = maxRight - minLeft;
             obj.styles.height = maxBottom - minTop;
             obj.styles.top = Math.min(...topList);
             obj.styles.left = Math.min(...leftList);
             curDom.value = obj;
             appDom.push(curDom.value);
+            console.log(appDom, 'not push');
         }
         // 取消框选的状态
         boxSelect.height = '';
