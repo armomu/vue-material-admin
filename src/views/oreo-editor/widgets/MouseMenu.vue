@@ -72,6 +72,9 @@ withDefaults(
         align-items: center;
         justify-content: space-between;
         opacity: 0.8;
+        .desc {
+            // display: none;
+        }
         &:hover {
             background-color: rgba(255, 255, 255, 0.15);
         }

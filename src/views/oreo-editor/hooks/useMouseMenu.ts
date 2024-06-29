@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import type { Ref } from 'vue';
 import type { VirtualDom } from './useOreoApp';
-export const useMouseMenu = (appDom: VirtualDom[], curDom: Ref<VirtualDom>) => {
+export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) => {
     const menuState = ref({
         visible: false,
         top: 0,
@@ -37,12 +37,12 @@ export const useMouseMenu = (appDom: VirtualDom[], curDom: Ref<VirtualDom>) => {
         curDom.value.locked = !curDom.value.locked;
     };
     const onMenuGroup = () => {
-        const vg = appDom.find((item) => item.virtualGroup);
+        const vg = appDom.value.find((item) => item.virtualGroup);
 
         // 取消选中
-        for (let i = 0; i < appDom.length; i++) {
-            if (vg && appDom[i].groupId === vg.id) {
-                appDom[i].selected = false;
+        for (let i = 0; i < appDom.value.length; i++) {
+            if (vg && appDom.value[i].groupId === vg.id) {
+                appDom.value[i].selected = false;
             }
         }
         if (vg) {

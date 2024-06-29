@@ -146,25 +146,13 @@ const OreoApp = () => {
     };
 
     const onVirtualDom = (val: any) => {
+        // console.log('onVirtualDom');
         curDom.value = val;
     };
-    const onVirtualGroupDragging = (f: VirtualGroupDraggingOffset, item: VirtualDom) => {
-        if (item.virtualGroup || item.type === VirtualDomType.Group) {
-            for (let i = 0; i < appDom.value.length; i++) {
-                if (appDom.value[i].groupId === item.id) {
-                    appDom.value[i].styles.left = appDom.value[i].styles.left + f.offsetX;
-                    appDom.value[i].styles.top = appDom.value[i].styles.top + f.offsetY;
-                    if (appDom.value[i].type === VirtualDomType.Group) {
-                        onVirtualGroupDragging(f, appDom.value[i]);
-                    }
-                }
-            }
-        }
-    };
 
-    const pointerEvent = usePointer(appDom.value, _id_, curDom);
+    const pointerEvent = usePointer(appDom, _id_, curDom);
     const rulerBar = useRuler();
-    const mouseMenu = useMouseMenu(appDom.value, curDom);
+    const mouseMenu = useMouseMenu(appDom, curDom);
 
     return {
         appDom,
@@ -175,7 +163,6 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
-        onVirtualGroupDragging,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,
@@ -237,9 +224,4 @@ interface Shadow {
     shadowBlur: number;
     shadowSpread: number; // 文本不可用
     shadowColor: string;
-}
-
-interface VirtualGroupDraggingOffset {
-    offsetX: number;
-    offsetY: number;
 }

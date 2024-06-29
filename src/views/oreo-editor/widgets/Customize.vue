@@ -47,7 +47,7 @@
                         @click="props.align.horizontalRight"
                     />
 
-                    <v-btn
+                    <!-- <v-btn
                         variant="text"
                         icon="mdi-align-horizontal-distribute"
                         size="x-small"
@@ -60,7 +60,7 @@
                         size="x-small"
                         class="ml-0 mt-2"
                         @click="props.align.verticalDistribute"
-                    />
+                    /> -->
                 </div>
                 <a-divider class="my-2 mb-3"></a-divider>
                 <div v-if="props.data">

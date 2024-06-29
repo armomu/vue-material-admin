@@ -7,7 +7,6 @@ export const useRuler = () => {
 
     function initTop() {
         const topDom = document.getElementById('oreoEditor') as HTMLDivElement;
-
         // topDom.attributes.
         const pixiApp = new Application({
             width: 4000,
@@ -21,6 +20,7 @@ export const useRuler = () => {
         const length = 4000; // 尺子的长度
         const tickSpacing = 10; // 刻度线之间的间距
 
+        graphics.beginFill(0xde3249);
         for (let i = 0; i <= length; i += tickSpacing) {
             graphics.beginFill(new Color('#999999'));
             let h = 6;
@@ -31,17 +31,13 @@ export const useRuler = () => {
                 label.style.fill = '#999999';
                 label.x = i + 2;
                 label.y = 9;
-
                 pixiApp.stage.addChild(label);
             }
-            graphics.drawRect(i, 0, 0.5, h);
+            graphics.drawRect(i, 0, 1, h);
             graphics.endFill();
         }
         pixiApp.stage.addChild(graphics);
 
-        // const zd = new Graphics();
-
-        // graphics.beginFill(new Color('#999999'));
         topRulerDom.value = pixiApp.view;
         initLeft();
     }
@@ -67,16 +63,20 @@ export const useRuler = () => {
             let w = 6;
             if (y % 50 === 0) {
                 w = 12;
-                const label = new Text(y);
-                label.style.fontSize = 10;
-                label.style.fill = '#999999';
-                label.x = 20;
-                label.y = y + 4;
-                label.rotation = Math.PI / 2;
-                pixiApp.stage.addChild(label);
+                if (y > 20) {
+                    const label = new Text(y);
+                    label.style.fontSize = 10;
+                    label.style.fill = '#999999';
+                    label.x = 20;
+                    label.y = y + 4;
+                    label.rotation = Math.PI / 2;
+                    pixiApp.stage.addChild(label);
+                }
             }
-            graphics.drawRect(x, y, w, 0.5);
-            graphics.endFill();
+            if (y > 20) {
+                graphics.drawRect(x, y, w, 1);
+                graphics.endFill();
+            }
         }
         pixiApp.stage.addChild(graphics);
         leftRulerDom.value = pixiApp.view;
