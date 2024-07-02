@@ -10,23 +10,32 @@
             :h="_height"
             :x="_left"
             :y="_top"
-            :draggable="!props.data.locked"
-            :resizable="!props.data.locked"
+            :draggable="!props.data.locked && !props.data.input"
+            :resizable="!props.data.locked && !props.data.input"
             @activated="onActivated"
             @deactivated="onDeactivated"
             @resizestop="resize"
             @dragstop="resize"
             @dragging="onDragging"
+            @resizing="onChanging"
             @refLineParams="getRefLineParams"
+            :lockAspectRatio="props.data.type === 2"
             :style="styles"
             :class="classNames"
             :uid="props.data.id"
-            v-on:contextmenu.prevent="onMouser"
+            @contextmenu.prevent="onMouser"
         >
             <div v-if="props.data.label && !props.data.input" class="text">
                 {{ props.data.label }}
             </div>
-            <textarea v-if="props.data.input" class="text" v-model="props.data.label" />
+            <textarea
+                v-if="props.data.input"
+                class="textarea"
+                v-model="props.data.label"
+                @blur="onBlur"
+                @input="onInput"
+                autofocus="true"
+            ></textarea>
             <slot></slot>
         </DragResizeBle>
     </template>
@@ -55,10 +64,13 @@ const emit = defineEmits([
     'update:top',
     'update:left',
     'change',
+    'changing',
     'snapLine',
     'mouser',
     'dragging',
     'activated',
+    'blur',
+    'input',
 ]);
 
 const _active = computed(() => props.active);
@@ -102,6 +114,18 @@ const onDeactivated = () => {
 const onDragging = (left_: number, top_: number, f: object) => {
     // console.log(f, 'f');
     emit('dragging', f, props.data);
+};
+const onBlur = () => {
+    // console.log(f, 'f');
+    emit('blur');
+};
+const onInput = (e: Event) => {
+    // console.log(f, 'f');
+    emit('input', e);
+};
+const onChanging = (left: number, top: number, width: number, height: number) => {
+    // console.log(f, 'f');
+    emit('changing', { left, top, width, height });
 };
 
 const styles = computed(() => {

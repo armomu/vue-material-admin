@@ -153,6 +153,19 @@ const OreoApp = () => {
     const rulerBar = useRuler();
     const mouseMenu = useMouseMenu(appDom, curDom);
 
+    const onVirtualDomBlur = () => {
+        curDom.value.input = false;
+        console.log(curDom.value.input, 'curDom.value');
+    };
+
+    const onVirtualDomInput = () => {
+        curDom.value.input = false;
+    };
+    const onResizeChange = ({ width }) => {
+        console.log('width======', width);
+        curDom.value.styles.radius = parseInt(width / 2 + '');
+    };
+
     return {
         appDom,
         widgets,
@@ -162,6 +175,9 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
+        onVirtualDomBlur,
+        onVirtualDomInput,
+        onResizeChange,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,

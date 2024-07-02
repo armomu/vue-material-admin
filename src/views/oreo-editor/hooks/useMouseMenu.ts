@@ -31,6 +31,7 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
         const index = appDom.value.findIndex((obj) => obj.id === curDom.value.id);
         if (index < 0) return;
         appDom.value.splice(index, 1);
+        // TODO DEL Group
     };
     const onMenuLocked = () => {
         curDom.value.locked = !curDom.value.locked;
@@ -61,6 +62,7 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
     };
 
     function onKeydown(event: KeyboardEvent) {
+        if (curDom.value.input) return;
         if (event.code === 'Backspace' || event.code === 'Delete') {
             onMenuDelete();
         }

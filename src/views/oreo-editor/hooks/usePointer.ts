@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash';
 
 export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<VirtualDom>) => {
     const mouseMode = ref({
-        boxSelect: true, //
+        boxSelect: true,
         draRact: false,
         text: false,
         hand: false,
@@ -35,9 +35,9 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
 
     // 是否正在添加新的对象中
     let adding = false;
-    let pointerDownTime = 0;
     let pointerDownCount = 0;
-    const pointerDownTimer: NodeJS.Timeout | null = null;
+    // eslint-disable-next-line no-undef
+    let pointerDownTimer: NodeJS.Timeout | null = null;
     const onPointerDown = (e: PointerEvent) => {
         mouseState.startX = e.clientX + 0;
         mouseState.startY = e.clientY + 0;
@@ -56,13 +56,17 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
                 curDom.value.type === VirtualDomType.Text
             ) {
                 // 判定双击
-                pointerDownTime = new Date().getTime();
                 pointerDownCount++;
-                if (pointerDownCount === 2 && new Date().getTime() - pointerDownTime < 200) {
+                if (pointerDownCount === 1) {
+                    pointerDownTimer = setTimeout(() => {
+                        pointerDownCount = 0;
+                    }, 250);
+                }
+                if (pointerDownCount === 2) {
                     console.log('==========+++2');
                     pointerDownCount = 0;
-                }
-                if (pointerDownTimer) {
+                    pointerDownTimer && clearTimeout(pointerDownTimer);
+                    curDom.value.input = true;
                 }
             }
 
@@ -99,17 +103,31 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         if (mouseMode.value.draRact) {
             // curDom.value.locked = true;
 
-            const newRact = cloneDeep(beaseDom[0]);
-            newRact.visible = false;
-            newRact.active = false;
-            newRact.styles.width = 0;
-            newRact.styles.height = 0;
-            newRact.styles.left = e.layerX + 0;
-            newRact.styles.top = e.layerY + 0;
-            newRact.id = new Date().getTime();
-            curDom.value = newRact;
-            appDom.value.push(newRact);
+            const newDom = cloneDeep(beaseDom[0]);
+            newDom.visible = false;
+            newDom.active = false;
+            newDom.styles.width = 0;
+            newDom.styles.height = 0;
+            newDom.styles.left = e.layerX + 0;
+            newDom.styles.top = e.layerY + 0;
+            newDom.id = new Date().getTime();
+            curDom.value = newDom;
+            appDom.value.push(newDom);
             adding = true;
+        }
+        if (mouseMode.value.text) {
+            const newDom = cloneDeep(beaseDom[2]);
+            newDom.active = true;
+            newDom.styles.width = 90;
+            newDom.styles.height = 36;
+            newDom.styles.left = e.layerX + 0;
+            newDom.styles.top = e.layerY + 0;
+
+            newDom.input = true;
+            newDom.label = '';
+            newDom.id = new Date().getTime();
+            curDom.value = newDom;
+            appDom.value.push(newDom);
         }
     };
 
@@ -160,6 +178,9 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         mouseState.down = false;
         boxSelectState.value.visible = false;
         mouseState.draggableActive = false;
+        // if (!curDom.value.input) {
+        //     onMouseMode('boxSelect');
+        // }
         onMouseMode('boxSelect');
         adding = false;
         checkSelectBox();
@@ -172,7 +193,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
     const checkSelectBox = () => {
         if (!mouseMode.value.boxSelect) return;
         if (!boxSelectState.value.width || parseFloat(boxSelectState.value.width) < 5) {
-            console.log('没有进入 ========= 查询有没有对象被选中');
+            // console.log('没有进入 ========= 查询有没有对象被选中');
             return;
         }
         // 获取所有对象集合
@@ -265,7 +286,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
                 mouseMode.value[key] = false;
             }
         });
-        console.log(name, '模式=======');
+        console.log(name, '模式=======', curDom.value.input);
     };
 
     function findUids(id: number) {
