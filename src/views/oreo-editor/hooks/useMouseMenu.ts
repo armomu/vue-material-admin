@@ -1,5 +1,6 @@
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import type { Ref } from 'vue';
+import { VirtualDomType } from './useOreoApp';
 import type { VirtualDom } from './useOreoApp';
 export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) => {
     const menuState = ref({
@@ -23,22 +24,19 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
     };
 
     const onMenuVisible = () => {
-        console.log('visible');
-        console.log(curDom.value);
+        if (curDom.value.locked) return;
         curDom.value.visible = !curDom.value.visible;
     };
     const onMenuDelete = () => {
-        console.log('del');
-        console.log(curDom.value);
-        console.log(appDom);
-        // appDom.splice(appDom.indexOf())
+        const index = appDom.value.findIndex((obj) => obj.id === curDom.value.id);
+        if (index < 0) return;
+        appDom.value.splice(index, 1);
     };
     const onMenuLocked = () => {
         curDom.value.locked = !curDom.value.locked;
     };
     const onMenuGroup = () => {
         const vg = appDom.value.find((item) => item.virtualGroup);
-
         // 取消选中
         for (let i = 0; i < appDom.value.length; i++) {
             if (vg && appDom.value[i].groupId === vg.id) {
@@ -51,7 +49,29 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
             vg.selected = true;
         }
     };
-    const onMenuDisbandGroup = () => {};
+    const onMenuDisbandGroup = () => {
+        if (curDom.value.type === VirtualDomType.Group) {
+            for (let i = 0; i < appDom.value.length; i++) {
+                if (appDom.value[i].groupId === curDom.value.id) {
+                    appDom.value[i].groupId = 0;
+                }
+            }
+            onMenuDelete();
+        }
+    };
+
+    function onKeydown(event: KeyboardEvent) {
+        if (event.code === 'Backspace' || event.code === 'Delete') {
+            onMenuDelete();
+        }
+    }
+
+    onMounted(() => {
+        document.addEventListener('keydown', onKeydown);
+    });
+    onUnmounted(() => {
+        document.removeEventListener('keydown', onKeydown);
+    });
 
     return {
         menuState,

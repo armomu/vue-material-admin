@@ -1,6 +1,8 @@
 <template>
     <template v-if="props.data.visible">
-        <div v-if="isDiv" :style="styles" :class="classNames" :uid="props.data.id"></div>
+        <div v-if="isDiv" :style="styles" :class="classNames" :uid="props.data.id">
+            <div v-if="props.data.label" class="text">{{ props.data.label }}</div>
+        </div>
         <DragResizeBle
             v-else
             :active="_active"
@@ -8,6 +10,8 @@
             :h="_height"
             :x="_left"
             :y="_top"
+            :draggable="!props.data.locked"
+            :resizable="!props.data.locked"
             @activated="onActivated"
             @deactivated="onDeactivated"
             @resizestop="resize"
@@ -19,7 +23,10 @@
             :uid="props.data.id"
             v-on:contextmenu.prevent="onMouser"
         >
-            <div v-if="props.data.label" class="text">{{ props.data.label }}</div>
+            <div v-if="props.data.label && !props.data.input" class="text">
+                {{ props.data.label }}
+            </div>
+            <textarea v-if="props.data.input" class="text" v-model="props.data.label" />
             <slot></slot>
         </DragResizeBle>
     </template>
@@ -57,8 +64,8 @@ const emit = defineEmits([
 const _active = computed(() => props.active);
 const _width = computed(() => props.width);
 const _height = computed(() => props.height);
-const _top = computed(() => props.top);
-const _left = computed(() => props.left);
+const _top = computed(() => props.top || 0);
+const _left = computed(() => props.left || 0);
 
 const isDiv = computed(() => {
     return !!props.data.groupId && !!props.data.type;

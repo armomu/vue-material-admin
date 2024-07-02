@@ -1,9 +1,9 @@
-import { reactive, ref, onMounted, computed, type DefineComponent } from 'vue';
+import { ref, computed, type DefineComponent } from 'vue';
 import { useRuler } from './useRuler';
 import { usePointer } from './usePointer';
 import { useMouseMenu } from './useMouseMenu';
 
-enum VirtualDomType {
+export enum VirtualDomType {
     Group,
     Rect,
     Circle,
@@ -146,7 +146,6 @@ const OreoApp = () => {
     };
 
     const onVirtualDom = (val: any) => {
-        // console.log('onVirtualDom');
         curDom.value = val;
     };
 
@@ -183,6 +182,7 @@ export interface VirtualDom {
     selected: boolean; // 选中状态
     locked: boolean; // 锁定状态
     visible: boolean;
+    input?: boolean; // 文本特有的编辑文本中状态
     styles: ElementStyles;
     fontStyle?: FontStyle;
     component?: DefineComponent; // 内组件

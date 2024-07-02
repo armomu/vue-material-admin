@@ -25,6 +25,11 @@
                 @pointermove.stop="oreoApp.onPointerMove"
                 @pointerup.stop="oreoApp.onPointerUp"
                 @scroll="oreoApp.onWorkAreaScroll"
+                :class="{
+                    cursorText: oreoApp.mouseMode.value.text,
+                    cursorCross: oreoApp.mouseMode.value.draRact,
+                    cursorGrab: oreoApp.mouseMode.value.hand,
+                }"
             >
                 <!-- <Layout
                     :data="oreoApp.appDom"
@@ -91,9 +96,9 @@
                     />
                 </v-sheet>
                 <div
-                    v-if="oreoApp.boxSelect.visible"
+                    v-if="oreoApp.boxSelectState.value.visible"
                     class="boxSelectHelper"
-                    :style="oreoApp.boxSelect"
+                    :style="oreoApp.boxSelectState.value"
                 ></div>
             </div>
             <v-card class="helper pa-1 rounded-xl">
@@ -102,10 +107,30 @@
                     icon="mdi-navigation-outline"
                     size="x-small"
                     style="transform: rotate(-35deg)"
+                    :color="oreoApp.mouseMode.value.boxSelect ? 'primary' : undefined"
+                    @click="oreoApp.onMouseMode('boxSelect')"
                 />
-                <v-btn variant="text" icon="mdi-group" size="x-small" />
-                <v-btn variant="text" icon="mdi-hand-back-left-outline" size="x-small" />
-
+                <v-btn
+                    variant="text"
+                    icon="mdi-card-outline"
+                    size="x-small"
+                    :color="oreoApp.mouseMode.value.draRact ? 'primary' : undefined"
+                    @click="oreoApp.onMouseMode('draRact')"
+                />
+                <v-btn
+                    variant="text"
+                    icon="mdi-format-color-text"
+                    size="x-small"
+                    :color="oreoApp.mouseMode.value.text ? 'primary' : undefined"
+                    @click="oreoApp.onMouseMode('text')"
+                />
+                <v-btn
+                    variant="text"
+                    icon="mdi-hand-back-left-outline"
+                    size="x-small"
+                    :color="oreoApp.mouseMode.value.hand ? 'primary' : undefined"
+                    @click="oreoApp.onMouseMode('hand')"
+                />
                 <v-btn variant="text" icon="mdi-reply" size="x-small" />
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
             </v-card>

@@ -65,8 +65,8 @@
     .boxSelectHelper {
         position: fixed;
         z-index: 999;
-        background: rgba(86, 86, 245, 0.2);
-        border: 1px solid rgb(86, 86, 245);
+        background: rgba(104, 104, 249, 0.2);
+        border: 1px solid rgb(104, 104, 249);
     }
     .helper {
         position: absolute;
@@ -93,7 +93,15 @@
         height: calc(100vh - 124px);
         overflow: auto;
         padding: 20px 20px;
-
+        &.cursorText{
+            cursor: text;
+        }
+        &.cursorCross{
+            cursor: crosshair;
+        }
+        &.cursorGrab{
+            cursor: grab;
+        }
         .work_content {
             width: 1080px;
             position: relative;

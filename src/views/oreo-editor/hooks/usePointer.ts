@@ -1,68 +1,119 @@
-import { reactive, type Ref } from 'vue';
-import { virtualGroup } from './useOreoApp';
+import { onMounted, onUnmounted, reactive, ref, type Ref } from 'vue';
+import { virtualGroup, beaseDom, VirtualDomType } from './useOreoApp';
 import type { VirtualDom } from './useOreoApp';
 import { cloneDeep } from 'lodash';
 
 export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<VirtualDom>) => {
-    // 框选
-    const boxSelect = reactive({
+    const mouseMode = ref({
+        boxSelect: true, //
+        draRact: false,
+        text: false,
+        hand: false,
+    });
+
+    // 框选框视图状态
+    const boxSelectState = ref({
         visible: false,
         width: '',
         height: '',
         top: '',
         left: '',
     });
-    const mouseState = {
+    // 记录鼠标移动数据
+    const mouseState = reactive({
         draggableActive: false,
         down: false,
         startX: 0,
         startY: 0,
+        layerX: 0,
+        layerY: 0,
         endX: 0,
         endY: 0,
         offsetX: 0,
         offsetY: 0,
-    };
+    });
 
+    // 是否正在添加新的对象中
+    let adding = false;
+    let pointerDownTime = 0;
+    let pointerDownCount = 0;
+    const pointerDownTimer: NodeJS.Timeout | null = null;
     const onPointerDown = (e: PointerEvent) => {
         mouseState.startX = e.clientX + 0;
         mouseState.startY = e.clientY + 0;
+        mouseState.layerX = e.layerX + 0;
+        mouseState.layerY = e.layerY + 0;
         console.log(e, 'onPointerDown');
         let className = '';
         // @ts-ignore
         className = e.target?.className || '';
         // @ts-ignore
         const e_t_did = parseInt(e.target?.getAttribute('uid') + '');
+        if (mouseMode.value.boxSelect) {
+            if (
+                className.includes('draggable') &&
+                e_t_did === curDom.value.id &&
+                curDom.value.type === VirtualDomType.Text
+            ) {
+                // 判定双击
+                pointerDownTime = new Date().getTime();
+                pointerDownCount++;
+                if (pointerDownCount === 2 && new Date().getTime() - pointerDownTime < 200) {
+                    console.log('==========+++2');
+                    pointerDownCount = 0;
+                }
+                if (pointerDownTimer) {
+                }
+            }
 
-        // 当点击的对象是拖拽框
-        if (className.includes('draggable')) {
-            mouseState.draggableActive = true;
-            haSelectedList = findUids(e_t_did);
-            return;
-        }
-        // 点击的对象是右键菜单项目不做操作
-        if (className.includes('contextmenu_item')) {
-            return;
-        }
+            // 当点击的对象是拖拽框
+            if (className.includes('draggable')) {
+                mouseState.draggableActive = true;
+                // 找出当前ID所有子对象 包括组合子组合中的对象
+                haSelectedList = findUids(e_t_did);
+                return;
+            }
+            // 点击的对象是右键菜单项目不做操作
+            if (className.includes('contextmenu_item')) {
+                return;
+            }
+            const vg = appDom.value.find((item) => item.virtualGroup);
+            // 取消选中
+            for (let i = 0; i < appDom.value.length; i++) {
+                appDom.value[i].selected = false;
+                if (vg && appDom.value[i].groupId === vg.id) {
+                    appDom.value[i].groupId = 0;
+                }
+            }
+            // 删除虚拟组合
+            vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
 
-        const vg = appDom.value.find((item) => item.virtualGroup);
-        // 取消选中
-        for (let i = 0; i < appDom.value.length; i++) {
-            appDom.value[i].selected = false;
-            if (vg && appDom.value[i].groupId === vg.id) {
-                appDom.value[i].groupId = 0;
+            // 设置键菜单位置信息
+            if (className.includes('work_content') || className.includes('work-area')) {
+                mouseState.down = true;
+                boxSelectState.value.left = e.clientX + 'px';
+                boxSelectState.value.top = e.clientY + 'px';
             }
         }
-        // 删除虚拟组合
-        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
-        // 设置键菜单位置信息
-        if (className.includes('work_content') || className.includes('work-area')) {
-            mouseState.down = true;
-            boxSelect.left = e.clientX + 'px';
-            boxSelect.top = e.clientY + 'px';
+        // 画矩形
+        if (mouseMode.value.draRact) {
+            // curDom.value.locked = true;
+
+            const newRact = cloneDeep(beaseDom[0]);
+            newRact.visible = false;
+            newRact.active = false;
+            newRact.styles.width = 0;
+            newRact.styles.height = 0;
+            newRact.styles.left = e.layerX + 0;
+            newRact.styles.top = e.layerY + 0;
+            newRact.id = new Date().getTime();
+            curDom.value = newRact;
+            appDom.value.push(newRact);
+            adding = true;
         }
     };
+
     const onPointerMove = (e: PointerEvent) => {
-        console.log(e.clientX + 0);
         mouseState.endX = e.clientX;
         mouseState.endY = e.clientY;
         if (mouseState.draggableActive) {
@@ -76,26 +127,41 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
             } else {
                 mouseState.offsetY = e.clientY - mouseState.startY;
             }
-            console.log(mouseState);
         }
 
         // 画框选框
-        if (mouseState.down) {
-            boxSelect.visible = true;
-            boxSelect.width = Math.abs(e.clientX - mouseState.startX) + 'px';
-            boxSelect.height = Math.abs(e.clientY - mouseState.startY) + 'px';
+        if (mouseState.down && mouseMode.value.boxSelect) {
+            boxSelectState.value.visible = true;
+            boxSelectState.value.width = Math.abs(e.clientX - mouseState.startX) + 'px';
+            boxSelectState.value.height = Math.abs(e.clientY - mouseState.startY) + 'px';
             if (e.clientX < mouseState.startX) {
-                boxSelect.left = e.clientX + 'px';
+                boxSelectState.value.left = e.clientX + 'px';
             }
             if (e.clientY < mouseState.startY) {
-                boxSelect.top = e.clientY + 'px';
+                boxSelectState.value.top = e.clientY + 'px';
+            }
+        }
+        // 画矩形
+        if (mouseMode.value.draRact && adding) {
+            curDom.value.visible = true;
+
+            curDom.value.styles.width = Math.abs(e.layerX - mouseState.layerX);
+            curDom.value.styles.height = Math.abs(e.layerY - mouseState.layerY);
+            if (e.layerX < mouseState.layerX) {
+                curDom.value.styles.left = e.layerX + 0;
+            }
+            if (e.layerY < mouseState.layerY) {
+                curDom.value.styles.top = e.layerY + 0;
             }
         }
     };
+
     const onPointerUp = () => {
         mouseState.down = false;
-        boxSelect.visible = false;
+        boxSelectState.value.visible = false;
         mouseState.draggableActive = false;
+        onMouseMode('boxSelect');
+        adding = false;
         checkSelectBox();
     };
 
@@ -104,16 +170,17 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
     let uids: number[] = [];
     // 查询有没有对象被选中
     const checkSelectBox = () => {
-        if (!boxSelect.width || parseFloat(boxSelect.width) < 5) {
+        if (!mouseMode.value.boxSelect) return;
+        if (!boxSelectState.value.width || parseFloat(boxSelectState.value.width) < 5) {
             console.log('没有进入 ========= 查询有没有对象被选中');
             return;
         }
         // 获取所有对象集合
         const doms = document.getElementsByClassName('vdr');
-        const left = parseFloat(boxSelect.left);
-        const top = parseFloat(boxSelect.top);
-        const width = parseFloat(boxSelect.width);
-        const height = parseFloat(boxSelect.height);
+        const left = parseFloat(boxSelectState.value.left);
+        const top = parseFloat(boxSelectState.value.top);
+        const width = parseFloat(boxSelectState.value.width);
+        const height = parseFloat(boxSelectState.value.height);
         uids = [];
         for (let i = 0; i < doms.length; i++) {
             const rect = doms[i].getBoundingClientRect();
@@ -174,10 +241,10 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
             appDom.value.push(curDom.value);
         }
         // 取消框选的状态
-        boxSelect.height = '';
-        boxSelect.width = '';
-        boxSelect.top = '';
-        boxSelect.left = '';
+        boxSelectState.value.height = '';
+        boxSelectState.value.width = '';
+        boxSelectState.value.top = '';
+        boxSelectState.value.left = '';
     };
 
     //
@@ -186,15 +253,19 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
             haSelectedList[i].styles.left = haSelectedList[i].styles.left + f.offsetX;
             haSelectedList[i].styles.top = haSelectedList[i].styles.top + f.offsetY;
         }
+    };
 
-        // if (item.virtualGroup || item.type === VirtualDomType.Group) {
-        //     for (let i = 0; i < appDom.value.value.length; i++) {
-        //         if (appDom.value.value[i].groupId === item.id) {
-        //             appDom.value.value[i].styles.left = appDom.value.value[i].styles.left + f.offsetX;
-        //             appDom.value.value[i].styles.top = appDom.value.value[i].styles.top + f.offsetY;
-        //         }
-        //     }
-        // }
+    const onMouseMode = (name: string) => {
+        Object.keys(mouseMode.value).forEach((key) => {
+            if (name === key) {
+                // @ts-ignore
+                mouseMode.value[key] = true;
+            } else {
+                // @ts-ignore
+                mouseMode.value[key] = false;
+            }
+        });
+        console.log(name, '模式=======');
     };
 
     function findUids(id: number) {
@@ -212,12 +283,37 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         return result;
     }
 
+    function onKeydown(event: KeyboardEvent) {
+        if (event.code === 'Space') {
+            event.preventDefault();
+            if (!mouseMode.value.hand) {
+                onMouseMode('hand');
+            }
+        }
+    }
+    function onKeyup(event: KeyboardEvent) {
+        if (event.code === 'Space') {
+            onMouseMode('boxSelect');
+        }
+    }
+
+    onMounted(() => {
+        document.addEventListener('keydown', onKeydown);
+        document.addEventListener('keyup', onKeyup);
+    });
+    onUnmounted(() => {
+        document.removeEventListener('keydown', onKeydown);
+        document.removeEventListener('keyup', onKeyup);
+    });
+
     return {
-        boxSelect,
+        mouseMode,
+        boxSelectState,
         onPointerDown,
         onPointerMove,
         onPointerUp,
         onVirtualGroupDragging,
+        onMouseMode,
     };
 };
 
