@@ -39,7 +39,6 @@
     </v-card>
 </template>
 <script lang="ts" setup>
-import { computed, type Ref } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
 
 withDefaults(
@@ -72,9 +71,6 @@ withDefaults(
         align-items: center;
         justify-content: space-between;
         opacity: 0.8;
-        .desc {
-            // display: none;
-        }
         &:hover {
             background-color: rgba(255, 255, 255, 0.15);
         }

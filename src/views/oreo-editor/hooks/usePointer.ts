@@ -43,12 +43,13 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         mouseState.startY = e.clientY + 0;
         mouseState.layerX = e.layerX + 0;
         mouseState.layerY = e.layerY + 0;
-        console.log(e, 'onPointerDown');
         let className = '';
         // @ts-ignore
         className = e.target?.className || '';
         // @ts-ignore
         const e_t_did = parseInt(e.target?.getAttribute('uid') + '');
+
+        console.log(className, 'onPointerDown');
         if (mouseMode.value.boxSelect) {
             if (
                 className.includes('draggable') &&
@@ -116,10 +117,18 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
             adding = true;
         }
         if (mouseMode.value.text) {
+            if (curDom.value.input && className.includes('textarea')) {
+                console.log('正在添加文字中，请继续编辑！');
+                return;
+            }
+            if (curDom.value.input && className.includes('work_content')) {
+                curDom.value.input = false;
+                return;
+            }
             const newDom = cloneDeep(beaseDom[2]);
-            newDom.active = true;
-            newDom.styles.width = 90;
-            newDom.styles.height = 36;
+            newDom.active = false;
+            newDom.styles.width = 80;
+            newDom.styles.height = 14;
             newDom.styles.left = e.layerX + 0;
             newDom.styles.top = e.layerY + 0;
 
@@ -127,7 +136,9 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
             newDom.label = '';
             newDom.id = new Date().getTime();
             curDom.value = newDom;
-            appDom.value.push(newDom);
+            appDom.value.push(curDom.value);
+            console.log('添加了新的文字对象');
+            console.log(curDom.value);
         }
     };
 
@@ -178,10 +189,10 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         mouseState.down = false;
         boxSelectState.value.visible = false;
         mouseState.draggableActive = false;
-        // if (!curDom.value.input) {
-        //     onMouseMode('boxSelect');
-        // }
-        onMouseMode('boxSelect');
+        if (!curDom.value.input) {
+            onMouseMode('boxSelect');
+        }
+        // onMouseMode('boxSelect');
         adding = false;
         checkSelectBox();
     };

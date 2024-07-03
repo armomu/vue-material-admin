@@ -57,8 +57,9 @@
                         @mouser="oreoApp.openMenu"
                         @activated="oreoApp.onVirtualDom"
                         @dragging="oreoApp.onVirtualGroupDragging"
-                        @blur="oreoApp.onVirtualDomBlur"
-                        @input="oreoApp.onVirtualDomInput"
+                        @blur="oreoApp.onBlur"
+                        @input="oreoApp.onInput"
+                        @enter="oreoApp.onEnter"
                         @changing="oreoApp.onResizeChange"
                     >
                         <!-- @snapLine="onSnapLine"

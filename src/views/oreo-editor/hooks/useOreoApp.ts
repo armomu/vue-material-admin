@@ -153,17 +153,25 @@ const OreoApp = () => {
     const rulerBar = useRuler();
     const mouseMenu = useMouseMenu(appDom, curDom);
 
-    const onVirtualDomBlur = () => {
+    const onBlur = () => {
         curDom.value.input = false;
-        console.log(curDom.value.input, 'curDom.value');
+        curDom.value.locked = false;
+        pointerEvent.onMouseMode('boxSelect');
     };
 
-    const onVirtualDomInput = () => {
-        curDom.value.input = false;
+    const onInput = () => {
+        // curDom.value.input = false;
     };
+    const onEnter = () => {
+        // curDom.value.input = false;
+    };
+
+    //
+    // @ts-ignore
     const onResizeChange = ({ width }) => {
-        console.log('width======', width);
-        curDom.value.styles.radius = parseInt(width / 2 + '');
+        if (curDom.value.type === VirtualDomType.Circle) {
+            curDom.value.styles.radius = parseInt((width || 0) / 2 + '');
+        }
     };
 
     return {
@@ -175,8 +183,9 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
-        onVirtualDomBlur,
-        onVirtualDomInput,
+        onBlur,
+        onInput,
+        onEnter,
         onResizeChange,
         ...pointerEvent,
         ...rulerBar,

@@ -1,7 +1,18 @@
 <template>
     <template v-if="props.data.visible">
         <div v-if="isDiv" :style="styles" :class="classNames" :uid="props.data.id">
-            <div v-if="props.data.label" class="text">{{ props.data.label }}</div>
+            <div v-if="props.data.label && !props.data.input" class="text">
+                {{ props.data.label }}
+            </div>
+            <textarea
+                v-if="props.data.input"
+                class="textarea"
+                v-model="props.data.label"
+                @blur="onBlur"
+                @input="onInput"
+                @keydown.enter="onEnter"
+                autofocus="true"
+            ></textarea>
         </div>
         <DragResizeBle
             v-else
@@ -28,14 +39,6 @@
             <div v-if="props.data.label && !props.data.input" class="text">
                 {{ props.data.label }}
             </div>
-            <textarea
-                v-if="props.data.input"
-                class="textarea"
-                v-model="props.data.label"
-                @blur="onBlur"
-                @input="onInput"
-                autofocus="true"
-            ></textarea>
             <slot></slot>
         </DragResizeBle>
     </template>
@@ -71,6 +74,7 @@ const emit = defineEmits([
     'activated',
     'blur',
     'input',
+    'enter',
 ]);
 
 const _active = computed(() => props.active);
@@ -80,6 +84,7 @@ const _top = computed(() => props.top || 0);
 const _left = computed(() => props.left || 0);
 
 const isDiv = computed(() => {
+    if (props.data.input) return true;
     return !!props.data.groupId && !!props.data.type;
 });
 
@@ -122,6 +127,10 @@ const onBlur = () => {
 const onInput = (e: Event) => {
     // console.log(f, 'f');
     emit('input', e);
+};
+const onEnter = (e: Event) => {
+    // console.log(f, 'f');
+    emit('enter', e);
 };
 const onChanging = (left: number, top: number, width: number, height: number) => {
     // console.log(f, 'f');

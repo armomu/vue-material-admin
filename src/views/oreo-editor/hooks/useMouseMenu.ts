@@ -27,11 +27,30 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
         if (curDom.value.locked) return;
         curDom.value.visible = !curDom.value.visible;
     };
-    const onMenuDelete = () => {
-        const index = appDom.value.findIndex((obj) => obj.id === curDom.value.id);
+
+    const delItem = (dom: VirtualDom) => {
+        const index = appDom.value.findIndex((obj) => obj.id === dom.id);
         if (index < 0) return;
         appDom.value.splice(index, 1);
+    };
+    const onMenuDelete = () => {
+        if (curDom.value.type === VirtualDomType.Group) {
+            const g: VirtualDom[] = [];
+            for (let i = 0; i < appDom.value.length; i++) {
+                if (appDom.value[i].groupId === curDom.value.id) {
+                    g.push(appDom.value[i]);
+                }
+            }
+            g.forEach((item) => {
+                delItem(item);
+            });
+        }
+        delItem(curDom.value);
+        // const index = appDom.value.findIndex((obj) => obj.id === curDom.value.id);
+        // if (index < 0) return;
+        // appDom.value.splice(index, 1);
         // TODO DEL Group
+        console.log(appDom.value, 'del aft');
     };
     const onMenuLocked = () => {
         curDom.value.locked = !curDom.value.locked;

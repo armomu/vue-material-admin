@@ -93,6 +93,9 @@
         height: calc(100vh - 124px);
         overflow: auto;
         padding: 20px 20px;
+        textarea {
+            resize: none;
+          }
         &.cursorText{
             cursor: text;
         }
