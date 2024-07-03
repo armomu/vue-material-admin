@@ -53,6 +53,7 @@
                         v-model:height="item.styles.height"
                         v-model:top="item.styles.top"
                         v-model:left="item.styles.left"
+                        :disable="oreoApp.disableDraResize.value"
                         @snapLine="onSnapLine"
                         @mouser="oreoApp.openMenu"
                         @activated="oreoApp.onVirtualDom"

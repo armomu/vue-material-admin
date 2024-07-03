@@ -153,6 +153,14 @@ const OreoApp = () => {
     const rulerBar = useRuler();
     const mouseMenu = useMouseMenu(appDom, curDom);
 
+    const disableDraResize = computed(() => {
+        if (pointerEvent.mouseMode.value.text) {
+            return true;
+        }
+
+        return false;
+    });
+
     const onBlur = () => {
         curDom.value.input = false;
         curDom.value.locked = false;
@@ -187,6 +195,7 @@ const OreoApp = () => {
         onInput,
         onEnter,
         onResizeChange,
+        disableDraResize,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,

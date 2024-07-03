@@ -21,8 +21,8 @@
             :h="_height"
             :x="_left"
             :y="_top"
-            :draggable="!props.data.locked && !props.data.input"
-            :resizable="!props.data.locked && !props.data.input"
+            :draggable="_disable"
+            :resizable="_disable"
             @activated="onActivated"
             @deactivated="onDeactivated"
             @resizestop="resize"
@@ -57,8 +57,11 @@ const props = withDefaults(
         height: number;
         top: number;
         left: number;
+        disable?: boolean | null;
     }>(),
-    {}
+    {
+        disable: false,
+    }
 );
 const emit = defineEmits([
     'update:active',
@@ -84,8 +87,15 @@ const _top = computed(() => props.top || 0);
 const _left = computed(() => props.left || 0);
 
 const isDiv = computed(() => {
+    if (props.disable) {
+        return true;
+    }
     if (props.data.input) return true;
     return !!props.data.groupId && !!props.data.type;
+});
+
+const _disable = computed(() => {
+    return !props.data.locked && !props.data.input;
 });
 
 const resize = (e: ResizeOffset) => {
