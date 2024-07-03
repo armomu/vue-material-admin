@@ -145,7 +145,7 @@ const OreoApp = () => {
         appDom.value.push(curDom.value);
     };
 
-    const onVirtualDom = (val: any) => {
+    const onVirtualDom = (val: VirtualDom) => {
         curDom.value = val;
     };
 
@@ -168,9 +168,9 @@ const OreoApp = () => {
 
     //
     // @ts-ignore
-    const onResizeChange = ({ width }) => {
+    const onResizeChange = (val: ResizeOffset) => {
         if (curDom.value.type === VirtualDomType.Circle) {
-            curDom.value.styles.radius = parseInt((width || 0) / 2 + '');
+            curDom.value.styles.radius = parseInt(val.width / 2 + '');
         }
     };
 
@@ -249,4 +249,10 @@ interface Shadow {
     shadowBlur: number;
     shadowSpread: number; // 文本不可用
     shadowColor: string;
+}
+export interface ResizeOffset {
+    left: number;
+    top: number;
+    width: number;
+    height: number;
 }

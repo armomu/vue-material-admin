@@ -45,7 +45,7 @@
 </template>
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { VirtualDom } from '../hooks/useOreoApp';
+import type { ResizeOffset, VirtualDom } from '../hooks/useOreoApp';
 // @ts-ignore
 import DragResizeBle from '@/components/DragResizeble/index.vue';
 
@@ -88,7 +88,7 @@ const isDiv = computed(() => {
     return !!props.data.groupId && !!props.data.type;
 });
 
-const resize = (e: any) => {
+const resize = (e: ResizeOffset) => {
     emit('update:width', e.width);
     emit('update:height', e.height);
     emit('update:top', e.top);

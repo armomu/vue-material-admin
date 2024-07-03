@@ -40,6 +40,7 @@
 </template>
 <script lang="ts" setup>
 import type { VirtualDom } from '../hooks/useOreoApp';
+import type { MeneActions } from '../hooks/useMouseMenu';
 
 withDefaults(
     defineProps<{
@@ -47,7 +48,7 @@ withDefaults(
         visible: boolean;
         left: number;
         top: number;
-        actions: any;
+        actions: MeneActions;
     }>(),
     {}
 );

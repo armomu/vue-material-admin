@@ -106,3 +106,11 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
         },
     };
 };
+
+export interface MeneActions {
+    onMenuVisible: () => void;
+    onMenuDelete: () => void;
+    onMenuLocked: () => void;
+    onMenuGroup: () => void;
+    onMenuDisbandGroup: () => void;
+}
