@@ -33,14 +33,9 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 🧱Vercel需要墙！打不开的同学自行下载项目在本地开发环境预览，gitee已经不给用了
 
 - 🌍 Vercel [https://vue-material-admin.vercel.app/](https://vue-material-admin-alpha.vercel.app/)
-- 🪄 [这是个神奇的链接请不要点😁😁😁😁](https://daisy-kaliman.vercel.app/#/index/)
 
 
 ## 👊 TODO
-
-[oreo-editor](https://vue-material-admin-alpha.vercel.app/#/editor/oreo-editor)
-
-> 拖拽页面小编辑器正在开发中。。。
 
 1. 🍳 Vuetify 组件
     - ✅ Table
@@ -49,7 +44,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 2. 🏡 智能家居控制组件
     - ✅ 环形控制器(支持鼠标拖动进度)
     - ✅ 360度全景图预览(其实是Babylon.js的一个API而已)
-3. 🎥 [Babylonjs物理角色控制器，已经获得官方库推荐👍](https://github.com/armomu/ergoudan) 
+3. 🎥 [Babylonjs物理角色控制器，已经获得官方库推荐 🔥 🔥 👍](https://github.com/armomu/ergoudan) 
     - ✅ 使用Havok物理引擎
     - ✅ 使用W、S、A、D键控制角色移动
     - ✅ 使用空格键跳跃
@@ -64,7 +59,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
     - ✅ 夜间模式
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
-6. 💻 后端[参考这个](https://github.com/zclzone/isme-nest-serve)
+6. 💻 后端[参考这个 isme-nest-serve ](https://github.com/zclzone/isme-nest-serve)
     - ❌ Nest.js
 
 ## 📑 本地开发
@@ -74,16 +69,16 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 ```
 git clone https://github.com/armomu/vue-material-admin.git
 
-
 cd vue-material-admin
 
-# install
-
 pnpm install
-
-# dev
 
 pnpm run dev
 
 ```
 
+## 推荐项目 🔥 🔥
+
+- [Babylonjs 物理角色控制器](https://github.com/armomu/ergoudan) 
+- [Babylonjs 马里奥3D场景](https://daisy-kaliman.vercel.app/#/index)
+- [BabylonjsVue3通用可视化编辑器，支持可拖拽、CSS样式编辑等功能，可输出原型图H5页面](https://github.com/armomu/oreo-editor)
