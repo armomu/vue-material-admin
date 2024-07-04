@@ -13,7 +13,11 @@
                 </a-collapse>
 
                 <v-card class="tools pa-1 rounded-xl">
-                    <BasicWidget :data="oreoApp.widgets.value" @draging="oreoApp.onDraging" />
+                    <BasicWidget
+                        :data="oreoApp.widgets.value"
+                        @draging="oreoApp.onDraging"
+                        @addimg="oreoApp.onAddImage"
+                    />
                 </v-card>
             </v-sheet>
             <div

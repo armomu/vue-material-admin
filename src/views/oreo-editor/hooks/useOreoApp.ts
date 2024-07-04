@@ -87,6 +87,18 @@ export const beaseDom: VirtualDom[] = [
             decoration: 'none',
         },
     },
+    {
+        id: 4,
+        name: 'Image',
+        groupId: 0,
+        icon: 'mdi-image-outline',
+        type: VirtualDomType.Image, // 1矩形，2圆形，3文本，4图片，5视频
+        active: true,
+        visible: true,
+        selected: false,
+        locked: false,
+        styles: { ...beaseDomStyle, imgFit: 'contain' },
+    },
 ];
 export const virtualGroup: VirtualDom = {
     id: 0,
@@ -182,6 +194,11 @@ const OreoApp = () => {
         }
     };
 
+    const onAddImage = (e: VirtualDom) => {
+        curDom.value = e;
+        appDom.value.push(curDom.value);
+    };
+
     return {
         appDom,
         widgets,
@@ -196,6 +213,7 @@ const OreoApp = () => {
         onEnter,
         onResizeChange,
         disableDraResize,
+        onAddImage,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,
@@ -234,6 +252,7 @@ export interface ElementStyles extends Shadow {
     radius: number;
 
     fill: boolean;
+    imgFit?: string;
     background: string;
 
     border: boolean;

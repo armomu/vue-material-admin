@@ -13,6 +13,12 @@
                 @keydown.enter="onEnter"
                 autofocus="true"
             ></textarea>
+            <img
+                v-if="props.data.url"
+                :src="props.data.url"
+                :width="props.data.styles.width"
+                :height="props.data.styles.height"
+            />
         </div>
         <DragResizeBle
             v-else
@@ -39,6 +45,14 @@
             <div v-if="props.data.label && !props.data.input" class="text">
                 {{ props.data.label }}
             </div>
+            <a-image
+                v-if="props.data.url"
+                :width="props.data.styles.width"
+                :height="props.data.styles.height"
+                :fit="props.data.styles.imgFit"
+                :src="props.data?.url || undefined"
+                style="z-index: -1"
+            />
             <slot></slot>
         </DragResizeBle>
     </template>

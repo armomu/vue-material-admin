@@ -3,11 +3,12 @@
 <template>
     <div class="customizes">
         <a-collapse
-            :default-active-key="['1', '2', '3']"
+            :default-active-key="['1', '2', '3', '4']"
             :bordered="false"
             :show-expand-icon="false"
             expand-icon-position="right"
         >
+            <!-- 基础样式开始 -->
             <a-collapse-item header="Designed" key="1">
                 <div class="align_group">
                     <v-btn
@@ -135,6 +136,8 @@
                     </a-row>
                 </div>
             </a-collapse-item>
+            <!-- 基础样式结束 -->
+            <!-- 填充样式开始 -->
             <a-collapse-item v-if="props.data" header="Exterior" key="2">
                 <a-row :gutter="8">
                     <a-col :span="4" class="pt-1">
@@ -217,6 +220,8 @@
                     </a-col>
                 </a-row>
             </a-collapse-item>
+            <!-- 填充样式结束 -->
+
             <!-- 文本样式开始 -->
             <a-collapse-item v-if="props.data && props.data.fontStyle" header="Text" key="3">
                 <a-row :gutter="8">
@@ -346,31 +351,54 @@
                 </a-row>
             </a-collapse-item>
             <!-- 文本样式结束 -->
+            <!-- 图片样式开始 -->
+            <a-collapse-item v-if="isImage" header="Image" key="4">
+                <a-image
+                    :width="216"
+                    :height="imageHeight"
+                    :fit="props.data.styles.imgFit"
+                    :src="props.data?.url || undefined"
+                />
+                <a-row :gutter="8" class="mt-3">
+                    <a-col :span="6">Img Fit</a-col>
+                    <a-col :span="18">
+                        <a-select v-model="props.data.styles.imgFit" size="mini" style="flex: 1">
+                            <a-option value="contain">Contain</a-option>
+                            <a-option value="cover">Cover</a-option>
+                            <a-option value="fill">Fill</a-option>
+                            <a-option value="scale-down">Scale down</a-option>
+                            <a-option value="none">None</a-option>
+                        </a-select>
+                    </a-col>
+                </a-row>
+            </a-collapse-item>
+            <!-- 图片样式结束 -->
         </a-collapse>
     </div>
 </template>
 <script lang="ts" setup>
-import { computed, type Ref } from 'vue';
+import { computed } from 'vue';
 import type { VirtualDom } from '../hooks/useOreoApp';
-import type { Align } from '../hooks/useAlign';
+import { VirtualDomType } from '../hooks/useOreoApp';
+import type { AlignFun } from '../hooks/useAlign';
 
 const props = withDefaults(
     defineProps<{
         data?: VirtualDom;
-        align: Align;
+        align: AlignFun;
     }>(),
     {}
 );
-// const emit = defineEmits(['update:data.fontStyle.fontWeight']);
 
-// const onTextFormat = () => {
-//     console.log(props.data.fontStyle.fontWeight);
-//     emit('update:data.fontStyle.fontWeight', 'bold');
-//     console.log(props.data.fontStyle.fontWeight);
-// };
+const imageHeight = computed(() => {
+    if (props.data) {
+        return (props.data.styles.height / props.data.styles.width) * 216;
+    }
+    return 0;
+});
 
-const bgColor = computed(() => {
-    if (props?.data?.styles.background) {
+const isImage = computed(() => {
+    if (props.data && props.data.type === VirtualDomType.Image) {
         return true;
     }
     return false;

@@ -1,4 +1,4 @@
-import { ref, type Ref } from 'vue';
+// import { ref, type Ref } from 'vue';
 import type { VirtualDom } from './useOreoApp';
 
 // Align Hooks
@@ -107,7 +107,7 @@ export const useAlign = (appDom: VirtualDom[]) => {
     };
 };
 
-export interface Align {
+export interface AlignFun {
     verticalTop: () => void;
     verticalBottom: () => void;
     horizontalLeft: () => void;
