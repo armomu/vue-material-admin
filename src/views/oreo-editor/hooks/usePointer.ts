@@ -280,7 +280,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
     };
 
     //
-    const onVirtualGroupDragging = (f: VirtualGroupDraggingOffset) => {
+    const onVirtualGroupDragging = (f: DragOffset) => {
         for (let i = 0; i < haSelectedList.length; i++) {
             haSelectedList[i].styles.left = haSelectedList[i].styles.left + f.offsetX;
             haSelectedList[i].styles.top = haSelectedList[i].styles.top + f.offsetY;
@@ -349,7 +349,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
     };
 };
 
-interface VirtualGroupDraggingOffset {
+interface DragOffset {
     offsetX: number;
     offsetY: number;
 }
