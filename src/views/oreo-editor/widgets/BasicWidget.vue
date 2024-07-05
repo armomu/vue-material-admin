@@ -7,12 +7,11 @@
         size="x-small"
         draggable="true"
         @dragstart="onDragstart(item)"
-        @click="onClick(item)"
     >
         <v-icon :icon="item.icon"></v-icon>
         <!-- <v-tooltip activator="parent" location="end">{{ item.name }}</v-tooltip> -->
     </v-btn>
-    <input ref="imageFileRef" hidden accept="image/*" type="file" @change="changeFile" />
+    <!-- <input ref="imageFileRef" hidden accept="image/*" type="file" @change="changeFile" /> -->
 </template>
 <script lang="ts" setup>
 import type { VirtualDom } from '../hooks/useOreoApp';

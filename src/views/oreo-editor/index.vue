@@ -110,6 +110,14 @@
                     :style="oreoApp.boxSelectState.value"
                 ></div>
             </div>
+            <!-- 添加图片 -->
+            <input
+                :ref="oreoApp.imageFileRef"
+                hidden
+                accept="image/*"
+                type="file"
+                @change="oreoApp.onAddImage"
+            />
             <v-card class="helper pa-1 rounded-xl">
                 <v-btn
                     variant="text"

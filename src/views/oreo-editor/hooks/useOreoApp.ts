@@ -155,6 +155,10 @@ const OreoApp = () => {
         dragingDom.id = _id_ + 0;
         curDom.value = dragingDom;
         appDom.value.push(curDom.value);
+        if (curDom.value.type === VirtualDomType.Image) {
+            console.log(imageFileRef.value);
+            imageFileRef.value.click();
+        }
     };
 
     const onVirtualDom = (val: VirtualDom) => {
@@ -194,9 +198,20 @@ const OreoApp = () => {
         }
     };
 
-    const onAddImage = (e: VirtualDom) => {
-        curDom.value = e;
-        appDom.value.push(curDom.value);
+    const imageFileRef = ref<any>();
+    const onAddImage = (event: Event) => {
+        // @ts-ignore
+        const file = event.target?.files[0];
+        if (!file) return;
+        const _URL = window.URL || window.webkitURL;
+        const image = new Image();
+        curDom.value.url = _URL.createObjectURL(file);
+        image.src = curDom.value.url;
+        image.onload = () => {
+            curDom.value.styles.fill = false;
+            curDom.value.styles.width = 216;
+            curDom.value.styles.height = (image.height / image.width) * 216;
+        };
     };
 
     return {
@@ -213,6 +228,7 @@ const OreoApp = () => {
         onEnter,
         onResizeChange,
         disableDraResize,
+        imageFileRef,
         onAddImage,
         ...pointerEvent,
         ...rulerBar,
