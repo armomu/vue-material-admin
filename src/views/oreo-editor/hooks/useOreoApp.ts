@@ -161,6 +161,7 @@ const OreoApp = () => {
         }
     };
 
+    // 点击页面图层
     const onVirtualDom = (val: VirtualDom) => {
         curDom.value = val;
     };
@@ -214,6 +215,16 @@ const OreoApp = () => {
         };
     };
 
+    const onLayerTreeNode = (item: VirtualDom) => {
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].selected = item.id === appDom.value[i].id;
+        }
+    };
+
+    const jsonViewerVisible = ref(false)
+
+
+
     return {
         appDom,
         widgets,
@@ -230,6 +241,8 @@ const OreoApp = () => {
         disableDraResize,
         imageFileRef,
         onAddImage,
+        onLayerTreeNode,
+        jsonViewerVisible,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,

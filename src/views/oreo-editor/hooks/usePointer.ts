@@ -133,7 +133,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
             newDom.styles.top = e.layerY + 0;
 
             newDom.input = true;
-            newDom.label = '';
+            newDom.label = '双击编辑文字';
             newDom.id = new Date().getTime();
             curDom.value = newDom;
             appDom.value.push(curDom.value);

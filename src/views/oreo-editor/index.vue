@@ -8,8 +8,13 @@
                     :show-expand-icon="false"
                     expand-icon-position="right"
                 >
-                    <a-collapse-item header="Layers" key="1"> </a-collapse-item>
                     <a-collapse-item header="Pages" key="2"> </a-collapse-item>
+                    <a-collapse-item header="Layers" key="1">
+                        <LayerThree
+                            :data="oreoApp.appDom.value"
+                            @select="oreoApp.onLayerTreeNode"
+                        />
+                    </a-collapse-item>
                 </a-collapse>
 
                 <v-card class="tools pa-1 rounded-xl">
@@ -148,6 +153,8 @@
                     :color="oreoApp.mouseMode.value.hand ? 'primary' : undefined"
                     @click="oreoApp.onMouseMode('hand')"
                 />
+                <v-btn variant="text" icon="mdi-code-json" size="x-small" @click="() => { oreoApp.jsonViewerVisible.value = true }" />
+                <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
                 <v-btn variant="text" icon="mdi-reply" size="x-small" />
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
             </v-card>
@@ -155,14 +162,27 @@
                 <Customize :data="oreoApp.curDom.value" :align="alignFun" />
             </v-sheet>
         </div>
+        <a-drawer v-model:visible="oreoApp.jsonViewerVisible.value" placement="top" height="70vh">
+            <template #title> Json Viewer </template>
+            <JsonViewer
+            v-if="oreoApp.jsonViewerVisible"
+                :value="oreoApp.appDom"
+                :expand-depth="5"
+                copyable
+
+            ></JsonViewer>
+        </a-drawer>
     </div>
 </template>
 <script lang="ts" setup>
 import './css.scss';
 import { reactive } from 'vue';
+// @ts-ignore
+import JsonViewer from 'vue-json-viewer';
 import BasicWidget from './widgets/BasicWidget.vue';
 import Customize from './widgets/Customize.vue';
 // import Layout from './widgets/Layout.vue';
+import LayerThree from './widgets/LayerThree.vue';
 import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
 import useOreoApp from './hooks/useOreoApp';

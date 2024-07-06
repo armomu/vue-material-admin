@@ -33,6 +33,7 @@
         }
     }
     .layers {
+        flex: 0 0 220px;
         width: 220px;
         height: calc(100vh - 124px);
         border-right: 1px solid #efefef;
@@ -61,6 +62,16 @@
             border-right: 1px solid #efefef;
             border-bottom: 1px solid #efefef;
         }
+        .arco-tree-node {
+            .v-icon {
+
+            color: #999;
+                display: none;
+            }
+            &:hover .v-icon {
+                display: inline-flex;
+            }
+        }
     }
     .boxSelectHelper {
         position: fixed;
@@ -88,7 +99,7 @@
         border-right: 1px solid #efefef;
     }
     .work-area {
-        flex: 1;
+        flex: 0 0 calc(100% - 466px);
         position: relative;
         height: calc(100vh - 124px);
         overflow: auto;
@@ -106,10 +117,8 @@
             cursor: grab;
         }
         .work_content {
-            width: 1080px;
-            position: relative;
-            left: 80px;
-            top: 80px;
+            // width: calc(100vw - 400px);
+            margin: 60px;
             height: 1600px;
 
         }
@@ -256,6 +265,7 @@
         }
     }
     .customizes_wrap {
+        flex: 0 0 246px;
         width: 246px;
         overflow-y: auto;
         height: calc(100vh - 124px);

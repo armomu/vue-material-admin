@@ -14,7 +14,7 @@
         </div>
         <div class="contextmenu_item" @click="actions.onMenuDelete">
             <div class="label">删除</div>
-            <div class="desc">Delete</div>
+            <div class="desc">Delete & Back</div>
         </div>
         <div class="contextmenu_item" @click="actions.onMenuLocked">
             <div class="label">锁定/解锁</div>
