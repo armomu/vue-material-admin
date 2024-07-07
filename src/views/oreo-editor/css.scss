@@ -117,8 +117,10 @@
             cursor: grab;
         }
         .work_content {
-            // width: calc(100vw - 400px);
-            margin: 60px;
+            width: 1080px;
+            position: relative;
+            left: 80px;
+            top: 80px;
             height: 1600px;
 
         }

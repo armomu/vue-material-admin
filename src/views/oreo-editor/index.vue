@@ -10,10 +10,7 @@
                 >
                     <a-collapse-item header="Pages" key="2"> </a-collapse-item>
                     <a-collapse-item header="Layers" key="1">
-                        <LayerThree
-                            :data="oreoApp.appDom.value"
-                            @select="oreoApp.onLayerTreeNode"
-                        />
+                        <LayerTree :data="oreoApp.appDom.value" @select="oreoApp.onLayerTreeNode" />
                     </a-collapse-item>
                 </a-collapse>
 
@@ -148,12 +145,31 @@
                 />
                 <v-btn
                     variant="text"
+                    icon="mdi-emoticon-outline"
+                    size="x-small"
+                    @click="
+                        () => {
+                            oreoApp.iconState.value.dialogVisible = true;
+                        }
+                    "
+                />
+                <v-btn
+                    variant="text"
                     icon="mdi-hand-back-left-outline"
                     size="x-small"
                     :color="oreoApp.mouseMode.value.hand ? 'primary' : undefined"
                     @click="oreoApp.onMouseMode('hand')"
                 />
-                <v-btn variant="text" icon="mdi-code-json" size="x-small" @click="() => { oreoApp.jsonViewerVisible.value = true }" />
+                <v-btn
+                    variant="text"
+                    icon="mdi-code-json"
+                    size="x-small"
+                    @click="
+                        () => {
+                            oreoApp.jsonViewerVisible.value = true;
+                        }
+                    "
+                />
                 <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
                 <v-btn variant="text" icon="mdi-reply" size="x-small" />
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
@@ -162,15 +178,36 @@
                 <Customize :data="oreoApp.curDom.value" :align="alignFun" />
             </v-sheet>
         </div>
-        <a-drawer v-model:visible="oreoApp.jsonViewerVisible.value" placement="top" height="70vh">
+        <a-drawer
+            v-model:visible="oreoApp.jsonViewerVisible.value"
+            placement="bottom"
+            hide-cancel
+            height="70vh"
+        >
             <template #title> Json Viewer </template>
             <JsonViewer
-            v-if="oreoApp.jsonViewerVisible"
+                v-if="oreoApp.jsonViewerVisible"
                 :value="oreoApp.appDom"
                 :expand-depth="5"
                 copyable
-
             ></JsonViewer>
+        </a-drawer>
+        <a-drawer
+            v-model:visible="oreoApp.iconState.value.dialogVisible"
+            placement="bottom"
+            height="70vh"
+            :footer="false"
+            hide-cancel
+        >
+            <template #title> Material design icons </template>
+            <div class="icon-wrap">
+                <v-icon
+                    v-for="item in oreoApp.iconState.value.list"
+                    :key="item"
+                    :icon="item"
+                    @click="oreoApp.onAddIcon(item)"
+                />
+            </div>
         </a-drawer>
     </div>
 </template>
@@ -182,7 +219,7 @@ import JsonViewer from 'vue-json-viewer';
 import BasicWidget from './widgets/BasicWidget.vue';
 import Customize from './widgets/Customize.vue';
 // import Layout from './widgets/Layout.vue';
-import LayerThree from './widgets/LayerThree.vue';
+import LayerTree from './widgets/LayerTree.vue';
 import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
 import useOreoApp from './hooks/useOreoApp';

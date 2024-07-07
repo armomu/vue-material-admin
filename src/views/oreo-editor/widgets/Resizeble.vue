@@ -36,7 +36,7 @@
             @dragging="onDragging"
             @resizing="onChanging"
             @refLineParams="getRefLineParams"
-            :lockAspectRatio="props.data.type === 2"
+            :lockAspectRatio="lockAspectRatio"
             :style="styles"
             :class="classNames"
             :uid="props.data.id"
@@ -53,6 +53,11 @@
                 :src="props.data?.url || undefined"
                 style="z-index: -1"
             />
+            <v-icon
+                v-if="props.data.type === 6"
+                :icon="props.data.icon"
+                :size="props.data.styles.width"
+            />
             <slot></slot>
         </DragResizeBle>
     </template>
@@ -60,6 +65,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { ResizeOffset, VirtualDom } from '../hooks/useOreoApp';
+import { VirtualDomType } from '../hooks/useOreoApp';
 // @ts-ignore
 import DragResizeBle from '@/components/DragResizeble/index.vue';
 
@@ -110,6 +116,10 @@ const isDiv = computed(() => {
 
 const _disable = computed(() => {
     return !props.data.locked && !props.data.input;
+});
+const lockAspectRatio = computed(() => {
+    const arr = [VirtualDomType.Circle, VirtualDomType.Icon];
+    return arr.includes(props.data.type);
 });
 
 const resize = (e: ResizeOffset) => {

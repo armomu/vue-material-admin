@@ -2,6 +2,8 @@ import { ref, computed, type DefineComponent } from 'vue';
 import { useRuler } from './useRuler';
 import { usePointer } from './usePointer';
 import { useMouseMenu } from './useMouseMenu';
+import materialIcons from './icon';
+import { cloneDeep } from 'lodash';
 
 export enum VirtualDomType {
     Group,
@@ -10,6 +12,7 @@ export enum VirtualDomType {
     Text,
     Image,
     Video,
+    Icon,
 }
 export const beaseDomStyle: ElementStyles = {
     width: 200,
@@ -221,9 +224,30 @@ const OreoApp = () => {
         }
     };
 
-    const jsonViewerVisible = ref(false)
+    const jsonViewerVisible = ref(false);
 
+    const iconState = ref({
+        dialogVisible: false,
+        list: materialIcons,
+    });
 
+    const onAddIcon = (icon: string) => {
+        const iconDom = cloneDeep(beaseDom[0]);
+        _id_++;
+        iconDom.type = VirtualDomType.Icon;
+        iconDom.id = _id_ + 0;
+        iconDom.name = 'Icon';
+        iconDom.icon = icon;
+        iconDom.styles.fill = false;
+        iconDom.styles.width = 30;
+        iconDom.styles.height = 30;
+        iconDom.styles.left = 30;
+        iconDom.styles.top = 30;
+        curDom.value = iconDom;
+        appDom.value.push(iconDom);
+
+        iconState.value.dialogVisible = false;
+    };
 
     return {
         appDom,
@@ -243,6 +267,8 @@ const OreoApp = () => {
         onAddImage,
         onLayerTreeNode,
         jsonViewerVisible,
+        iconState,
+        onAddIcon,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,
@@ -257,7 +283,7 @@ export interface VirtualDom {
     name: string;
     icon: string; // 统一用Vuetify mdi-xxxx这套
     label?: string; // 展示文本 或者title用
-    type: 0 | 1 | 2 | 3 | 4 | 5; // 0组合，1矩形，2圆形，3文本，4图片，5视频
+    type: 0 | 1 | 2 | 3 | 4 | 5 | 6; // 0组合，1矩形，2圆形，3文本，4图片，5视频
     url?: string; // 图片或者资源链接
     active: boolean; // 进行拖变大小状态
     selected: boolean; // 选中状态
