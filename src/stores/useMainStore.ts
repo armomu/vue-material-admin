@@ -29,8 +29,14 @@ export const useMainStore = defineStore('main', () => {
     root?.setAttribute('theme', scheme.matches ? 'dark' : 'light');
     const theme = ref(scheme.matches ? 'dark' : 'light');
 
-    const onTheme = () => {
-        theme.value = theme.value === 'light' ? 'dark' : 'light';
+    const onTheme = (val?: string) => {
+        if (typeof val === 'string') {
+            console.log(val, 'theme');
+            theme.value = val;
+        } else {
+            theme.value = theme.value === 'light' ? 'dark' : 'light';
+        }
+
         root?.setAttribute('theme', theme.value);
     };
 

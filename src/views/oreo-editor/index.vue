@@ -214,11 +214,11 @@
 <script lang="ts" setup>
 import './css.scss';
 import { reactive } from 'vue';
+import { useMainStore } from '@/stores/useMainStore';
 // @ts-ignore
 import JsonViewer from 'vue-json-viewer';
 import BasicWidget from './widgets/BasicWidget.vue';
 import Customize from './widgets/Customize.vue';
-// import Layout from './widgets/Layout.vue';
 import LayerTree from './widgets/LayerTree.vue';
 import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
@@ -249,4 +249,6 @@ interface SnapLine {
     origin: string;
     position: string;
 }
+const mainStore = useMainStore();
+mainStore.onTheme('light');
 </script>
