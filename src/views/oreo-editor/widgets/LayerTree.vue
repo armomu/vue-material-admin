@@ -9,46 +9,48 @@
         size="small"
     >
         <template #extra="nodeData">
+            <v-icon icon="mdi-trash-can-outline" size="x-small" @click="onDel(nodeData)" />
             <v-icon
                 v-if="!nodeData.item.locked"
                 icon="mdi-lock-outline"
                 size="x-small"
+                class="ml-1"
                 @click="onLock(nodeData)"
             />
             <v-icon
                 v-else
                 icon="mdi-lock-open-variant-outline"
                 size="x-small"
+                class="ml-1"
                 @click="onLock(nodeData)"
             />
             <v-icon
                 v-if="!nodeData.item.visible"
                 icon="mdi-eye-outline"
                 size="x-small"
-                class="ml-2"
+                class="ml-1"
                 @click="onVisible(nodeData)"
             />
             <v-icon
                 v-else
                 icon="mdi-eye-off-outline"
                 size="x-small"
-                class="ml-2"
+                class="ml-1"
                 @click="onVisible(nodeData)"
             />
         </template>
-        <template #switcher-icon="node, { isLeaf }">
+        <template #switcher-icon="{ isLeaf }">
             <IconDown v-if="!isLeaf" />
         </template>
     </a-tree>
 </template>
 <script lang="ts" setup>
 import { computed, h } from 'vue';
-import type { Ref, VNode } from 'vue';
+// import type { Ref, VNode } from 'vue';
 import { IconDriveFile, IconDown, IconImage, IconFontColors } from '@arco-design/web-vue/es/icon';
 import { VIcon } from 'vuetify/components';
 import { VirtualDomType } from '../hooks/useOreoApp';
 import type { VirtualDom } from '../hooks/useOreoApp';
-import { size } from 'lodash';
 
 const props = withDefaults(
     defineProps<{
@@ -62,7 +64,7 @@ const treeData = computed(() => {
     return res;
 });
 
-const emit = defineEmits(['select']);
+const emit = defineEmits(['select', 'del']);
 
 const originTreeData = [
     {
@@ -126,6 +128,9 @@ const originTreeData = [
 //     return originTreeData;
 // });
 
+const onDel = (nodeData: TreeData) => {
+    emit('del', nodeData.item.id);
+};
 const onLock = (nodeData: TreeData) => {
     console.log(nodeData);
     nodeData.item.locked = !nodeData.item.locked;
@@ -154,10 +159,14 @@ function buildTree(flatData: VirtualDom[], rootId: number) {
         if (flatData[i].groupId === rootId) {
             const children = buildTree(flatData, flatData[i].id);
             const icon = getIcon(flatData[i].type);
+            let title = flatData[i].name;
+            if (flatData[i].type === VirtualDomType.Text) {
+                title = flatData[i].label + '';
+            }
             tree.push({
                 item: flatData[i],
                 key: flatData[i].id + '',
-                title: flatData[i].name,
+                title,
                 switcherIcon: children.length ? undefined : icon,
                 children,
             });

@@ -149,10 +149,17 @@ const OreoApp = () => {
         _id_++;
         e.preventDefault();
         if (!dragingDom) return;
+        const vg = appDom.value.find((item) => item.virtualGroup);
         for (let i = 0; i < appDom.value.length; i++) {
-            appDom.value[i].active = false;
+            appDom.value[i].selected = false;
+            if (vg && appDom.value[i].groupId === vg.id) {
+                appDom.value[i].groupId = 0;
+            }
         }
+        // 删除虚拟组合
+        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
         const { width, height } = dragingDom.styles;
+
         dragingDom.styles.top = e.offsetY - height / 2;
         dragingDom.styles.left = e.offsetX - width / 2;
         dragingDom.id = _id_ + 0;
@@ -167,6 +174,12 @@ const OreoApp = () => {
     // 点击页面图层
     const onVirtualDom = (val: VirtualDom) => {
         curDom.value = val;
+    };
+
+    const onDelVirtualDom = (id: number) => {
+        const index = appDom.value.findIndex((item) => item.id === id);
+        if (index < 0) return;
+        appDom.value.splice(index, 1);
     };
 
     const pointerEvent = usePointer(appDom, _id_, curDom);
@@ -258,6 +271,7 @@ const OreoApp = () => {
         onDragover,
         onDrop,
         onVirtualDom,
+        onDelVirtualDom,
         onBlur,
         onInput,
         onEnter,

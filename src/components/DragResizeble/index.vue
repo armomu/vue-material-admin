@@ -850,12 +850,14 @@ export default defineComponent({
                 this.$emit('refLineParams', refLine);
 
                 this.$emit('resizestop', obj);
+                console.log('resizestop');
             }
             if (this.dragging) {
                 this.dragging = false;
                 await this.conflictCheck();
                 this.$emit('refLineParams', refLine);
                 this.$emit('dragstop', obj);
+                console.log('dragstop');
             }
             this.resetBoundsAndMouseState();
             removeEvent(document.documentElement, eventsFor.move, this.handleResize);
@@ -882,7 +884,7 @@ export default defineComponent({
                         item.className !== undefined &&
                         !item.className.includes(this.classNameActive) &&
                         item.getAttribute('data-is-check') !== null &&
-                        item.getAttribute('data-is-check') !== 'false'
+                        item.getAttribute('data-is- ') !== 'false'
                     ) {
                         const tw = item.offsetWidth;
                         const th = item.offsetHeight;
@@ -923,6 +925,7 @@ export default defineComponent({
                             this.width = this.mouseClickPosition.w;
                             this.height = this.mouseClickPosition.h;
                             this.$emit('resizing', this.left, this.top, this.width, this.height);
+                            console.log('对齐======');
                         }
                     }
                 }
@@ -952,7 +955,7 @@ export default defineComponent({
 
                 // 获取当前父节点下所有子节点
                 const nodes = this.$el.parentNode.childNodes;
-                // console.log(nodes);
+                // console.log(nodes, 'this.$el.parentNode.childNodes;');
                 const tem = {
                     value: { x: [[], [], []], y: [[], [], []] },
                     display: [],

@@ -63,10 +63,31 @@
             border-bottom: 1px solid #efefef;
         }
         .arco-tree-node {
+            padding-right: 4px;
+            &::before {
+               display: block;
+               content: '';
+               width: 100%;
+               height: 100%;
+               position: absolute;
+               left: 0;
+               top: 0;
+               z-index: 0;
+            }
+            .arco-tree-node-title {
+                white-space: nowrap; /* 防止文本换行 */
+                overflow: hidden; /* 隐藏溢出的文本 */
+                text-overflow: ellipsis; /* 显示省略号 */
+            }
             .v-icon {
-
-            color: #999;
+                background: transparent;
+                color: #999;
                 display: none;
+            }
+            &:hover {
+                &::before {
+                    background-color: var(--color-fill-2);
+                }
             }
             &:hover .v-icon {
                 display: inline-flex;

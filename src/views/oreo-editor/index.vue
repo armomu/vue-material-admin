@@ -10,7 +10,11 @@
                 >
                     <a-collapse-item header="Pages" key="2"> </a-collapse-item>
                     <a-collapse-item header="Layers" key="1">
-                        <LayerTree :data="oreoApp.appDom.value" @select="oreoApp.onLayerTreeNode" />
+                        <LayerTree
+                            :data="oreoApp.appDom.value"
+                            @select="oreoApp.onLayerTreeNode"
+                            @del="oreoApp.onDelVirtualDom"
+                        />
                     </a-collapse-item>
                 </a-collapse>
 
@@ -37,13 +41,6 @@
                     cursorGrab: oreoApp.mouseMode.value.hand,
                 }"
             >
-                <!-- <Layout
-                    :data="oreoApp.appDom"
-                    @on-dragover="oreoApp.onDragover"
-                    @on-drop="oreoApp.onDrop"
-                    @on-active="oreoApp.onVirtualDom"
-                    @on-dragging="oreoApp.onVirtualGroupDragging"
-                /> -->
                 <v-sheet
                     class="work_content"
                     id="work_content"
@@ -67,7 +64,7 @@
                         @blur="oreoApp.onBlur"
                         @input="oreoApp.onInput"
                         @enter="oreoApp.onEnter"
-                        @changing="oreoApp.onResizeChange"
+                        @resizing="oreoApp.onResizeChange"
                     >
                         <!-- @snapLine="onSnapLine"
                         @contextmenu.prevent.native="openMenu" -->
@@ -170,9 +167,9 @@
                         }
                     "
                 />
-                <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
                 <v-btn variant="text" icon="mdi-reply" size="x-small" />
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
+                <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
             </v-card>
             <v-sheet class="customizes_wrap" @contextmenu.prevent="() => {}">
                 <Customize :data="oreoApp.curDom.value" :align="alignFun" />

@@ -13,11 +13,13 @@
                 @keydown.enter="onEnter"
                 autofocus="true"
             ></textarea>
-            <img
+            <a-image
                 v-if="props.data.url"
-                :src="props.data.url"
                 :width="props.data.styles.width"
                 :height="props.data.styles.height"
+                :fit="props.data.styles.imgFit"
+                :src="props.data?.url || undefined"
+                style="z-index: -1"
             />
         </div>
         <DragResizeBle
@@ -31,10 +33,10 @@
             :resizable="_disable"
             @activated="onActivated"
             @deactivated="onDeactivated"
-            @resizestop="resize"
-            @dragstop="resize"
+            @resizestop="funStop"
+            @dragstop="funStop"
             @dragging="onDragging"
-            @resizing="onChanging"
+            @resizing="onResizing"
             @refLineParams="getRefLineParams"
             :lockAspectRatio="lockAspectRatio"
             :style="styles"
@@ -90,7 +92,7 @@ const emit = defineEmits([
     'update:top',
     'update:left',
     'change',
-    'changing',
+    'resizing',
     'snapLine',
     'mouser',
     'dragging',
@@ -107,10 +109,18 @@ const _top = computed(() => props.top || 0);
 const _left = computed(() => props.left || 0);
 
 const isDiv = computed(() => {
+    // 禁用宽高调整
     if (props.disable) {
         return true;
     }
+    // 如果是文字输入也是div形式
     if (props.data.input) return true;
+
+    // !!props.data.type 不是组合
+    // !!props.data.type 是组合
+    // return !!props.data.groupId && !props.data.type;
+    if (props.data.groupId) return true;
+    if (props.data.virtualGroup) return false;
     return !!props.data.groupId && !!props.data.type;
 });
 
@@ -122,7 +132,7 @@ const lockAspectRatio = computed(() => {
     return arr.includes(props.data.type);
 });
 
-const resize = (e: ResizeOffset) => {
+const funStop = (e: ResizeOffset) => {
     emit('update:width', e.width);
     emit('update:height', e.height);
     emit('update:top', e.top);
@@ -154,6 +164,13 @@ const onDragging = (left_: number, top_: number, f: object) => {
     // console.log(f, 'f');
     emit('dragging', f, props.data);
 };
+const onResizing = (left: number, top: number, width: number, height: number) => {
+    // console.log('changing', { left, top, width, height });
+    emit('update:width', width);
+    emit('update:height', height);
+    emit('resizing', { left, top, width, height });
+};
+
 const onBlur = () => {
     // console.log(f, 'f');
     emit('blur');
@@ -165,10 +182,6 @@ const onInput = (e: Event) => {
 const onEnter = (e: Event) => {
     // console.log(f, 'f');
     emit('enter', e);
-};
-const onChanging = (left: number, top: number, width: number, height: number) => {
-    // console.log(f, 'f');
-    emit('changing', { left, top, width, height });
 };
 
 const styles = computed(() => {
