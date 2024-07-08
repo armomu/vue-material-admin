@@ -341,6 +341,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
     return {
         mouseMode,
         boxSelectState,
+        haSelectedList,
         onPointerDown,
         onPointerMove,
         onPointerUp,

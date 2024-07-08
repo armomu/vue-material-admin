@@ -57,7 +57,7 @@
                         v-model:top="item.styles.top"
                         v-model:left="item.styles.left"
                         :disable="oreoApp.disableDraResize.value"
-                        @snapLine="onSnapLine"
+                        @snapLine="oreoApp.onSnapLine"
                         @mouser="oreoApp.openMenu"
                         @activated="oreoApp.onVirtualDom"
                         @dragging="oreoApp.onVirtualGroupDragging"
@@ -74,7 +74,7 @@
                     <div>
                         <span
                             class="ref-line v-line"
-                            v-for="item in snapLine.vLine"
+                            v-for="item in oreoApp.snapLine.vLine"
                             :key="item.id"
                             v-show="item.display"
                             :style="{
@@ -85,7 +85,7 @@
                         />
                         <span
                             class="ref-line h-line"
-                            v-for="item in snapLine.hLine"
+                            v-for="item in oreoApp.snapLine.hLine"
                             :key="item.id"
                             v-show="item.display"
                             :style="{
@@ -210,7 +210,6 @@
 </template>
 <script lang="ts" setup>
 import './css.scss';
-import { reactive } from 'vue';
 import { useMainStore } from '@/stores/useMainStore';
 // @ts-ignore
 import JsonViewer from 'vue-json-viewer';
@@ -226,26 +225,6 @@ const oreoApp = useOreoApp();
 // const mouseMenu = useMouseMenu();
 const alignFun = useAlign(oreoApp.appDom.value);
 
-const snapLine = reactive<{
-    vLine: SnapLine[];
-    hLine: SnapLine[];
-}>({
-    vLine: [],
-    hLine: [],
-});
-const onSnapLine = (arr: SnapLine[][]) => {
-    const [vLine, hLine] = arr;
-    snapLine.vLine = vLine;
-    snapLine.hLine = hLine;
-};
-
-interface SnapLine {
-    display: boolean;
-    id: number;
-    lineLength: string;
-    origin: string;
-    position: string;
-}
 const mainStore = useMainStore();
 mainStore.onTheme('light');
 </script>

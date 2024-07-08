@@ -10,7 +10,6 @@ export const useAlign = (appDom: VirtualDom[]) => {
                 list.push(appDom[i]);
             }
         }
-        console.log(JSON.parse(JSON.stringify(list)));
         return list;
     }
     // 顶部对齐

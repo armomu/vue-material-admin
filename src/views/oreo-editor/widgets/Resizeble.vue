@@ -125,6 +125,7 @@ const isDiv = computed(() => {
 });
 
 const _disable = computed(() => {
+    if (props.data.groupId) return true;
     return !props.data.locked && !props.data.input;
 });
 const lockAspectRatio = computed(() => {

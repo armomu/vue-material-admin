@@ -690,12 +690,13 @@ export default defineComponent({
                 offsetX: left - this.left,
                 offsetY: top - this.top,
             };
+
             this.left = left;
             this.top = top;
             this.right = right;
             this.bottom = bottom;
-
             await this.snapCheck();
+            // console.log(this.left + 0, this.top + 0, '111111111111111111');
             this.$emit('dragging', this.left, this.top, f);
         },
         moveHorizontally(val) {
