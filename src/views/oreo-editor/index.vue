@@ -17,7 +17,6 @@
                         />
                     </a-collapse-item>
                 </a-collapse>
-
                 <v-card class="tools pa-1 rounded-xl">
                     <BasicWidget
                         :data="oreoApp.widgets.value"
@@ -56,6 +55,7 @@
                         v-model:height="item.styles.height"
                         v-model:top="item.styles.top"
                         v-model:left="item.styles.left"
+                        v-model:label="item.label"
                         :disable="oreoApp.disableDraResize.value"
                         @snapLine="oreoApp.onSnapLine"
                         @mouser="oreoApp.openMenu"
@@ -64,7 +64,7 @@
                         @blur="oreoApp.onBlur"
                         @input="oreoApp.onInput"
                         @enter="oreoApp.onEnter"
-                        @resizing="oreoApp.onResizeChange"
+                        @resizing="oreoApp.onResize"
                     >
                         <!-- @snapLine="onSnapLine"
                         @contextmenu.prevent.native="openMenu" -->

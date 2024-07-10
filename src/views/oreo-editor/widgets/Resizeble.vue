@@ -7,7 +7,7 @@
             <textarea
                 v-if="props.data.input"
                 class="textarea"
-                v-model="props.data.label"
+                v-model="_label"
                 @blur="onBlur"
                 @input="onInput"
                 @keydown.enter="onEnter"
@@ -20,6 +20,11 @@
                 :fit="props.data.styles.imgFit"
                 :src="props.data?.url || undefined"
                 style="z-index: -1"
+            />
+            <v-icon
+                v-if="props.data.type === 6"
+                :icon="props.data.icon"
+                :size="props.data.styles.width"
             />
         </div>
         <DragResizeBle
@@ -80,6 +85,7 @@ const props = withDefaults(
         top: number;
         left: number;
         disable?: boolean | null;
+        label?: string;
     }>(),
     {
         disable: false,
@@ -91,6 +97,7 @@ const emit = defineEmits([
     'update:height',
     'update:top',
     'update:left',
+    'update:label',
     'change',
     'resizing',
     'snapLine',
@@ -107,6 +114,14 @@ const _width = computed(() => props.width);
 const _height = computed(() => props.height);
 const _top = computed(() => props.top || 0);
 const _left = computed(() => props.left || 0);
+const _label = computed({
+    get() {
+        return props.label || '';
+    },
+    set(val: string) {
+        emit('update:label', val);
+    },
+});
 
 const isDiv = computed(() => {
     // 禁用宽高调整

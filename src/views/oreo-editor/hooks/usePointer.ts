@@ -287,6 +287,29 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         }
     };
 
+    // 修复群组对齐的时候
+    const fixDragOffset = () => {
+        if (haSelectedList.length > 0) {
+            const minTop = Math.min(...haSelectedList.map((vd) => vd.styles.top));
+            const minLeft = Math.min(...haSelectedList.map((vd) => vd.styles.left));
+            const tres = curDom.value.styles.top - minTop;
+            const mres = curDom.value.styles.left - minLeft;
+            console.log(tres, mres, 'offset');
+            // for (let i = 0; i < haSelectedList.length; i++) {
+            //     if (tres > 0) {
+            //         haSelectedList[i].styles.left = haSelectedList[i].styles.left + mres;
+            //     } else {
+            //         haSelectedList[i].styles.left = haSelectedList[i].styles.left - mres;
+            //     }
+            //     if (mres > 0) {
+            //         haSelectedList[i].styles.top = haSelectedList[i].styles.top + tres;
+            //     } else {
+            //         haSelectedList[i].styles.top = haSelectedList[i].styles.top - tres;
+            //     }
+            // }
+        }
+    };
+
     const onMouseMode = (name: string) => {
         Object.keys(mouseMode.value).forEach((key) => {
             if (name === key) {
@@ -346,6 +369,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, _id_: number, curDom: Ref<
         onPointerMove,
         onPointerUp,
         onVirtualGroupDragging,
+        fixDragOffset,
         onMouseMode,
     };
 };

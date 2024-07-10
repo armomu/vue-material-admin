@@ -2,8 +2,7 @@ import { ref, computed, type DefineComponent, reactive } from 'vue';
 import { useRuler } from './useRuler';
 import { usePointer } from './usePointer';
 import { useMouseMenu } from './useMouseMenu';
-import materialIcons from './icon';
-import { cloneDeep } from 'lodash';
+import { useIcon } from './useIcon';
 
 export enum VirtualDomType {
     Group,
@@ -185,12 +184,12 @@ const OreoApp = () => {
     const pointerEvent = usePointer(appDom, _id_, curDom);
     const rulerBar = useRuler();
     const mouseMenu = useMouseMenu(appDom, curDom);
+    const iconEvent = useIcon(appDom, curDom);
 
     const disableDraResize = computed(() => {
         if (pointerEvent.mouseMode.value.text) {
             return true;
         }
-
         return false;
     });
 
@@ -209,7 +208,7 @@ const OreoApp = () => {
 
     //
     // @ts-ignore
-    const onResizeChange = (val: ResizeOffset) => {
+    const onResize = (val: ResizeOffset) => {
         if (curDom.value.type === VirtualDomType.Circle) {
             curDom.value.styles.radius = parseInt(val.width / 2 + '');
         }
@@ -239,29 +238,6 @@ const OreoApp = () => {
 
     const jsonViewerVisible = ref(false);
 
-    const iconState = ref({
-        dialogVisible: false,
-        list: materialIcons,
-    });
-
-    const onAddIcon = (icon: string) => {
-        const iconDom = cloneDeep(beaseDom[0]);
-        _id_++;
-        iconDom.type = VirtualDomType.Icon;
-        iconDom.id = _id_ + 0;
-        iconDom.name = 'Icon';
-        iconDom.icon = icon;
-        iconDom.styles.fill = false;
-        iconDom.styles.width = 30;
-        iconDom.styles.height = 30;
-        iconDom.styles.left = 30;
-        iconDom.styles.top = 30;
-        curDom.value = iconDom;
-        appDom.value.push(iconDom);
-
-        iconState.value.dialogVisible = false;
-    };
-
     const snapLine = reactive<{
         vLine: SnapLine[];
         hLine: SnapLine[];
@@ -273,17 +249,10 @@ const OreoApp = () => {
         const [vLine, hLine] = arr;
         snapLine.vLine = vLine;
         snapLine.hLine = hLine;
-        if (pointerEvent.haSelectedList.length > 0) {
-            const minTop = Math.min(...pointerEvent.haSelectedList.map((vd) => vd.styles.top));
-            const minLeft = Math.min(...pointerEvent.haSelectedList.map((vd) => vd.styles.left));
-            const tres = curDom.value.styles.top - minTop;
-            const mres = curDom.value.styles.left - minLeft;
-            for (let i = 0; i < pointerEvent.haSelectedList.length; i++) {
-                pointerEvent.haSelectedList[i].styles.left =
-                    pointerEvent.haSelectedList[i].styles.left + mres;
-                pointerEvent.haSelectedList[i].styles.top =
-                    pointerEvent.haSelectedList[i].styles.top + tres;
-            }
+        const v = vLine.findIndex((item) => item.display === true);
+        const h = hLine.findIndex((item) => item.display === true);
+        if (v > -1 || h > -1) {
+            pointerEvent.fixDragOffset();
         }
     };
 
@@ -300,19 +269,18 @@ const OreoApp = () => {
         onBlur,
         onInput,
         onEnter,
-        onResizeChange,
+        onResize,
         disableDraResize,
         imageFileRef,
         onAddImage,
         onLayerTreeNode,
         jsonViewerVisible,
-        iconState,
         snapLine,
         onSnapLine,
-        onAddIcon,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,
+        ...iconEvent,
     };
 };
 export default OreoApp;
@@ -348,7 +316,7 @@ export interface ElementStyles extends Shadow {
     radius: number;
 
     fill: boolean;
-    imgFit?: string;
+    imgFit?: 'fill' | 'none' | 'contain' | 'cover' | 'scale-down' | undefined;
     background: string;
 
     border: boolean;
