@@ -34,8 +34,8 @@
             :h="_height"
             :x="_left"
             :y="_top"
-            :draggable="_disable"
-            :resizable="_disable"
+            :draggable="disableDrag"
+            :resizable="disableResize"
             @activated="onActivated"
             @deactivated="onDeactivated"
             @resizestop="funStop"
@@ -139,10 +139,16 @@ const isDiv = computed(() => {
     return !!props.data.groupId && !!props.data.type;
 });
 
-const _disable = computed(() => {
+const disableDrag = computed(() => {
     if (props.data.groupId) return true;
     return !props.data.locked && !props.data.input;
 });
+const disableResize = computed(() => {
+    if (props.data.type === VirtualDomType.Group || props.data.virtualGroup) return true;
+    if (props.data.groupId) return true;
+    return !props.data.locked && !props.data.input;
+});
+
 const lockAspectRatio = computed(() => {
     const arr = [VirtualDomType.Circle, VirtualDomType.Icon];
     return arr.includes(props.data.type);
@@ -177,26 +183,21 @@ const onDeactivated = () => {
     emit('update:active', false);
 };
 const onDragging = (left_: number, top_: number, f: object) => {
-    // console.log(f, 'f');
     emit('dragging', f, props.data);
 };
 const onResizing = (left: number, top: number, width: number, height: number) => {
-    // console.log('changing', { left, top, width, height });
     emit('update:width', width);
     emit('update:height', height);
     emit('resizing', { left, top, width, height });
 };
 
 const onBlur = () => {
-    // console.log(f, 'f');
     emit('blur');
 };
 const onInput = (e: Event) => {
-    // console.log(f, 'f');
     emit('input', e);
 };
 const onEnter = (e: Event) => {
-    // console.log(f, 'f');
     emit('enter', e);
 };
 
@@ -230,6 +231,7 @@ const styles = computed(() => {
             ...props.data.fontStyle,
         };
         fontStyle.fontSize = props.data.fontStyle.fontSize + 'px';
+        fontStyle.lineHeight = props.data.fontStyle.lineHeight + 'px';
         if (props.data.fontStyle.shadow) {
             fontStyle.textShadow = `${props.data.fontStyle.shadowX}px ${props.data.fontStyle.shadowY}px ${props.data.fontStyle.shadowBlur}px ${props.data.fontStyle.shadowColor}`;
         }
@@ -262,6 +264,7 @@ const classNames = computed(() => {
     ];
 });
 
+// 右键
 const onMouser = (e: PointerEvent) => {
     emit('mouser', e);
 };

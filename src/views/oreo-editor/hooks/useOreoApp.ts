@@ -1,8 +1,10 @@
 import { ref, computed, type DefineComponent, reactive } from 'vue';
 import { useRuler } from './useRuler';
+import { useAlign } from './useAlign';
 import { usePointer } from './usePointer';
 import { useMouseMenu } from './useMouseMenu';
 import { useIcon } from './useIcon';
+import { useTextInput } from './useTextInput';
 
 export enum VirtualDomType {
     Group,
@@ -43,7 +45,7 @@ export const beaseDom: VirtualDom[] = [
         name: 'Rect',
         groupId: 0,
         icon: 'mdi-card-outline',
-        type: VirtualDomType.Rect, // 1矩形，2圆形，3文本，4图片，5视频
+        type: VirtualDomType.Rect,
         active: true,
         visible: true,
         selected: false,
@@ -55,7 +57,7 @@ export const beaseDom: VirtualDom[] = [
         name: 'Circle',
         groupId: 0,
         icon: 'mdi-circle-outline',
-        type: VirtualDomType.Circle, // 1矩形，2圆形，3文本，4图片，5视频
+        type: VirtualDomType.Circle,
         active: true,
         visible: true,
         selected: false,
@@ -76,8 +78,9 @@ export const beaseDom: VirtualDom[] = [
         styles: { ...beaseDomStyle, fill: false },
         fontStyle: {
             color: '#333333',
-            fontSize: '12',
-            fontFamily: 'inherit',
+            fontSize: 12,
+            lineHeight: 15,
+            fontFamily: 'alishuhei',
             fontWeight: 'normal',
             textAlign: 'left',
             shadow: false,
@@ -94,7 +97,7 @@ export const beaseDom: VirtualDom[] = [
         name: 'Image',
         groupId: 0,
         icon: 'mdi-image-outline',
-        type: VirtualDomType.Image, // 1矩形，2圆形，3文本，4图片，5视频
+        type: VirtualDomType.Image,
         active: true,
         visible: true,
         selected: false,
@@ -151,6 +154,7 @@ const OreoApp = () => {
         const vg = appDom.value.find((item) => item.virtualGroup);
         for (let i = 0; i < appDom.value.length; i++) {
             appDom.value[i].selected = false;
+            appDom.value[i].active = false;
             if (vg && appDom.value[i].groupId === vg.id) {
                 appDom.value[i].groupId = 0;
             }
@@ -172,6 +176,7 @@ const OreoApp = () => {
 
     // 点击页面图层
     const onVirtualDom = (val: VirtualDom) => {
+        console.log(val.name, val.id, '点击了');
         curDom.value = val;
     };
 
@@ -181,10 +186,12 @@ const OreoApp = () => {
         appDom.value.splice(index, 1);
     };
 
-    const pointerEvent = usePointer(appDom, _id_, curDom);
+    const pointerEvent = usePointer(appDom, curDom);
     const rulerBar = useRuler();
     const mouseMenu = useMouseMenu(appDom, curDom);
     const iconEvent = useIcon(appDom, curDom);
+    const inputEvent = useTextInput(appDom, curDom, pointerEvent);
+    const align = useAlign(appDom);
 
     const disableDraResize = computed(() => {
         if (pointerEvent.mouseMode.value.text) {
@@ -193,22 +200,8 @@ const OreoApp = () => {
         return false;
     });
 
-    const onBlur = () => {
-        curDom.value.input = false;
-        curDom.value.locked = false;
-        pointerEvent.onMouseMode('boxSelect');
-    };
-
-    const onInput = () => {
-        // curDom.value.input = false;
-    };
-    const onEnter = () => {
-        // curDom.value.input = false;
-    };
-
-    //
-    // @ts-ignore
     const onResize = (val: ResizeOffset) => {
+        // BUG 为什么解除组合圆形的宽会变大
         if (curDom.value.type === VirtualDomType.Circle) {
             curDom.value.styles.radius = parseInt(val.width / 2 + '');
         }
@@ -266,9 +259,6 @@ const OreoApp = () => {
         onDrop,
         onVirtualDom,
         onDelVirtualDom,
-        onBlur,
-        onInput,
-        onEnter,
         onResize,
         disableDraResize,
         imageFileRef,
@@ -277,10 +267,12 @@ const OreoApp = () => {
         jsonViewerVisible,
         snapLine,
         onSnapLine,
+        align,
         ...pointerEvent,
         ...rulerBar,
         ...mouseMenu,
         ...iconEvent,
+        ...inputEvent,
     };
 };
 export default OreoApp;
@@ -328,11 +320,12 @@ export interface ElementStyles extends Shadow {
 // 文本
 export interface FontStyle extends Shadow {
     color: string;
-    fontSize: string;
+    fontSize: number;
     fontFamily: string;
     fontWeight: 'bold' | 'bolder' | 'normal' | 'lighter' | 'bolder';
     textAlign: 'center' | 'left' | 'right' | 'justify' | 'start' | 'end';
     decoration: 'none' | 'overline' | 'line-through' | 'underline';
+    lineHeight: number;
 }
 interface Shadow {
     shadow: boolean;

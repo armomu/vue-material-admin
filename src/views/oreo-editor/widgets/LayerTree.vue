@@ -46,7 +46,6 @@
 </template>
 <script lang="ts" setup>
 import { computed, h } from 'vue';
-// import type { Ref, VNode } from 'vue';
 import { IconDriveFile, IconDown, IconImage, IconFontColors } from '@arco-design/web-vue/es/icon';
 import { VIcon } from 'vuetify/components';
 import { VirtualDomType } from '../hooks/useOreoApp';
@@ -60,7 +59,6 @@ const props = withDefaults(
 );
 const treeData = computed(() => {
     const res = buildTree(props.data, 0);
-    console.log(res);
     return res;
 });
 
@@ -172,7 +170,6 @@ function buildTree(flatData: VirtualDom[], rootId: number) {
             });
         }
     }
-
     return tree;
 }
 const getIcon = (type: number) => {

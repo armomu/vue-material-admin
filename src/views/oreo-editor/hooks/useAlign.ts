@@ -1,13 +1,13 @@
-// import { ref, type Ref } from 'vue';
+import type { Ref } from 'vue';
 import type { VirtualDom } from './useOreoApp';
 
 // Align Hooks
-export const useAlign = (appDom: VirtualDom[]) => {
+export const useAlign = (appDom: Ref<VirtualDom[]>) => {
     function getSelectList(includeVG = true): VirtualDom[] {
         const list: VirtualDom[] = [];
-        for (let i = 0; i < appDom.length; i++) {
-            if (appDom[i].selected || (appDom[i].virtualGroup && includeVG)) {
-                list.push(appDom[i]);
+        for (let i = 0; i < appDom.value.length; i++) {
+            if (appDom.value[i].selected || (appDom.value[i].virtualGroup && includeVG)) {
+                list.push(appDom.value[i]);
             }
         }
         return list;

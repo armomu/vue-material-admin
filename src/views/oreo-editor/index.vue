@@ -172,7 +172,7 @@
                 <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
             </v-card>
             <v-sheet class="customizes_wrap" @contextmenu.prevent="() => {}">
-                <Customize :data="oreoApp.curDom.value" :align="alignFun" />
+                <Customize :data="oreoApp.curDom.value" :align="oreoApp.align" />
             </v-sheet>
         </div>
         <a-drawer
@@ -209,7 +209,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import './css.scss';
+import './styles/index.scss';
 import { useMainStore } from '@/stores/useMainStore';
 // @ts-ignore
 import JsonViewer from 'vue-json-viewer';
@@ -219,12 +219,7 @@ import LayerTree from './widgets/LayerTree.vue';
 import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
 import useOreoApp from './hooks/useOreoApp';
-import { useAlign } from './hooks/useAlign';
 const oreoApp = useOreoApp();
-
-// const mouseMenu = useMouseMenu();
-const alignFun = useAlign(oreoApp.appDom.value);
-
 const mainStore = useMainStore();
 mainStore.onTheme('light');
 </script>

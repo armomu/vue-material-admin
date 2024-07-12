@@ -3,6 +3,7 @@
 <template>
     <div class="customizes">
         <a-collapse
+            v-if="props.data"
             :default-active-key="['1', '2', '3', '4']"
             :bordered="false"
             :show-expand-icon="false"
@@ -64,81 +65,79 @@
                     /> -->
                 </div>
                 <a-divider class="my-2 mb-3"></a-divider>
-                <div v-if="props.data">
-                    <a-row :gutter="8">
-                        <a-col :span="12">
-                            <a-input-number v-model="props.data.styles.left" size="mini"
-                                ><template #prepend>X</template></a-input-number
-                            >
-                        </a-col>
-                        <a-col :span="12">
-                            <a-input-number v-model="props.data.styles.top" size="mini"
-                                ><template #prepend>Y</template></a-input-number
-                            >
-                        </a-col>
-                        <a-col :span="12" class="mt-2">
-                            <a-input-number v-model="props.data.styles.width" size="mini"
-                                ><template #prepend>W</template></a-input-number
-                            >
-                        </a-col>
-                        <a-col :span="12" class="mt-2">
-                            <a-input-number v-model="props.data.styles.height" size="mini"
-                                ><template #prepend>H</template></a-input-number
-                            >
-                        </a-col>
-                        <div class="d-flex mt-2">
-                            <v-btn variant="text" disabled icon="mdi-scan-helper" size="x-small" />
-                            <a-slider
-                                v-model="props.data.styles.radius"
-                                style="width: 98px"
-                                class="mx-2"
-                            />
-                            <a-input-number
-                                style="width: 72px"
-                                v-model="props.data.styles.radius"
-                                size="mini"
-                                class="ml-1"
-                            />
-                        </div>
-                        <div class="d-flex mt-2">
-                            <v-btn variant="text" disabled icon="mdi-restore" size="x-small" />
-                            <a-slider
-                                disabled
-                                v-model="props.data.styles.rotate"
-                                style="width: 98px"
-                                class="mx-2"
-                            />
-                            <a-input-number
-                                disabled
-                                style="width: 72px"
-                                v-model="props.data.styles.rotate"
-                                size="mini"
-                                class="ml-1"
-                            />
-                        </div>
-                        <div class="d-flex mt-2">
-                            <v-btn variant="text" disabled icon="mdi-eye-outline" size="x-small" />
-                            <a-slider
-                                v-model="props.data.styles.opacity"
-                                :max="1"
-                                :min="0.0"
-                                :step="0.01"
-                                style="width: 98px"
-                                class="mx-2"
-                            />
-                            <a-input-number
-                                style="width: 72px"
-                                v-model="props.data.styles.opacity"
-                                size="mini"
-                                class="ml-1"
-                            />
-                        </div>
-                    </a-row>
-                </div>
+                <a-row :gutter="8">
+                    <a-col :span="12">
+                        <a-input-number v-model="props.data.styles.left" size="mini"
+                            ><template #prepend>X</template></a-input-number
+                        >
+                    </a-col>
+                    <a-col :span="12">
+                        <a-input-number v-model="props.data.styles.top" size="mini"
+                            ><template #prepend>Y</template></a-input-number
+                        >
+                    </a-col>
+                    <a-col :span="12" class="mt-2">
+                        <a-input-number v-model="props.data.styles.width" size="mini"
+                            ><template #prepend>W</template></a-input-number
+                        >
+                    </a-col>
+                    <a-col :span="12" class="mt-2">
+                        <a-input-number v-model="props.data.styles.height" size="mini"
+                            ><template #prepend>H</template></a-input-number
+                        >
+                    </a-col>
+                    <div class="d-flex mt-2">
+                        <v-btn variant="text" disabled icon="mdi-scan-helper" size="x-small" />
+                        <a-slider
+                            v-model="props.data.styles.radius"
+                            style="width: 98px"
+                            class="mx-2"
+                        />
+                        <a-input-number
+                            style="width: 72px"
+                            v-model="props.data.styles.radius"
+                            size="mini"
+                            class="ml-1"
+                        />
+                    </div>
+                    <div class="d-flex mt-2">
+                        <v-btn variant="text" disabled icon="mdi-restore" size="x-small" />
+                        <a-slider
+                            disabled
+                            v-model="props.data.styles.rotate"
+                            style="width: 98px"
+                            class="mx-2"
+                        />
+                        <a-input-number
+                            disabled
+                            style="width: 72px"
+                            v-model="props.data.styles.rotate"
+                            size="mini"
+                            class="ml-1"
+                        />
+                    </div>
+                    <div class="d-flex mt-2">
+                        <v-btn variant="text" disabled icon="mdi-eye-outline" size="x-small" />
+                        <a-slider
+                            v-model="props.data.styles.opacity"
+                            :max="1"
+                            :min="0.0"
+                            :step="0.01"
+                            style="width: 98px"
+                            class="mx-2"
+                        />
+                        <a-input-number
+                            style="width: 72px"
+                            v-model="props.data.styles.opacity"
+                            size="mini"
+                            class="ml-1"
+                        />
+                    </div>
+                </a-row>
             </a-collapse-item>
             <!-- 基础样式结束 -->
             <!-- 填充样式开始 -->
-            <a-collapse-item v-if="props.data" header="Exterior" key="2">
+            <a-collapse-item v-if="showExterior" header="Exterior" key="2">
                 <a-row :gutter="8">
                     <a-col :span="4" class="pt-1">
                         <a-checkbox v-model="props.data.styles.fill"
@@ -223,7 +222,7 @@
             <!-- 填充样式结束 -->
 
             <!-- 文本样式开始 -->
-            <a-collapse-item v-if="props.data && props.data.fontStyle" header="Text" key="3">
+            <a-collapse-item v-if="props.data.fontStyle && showText" header="Text" key="3">
                 <a-row :gutter="8">
                     <a-col :span="3">
                         <a-color-picker showPreset v-model="props.data.fontStyle.color">
@@ -239,9 +238,9 @@
                         <a-select
                             v-model="props.data.fontStyle.fontSize"
                             style="flex: 1"
-                            size="mini"
+                            size="small"
                         >
-                            <a-option v-for="item in 100" :key="item" :value="item + ''">{{
+                            <a-option v-for="item in 100" :key="item" :value="item">{{
                                 item
                             }}</a-option>
                         </a-select>
@@ -249,16 +248,12 @@
                     <a-col :span="13">
                         <a-select
                             v-model="props.data.fontStyle.fontFamily"
-                            size="mini"
+                            size="small"
                             style="flex: 1"
                         >
-                            <a-option value="inherit">FollowSystem</a-option>
-                            <a-option value="-apple-system">AppleSystem</a-option>
-                            <a-option value="BlinkMacSystemFont">BlinkMacSystemFont</a-option>
-                            <a-option value="dashed">PingFang SC</a-option>
-                            <a-option value="dashed">Hiragino Sans GB</a-option>
-                            <a-option value="dashed">Microsoft YaHei</a-option>
-                            <a-option value="dashed">Helvetica Neue</a-option>
+                            <a-option value="inherit">Inherit</a-option>
+                            <a-option value="alipuhui">阿里普惠</a-option>
+                            <a-option value="alishuhei">阿里数黑</a-option>
                         </a-select>
                     </a-col>
 
@@ -283,7 +278,7 @@
                         </a-radio-group>
                     </a-col>
                     <a-col :span="12" class="mt-3" style="width: auto">
-                        <a-button-group size="mini" disabled>
+                        <a-button-group size="small">
                             <a-button style="width: 33px">
                                 <template #icon
                                     ><v-icon icon="mdi-format-bold" size="mall"
@@ -300,7 +295,7 @@
                                 /></template> </a-button
                         ></a-button-group>
                     </a-col>
-                    <a-col :span="12" class="mt-3" style="width: auto">
+                    <!-- <a-col :span="12" class="mt-3" style="width: auto">
                         <a-button-group size="mini" disabled>
                             <a-button style="width: 33px">
                                 <template #icon
@@ -318,7 +313,7 @@
                                 /></template>
                             </a-button>
                         </a-button-group>
-                    </a-col>
+                    </a-col> -->
                 </a-row>
 
                 <a-row :gutter="8">
@@ -352,7 +347,7 @@
             </a-collapse-item>
             <!-- 文本样式结束 -->
             <!-- 图片样式开始 -->
-            <a-collapse-item v-if="isImage" header="Image" key="4">
+            <a-collapse-item v-if="showImage" header="Image" key="4">
                 <a-image
                     :width="216"
                     :height="imageHeight"
@@ -397,10 +392,19 @@ const imageHeight = computed(() => {
     return 0;
 });
 
-const isImage = computed(() => {
-    if (props.data && props.data.type === VirtualDomType.Image) {
-        return true;
-    }
+const showExterior = computed(() => {
+    if (props.data && props.data.type === VirtualDomType.Image) return false;
+    if (props.data && props.data.type === VirtualDomType.Text) return false;
+    return true;
+});
+
+const showImage = computed(() => {
+    if (props.data && props.data.type === VirtualDomType.Image) return true;
+    return false;
+});
+
+const showText = computed(() => {
+    if (props.data && props.data.type === VirtualDomType.Text) return true;
     return false;
 });
 </script>
