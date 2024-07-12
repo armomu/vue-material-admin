@@ -231,7 +231,8 @@ const styles = computed(() => {
             ...props.data.fontStyle,
         };
         fontStyle.fontSize = props.data.fontStyle.fontSize + 'px';
-        fontStyle.lineHeight = props.data.fontStyle.lineHeight + 'px';
+        fontStyle.lineHeight = '1';
+        // fontStyle.lineHeight = props.data.fontStyle.lineHeight + 'px';
         if (props.data.fontStyle.shadow) {
             fontStyle.textShadow = `${props.data.fontStyle.shadowX}px ${props.data.fontStyle.shadowY}px ${props.data.fontStyle.shadowBlur}px ${props.data.fontStyle.shadowColor}`;
         }
