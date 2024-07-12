@@ -295,7 +295,7 @@
                                 /></template> </a-button
                         ></a-button-group>
                     </a-col>
-                    <!-- <a-col :span="12" class="mt-3" style="width: auto">
+                    <a-col :span="12" class="mt-3" style="width: auto">
                         <a-button-group size="mini" disabled>
                             <a-button style="width: 33px">
                                 <template #icon
@@ -313,7 +313,7 @@
                                 /></template>
                             </a-button>
                         </a-button-group>
-                    </a-col> -->
+                    </a-col>
                 </a-row>
 
                 <a-row :gutter="8">
@@ -404,6 +404,7 @@ const showImage = computed(() => {
 });
 
 const showText = computed(() => {
+    if (props.data && props.data.type === VirtualDomType.Icon) return true;
     if (props.data && props.data.type === VirtualDomType.Text) return true;
     return false;
 });

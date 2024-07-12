@@ -5,6 +5,7 @@ import { usePointer } from './usePointer';
 import { useMouseMenu } from './useMouseMenu';
 import { useIcon } from './useIcon';
 import { useTextInput } from './useTextInput';
+import { useSnapLine } from './useSnapLine';
 
 export enum VirtualDomType {
     Group,
@@ -192,7 +193,8 @@ const OreoApp = () => {
     const iconEvent = useIcon(appDom, curDom);
     const inputEvent = useTextInput(appDom, curDom, pointerEvent);
     const align = useAlign(appDom);
-
+    const snapLineEvent = useSnapLine(appDom, curDom, pointerEvent);
+    //
     const disableDraResize = computed(() => {
         if (pointerEvent.mouseMode.value.text) {
             return true;
@@ -231,24 +233,6 @@ const OreoApp = () => {
 
     const jsonViewerVisible = ref(false);
 
-    const snapLine = reactive<{
-        vLine: SnapLine[];
-        hLine: SnapLine[];
-    }>({
-        vLine: [],
-        hLine: [],
-    });
-    const onSnapLine = (arr: SnapLine[][]) => {
-        const [vLine, hLine] = arr;
-        snapLine.vLine = vLine;
-        snapLine.hLine = hLine;
-        const v = vLine.findIndex((item) => item.display === true);
-        const h = hLine.findIndex((item) => item.display === true);
-        if (v > -1 || h > -1) {
-            pointerEvent.fixDragOffset();
-        }
-    };
-
     return {
         appDom,
         widgets,
@@ -265,8 +249,7 @@ const OreoApp = () => {
         onAddImage,
         onLayerTreeNode,
         jsonViewerVisible,
-        snapLine,
-        onSnapLine,
+        ...snapLineEvent,
         align,
         ...pointerEvent,
         ...rulerBar,
@@ -340,12 +323,4 @@ export interface ResizeOffset {
     top: number;
     width: number;
     height: number;
-}
-
-interface SnapLine {
-    display: boolean;
-    id: number;
-    lineLength: string;
-    origin: string;
-    position: string;
 }

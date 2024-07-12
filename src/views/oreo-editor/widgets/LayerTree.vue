@@ -64,68 +64,6 @@ const treeData = computed(() => {
 
 const emit = defineEmits(['select', 'del']);
 
-const originTreeData = [
-    {
-        title: 'Trunk 0-0',
-        key: '0-0',
-        icon: 'font',
-        children: [
-            {
-                title: 'Branch 0-0-1',
-                key: '0-0-1',
-                icon: 'font',
-                children: [
-                    {
-                        title: 'Leaf 0-0-1-1',
-                        key: '0-0-1-1',
-                        icon: 'font',
-                    },
-                    {
-                        title: 'Leaf 0-0-1-2',
-                        key: '0-0-1-2',
-                        icon: 'font',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        title: 'Trunk 0-1',
-        key: '0-1',
-        icon: 'font',
-        children: [
-            {
-                title: 'Branch 0-1-1',
-                key: '0-1-1',
-                icon: 'font',
-                children: [
-                    {
-                        title: 'Leaf 0-1-1-0',
-                        key: '0-1-1-0',
-                        icon: 'font',
-                    },
-                ],
-            },
-            {
-                title: 'Branch 0-1-2',
-                key: '0-1-2',
-                icon: 'font',
-                children: [
-                    {
-                        title: 'Leaf 0-1-2-0',
-                        key: '0-1-2-0',
-                        icon: 'font',
-                    },
-                ],
-            },
-        ],
-    },
-];
-
-// const treeData = computed(() => {
-//     return originTreeData;
-// });
-
 const onDel = (nodeData: TreeData) => {
     emit('del', nodeData.item.id);
 };
@@ -143,20 +81,21 @@ const onSelect = (newSelectedKeys: string[], event: TreeEvent) => {
     event.node.item.selected = true;
     emit('select', event.node.item);
 };
+
 const onCheck = (newCheckedKeys: string[], event: TreeEvent) => {
     console.log('check: ', newCheckedKeys, event);
 };
+
 const onExpand = (newExpandedKeys: string[], event: TreeEvent) => {
     console.log('expand: ', newExpandedKeys, event);
 };
 
 function buildTree(flatData: VirtualDom[], rootId: number) {
     const tree: TreeData[] = [];
-
     for (let i = 0; i < flatData.length; i++) {
         if (flatData[i].groupId === rootId) {
             const children = buildTree(flatData, flatData[i].id);
-            const icon = getIcon(flatData[i].type);
+            const icon = getIcon(flatData[i].type, flatData[i].icon);
             let title = flatData[i].name;
             if (flatData[i].type === VirtualDomType.Text) {
                 title = flatData[i].label + '';
@@ -172,7 +111,9 @@ function buildTree(flatData: VirtualDom[], rootId: number) {
     }
     return tree;
 }
-const getIcon = (type: number) => {
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getIcon = (type: number, _icon: string) => {
     let icon = () => h(IconDriveFile);
     if (type === VirtualDomType.Image) {
         icon = () => h(IconImage);
@@ -180,6 +121,9 @@ const getIcon = (type: number) => {
     if (type === VirtualDomType.Text) {
         icon = () => h(IconFontColors);
     }
+    // if (type === VirtualDomType.Icon) {
+    //     icon = () => h(VIcon, { icon: icon });
+    // }
     return icon;
 };
 interface TreeData {

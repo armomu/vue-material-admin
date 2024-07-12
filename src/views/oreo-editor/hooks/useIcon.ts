@@ -21,6 +21,21 @@ export const useIcon = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) => {
         iconDom.styles.height = 30;
         iconDom.styles.left = 30;
         iconDom.styles.top = 30;
+        iconDom.fontStyle = {
+            color: '#333333',
+            fontSize: 12,
+            lineHeight: 15,
+            fontFamily: 'inherit',
+            fontWeight: 'normal',
+            textAlign: 'left',
+            shadow: false,
+            shadowX: 0,
+            shadowY: 1,
+            shadowBlur: 2,
+            shadowSpread: 0,
+            shadowColor: 'rgba(0, 0, 0, 1)',
+            decoration: 'none',
+        };
         curDom.value = iconDom;
         appDom.value.push(iconDom);
 

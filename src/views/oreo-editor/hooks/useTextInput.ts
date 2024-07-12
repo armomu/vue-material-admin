@@ -31,8 +31,6 @@ export const useTextInput = (
             // @ts-ignore
             curDom.value.styles.width = maxWidth + curDom.value.fontStyle?.fontSize || 0;
         }
-
-        // curDom.value.input = false;
     };
     const onEnter = (e: Event) => {
         onEnteState = true;

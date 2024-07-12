@@ -1,7 +1,7 @@
 <template>
     <div class="editor_wrap">
         <div class="oreo-editor" id="oreoEditor">
-            <v-sheet class="layers" id="layers" @contextmenu.prevent="() => {}">
+            <div class="layers" id="layers" @contextmenu.prevent="() => {}">
                 <a-collapse
                     :default-active-key="['1', '2']"
                     :bordered="false"
@@ -17,14 +17,14 @@
                         />
                     </a-collapse-item>
                 </a-collapse>
-                <v-card class="tools pa-1 rounded-xl">
+                <div class="tools">
                     <BasicWidget
                         :data="oreoApp.widgets.value"
                         @draging="oreoApp.onDraging"
                         @addimg="oreoApp.onAddImage"
                     />
-                </v-card>
-            </v-sheet>
+                </div>
+            </div>
             <div
                 :ref="oreoApp.workAreaDomRef"
                 class="work-area"
@@ -40,7 +40,7 @@
                     cursorGrab: oreoApp.mouseMode.value.hand,
                 }"
             >
-                <v-sheet
+                <div
                     class="work_content"
                     id="work_content"
                     @dragover="oreoApp.onDragover"
@@ -102,7 +102,8 @@
                         :left="oreoApp.menuState.value.left"
                         :actions="oreoApp.meneActions"
                     />
-                </v-sheet>
+                    <ChartArea />
+                </div>
                 <div
                     v-if="oreoApp.boxSelectState.value.visible"
                     class="boxSelectHelper"
@@ -117,7 +118,7 @@
                 type="file"
                 @change="oreoApp.onAddImage"
             />
-            <v-card class="helper pa-1 rounded-xl">
+            <div class="helper">
                 <v-btn
                     variant="text"
                     icon="mdi-navigation-outline"
@@ -170,10 +171,10 @@
                 <v-btn variant="text" icon="mdi-reply" size="x-small" />
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
                 <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
-            </v-card>
-            <v-sheet class="customizes_wrap" @contextmenu.prevent="() => {}">
+            </div>
+            <div class="customizes_wrap" @contextmenu.prevent="() => {}">
                 <Customize :data="oreoApp.curDom.value" :align="oreoApp.align" />
-            </v-sheet>
+            </div>
         </div>
         <a-drawer
             v-model:visible="oreoApp.jsonViewerVisible.value"
@@ -210,16 +211,14 @@
 </template>
 <script lang="ts" setup>
 import './styles/index.scss';
-import { useMainStore } from '@/stores/useMainStore';
-// @ts-ignore
-import JsonViewer from 'vue-json-viewer';
 import BasicWidget from './widgets/BasicWidget.vue';
 import Customize from './widgets/Customize.vue';
 import LayerTree from './widgets/LayerTree.vue';
 import Resizeble from './widgets/Resizeble.vue';
 import MouseMenu from './widgets/MouseMenu.vue';
+// @ts-ignore
+import JsonViewer from 'vue-json-viewer';
+
 import useOreoApp from './hooks/useOreoApp';
 const oreoApp = useOreoApp();
-const mainStore = useMainStore();
-mainStore.onTheme('light');
 </script>
