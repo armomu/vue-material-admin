@@ -1,7 +1,6 @@
 <template>
-    <v-card
+    <div
         class="contextmenu"
-        theme="dark"
         v-if="visible"
         :style="{
             left: left + 'px',
@@ -28,21 +27,22 @@
             <div class="label">粘贴</div>
             <div class="desc">Ctrl + V</div>
         </div>
-        <div class="contextmenu_item" @click="actions.onMenuGroup">
+        <div v-if="showGroup" class="contextmenu_item" @click="actions.onMenuGroup">
             <div class="label">组合</div>
             <div class="desc">Ctrl + G</div>
         </div>
-        <div class="contextmenu_item" @click="actions.onMenuDisbandGroup">
+        <div v-if="showGroup" class="contextmenu_item" @click="actions.onMenuDisbandGroup">
             <div class="label">解除组合</div>
             <div class="desc">Shift + Ctrl + G</div>
         </div>
-    </v-card>
+    </div>
 </template>
 <script lang="ts" setup>
 import type { VirtualDom } from '../hooks/useOreoApp';
 import type { MeneActions } from '../hooks/useMouseMenu';
+import { computed } from 'vue';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         data: VirtualDom[];
         visible: boolean;
@@ -52,15 +52,21 @@ withDefaults(
     }>(),
     {}
 );
+const showGroup = computed(() => {
+    return props.data.length;
+});
 </script>
 <style lang="scss">
 .contextmenu {
+    background: rgba(18, 18, 18);
     position: fixed;
     left: 200px;
     top: 300px;
     z-index: 999;
     padding: 4px;
+    border-radius: 6px;
     .contextmenu_item {
+        color: #fff;
         line-height: 24px;
         height: 24px;
         padding: 0 12px;

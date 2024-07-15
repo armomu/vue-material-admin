@@ -153,16 +153,17 @@ const OreoApp = () => {
         _id_++;
         e.preventDefault();
         if (!dragingDom) return;
-        const vg = appDom.value.find((item) => item.virtualGroup);
-        for (let i = 0; i < appDom.value.length; i++) {
-            appDom.value[i].selected = false;
-            appDom.value[i].active = false;
-            if (vg && appDom.value[i].groupId === vg.id) {
-                appDom.value[i].groupId = 0;
-            }
-        }
-        // 删除虚拟组合
-        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
+        pointerEvent.delVirtualgroup();
+        // const vg = appDom.value.find((item) => item.virtualGroup);
+        // for (let i = 0; i < appDom.value.length; i++) {
+        //     appDom.value[i].selected = false;
+        //     appDom.value[i].active = false;
+        //     if (vg && appDom.value[i].groupId === vg.id) {
+        //         appDom.value[i].groupId = 0;
+        //     }
+        // }
+        // // 删除虚拟组合
+        // vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
         const { width, height } = dragingDom.styles;
 
         dragingDom.styles.top = e.offsetY - height / 2;
@@ -198,6 +199,9 @@ const OreoApp = () => {
     //
     const disableDraResize = computed(() => {
         if (pointerEvent.mouseMode.value.text) {
+            return true;
+        }
+        if (pointerEvent.mouseMode.value.draRact) {
             return true;
         }
         return false;

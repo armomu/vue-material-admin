@@ -64,7 +64,6 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
                     }, 250);
                 }
                 if (pointerDownCount === 2) {
-                    console.log('==========+++2');
                     pointerDownCount = 0;
                     pointerDownTimer && clearTimeout(pointerDownTimer);
                     curDom.value.input = true;
@@ -72,7 +71,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
             }
 
             // 当点击的对象是拖拽框
-            if (className.includes('draggable')) {
+            if (className.includes('draggable') || className.includes('dr_text')) {
                 mouseState.draggableActive = true;
                 // 找出当前ID所有子对象 包括组合子组合中的对象
                 haSelectedList = findUids(e_t_did);
@@ -82,17 +81,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
             if (className.includes('contextmenu_item')) {
                 return;
             }
-            const vg = appDom.value.find((item) => item.virtualGroup);
-            // 取消选中
-            for (let i = 0; i < appDom.value.length; i++) {
-                appDom.value[i].selected = false;
-                if (vg && appDom.value[i].groupId === vg.id) {
-                    appDom.value[i].groupId = 0;
-                }
-            }
-            // 删除虚拟组合
-            vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
-
+            delVirtualgroup();
             // 设置键菜单位置信息
             if (className.includes('work_content') || className.includes('work-area')) {
                 mouseState.down = true;
@@ -292,16 +281,34 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         }
     };
 
-    const onMouseMode = (name: string) => {
-        Object.keys(mouseMode.value).forEach((key) => {
-            if (name === key) {
-                // @ts-ignore
-                mouseMode.value[key] = true;
-            } else {
-                // @ts-ignore
-                mouseMode.value[key] = false;
+    const delVirtualgroup = () => {
+        const vg = appDom.value.find((item) => item.virtualGroup);
+        // 取消选中
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].selected = false;
+            // appDom.value[i].active = curActive;
+            if (vg && appDom.value[i].groupId === vg.id) {
+                appDom.value[i].groupId = 0;
             }
+        }
+        // 删除虚拟组合
+        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
+    };
+
+    const onMouseMode = (name: string) => {
+        // delVirtualgroup();
+        Object.keys(mouseMode.value).forEach((key) => {
+            // @ts-ignore
+            mouseMode.value[key] = name === key;
+            // if (name === key) {
+            //     // @ts-ignore
+            //     mouseMode.value[key] = true;
+            // } else {
+            //     // @ts-ignore
+            //     mouseMode.value[key] = false;
+            // }
         });
+
         console.log(name, '模式=======', curDom.value.input);
     };
 
@@ -393,6 +400,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         onVirtualDomDragging,
         onMouseMode,
         setSelectedList,
+        delVirtualgroup,
     };
 };
 
@@ -406,6 +414,7 @@ export interface OreoPointerEvent {
     onVirtualDomDragging: (f: DragOffset) => void;
     onMouseMode: (name: string) => void;
     setSelectedList: () => void;
+    delVirtualgroup: () => void;
 }
 
 interface MouseMode {

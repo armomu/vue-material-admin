@@ -49,7 +49,7 @@
             :uid="props.data.id"
             @contextmenu.prevent="onMouser"
         >
-            <div v-if="props.data.label && !props.data.input" class="text">
+            <div v-if="props.data.label && !props.data.input" class="text dr_text">
                 {{ props.data.label }}
             </div>
             <a-image
@@ -269,6 +269,6 @@ const classNames = computed(() => {
 
 // 右键
 const onMouser = (e: PointerEvent) => {
-    emit('mouser', e);
+    emit('mouser', e, props.data);
 };
 </script>

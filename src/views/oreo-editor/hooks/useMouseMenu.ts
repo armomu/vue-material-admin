@@ -12,15 +12,17 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
     const hideMenu = () => {
         menuState.value.visible = false;
     };
-    const openMenu = (e: PointerEvent) => {
+    const openMenu = (e: PointerEvent, item: VirtualDom) => {
         e.preventDefault();
         menuState.value.left = e.clientX;
         menuState.value.top = e.clientY;
         menuState.value.visible = true;
-        document.body.addEventListener('click', hideMenu);
-        setTimeout(() => {
-            // document.body.removeEventListener('click', hideMenu);
-        }, 50);
+        // document.body.addEventListener('click', hideMenu);
+        // setTimeout(() => {
+        //     // document.body.removeEventListener('click', hideMenu);
+        // }, 50);
+        console.log('openMenu====');
+        // curDom.value = item;
     };
 
     const onMenuVisible = () => {
@@ -89,9 +91,11 @@ export const useMouseMenu = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>)
 
     onMounted(() => {
         document.addEventListener('keydown', onKeydown);
+        document.body.addEventListener('click', hideMenu);
     });
     onUnmounted(() => {
         document.removeEventListener('keydown', onKeydown);
+        document.body.removeEventListener('click', hideMenu);
     });
 
     return {

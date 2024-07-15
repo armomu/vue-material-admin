@@ -17,22 +17,23 @@ export const useIcon = (
 
     const onShowIconDialog = () => {
         pointerEvent.setSelectedList();
+        pointerEvent.delVirtualgroup();
         // for (let i = 0; i < appDom.value.length; i++) {
         //     appDom.value[i].selected = false;
         //     appDom.value[i].active = false;
         // }
-        const vg = appDom.value.find((item) => item.virtualGroup);
-        // 取消选中
-        for (let i = 0; i < appDom.value.length; i++) {
-            appDom.value[i].selected = false;
-            appDom.value[i].active = false;
-            if (vg && appDom.value[i].groupId === vg.id) {
-                appDom.value[i].groupId = 0;
-            }
-        }
-        // 删除虚拟组合
-        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
-        iconState.value.dialogVisible = true;
+        // const vg = appDom.value.find((item) => item.virtualGroup);
+        // // 取消选中
+        // for (let i = 0; i < appDom.value.length; i++) {
+        //     appDom.value[i].selected = false;
+        //     appDom.value[i].active = false;
+        //     if (vg && appDom.value[i].groupId === vg.id) {
+        //         appDom.value[i].groupId = 0;
+        //     }
+        // }
+        // // 删除虚拟组合
+        // vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
+        // iconState.value.dialogVisible = true;
     };
 
     const onAddIcon = (icon: string) => {
