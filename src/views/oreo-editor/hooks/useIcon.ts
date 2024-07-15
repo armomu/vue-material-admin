@@ -1,14 +1,39 @@
-import { reactive, ref, type Ref } from 'vue';
+import { ref, type Ref } from 'vue';
 
 import materialIcons from './icon';
 import { cloneDeep } from 'lodash';
 import { VirtualDomType, beaseDom, type VirtualDom } from './useOreoApp';
+import type { OreoPointerEvent } from './usePointer';
 
-export const useIcon = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) => {
+export const useIcon = (
+    appDom: Ref<VirtualDom[]>,
+    curDom: Ref<VirtualDom>,
+    pointerEvent: OreoPointerEvent
+) => {
     const iconState = ref({
         dialogVisible: false,
         list: materialIcons,
     });
+
+    const onShowIconDialog = () => {
+        pointerEvent.setSelectedList();
+        // for (let i = 0; i < appDom.value.length; i++) {
+        //     appDom.value[i].selected = false;
+        //     appDom.value[i].active = false;
+        // }
+        const vg = appDom.value.find((item) => item.virtualGroup);
+        // 取消选中
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].selected = false;
+            appDom.value[i].active = false;
+            if (vg && appDom.value[i].groupId === vg.id) {
+                appDom.value[i].groupId = 0;
+            }
+        }
+        // 删除虚拟组合
+        vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
+        iconState.value.dialogVisible = true;
+    };
 
     const onAddIcon = (icon: string) => {
         const iconDom = cloneDeep(beaseDom[0]);
@@ -43,6 +68,7 @@ export const useIcon = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) => {
     };
     return {
         iconState,
+        onShowIconDialog,
         onAddIcon,
     };
 };

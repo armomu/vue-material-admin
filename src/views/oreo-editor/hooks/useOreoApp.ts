@@ -178,7 +178,7 @@ const OreoApp = () => {
 
     // 点击页面图层
     const onVirtualDom = (val: VirtualDom) => {
-        console.log(val.name, val.id, '点击了');
+        console.log(curDom.value, '点击了');
         curDom.value = val;
     };
 
@@ -191,10 +191,10 @@ const OreoApp = () => {
     const pointerEvent = usePointer(appDom, curDom);
     const rulerBar = useRuler();
     const mouseMenu = useMouseMenu(appDom, curDom);
-    const iconEvent = useIcon(appDom, curDom);
+    const iconEvent = useIcon(appDom, curDom, pointerEvent);
     const inputEvent = useTextInput(appDom, curDom, pointerEvent);
     const align = useAlign(appDom);
-    const snapLineEvent = useSnapLine(appDom, curDom, pointerEvent);
+    const snapLineEvent = useSnapLine();
     //
     const disableDraResize = computed(() => {
         if (pointerEvent.mouseMode.value.text) {

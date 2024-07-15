@@ -695,7 +695,7 @@ export default defineComponent({
             this.top = top;
             this.right = right;
             this.bottom = bottom;
-            await this.snapCheck();
+            await this.snapCheck(this.left + 0, this.top + 0);
             // console.log(this.left + 0, this.top + 0, '111111111111111111');
             this.$emit('dragging', this.left, this.top, f);
         },
@@ -851,14 +851,12 @@ export default defineComponent({
                 this.$emit('refLineParams', refLine);
 
                 this.$emit('resizestop', obj);
-                console.log('resizestop');
             }
             if (this.dragging) {
                 this.dragging = false;
                 await this.conflictCheck();
                 this.$emit('refLineParams', refLine);
                 this.$emit('dragstop', obj);
-                console.log('dragstop');
             }
             this.resetBoundsAndMouseState();
             removeEvent(document.documentElement, eventsFor.move, this.handleResize);
@@ -926,14 +924,13 @@ export default defineComponent({
                             this.width = this.mouseClickPosition.w;
                             this.height = this.mouseClickPosition.h;
                             this.$emit('resizing', this.left, this.top, this.width, this.height);
-                            console.log('对齐======');
                         }
                     }
                 }
             }
         },
         // 检测对齐元素
-        async snapCheck() {
+        async snapCheck(_left, _top) {
             let width = this.width;
             let height = this.height;
             if (this.snap) {
@@ -1106,6 +1103,7 @@ export default defineComponent({
                         }
                     }
                 }
+                // console.log(_left, this.left, _top, this.top, '咬合。。。。。。');
                 this.$emit('refLineParams', refLine);
             }
         },

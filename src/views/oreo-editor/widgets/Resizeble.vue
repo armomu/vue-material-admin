@@ -98,7 +98,7 @@ const emit = defineEmits([
     'update:top',
     'update:left',
     'update:label',
-    'change',
+    'stop',
     'resizing',
     'snapLine',
     'mouser',
@@ -159,7 +159,7 @@ const funStop = (e: ResizeOffset) => {
     emit('update:height', e.height);
     emit('update:top', e.top);
     emit('update:left', e.left);
-    emit('change', e);
+    emit('stop', e);
 };
 
 const getRefLineParams = (params: any) => {
@@ -183,6 +183,8 @@ const onDeactivated = () => {
     emit('update:active', false);
 };
 const onDragging = (left_: number, top_: number, f: object) => {
+    emit('update:top', top_);
+    emit('update:left', left_);
     emit('dragging', f, props.data);
 };
 const onResizing = (left: number, top: number, width: number, height: number) => {
