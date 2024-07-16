@@ -26,6 +26,7 @@
                 :icon="props.data.icon"
                 :size="props.data.styles.width"
             />
+            <component v-if="props.data.component" :is="props.data.component" />
         </div>
         <DragResizeBle
             v-else
@@ -65,6 +66,7 @@
                 :icon="props.data.icon"
                 :size="props.data.styles.width"
             />
+            <component v-if="props.data.component" :is="props.data.component" />
             <slot></slot>
         </DragResizeBle>
     </template>

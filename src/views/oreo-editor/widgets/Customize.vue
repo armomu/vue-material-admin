@@ -218,6 +218,9 @@
                         <a-input-number v-model="props.data.styles.shadowSpread" size="mini" />
                     </a-col>
                 </a-row>
+                <a-button @click="onAddWidget" size="small" type="outline" long class="mt-3"
+                    >Add Components</a-button
+                >
             </a-collapse-item>
             <!-- 填充样式结束 -->
 
@@ -384,7 +387,7 @@ const props = withDefaults(
     }>(),
     {}
 );
-
+const emit = defineEmits(['add-widget']);
 const imageHeight = computed(() => {
     if (props.data) {
         return (props.data.styles.height / props.data.styles.width) * 216;
@@ -393,6 +396,7 @@ const imageHeight = computed(() => {
 });
 
 const showExterior = computed(() => {
+    if (props.data && props.data.type === VirtualDomType.Group) return false;
     if (props.data && props.data.type === VirtualDomType.Image) return false;
     if (props.data && props.data.type === VirtualDomType.Text) return false;
     return true;
@@ -408,4 +412,8 @@ const showText = computed(() => {
     if (props.data && props.data.type === VirtualDomType.Text) return true;
     return false;
 });
+
+const onAddWidget = () => {
+    emit('add-widget');
+};
 </script>

@@ -1,4 +1,4 @@
-import { ref, computed, type DefineComponent } from 'vue';
+import { ref, computed, type VNode, type RendererNode, type RendererElement } from 'vue';
 import { useRuler } from './useRuler';
 import { useAlign } from './useAlign';
 import { usePointer } from './usePointer';
@@ -6,6 +6,8 @@ import { useMouseMenu } from './useMouseMenu';
 import { useIcon } from './useIcon';
 import { useTextInput } from './useTextInput';
 import { useSnapLine } from './useSnapLine';
+import { useAddChart } from './useAddChart';
+
 import testJson from './test.json';
 
 export enum VirtualDomType {
@@ -196,6 +198,8 @@ const OreoApp = () => {
     const inputEvent = useTextInput(appDom, curDom, pointerEvent);
     const align = useAlign(appDom);
     const snapLineEvent = useSnapLine();
+    const chartEvent = useAddChart(appDom, curDom);
+
     //
     const disableDraResize = computed(() => {
         if (pointerEvent.mouseMode.value.text) {
@@ -262,6 +266,7 @@ const OreoApp = () => {
         ...mouseMenu,
         ...iconEvent,
         ...inputEvent,
+        ...chartEvent,
     };
 };
 export default OreoApp;
@@ -282,7 +287,13 @@ export interface VirtualDom {
     input?: boolean; // 文本特有的编辑文本中状态
     styles: ElementStyles;
     fontStyle?: FontStyle;
-    component?: DefineComponent; // 内组件
+    component?: () => VNode<
+        RendererNode,
+        RendererElement,
+        {
+            [key: string]: any;
+        }
+    >; // 内组件
 }
 
 // 基础框框

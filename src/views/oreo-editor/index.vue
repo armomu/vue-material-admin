@@ -141,7 +141,11 @@
                 <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
             </div>
             <div class="customizes_wrap" @contextmenu.prevent="() => {}">
-                <Customize :data="oreoApp.curDom.value" :align="oreoApp.align" />
+                <Customize
+                    :data="oreoApp.curDom.value"
+                    :align="oreoApp.align"
+                    @add-widget="oreoApp.onShowChartDialog"
+                />
             </div>
         </div>
         <a-drawer
@@ -174,6 +178,16 @@
                     @click="oreoApp.onAddIcon(item)"
                 />
             </div>
+        </a-drawer>
+        <a-drawer
+            v-model:visible="oreoApp.chartState.value.dialogVisible"
+            placement="bottom"
+            height="70vh"
+            :footer="false"
+            hide-cancel
+            title="Components"
+        >
+            <a-button @click="oreoApp.onAddChart">Apex Area Chart</a-button>
         </a-drawer>
     </div>
 </template>
