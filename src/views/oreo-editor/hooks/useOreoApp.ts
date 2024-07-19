@@ -1,5 +1,4 @@
 import { ref, computed, type VNode, type RendererNode, type RendererElement } from 'vue';
-import { useRuler } from './useRuler';
 import { useAlign } from './useAlign';
 import { usePointer } from './usePointer';
 import { useMouseMenu } from './useMouseMenu';
@@ -7,6 +6,7 @@ import { useIcon } from './useIcon';
 import { useTextInput } from './useTextInput';
 import { useSnapLine } from './useSnapLine';
 import { useAddChart } from './useAddChart';
+import { useImage } from './useImage';
 
 import testJson from './test.json';
 
@@ -156,16 +156,6 @@ const OreoApp = () => {
         e.preventDefault();
         if (!dragingDom) return;
         pointerEvent.delVirtualgroup();
-        // const vg = appDom.value.find((item) => item.virtualGroup);
-        // for (let i = 0; i < appDom.value.length; i++) {
-        //     appDom.value[i].selected = false;
-        //     appDom.value[i].active = false;
-        //     if (vg && appDom.value[i].groupId === vg.id) {
-        //         appDom.value[i].groupId = 0;
-        //     }
-        // }
-        // // 删除虚拟组合
-        // vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
         const { width, height } = dragingDom.styles;
 
         dragingDom.styles.top = e.offsetY - height / 2;
@@ -174,7 +164,6 @@ const OreoApp = () => {
         curDom.value = dragingDom;
         appDom.value.push(curDom.value);
         if (curDom.value.type === VirtualDomType.Image) {
-            console.log(imageFileRef.value);
             imageFileRef.value.click();
         }
     };
@@ -191,14 +180,31 @@ const OreoApp = () => {
         appDom.value.splice(index, 1);
     };
 
+    const imageFileRef = ref<any>();
+    const onDragImage = (event: Event) => {
+        // @ts-ignore
+        const file = event.target?.files[0];
+        if (!file) return;
+        const _URL = window.URL || window.webkitURL;
+        const image = new Image();
+        curDom.value.url = _URL.createObjectURL(file);
+        image.src = curDom.value.url;
+        image.onload = () => {
+            curDom.value.styles.fill = false;
+            curDom.value.styles.width = 216;
+            curDom.value.styles.height = (image.height / image.width) * 216;
+        };
+    };
+
+    // const rulerBarEvent = useRuler();
     const pointerEvent = usePointer(appDom, curDom);
-    const rulerBar = useRuler();
-    const mouseMenu = useMouseMenu(appDom, curDom);
+    const mouseMenuEvent = useMouseMenu(appDom, curDom);
     const iconEvent = useIcon(appDom, curDom, pointerEvent);
     const inputEvent = useTextInput(appDom, curDom, pointerEvent);
     const align = useAlign(appDom);
     const snapLineEvent = useSnapLine();
     const chartEvent = useAddChart(appDom, curDom);
+    const imageEvent = useImage(appDom, curDom, pointerEvent);
 
     //
     const disableDraResize = computed(() => {
@@ -216,22 +222,6 @@ const OreoApp = () => {
         if (curDom.value.type === VirtualDomType.Circle) {
             curDom.value.styles.radius = parseInt(val.width / 2 + '');
         }
-    };
-
-    const imageFileRef = ref<any>();
-    const onAddImage = (event: Event) => {
-        // @ts-ignore
-        const file = event.target?.files[0];
-        if (!file) return;
-        const _URL = window.URL || window.webkitURL;
-        const image = new Image();
-        curDom.value.url = _URL.createObjectURL(file);
-        image.src = curDom.value.url;
-        image.onload = () => {
-            curDom.value.styles.fill = false;
-            curDom.value.styles.width = 216;
-            curDom.value.styles.height = (image.height / image.width) * 216;
-        };
     };
 
     const onLayerTreeNode = (item: VirtualDom) => {
@@ -256,17 +246,18 @@ const OreoApp = () => {
         onResize,
         disableDraResize,
         imageFileRef,
-        onAddImage,
+        onDragImage,
         onLayerTreeNode,
         jsonViewerVisible,
         ...snapLineEvent,
         align,
         ...pointerEvent,
-        ...rulerBar,
-        ...mouseMenu,
+        // ...rulerBarEvent,
+        ...mouseMenuEvent,
         ...iconEvent,
         ...inputEvent,
         ...chartEvent,
+        ...imageEvent,
     };
 };
 export default OreoApp;

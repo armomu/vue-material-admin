@@ -20,6 +20,9 @@ app.use(router);
 
 registeComponent(app);
 app.mount('#app').$nextTick(() => {
-    const d = document.getElementById('_loading_');
-    d?.setAttribute('class', 'loading_ hide');
+    setTimeout(() => {
+        const d = document.getElementById('_loading_');
+        d?.setAttribute('class', 'loading_ hide');
+        // console.log('222');
+    }, 200);
 });

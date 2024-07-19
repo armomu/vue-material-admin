@@ -40,6 +40,7 @@
                     cursorGrab: oreoApp.mouseMode.value.hand,
                 }"
             >
+                <Grid />
                 <div
                     class="work_content"
                     id="work_content"
@@ -84,11 +85,18 @@
             </div>
             <!-- 添加图片 -->
             <input
-                :ref="oreoApp.imageFileRef"
+                :ref="oreoApp.imageFileRef2"
                 hidden
                 accept="image/*"
                 type="file"
                 @change="oreoApp.onAddImage"
+            />
+            <input
+                :ref="oreoApp.imageFileRef"
+                hidden
+                accept="image/*"
+                type="file"
+                @change="oreoApp.onDragImage"
             />
             <div class="helper">
                 <v-btn
@@ -115,6 +123,13 @@
                 />
                 <v-btn
                     variant="text"
+                    icon="mdi-image-outline"
+                    size="x-small"
+                    :color="oreoApp.mouseMode.value.image ? 'primary' : undefined"
+                    @click="oreoApp.onFileRefClick"
+                />
+                <v-btn
+                    variant="text"
                     icon="mdi-emoticon-outline"
                     size="x-small"
                     @click="oreoApp.onShowIconDialog"
@@ -136,9 +151,9 @@
                         }
                     "
                 />
-                <v-btn variant="text" icon="mdi-reply" size="x-small" />
+                <!-- <v-btn variant="text" icon="mdi-reply" size="x-small" />
                 <v-btn variant="text" icon="mdi-share" size="x-small" />
-                <v-btn variant="text" icon="mdi-check-bold" size="x-small" />
+                <v-btn variant="text" icon="mdi-check-bold" size="x-small" /> -->
             </div>
             <div class="customizes_wrap" @contextmenu.prevent="() => {}">
                 <Customize
@@ -193,6 +208,7 @@
 </template>
 <script lang="ts" setup>
 import './styles/index.scss';
+import Grid from './widgets/Grid.vue';
 import BasicWidget from './widgets/BasicWidget.vue';
 import Customize from './widgets/Customize.vue';
 import LayerTree from './widgets/LayerTree.vue';

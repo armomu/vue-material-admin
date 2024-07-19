@@ -2,13 +2,17 @@ import { onMounted, onUnmounted, reactive, ref, type Ref } from 'vue';
 import { virtualGroup, beaseDom, VirtualDomType } from './useOreoApp';
 import type { VirtualDom } from './useOreoApp';
 import { cloneDeep } from 'lodash';
+import { useRuler } from './useRuler';
 
 export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) => {
+    const rulerBarEvent = useRuler();
+
     const mouseMode = ref({
-        boxSelect: true,
-        draRact: false,
-        text: false,
-        hand: false,
+        boxSelect: true, // 自由框选或者选择对象
+        draRact: false, // 画矩形
+        text: false, // 添加文本
+        image: false, // 添加图像
+        hand: false, // 移动视图
     });
 
     // 框选框视图状态
@@ -19,6 +23,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         top: '',
         left: '',
     });
+
     // 记录鼠标移动数据
     const mouseState = reactive({
         draggableActive: false,
@@ -38,6 +43,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
     let pointerDownCount = 0;
     // eslint-disable-next-line no-undef
     let pointerDownTimer: NodeJS.Timeout | null = null;
+
     const onPointerDown = (e: PointerEvent) => {
         mouseState.startX = e.clientX + 0;
         mouseState.startY = e.clientY + 0;
@@ -50,6 +56,10 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         const e_t_did = parseInt(e.target?.getAttribute('uid') + '');
 
         console.log(className, 'onPointerDown');
+        if (mouseMode.value.hand) {
+            e.preventDefault();
+            rulerBarEvent.onHandStart(mouseState.startX, mouseState.startY);
+        }
         if (mouseMode.value.boxSelect) {
             if (
                 className.includes('draggable') &&
@@ -74,6 +84,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
             if (className.includes('draggable') || className.includes('dr_text')) {
                 mouseState.draggableActive = true;
                 // 找出当前ID所有子对象 包括组合子组合中的对象
+                console.log('当前点击是拖拽框');
                 haSelectedList = findUids(e_t_did);
                 return;
             }
@@ -94,6 +105,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
             const newDom = cloneDeep(beaseDom[0]);
             newDom.visible = false;
             newDom.active = false;
+            newDom.selected = true;
             newDom.styles.width = 0;
             newDom.styles.height = 0;
             newDom.styles.left = e.layerX + 0;
@@ -170,12 +182,22 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
                 curDom.value.styles.top = e.layerY + 0;
             }
         }
+        if (mouseMode.value.image) {
+            curDom.value.styles.left = e.layerX + 0;
+            curDom.value.styles.top = e.layerY + 0;
+        }
+        if (mouseMode.value.hand) {
+            rulerBarEvent.onHandMove(e);
+        }
     };
 
     const onPointerUp = () => {
         mouseState.down = false;
         boxSelectState.value.visible = false;
         mouseState.draggableActive = false;
+        if (mouseMode.value.hand) {
+            rulerBarEvent.onHandEnd();
+        }
         if (!curDom.value.input) {
             onMouseMode('boxSelect');
         }
@@ -281,6 +303,12 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         }
     };
 
+    const cancelSelect = () => {
+        for (let i = 0; i < appDom.value.length; i++) {
+            appDom.value[i].selected = false;
+        }
+    };
+
     const delVirtualgroup = () => {
         const vg = appDom.value.find((item) => item.virtualGroup);
         // 取消选中
@@ -293,22 +321,16 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         }
         // 删除虚拟组合
         vg && appDom.value.splice(appDom.value.indexOf(vg), 1);
+        console.log('删除了虚拟组======');
     };
 
+    // 设置当前鼠标正在做什么工作
     const onMouseMode = (name: string) => {
-        // delVirtualgroup();
         Object.keys(mouseMode.value).forEach((key) => {
             // @ts-ignore
             mouseMode.value[key] = name === key;
-            // if (name === key) {
-            //     // @ts-ignore
-            //     mouseMode.value[key] = true;
-            // } else {
-            //     // @ts-ignore
-            //     mouseMode.value[key] = false;
-            // }
         });
-
+        cancelSelect();
         console.log(name, '模式=======', curDom.value.input);
     };
 
@@ -328,9 +350,9 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
     }
 
     function onKeydown(event: KeyboardEvent) {
-        if (event.code === 'Space' && mouseMode.value.boxSelect) {
+        if (event.code === 'Space' || event.code === 'Spacebar') {
             event.preventDefault();
-            if (!mouseMode.value.hand) {
+            if (mouseMode.value.boxSelect && !mouseMode.value.hand) {
                 onMouseMode('hand');
             }
         }
@@ -401,6 +423,7 @@ export const usePointer = (appDom: Ref<VirtualDom[]>, curDom: Ref<VirtualDom>) =
         onMouseMode,
         setSelectedList,
         delVirtualgroup,
+        ...rulerBarEvent,
     };
 };
 

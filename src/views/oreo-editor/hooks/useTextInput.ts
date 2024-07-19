@@ -41,6 +41,7 @@ export const useTextInput = (
                 curDom.value.fontStyle.fontSize * 0.3;
         }
     };
+
     return {
         onBlur,
         onInput,

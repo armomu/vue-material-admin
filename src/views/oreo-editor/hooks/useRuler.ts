@@ -88,6 +88,34 @@ export const useRuler = () => {
         leftRulerDom.value.style.top = `-${workAreaDomRef.value?.scrollTop}px`;
     };
 
+    let startX = 0;
+    let startY = 0;
+    let scrollLeft = 0;
+    let scrollTop = 0;
+    let start = false;
+    const onHandStart = (x: number, y: number) => {
+        start = true;
+        startX = x;
+        startY = y;
+
+        scrollLeft = workAreaDomRef.value?.scrollLeft || 0;
+        scrollTop = workAreaDomRef.value?.scrollTop || 0;
+    };
+    const onHandMove = (event: PointerEvent) => {
+        if (!start) return;
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+        console.log(scrollLeft - deltaX, scrollTop - deltaY, 'workAreaDomRef.value?.scrollLeft');
+        // const dom =
+        workAreaDomRef.value.scrollLeft = scrollLeft - deltaX;
+        workAreaDomRef.value.scrollTop = scrollTop - deltaY;
+    };
+    const onHandEnd = () => {
+        scrollLeft = workAreaDomRef.value?.scrollLeft || 0;
+        scrollTop = workAreaDomRef.value?.scrollTop || 0;
+        start = false;
+    };
+
     onMounted(initTop);
 
     return {
@@ -95,5 +123,8 @@ export const useRuler = () => {
         workAreaDomRef,
         leftRulerDom,
         topRulerDom,
+        onHandMove,
+        onHandStart,
+        onHandEnd,
     };
 };

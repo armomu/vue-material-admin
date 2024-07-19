@@ -126,10 +126,6 @@ const _label = computed({
 });
 
 const isDiv = computed(() => {
-    // 禁用宽高调整
-    if (props.disable) {
-        return true;
-    }
     // 如果是文字输入也是div形式
     if (props.data.input) return true;
 
@@ -142,10 +138,14 @@ const isDiv = computed(() => {
 });
 
 const disableDrag = computed(() => {
+    // 禁用宽高调整
+    if (props.disable) return true;
     if (props.data.groupId) return true;
     return !props.data.locked && !props.data.input;
 });
 const disableResize = computed(() => {
+    // 禁用宽高调整
+    if (props.disable) return true;
     if (props.data.type === VirtualDomType.Group || props.data.virtualGroup) return true;
     if (props.data.groupId) return true;
     return !props.data.locked && !props.data.input;

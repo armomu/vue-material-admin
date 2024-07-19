@@ -137,7 +137,7 @@
         border-right: 1px solid #efefef;
     }
     .work-area {
-        flex: 0 0 calc(100% - 466px);
+        width: calc(100vw - 594px);
         position: relative;
         height: calc(100vh - 124px);
         overflow: auto;
@@ -156,17 +156,17 @@
             cursor: grab;
         }
         .work_content {
-            width: 1080px;
+            width: 1920px;
             position: relative;
             left: 80px;
             top: 80px;
-            height: 1600px;
+            height: 1080px;
             background: #ffffff;
+            // scale: 0.8;
         }
 
         .ref-line {
             position: absolute;
-            // background-color: rgb(var(--v-theme-primary)) !important;
             background: yellowgreen;
             z-index: 9999;
         }
@@ -240,61 +240,60 @@
             background: #ffffff;
             border: 0.5px solid rgb(86, 86, 245);
             box-shadow: 0 0 2px #bbb;
-        }
 
-        .handle-tl {
-            top: -5px;
-            left: -5px;
-            cursor: nw-resize;
-        }
+            &.handle-tl {
+                top: -5px;
+                left: -5px;
+                cursor: nw-resize;
+            }
 
+            &.handle-tr {
+                top: -5px;
+                right: -5px;
+                cursor: ne-resize;
+            }
 
-        .handle-tr {
-            top: -5px;
-            right: -5px;
-            cursor: ne-resize;
-        }
+            &.handle-ml {
+                top: 2%  !important;
+                height: 96% !important;
+                opacity: 0;
+                cursor: w-resize;
+            }
 
-        .handle-ml {
-            top: 2%  !important;
-            height: 96% !important;
-            opacity: 0;
-            cursor: w-resize;
-        }
+            &.handle-mr {
+                top: 2%  !important;
+                height: 96% !important;
+                opacity: 0;
+                right: -5px;
+                cursor: e-resize;
+            }
 
-        .handle-mr {
-            top: 2%  !important;
-            height: 96% !important;
-            opacity: 0;
-            right: -5px;
-            cursor: e-resize;
-        }
+            &.handle-bl {
+                bottom: -5px;
+                left: -5px;
+                cursor: sw-resize;
+            }
 
-        .handle-bl {
-            bottom: -5px;
-            left: -5px;
-            cursor: sw-resize;
-        }
+            &.handle-bm {
+                bottom: -5px;
+                width: 98% !important;
+                opacity: 0;
+                left: 1% !important;
+                cursor: s-resize;
+            }
+            &.handle-tm {
+                top: -5px;
+                width: 98% !important;
+                opacity: 0;
+                left: 1% !important;
+                cursor: n-resize;
+            }
 
-        .handle-bm {
-            bottom: -5px;
-            width: 98% !important;
-            opacity: 0;
-            left: 1% !important;
-            cursor: s-resize;
-        }
-        .handle-tm {
-            top: -5px;
-            width: 98% !important;
-            opacity: 0;
-            left: 1% !important;
-            cursor: n-resize;
-        }
-
-        .handle-br {
-            bottom: -5px;
-            right: -5px;
-            cursor: se-resize;
+            &.handle-br {
+                bottom: -5px;
+                right: -5px;
+                cursor: se-resize;
+            }
         }
 
         @media only screen and (max-width: 768px) {
