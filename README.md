@@ -30,7 +30,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 
 ## 🍭 PreView
 
-🧱Vercel需要墙！打不开的同学自行下载项目在本地开发环境预览，gitee已经不给用了
+🧱Vercel需要墙！打不开的同学自行下载项目在本地开发环境预览
 
 - 🌍 Vercel [https://vue-material-admin.vercel.app/](https://vue-material-admin-alpha.vercel.app/)
 
@@ -81,4 +81,4 @@ pnpm run dev
 
 - [Babylonjs 物理角色控制器](https://github.com/armomu/ergoudan) 
 - [Babylonjs 马里奥3D场景](https://daisy-kaliman.vercel.app/#/index)
-- [BabylonjsVue3通用可视化编辑器，支持可拖拽、CSS样式编辑等功能，可输出原型图H5页面](https://github.com/armomu/oreo-editor)
+- [Vue3 通用可视化编辑器，支持可拖拽、CSS样式编辑等功能，可输出原型图H5页面，类似于`磨刀`](https://github.com/armomu/oreo-editor)
