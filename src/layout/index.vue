@@ -8,6 +8,7 @@
             v-model:value="navState.menuVisible"
             :rail="navState.rail"
             :routes="navState.routes"
+            :mobile="device"
         />
         <main class="app_main">
             <Header
@@ -36,9 +37,7 @@ const navState = reactive({
     routes: router.options.routes,
 });
 const device = computed(() => mainStore.isMobile);
-watch(device, (val) => {
-    if (val) {
-        navState.rail = false;
-    }
+watch(device, () => {
+    navState.rail = !navState.rail;
 });
 </script>

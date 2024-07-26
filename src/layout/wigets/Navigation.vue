@@ -2,6 +2,7 @@
     <v-navigation-drawer
         class="my-4 layout_navigation"
         :rail="rail"
+        :mobile="mobile"
         expand-on-hover
         rail-width="77"
         v-model="val"
@@ -85,6 +86,7 @@ const props = withDefaults(
     defineProps<{
         rail: boolean;
         value?: boolean;
+        mobile?: boolean;
         routes: readonly RouteRecordRaw[];
     }>(),
     {}
@@ -99,4 +101,3 @@ const val = computed({
     },
 });
 </script>
-@/stores/useMainStore
