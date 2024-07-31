@@ -49,6 +49,7 @@ onMounted(() => {
             new BABYLON.Vector3(0, -2, 0),
             scene
         );
+        camera.invertRotation = true;
     }
     // This targets the camera to scene origin
     if (mainStore.isMobile) {
