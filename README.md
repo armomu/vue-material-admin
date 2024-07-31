@@ -16,7 +16,7 @@
 </h1>
 
 
-Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以用于学习、功能展示和测试一些开发用例所以尽量保持轻量化，也可用来作为项目的启动模版，会持续保持更新～ 🔥🔥🔥
+Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以用于学习、功能展示和测试一些开发用例所以尽量保持轻量化，当然也可用来作为项目的启动模版，会持续保持更新～🔥🔥🔥
 
 
 ## 🌻 页面截图
@@ -24,8 +24,8 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 <p align="center">
   <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/tesla.png">
   <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/smart_house.png">
-  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/babylonjs.png">
   <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/edit_layer.png">
+  <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/babylonjs.png">
 </p>
 
 ## 🍭 PreView
@@ -44,22 +44,17 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
 2. 🏡 智能家居控制组件
     - ✅ 环形控制器(支持鼠标拖动进度)
     - ✅ 360度全景图预览(其实是Babylon.js的一个API而已)
-3. 🎥 [Babylonjs物理角色控制器，已经获得官方库推荐 🔥 🔥 👍](https://github.com/armomu/ergoudan) 
-    - ✅ 使用Havok物理引擎
-    - ✅ 使用W、S、A、D键控制角色移动
-    - ✅ 使用空格键跳跃
-    - ✅ 上楼梯
-4. 🔥 [Pixi.js捕鱼DEMO](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/pixijs) 
+3. 🔥 [Pixi.js捕鱼DEMO](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/pixijs) 
     - ✅ 小鱼自动移动
     - ✅ 射击撒网
     - ❌ 小鱼获取新位置后旋转对应角度方向
     - ❌ 击落效果获取金币
     - ❌ 音频
-5. 🐝 适配
+4. 🐝 适配
     - ✅ 夜间模式
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
-6. 💻 后端[参考这个 isme-nest-serve ](https://github.com/zclzone/isme-nest-serve)
+5. 💻 后端[参考这个 isme-nest-serve ](https://github.com/zclzone/isme-nest-serve)
     - ❌ Nest.js
 
 ## 📑 本地开发
@@ -79,6 +74,6 @@ pnpm run dev
 
 ## 推荐项目 🔥 🔥
 
-- [Babylonjs 物理角色控制器](https://github.com/armomu/ergoudan) 
+- [Babylonjs Web3D物理角色控制器，已经获得`Babylonjs`官方库推荐 🔥 🔥 👍](https://github.com/armomu/ergoudan) 
 - [Babylonjs 马里奥3D场景](https://daisy-kaliman.vercel.app/#/index)
 - [Vue3 通用可视化编辑器，支持可拖拽、CSS样式编辑等功能，可输出原型图H5页面，类似于`磨刀`](https://github.com/armomu/oreo-editor)
