@@ -86,9 +86,11 @@ onMounted(() => {
     scene.onAfterRenderObservable.add(() => {
         // 自转逻辑
         if (!mainStore.isMobile && loading.value === false) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // 在所有帧率下的转速得是一样滴
+            const deltaTime = parseFloat(engine.getDeltaTime().toFixed(3));
+            const speed = (0.1 / 1000) * deltaTime;
             // @ts-ignore
-            camera.alpha -= 0.001;
+            camera.alpha -= speed;
         }
     });
     window.addEventListener('resize', () => {

@@ -170,6 +170,7 @@ const init = async () => {
         width: screen.width,
         height: screen.height,
         antialias: true, // 开启抗锯齿
+        resolution: 2,
         background: new Color(screen.background),
     });
     app = _app;
@@ -283,13 +284,16 @@ onUnmounted(() => {
     app?.destroy();
 });
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 .air_canvas_wrap {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     height: 300px;
+    canvas {
+        scale: 0.5;
+    }
     &.cursorPointer {
         cursor: pointer;
     }
