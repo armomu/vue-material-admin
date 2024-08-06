@@ -21,7 +21,7 @@
     </v-select>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onBeforeMount } from 'vue';
 const emit = defineEmits(['update:modelValue', 'change']);
 
 const props = withDefaults(defineProps<Props>(), {
@@ -50,9 +50,15 @@ const change = (val: any) => {
 
 const dict_list = ref<any>({});
 
-const modules = import.meta.glob('../../dict/*.ts');
-
-(function initDict() {
+function initDict() {
+    // TODO 建议放全局变量里面
+    const res = localStorage.getItem('dict_list');
+    if (res) {
+        console.log('111111');
+        dict_list.value = JSON.parse(res);
+        return;
+    }
+    const modules = import.meta.glob('../../dict/*.ts');
     const paths = [];
     const obj = {};
     for (const path in modules) {
@@ -66,9 +72,13 @@ const modules = import.meta.glob('../../dict/*.ts');
                 obj[item] = res[mod][item];
             }
         }
+        // TODO 建议放全局变量里面
+        localStorage.setItem('dict_list', JSON.stringify(obj));
         dict_list.value = obj;
+        console.log('222222222');
     });
-})();
+}
+onBeforeMount(initDict);
 const items = computed(() => {
     const list = [];
     for (const item in dict_list.value[props.dict]) {
