@@ -15,9 +15,6 @@
         :prepend-icon="props.prependIcon"
         @update:model-value="change"
     >
-        <!-- <template v-slot:item="{ props, item }">
-            <v-list-item v-bind="props" :subtitle="item.raw.department"></v-list-item>
-        </template> -->
     </v-select>
 </template>
 <script lang="ts" setup>
@@ -54,7 +51,6 @@ function initDict() {
     // TODO 建议放全局变量里面
     const res = localStorage.getItem('dict_list');
     if (res) {
-        console.log('111111');
         dict_list.value = JSON.parse(res);
         return;
     }
@@ -72,10 +68,9 @@ function initDict() {
                 obj[item] = res[mod][item];
             }
         }
+        dict_list.value = obj;
         // TODO 建议放全局变量里面
         localStorage.setItem('dict_list', JSON.stringify(obj));
-        dict_list.value = obj;
-        console.log('222222222');
     });
 }
 onBeforeMount(initDict);
