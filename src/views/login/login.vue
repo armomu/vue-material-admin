@@ -5,41 +5,61 @@
                 <img :src="logo" height="70" />
                 <div class="title my-2">Welcome back</div>
             </div>
-            <div class="mt-4">
-                <div class="mb-2" style="font-weight: 700">Email</div>
-                <v-text-field
-                    model-value=""
-                    type="password"
-                    variant="outlined"
-                    density="compact"
-                    clearable
-                    placeholder="Email"
-                    hide-details
-                ></v-text-field>
-            </div>
-            <div class="my-4">
-                <div class="mb-2 mt-4" style="font-weight: 700">Password</div>
-                <v-text-field
-                    model-value=""
-                    type="password"
-                    variant="outlined"
-                    density="compact"
-                    placeholder="Password"
-                    clearable
-                    hide-details
-                ></v-text-field>
-            </div>
-            <div class="my-6">
-                <v-btn
-                    color="primary"
-                    variant="flat"
-                    block
-                    size="large"
-                    type="submit"
-                    href="/vue-material-admin/"
-                    >Login</v-btn
-                >
-            </div>
+            <v-form ref="formRef" @submit.prevent>
+                <div class="mt-4">
+                    <div class="mb-2" style="font-weight: 700">Email</div>
+                    <v-text-field
+                        v-model="state.username"
+                        variant="outlined"
+                        density="compact"
+                        clearable
+                        placeholder="Email"
+                        hide-details
+                        :rules="[(firstName: any) => !!firstName || 'required']"
+                    ></v-text-field>
+                </div>
+                <div class="my-4">
+                    <div class="mb-2 mt-4" style="font-weight: 700">Password</div>
+                    <v-text-field
+                        v-model="state.password"
+                        type="password"
+                        variant="outlined"
+                        density="compact"
+                        placeholder="Password"
+                        clearable
+                        hide-details
+                        :rules="[(firstName: any) => !!firstName || 'required']"
+                    ></v-text-field>
+                </div>
+                <!-- <div class="my-4">
+                    <div class="mb-2 mt-4" style="font-weight: 700">Captcha</div>
+                    <div class="d-flex">
+                        <div style="width: 180px">
+                            <v-text-field
+                                v-model="state.captcha"
+                                variant="outlined"
+                                density="compact"
+                                placeholder="Captcha"
+                                clearable
+                                hide-details
+                                :rules="[(firstName: any) => !!firstName || 'required']"
+                            ></v-text-field>
+                        </div>
+                        <div
+                            v-if="svg"
+                            v-html="svg"
+                            @click="initCaptcha"
+                            style="position: relative; top: 3px"
+                            class="ml-2"
+                        ></div>
+                    </div>
+                </div> -->
+                <div class="my-6">
+                    <v-btn color="primary" variant="flat" block size="large" @click="onSubmit"
+                        >Login</v-btn
+                    >
+                </div>
+            </v-form>
             <div class="d-flex">
                 <v-divider></v-divider>
                 <div class="text-center">Or</div>
@@ -91,40 +111,35 @@
                 <div class="ml-2">Google</div>
             </v-btn>
         </v-card>
-        <!-- <div class="group">
-            <v-card class="desc">
-                <div class="logo mt-4">
-                    <img :src="logo" height="60" />
-                    <div class="text-h5 mt-2">Material UI</div>
-                </div>
-                <div class="mt-4">
-                    vue-material-admin is a free open source mid-backend template based on Vuetify
-                </div>
-                <div class="mt-4">
-                    made with by ❤️
-                    <a
-                        target="_blank"
-                        style="
-                            color: rgba(
-                                var(--v-theme-on-background),
-                                var(--v-high-emphasis-opacity)
-                            );
-                        "
-                        href="https://github.com/jaywoow"
-                        >Chen HuaJie</a
-                    >
-                </div>
-            </v-card>
-        </div> -->
     </div>
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
-import { reactive } from 'vue';
+import { reactive, ref, shallowRef } from 'vue';
+import { ApiAuth } from '@/api/auth';
+
 const state = reactive({
-    email: '',
-    password: '',
+    username: 'admin',
+    password: '123456',
+    // captcha: '',
+    isQuick: true,
 });
+
+const formRef = shallowRef<any>();
+
+const svg = ref('');
+
+const initCaptcha = async () => {
+    const res = await ApiAuth.captcha();
+    svg.value = res;
+};
+initCaptcha();
+
+const onSubmit = async () => {
+    const res = await formRef.value.validate();
+    if (!res.valid) return;
+    await ApiAuth.login(state);
+};
 </script>
 <style lang="scss" scoped>
 .login {

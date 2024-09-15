@@ -24,11 +24,10 @@ declare module 'axios' {
 /**
  * @returns  {AxiosResponse} result
  * @tutorial see more:https://github.com/onlyling/some-demo/tree/master/typescript-width-axios
- * @example
- * service.get<{data: string; code: number}>('/test').then(({data}) => { console.log(data.code) })
  */
 const request = Axios.create({
-    baseURL: import.meta.env.VITE_API as string,
+    // baseURL: import.meta.env.VITE_API as string,
+    baseURL: import.meta.env.VITE_API || 'http://localhost:8085',
     timeout: 20000,
 });
 
@@ -38,10 +37,9 @@ const request = Axios.create({
  */
 request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
     const token = localStorage.getItem('Authorization');
-    if (token) {
-        config.headers.Authorization = token || '';
-    }
-
+    config.headers.Authorization = token || '';
+    // config.withCredentials = true;
+    console.log(config, '======');
     return config;
 });
 
