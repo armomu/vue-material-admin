@@ -164,6 +164,30 @@ const router = createRouter({
             ],
         },
         {
+            path: '/authority',
+            name: 'Auth',
+            meta: {
+                visible: true,
+                title: 'Authority',
+                icon: 'mdi-account-supervisor-circle',
+            },
+            component: Layout,
+            children: [
+                {
+                    path: '',
+                    name: 'authority',
+                    meta: {
+                        title: 'Authority',
+                        icon: 'mdi-alpha-a',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/authority/index.vue'),
+                    children: [],
+                },
+            ],
+        },
+        {
             path: '/login',
             name: 'login',
             meta: {

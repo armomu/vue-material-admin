@@ -31,7 +31,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-explicit-any': ['off'],
+        '@typescript-eslint/no-explicit-any': 'off',
         'require-atomic-updates': 'off',
         'vue/no-template-shadow': 'off',
         'vue/singleline-html-element-content-newline': 'off',

@@ -36,7 +36,7 @@ const request = Axios.create({
  * @returns {AxiosRequestConfig} config
  */
 request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
-    const token = localStorage.getItem('Authorization');
+    const token = localStorage.getItem('accessToken');
     config.headers.Authorization = token || '';
     // config.withCredentials = true;
     console.log(config, '======');
@@ -59,20 +59,9 @@ request.interceptors.response.use(
 
 export default request;
 
-export interface ApiModel<T = any> {
-    result: T;
-}
-
-export interface ApiListModel<T = any> {
-    result: Array<T>;
-    total: number;
-}
-
-export interface Result<T = any> {
-    result: T;
-}
-
-export interface DataList<T = any> {
-    result: Array<T>;
-    total: number;
+export interface RootInterface<T> {
+    code: number;
+    message: string;
+    data: T;
+    originUrl: string;
 }
