@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex">
-        <v-card title="Menus" class="px-4" min-width="400" style="height: var(--content-height)">
+        <v-card title="Menus" class="px-4" min-width="600" style="height: var(--content-height)">
             <div class="d-flex mb-4 mt-2">
                 <v-text-field
                     prepend-inner-icon="mdi-magnify"
@@ -73,12 +73,7 @@
             </VTreeview>
         </v-card>
 
-        <v-card
-            class="px-4 ml-4"
-            min-width="400"
-            style="height: var(--content-height); flex: 1"
-            title="Users"
-        >
+        <v-card class="px-4 ml-4" style="height: var(--content-height); flex: 1" title="Users">
             <div class="search-bar d-flex mt-2">
                 <v-text-field
                     clear-icon="mdi-close-circle-outline"
@@ -98,9 +93,8 @@
                 <thead>
                     <tr>
                         <th class="text-left">Username</th>
+                        <th class="text-left">Role</th>
                         <th class="text-left">Status</th>
-                        <th class="text-left">About</th>
-                        <th class="text-left">License use</th>
                         <th class="text-left"></th>
                     </tr>
                 </thead>
@@ -110,7 +104,18 @@
                             <div class="name">{{ item.username }}</div>
                         </td>
                         <td>
-                            <v-chip> Secondary </v-chip>
+                            <v-chip
+                                v-for="role in item.roles"
+                                :key="role.id"
+                                class="mr-1"
+                                color="primary"
+                            >
+                                {{ role.name }}
+                            </v-chip>
+                            <!-- <v-chip :color="item.color"> Secondary </v-chip> -->
+                        </td>
+                        <td>
+                            <v-switch v-model="item.enable" color="primary" hide-details></v-switch>
                             <!-- <v-chip :color="item.color"> Secondary </v-chip> -->
                         </td>
                     </tr>
