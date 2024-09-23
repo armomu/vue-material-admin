@@ -43,6 +43,12 @@ export const ApiAuth = {
             method: 'delete',
         });
     },
+    users: (params: any): Promise<void> => {
+        return request({
+            url: '/user',
+            params,
+        });
+    },
 };
 
 export interface SignApi {

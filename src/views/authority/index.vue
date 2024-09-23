@@ -97,14 +97,24 @@
             <v-table class="ma-4 table">
                 <thead>
                     <tr>
-                        <th class="text-left">Company</th>
+                        <th class="text-left">Username</th>
                         <th class="text-left">Status</th>
                         <th class="text-left">About</th>
                         <th class="text-left">License use</th>
                         <th class="text-left"></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <tr v-for="(item, i) in usersEvent.data.list" :key="i">
+                        <td class="td1 py-4">
+                            <div class="name">{{ item.username }}</div>
+                        </td>
+                        <td>
+                            <v-chip> Secondary </v-chip>
+                            <!-- <v-chip :color="item.color"> Secondary </v-chip> -->
+                        </td>
+                    </tr>
+                </tbody>
             </v-table>
             <div class="d-flex py-2" style="justify-content: center">
                 <v-pagination
@@ -196,8 +206,10 @@
 <script lang="ts" setup>
 import { VTreeview } from 'vuetify/labs/VTreeview';
 import useMenu from './hooks/useMenu';
+import useUsers from './hooks/useUser';
 
 const menuEvent = useMenu();
+const usersEvent = useUsers();
 </script>
 <style lang="scss">
 .treeMenuItem {
