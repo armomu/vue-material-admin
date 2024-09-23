@@ -7,6 +7,7 @@ const useUsers = () => {
         list: [],
         query: {
             username: '',
+            enable: '',
             pageNo: 1,
             pageSize: 10,
         },

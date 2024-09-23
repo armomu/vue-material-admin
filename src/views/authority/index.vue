@@ -1,7 +1,16 @@
 <template>
     <div class="d-flex">
-        <v-card title="Menus" class="px-4" min-width="600" style="height: var(--content-height)">
-            <div class="d-flex mb-4 mt-2">
+        <v-card min-width="600" style="height: var(--content-height)">
+            <v-toolbar color="transparent">
+                <v-toolbar-title class="text-h6" text="Messages"></v-toolbar-title>
+                <template v-slot:append>
+                    <v-btn icon="mdi-plus"></v-btn>
+                    <v-btn color="primary">
+                        <v-icon icon="mdi-plus" size="large" @click="menuEvent.onShowAddDialog" />
+                    </v-btn>
+                </template>
+            </v-toolbar>
+            <div class="d-flex mb-4 mt-2 mx-4">
                 <v-text-field
                     prepend-inner-icon="mdi-magnify"
                     clear-icon="mdi-close-circle-outline"
@@ -11,9 +20,6 @@
                     hide-details
                     density="compact"
                 ></v-text-field>
-                <v-btn class="btn ml-4" color="primary">
-                    <v-icon icon="mdi-plus" size="large" @click="menuEvent.onShowAddDialog" />
-                </v-btn>
             </div>
 
             <!-- <VTreeview :items="menuTree" /> -->
@@ -24,6 +30,7 @@
                 density="compact"
                 item-value="id"
                 open-all
+                class="mx-4"
             >
                 <template v-slot:title="row">
                     <div class="d-flex treeMenuItem">
@@ -84,6 +91,11 @@
                     hide-details
                     density="compact"
                 ></v-text-field>
+                <DictSelect
+                    v-model="usersEvent.data.query.enable"
+                    label="Status"
+                    dict="UserStatusDict"
+                />
                 <v-btn class="btn ml-4" color="primary">
                     <v-icon icon="mdi-plus" size="large" />
                 </v-btn>
