@@ -225,6 +225,7 @@ import { VTreeview } from 'vuetify/labs/VTreeview';
 import useMenu from './hooks/useMenu';
 import useUsers from './hooks/useUser';
 
+console.log(import.meta.env.MODE);
 const menuEvent = useMenu();
 const usersEvent = useUsers();
 </script>

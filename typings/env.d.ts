@@ -1,6 +1,6 @@
 // / <reference types="vite/client" />
 interface ImportMetaEnv {
-    readonly MODE: string;
+    readonly MODE: 'production' | 'development';
     BASE_URL: string;
     PROD: boolean;
     SSR: boolean;
