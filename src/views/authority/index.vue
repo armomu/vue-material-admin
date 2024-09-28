@@ -2,16 +2,22 @@
     <div class="d-flex">
         <v-card min-width="600" style="height: var(--content-height)">
             <v-toolbar color="transparent">
-                <v-toolbar-title class="text-h6" text="Messages"></v-toolbar-title>
+                <v-toolbar-title class="text-h6" text="Menus"></v-toolbar-title>
                 <template v-slot:append>
-                    <v-btn icon="mdi-plus"></v-btn>
-                    <v-btn color="primary">
-                        <v-icon icon="mdi-plus" size="large" @click="menuEvent.onShowAddDialog" />
-                    </v-btn>
+                    <v-btn
+                        icon="mdi-plus"
+                        color="primary"
+                        @click="menuEvent.onShowAddDialog"
+                        class="mr-2"
+                    ></v-btn>
+                    <!-- <v-btn>
+                        <v-icon icon="mdi-plus" size="large"/>
+                    </v-btn> -->
                 </template>
             </v-toolbar>
             <div class="d-flex mb-4 mt-2 mx-4">
                 <v-text-field
+                    v-model="menuEvent.data.search"
                     prepend-inner-icon="mdi-magnify"
                     clear-icon="mdi-close-circle-outline"
                     label="Search menu"
@@ -25,6 +31,7 @@
             <!-- <VTreeview :items="menuTree" /> -->
             <VTreeview
                 :items="menuEvent.data.menuTree"
+                :search="menuEvent.data.search"
                 activatable
                 item-title="name"
                 density="compact"
@@ -42,7 +49,7 @@
                                 size="small"
                                 variant="flat"
                                 flat
-                                @click="menuEvent.onShowAddDialog(row.item.parentId)"
+                                @click="menuEvent.onShowAddDialog(row.item.id)"
                             >
                                 新增
                             </v-btn>
@@ -81,26 +88,49 @@
         </v-card>
 
         <v-card class="px-4 ml-4" style="height: var(--content-height); flex: 1" title="Users">
-            <div class="search-bar d-flex mt-2">
-                <v-text-field
-                    clear-icon="mdi-close-circle-outline"
-                    prepend-inner-icon="mdi-magnify"
-                    label="Search menu"
-                    clearable
-                    flat
-                    hide-details
-                    density="compact"
-                ></v-text-field>
-                <DictSelect
-                    v-model="usersEvent.data.query.enable"
-                    label="Status"
-                    dict="UserStatusDict"
-                />
+            <div class="d-flex mt-2">
+                <div>
+                    <v-text-field
+                        clear-icon="mdi-close-circle-outline"
+                        prepend-inner-icon="mdi-magnify"
+                        label="Search menu"
+                        clearable
+                        flat
+                        hide-details
+                        density="compact"
+                        style="width: 300px"
+                    ></v-text-field>
+                </div>
+                <div class="ml-4 mr-auto">
+                    <DictSelect
+                        v-model="usersEvent.data.query.enable"
+                        label="Status"
+                        dict="UserStatusDict"
+                        style="width: 300px"
+                    />
+                </div>
+                <!-- <v-divider class="ma-4"></v-divider> -->
                 <v-btn class="btn ml-4" color="primary">
                     <v-icon icon="mdi-plus" size="large" />
                 </v-btn>
             </div>
-            <v-divider class="ma-4"></v-divider>
+            <!-- <v-card-title class="d-flex align-center pe-2">
+                Users
+
+                <v-spacer></v-spacer>
+
+                <div style="width: 200px">
+                    <v-text-field
+                        density="compact"
+                        label="Search"
+                        prepend-inner-icon="mdi-magnify"
+                        variant="solo-filled"
+                        flat
+                        hide-details
+                        single-line
+                    ></v-text-field>
+                </div>
+            </v-card-title> -->
             <v-table class="ma-4 table">
                 <thead>
                     <tr>
@@ -113,7 +143,12 @@
                 <tbody>
                     <tr v-for="(item, i) in usersEvent.data.list" :key="i">
                         <td class="td1 py-4">
-                            <div class="name">{{ item.username }}</div>
+                            <div class="name">
+                                <v-avatar size="36px">
+                                    <v-img alt="John" :src="item.avatar"></v-img>
+                                </v-avatar>
+                                <strong class="ml-2">{{ item.username }}</strong>
+                            </div>
                         </td>
                         <td>
                             <v-chip
@@ -224,6 +259,7 @@
 import { VTreeview } from 'vuetify/labs/VTreeview';
 import useMenu from './hooks/useMenu';
 import useUsers from './hooks/useUser';
+import { VSpacer } from 'vuetify/components';
 
 console.log(import.meta.env.MODE);
 const menuEvent = useMenu();

@@ -13,12 +13,14 @@ const useMenu = () => {
             path: '',
             redirect: '',
             component: '',
+            type: '',
             show: true,
         },
         dialogTitle: 'New Menu',
         curId: 0,
         parentId: 0,
         visible: false,
+        search: '',
         menuTree: [] as MenuInterface[],
     });
     const getMenutree = async () => {
@@ -47,7 +49,7 @@ const useMenu = () => {
         const res = await formRef.value.validate();
         console.log(res);
         if (!res.valid) return;
-        if (data.dialogTitle === 'dialogTitle') {
+        if (data.dialogTitle === 'New Menu') {
             onAdd();
         } else {
             onEdit();
@@ -59,9 +61,18 @@ const useMenu = () => {
     };
 
     const onAdd = async () => {
+        if (data.parentId) {
+            // @ts-ignore
+            data.form.parentId = data.parentId;
+        }
         await ApiAuth.addMenu(data.form);
         data.visible = false;
         getMenutree();
+        // @ts-ignore
+        if (data.form.parentId) {
+            // @ts-ignore
+            delete data.form.parentId;
+        }
     };
     const onEdit = async () => {
         await ApiAuth.editMenu(data.curId, data.form);
@@ -88,6 +99,7 @@ const useMenu = () => {
     };
 
     const onShowAddDialog = async (parentId = 0) => {
+        console.log(parentId);
         // data.form.icon = '';
         // data.form.code = '';
         // data.form.name = '';
