@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import router from '@/router';
 import type {
     AxiosResponse,
     AxiosRequestConfig,
@@ -12,12 +13,6 @@ declare module 'axios' {
         loading?: boolean; // 接口请求时是否需要启用加载动画
         loadingTarget?: string; // 接口请求时是否需要启用加载动画
         banErrTip?: boolean; // 接口请求失败时是否进行弹窗提示
-    }
-}
-declare module 'axios' {
-    export interface AxiosResponse {
-        code: number;
-        message: string;
     }
 }
 
@@ -38,8 +33,8 @@ const request = Axios.create({
 request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
     const token = localStorage.getItem('accessToken');
     config.headers.Authorization = token || '';
-    // config.withCredentials = true;
-    console.log(config, '======');
+    // // config.withCredentials = true;
+    // console.log(config, '======');
     return config;
 });
 
@@ -49,10 +44,17 @@ request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosReques
 request.interceptors.response.use(
     /** 请求有响应 */
     (response: AxiosResponse) => {
+        console.log(response.data, '====');
+        // console.log(response.data);
+        if (response.data) {
+        }
         return Promise.resolve(response.data);
     },
     /** 请求无响应 */
-    (error: AxiosError): Promise<AxiosPromise> => {
+    async (error: AxiosError): Promise<AxiosPromise> => {
+        if (error.response?.status === 401) {
+            router.push('/login');
+        }
         return Promise.reject(error);
     }
 );
@@ -64,4 +66,9 @@ export interface RootInterface<T> {
     message: string;
     data: T;
     originUrl: string;
+}
+
+export interface ArrayResult<T> {
+    pageData: T[];
+    total: number;
 }

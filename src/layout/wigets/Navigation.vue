@@ -53,7 +53,7 @@
                         />
                     </template>
                 </v-list-group>
-                <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'Dashboard'">Dashboard</v-list-subheader>
                 <v-list-subheader v-if="item.name === 'Editor'">Other</v-list-subheader>
             </template>
             <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
@@ -78,8 +78,9 @@
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
-import type { RouteRecordRaw } from 'vue-router';
+// import type { RouteRecordRaw } from 'vue-router';
 import { defineEmits, computed } from 'vue';
+import { useMenuStore } from '@/stores/useMenuStore';
 const emit = defineEmits(['update:value']);
 
 const props = withDefaults(
@@ -87,10 +88,11 @@ const props = withDefaults(
         rail: boolean;
         value?: boolean;
         mobile?: boolean;
-        routes: readonly RouteRecordRaw[];
     }>(),
     {}
 );
+
+const menuEvent = useMenuStore();
 
 const val = computed({
     get() {
@@ -99,5 +101,10 @@ const val = computed({
     set(val: boolean) {
         emit('update:value', val);
     },
+});
+
+const routes = computed(() => {
+    console.log('menuEvent.menus=================');
+    return menuEvent.menus;
 });
 </script>

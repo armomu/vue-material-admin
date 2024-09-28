@@ -7,7 +7,7 @@
             </div>
             <v-form ref="formRef" @submit.prevent>
                 <div class="mt-4">
-                    <div class="mb-2" style="font-weight: 700">Email</div>
+                    <div class="mb-2" style="font-weight: 700">Usename</div>
                     <v-text-field
                         v-model="state.username"
                         variant="outlined"
@@ -55,9 +55,16 @@
                     </div>
                 </div> -->
                 <div class="my-6">
-                    <v-btn color="primary" variant="flat" block size="large" @click="onSubmit"
-                        >Login</v-btn
+                    <v-btn
+                        :loading="loading"
+                        color="primary"
+                        variant="flat"
+                        block
+                        size="large"
+                        @click="onSubmit"
                     >
+                        Login
+                    </v-btn>
                 </div>
             </v-form>
             <div class="d-flex">
@@ -117,7 +124,8 @@
 import logo from '@/assets/admin-logo.png';
 import { reactive, ref, shallowRef } from 'vue';
 import { ApiAuth } from '@/api/auth';
-
+import { useRouter } from 'vue-router';
+import { syncRouter } from '@/router';
 const state = reactive({
     username: 'admin',
     password: '123456',
@@ -125,7 +133,10 @@ const state = reactive({
     isQuick: true,
 });
 
+const router = useRouter();
+
 const formRef = shallowRef<any>();
+const loading = shallowRef(false);
 
 const svg = ref('');
 
@@ -136,9 +147,16 @@ const initCaptcha = async () => {
 initCaptcha();
 
 const onSubmit = async () => {
-    const res = await formRef.value.validate();
-    if (!res.valid) return;
-    await ApiAuth.login(state);
+    try {
+        loading.value = true;
+        const res = await formRef.value.validate();
+        if (!res.valid) return;
+        await ApiAuth.login(state);
+        // router.push('/');
+        loading.value = false;
+    } catch (err) {
+        loading.value = false;
+    }
 };
 </script>
 <style lang="scss" scoped>

@@ -36,7 +36,6 @@ export const useMainStore = defineStore('main', () => {
         } else {
             theme.value = theme.value === 'light' ? 'dark' : 'light';
         }
-
         root?.setAttribute('theme', theme.value);
     };
 
@@ -77,6 +76,7 @@ export const useMainStore = defineStore('main', () => {
         vuetify.theme.themes.value.light.colors.primary = val;
         vuetify.theme.themes.value.dark.colors.primary = val;
     };
+
     return { theme, isMobile, onTheme, settings, onDrawer, onPrimary, onBackgroundColor };
 });
 interface Settings {

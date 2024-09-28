@@ -1,5 +1,5 @@
 import request from './axios';
-import type { RootInterface } from './axios';
+import type { RootInterface, ArrayResult } from './axios';
 
 export const ApiAuth = {
     login: async (data: SignApi): Promise<void> => {
@@ -43,7 +43,7 @@ export const ApiAuth = {
             method: 'delete',
         });
     },
-    users: (params: any): Promise<void> => {
+    users: (params: any): Promise<RootInterface<ArrayResult<UserInterface>>> => {
         return request({
             url: '/user',
             params,
@@ -54,7 +54,7 @@ export const ApiAuth = {
 export interface SignApi {
     username: string;
     password: string;
-    captcha: string;
+    captcha?: string;
 }
 
 export interface MenuInterface {
@@ -66,9 +66,9 @@ export interface MenuInterface {
     type_: string;
     parentId?: any;
     path: string;
-    redirect?: any;
+    redirect: any;
     icon: string;
-    component?: string;
+    component: string;
     layout?: string;
     keepAlive?: any;
     method?: any;
@@ -77,4 +77,24 @@ export interface MenuInterface {
     enable: boolean;
     order: number;
     children?: MenuInterface[];
+}
+
+export interface UserInterface {
+    id: number;
+    username: string;
+    enable: boolean;
+    createTime: string;
+    updateTime: string;
+    roles: Role[];
+    gender: number;
+    avatar: string;
+    address: string;
+    email: string;
+}
+
+export interface Role {
+    id: number;
+    code: string;
+    name: string;
+    enable: boolean;
 }

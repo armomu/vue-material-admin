@@ -23,11 +23,11 @@ const useMenu = () => {
         search: '',
         menuTree: [] as MenuInterface[],
     });
+
     const getMenutree = async () => {
         const res = await ApiAuth.menuTree();
         changeType(res.data);
         data.menuTree = res.data;
-        console.log(formRef.value);
     };
 
     onBeforeMount(getMenutree);
@@ -36,6 +36,7 @@ const useMenu = () => {
         list.forEach((item) => {
             item.type_ = item.type + '';
             // item.icon_ = item.icon + '';
+            // @ts-ignore
             delete item.type;
             // delete item.icon;
             if (item.children) {
@@ -47,7 +48,6 @@ const useMenu = () => {
     const onSubmit = async () => {
         console.log(formRef.value);
         const res = await formRef.value.validate();
-        console.log(res);
         if (!res.valid) return;
         if (data.dialogTitle === 'New Menu') {
             onAdd();

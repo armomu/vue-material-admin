@@ -1,10 +1,10 @@
 import { ref, onBeforeMount, reactive } from 'vue';
 import { ApiAuth } from '@/api/auth';
-import type { MenuInterface } from '@/api/auth';
+import type { UserInterface } from '@/api/auth';
 
 const useUsers = () => {
     const data = reactive({
-        list: [],
+        list: [] as UserInterface[],
         query: {
             username: '',
             enable: '',
