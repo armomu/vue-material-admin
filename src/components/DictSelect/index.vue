@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const value = computed({
     get() {
-        return props.modelValue || null;
+        return props.modelValue;
     },
     set(val) {
         emit('update:modelValue', val);

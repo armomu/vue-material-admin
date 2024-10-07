@@ -14,11 +14,17 @@ app.use(router);
 
 // registeComponent(app);
 
-syncRouter().then(() => {
-    app.mount('#app').$nextTick(() => {
-        setTimeout(() => {
-            const d = document.getElementById('_loading_');
-            d?.setAttribute('class', 'loading_ hide');
-        }, 1000);
-    });
+app.mount('#app').$nextTick(() => {
+    setTimeout(() => {
+        const d = document.getElementById('_loading_');
+        d?.setAttribute('class', 'loading_ hide');
+    }, 1000);
 });
+// syncRouter().then(() => {
+//     app.mount('#app').$nextTick(() => {
+//         setTimeout(() => {
+//             const d = document.getElementById('_loading_');
+//             d?.setAttribute('class', 'loading_ hide');
+//         }, 1000);
+//     });
+// });

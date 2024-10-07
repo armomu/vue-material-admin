@@ -123,7 +123,7 @@
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
 import { reactive, ref, shallowRef } from 'vue';
-import { ApiAuth } from '@/api/auth';
+import { ApiUser } from '@/api/user';
 import { useRouter } from 'vue-router';
 import { syncRouter } from '@/router';
 const state = reactive({
@@ -141,7 +141,7 @@ const loading = shallowRef(false);
 const svg = ref('');
 
 const initCaptcha = async () => {
-    const res = await ApiAuth.captcha();
+    const res = await ApiUser.captcha();
     svg.value = res;
 };
 initCaptcha();
@@ -151,7 +151,9 @@ const onSubmit = async () => {
         loading.value = true;
         const res = await formRef.value.validate();
         if (!res.valid) return;
-        await ApiAuth.login(state);
+        await ApiUser.login(state);
+        const route = await syncRouter();
+        console.log(route);
         // router.push('/');
         loading.value = false;
     } catch (err) {

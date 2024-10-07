@@ -97,7 +97,7 @@ export default [
         children: [
             {
                 path: 'three-js',
-                name: 'three.js',
+                name: 'three-js',
                 meta: {
                     keepAlive: false,
                     title: 'Three.js',
@@ -118,8 +118,8 @@ export default [
                 component: () => import('@/views/babylonjs/babylonjs.vue'),
             },
             {
-                path: 'pixijs',
-                name: 'Pixi.js',
+                path: 'pixi-js',
+                name: 'pixi-js',
                 meta: {
                     keepAlive: false,
                     title: 'Pixi.js',
@@ -150,6 +150,30 @@ export default [
                     visible: true,
                 },
                 component: () => import('@/views/oreo-editor/index.vue'),
+                children: [],
+            },
+        ],
+    },
+    {
+        path: '/access-control',
+        name: 'AccessControl',
+        meta: {
+            visible: true,
+            title: 'Access Control',
+            icon: 'mdi-account-supervisor-circle',
+        },
+        component: Layout,
+        children: [
+            {
+                path: 'menus',
+                name: 'menus',
+                meta: {
+                    title: 'Menus',
+                    icon: 'mdi-alpha-m',
+                    keepAlive: false,
+                    visible: true,
+                },
+                component: () => import('@/views/authority/index.vue'),
                 children: [],
             },
         ],

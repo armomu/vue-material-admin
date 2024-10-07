@@ -86,6 +86,7 @@ const useMenu = () => {
     };
 
     const onMenu = (menu: any) => {
+        console.log(menu);
         data.form.icon = menu.item.icon;
         data.form.code = menu.item.code;
         data.form.name = menu.item.name;
@@ -115,6 +116,7 @@ const useMenu = () => {
     return {
         formRef,
         data,
+        getMenutree,
         onSubmit,
         onReset,
         onMenu,

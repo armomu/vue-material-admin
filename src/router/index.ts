@@ -4,37 +4,37 @@ import { checkVersion } from '@/plugins/pwa';
 import { ApiAuth, type MenuInterface } from '@/api/auth';
 import { useMenuStore } from '@/stores/useMenuStore';
 
-const menu = {
-    path: '/access-control',
-    name: 'AccessControl',
-    meta: {
-        visible: true,
-        title: 'Access Control',
-        icon: 'mdi-account-supervisor-circle',
-    },
-    component: Layout,
-    children: [
-        {
-            path: 'menus',
-            name: 'menus',
-            meta: {
-                title: 'Menus',
-                icon: 'mdi-alpha-m',
-                keepAlive: false,
-                visible: true,
-            },
-            component: () => import('@/views/authority/index.vue'),
-            children: [],
-        },
-    ],
-};
 const router = createRouter({
     history: createWebHashHistory(),
     scrollBehavior() {
         return { top: 0 };
     },
     routes: [
-        menu,
+        {
+            path: '/access-control',
+            name: 'AccessControl',
+            redirect: '/access-control/menus',
+            meta: {
+                visible: true,
+                title: 'Access Control',
+                icon: 'mdi-account-supervisor-circle',
+            },
+            component: Layout,
+            children: [
+                {
+                    path: 'menus',
+                    name: 'menus',
+                    meta: {
+                        title: 'Menus',
+                        icon: 'mdi-alpha-m',
+                        keepAlive: false,
+                        visible: true,
+                    },
+                    component: () => import('@/views/authority/index.vue'),
+                    children: [],
+                },
+            ],
+        },
         {
             path: '/login',
             name: 'login',
@@ -45,15 +45,14 @@ const router = createRouter({
             },
             component: () => import('@/views/login/login.vue'),
         },
-        { path: '/:pathMatch(.*)', name: 'Match', meta: { keepAlive: false }, redirect: '/404' },
         {
-            path: '/404',
-            name: '404',
-            meta: { keepAlive: false, title: 'Not found', icon: 'mdi-paw-off', visible: false },
-            component: Layout,
+            path: '/:pathMatch(.*)',
+            name: 'Match',
+            meta: { keepAlive: false },
+            redirect: '/404',
             children: [
                 {
-                    path: '',
+                    path: '/404',
                     name: 'd404',
                     meta: {
                         title: 'Not found',
@@ -68,6 +67,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, _from, next) => {
+    console.log('router to', to);
+    console.log('router from', _from);
+    if (to.path === '/' && _from.path === '/404') {
+        next('');
+        return;
+    }
     next();
 });
 
@@ -76,10 +81,15 @@ router.afterEach(() => {
 });
 export default router;
 
-export async function syncRouter() {
+/**
+ * 获取菜单树数据 将处理后的路由添加至路由表及菜单存储
+ * @param toFirst 是否跳转第一个路由
+ */
+export async function syncRouter(toFirst = true) {
     try {
         const menuEvent = useMenuStore();
         const routeComponents = import.meta.glob('@/views/**/*.vue');
+        console.log(routeComponents);
         const layout = import.meta.glob('@/layout/index.vue');
         const res = await ApiAuth.menuTree();
         traverseTree(res.data, (item) => {
@@ -98,15 +108,19 @@ export async function syncRouter() {
             };
             item.name = item.code;
         });
+        const [route] = res.data;
         res.data.forEach((item) => {
             // @ts-ignore
             router.addRoute(item);
             // @ts-ignore
             menuEvent.addMenu(item);
         });
-        // menuEvent.addMenu(menu);
-        return Promise.resolve();
+        if (toFirst) {
+            router.push(route.path);
+        }
+        return Promise.resolve(route);
     } catch {
+        // router.push('/login');
         return Promise.resolve();
     }
 }

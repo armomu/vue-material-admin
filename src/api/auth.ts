@@ -2,22 +2,6 @@ import request from './axios';
 import type { RootInterface, ArrayResult } from './axios';
 
 export const ApiAuth = {
-    login: async (data: SignApi): Promise<void> => {
-        try {
-            const res = await request({
-                url: '/auth/login',
-                method: 'POST',
-                data,
-            });
-            localStorage.setItem('accessToken', 'Bearer ' + res.data.accessToken);
-            // router.push('/');
-            return Promise.resolve();
-        } catch (err) {
-            return Promise.reject();
-        }
-    },
-    captcha: (): Promise<string> => request({ url: '/auth/captcha' }),
-
     menuTree: (): Promise<RootInterface<MenuInterface[]>> => {
         return request({
             url: '/permission/tree',
@@ -37,25 +21,17 @@ export const ApiAuth = {
             method: 'post',
         });
     },
+    /**
+     * 删除菜单
+     * @param id
+     */
     delMenu: (id: any): Promise<void> => {
         return request({
             url: '/permission/' + id,
             method: 'delete',
         });
     },
-    users: (params: any): Promise<RootInterface<ArrayResult<UserInterface>>> => {
-        return request({
-            url: '/user',
-            params,
-        });
-    },
 };
-
-export interface SignApi {
-    username: string;
-    password: string;
-    captcha?: string;
-}
 
 export interface MenuInterface {
     id: number;
@@ -77,24 +53,4 @@ export interface MenuInterface {
     enable: boolean;
     order: number;
     children?: MenuInterface[];
-}
-
-export interface UserInterface {
-    id: number;
-    username: string;
-    enable: boolean;
-    createTime: string;
-    updateTime: string;
-    roles: Role[];
-    gender: number;
-    avatar: string;
-    address: string;
-    email: string;
-}
-
-export interface Role {
-    id: number;
-    code: string;
-    name: string;
-    enable: boolean;
 }

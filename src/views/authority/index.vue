@@ -2,17 +2,15 @@
     <div class="d-flex">
         <v-card min-width="600" style="height: var(--content-height)">
             <v-toolbar color="transparent">
-                <v-toolbar-title class="text-h6" text="Menus"></v-toolbar-title>
+                <v-toolbar-title class="text-h6" text="Menus"> </v-toolbar-title>
                 <template v-slot:append>
+                    <v-btn icon="mdi-compare-horizontal" @click="menuEvent.getMenutree"></v-btn>
+                    <v-btn icon="mdi-refresh" @click="menuEvent.getMenutree"></v-btn>
                     <v-btn
                         icon="mdi-plus"
-                        color="primary"
-                        @click="menuEvent.onShowAddDialog"
+                        @click="menuEvent.onShowAddDialog(0)"
                         class="mr-2"
                     ></v-btn>
-                    <!-- <v-btn>
-                        <v-icon icon="mdi-plus" size="large"/>
-                    </v-btn> -->
                 </template>
             </v-toolbar>
             <div class="d-flex mb-4 mt-2 mx-4">
@@ -27,8 +25,6 @@
                     density="compact"
                 ></v-text-field>
             </div>
-
-            <!-- <VTreeview :items="menuTree" /> -->
             <VTreeview
                 :items="menuEvent.data.menuTree"
                 :search="menuEvent.data.search"
@@ -51,7 +47,7 @@
                                 flat
                                 @click="menuEvent.onShowAddDialog(row.item.id)"
                             >
-                                新增
+                                New
                             </v-btn>
                             <v-dialog max-width="340">
                                 <template v-slot:activator="{ props: activatorProps }">
@@ -61,7 +57,7 @@
                                         size="small"
                                         variant="flat"
                                         flat
-                                        >删除</v-btn
+                                        >Delete</v-btn
                                     >
                                 </template>
 
@@ -99,6 +95,8 @@
                         hide-details
                         density="compact"
                         style="width: 300px"
+                        @keydown.enter="usersEvent.onSearch"
+                        v-model="usersEvent.data.query.username"
                     ></v-text-field>
                 </div>
                 <div class="ml-4 mr-auto">
@@ -107,6 +105,7 @@
                         label="Status"
                         dict="UserStatusDict"
                         style="width: 300px"
+                        @change="usersEvent.onSearch"
                     />
                 </div>
                 <!-- <v-divider class="ma-4"></v-divider> -->
@@ -114,30 +113,14 @@
                     <v-icon icon="mdi-plus" size="large" />
                 </v-btn>
             </div>
-            <!-- <v-card-title class="d-flex align-center pe-2">
-                Users
-
-                <v-spacer></v-spacer>
-
-                <div style="width: 200px">
-                    <v-text-field
-                        density="compact"
-                        label="Search"
-                        prepend-inner-icon="mdi-magnify"
-                        variant="solo-filled"
-                        flat
-                        hide-details
-                        single-line
-                    ></v-text-field>
-                </div>
-            </v-card-title> -->
             <v-table class="ma-4 table">
                 <thead>
                     <tr>
                         <th class="text-left">Username</th>
-                        <th class="text-left">Role</th>
+                        <th class="text-left">Roles</th>
+                        <th class="text-left">UpdateTime</th>
                         <th class="text-left">Status</th>
-                        <th class="text-left"></th>
+                        <th class="text-left">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,7 +130,7 @@
                                 <v-avatar size="36px">
                                     <v-img alt="John" :src="item.avatar"></v-img>
                                 </v-avatar>
-                                <strong class="ml-2">{{ item.username }}</strong>
+                                <span class="ml-2">{{ item.username }}</span>
                             </div>
                         </td>
                         <td>
@@ -155,42 +138,114 @@
                                 v-for="role in item.roles"
                                 :key="role.id"
                                 class="mr-1"
-                                color="primary"
+                                @click="usersEvent.onShowRole(item)"
                             >
                                 {{ role.name }}
                             </v-chip>
                             <!-- <v-chip :color="item.color"> Secondary </v-chip> -->
                         </td>
+                        <td class="td1 py-4">
+                            <span class="ml-2">{{ item.updateTime }}</span>
+                        </td>
                         <td>
-                            <v-switch v-model="item.enable" color="primary" hide-details></v-switch>
-                            <!-- <v-chip :color="item.color"> Secondary </v-chip> -->
+                            <!-- <v-switch v-model="item.enable" color="primary" hide-details></v-switch> -->
+                            <v-chip
+                                v-if="item.enable"
+                                color="green"
+                                @click="usersEvent.onShowRole(item)"
+                            >
+                                Enable
+                            </v-chip>
+                            <v-chip v-else color="red" @click="usersEvent.onShowRole(item)"
+                                >Disable</v-chip
+                            >
+                        </td>
+                        <td>
+                            <v-btn class="ml-2 text-none" size="small" variant="flat" flat>
+                                Delete
+                            </v-btn>
                         </td>
                     </tr>
                 </tbody>
             </v-table>
             <div class="d-flex py-2" style="justify-content: center">
                 <v-pagination
-                    :model-value="1"
-                    :length="4"
+                    v-model="usersEvent.data.query.pageNo"
+                    :length="usersEvent.data.total"
                     size="small"
                     rounded="circle"
                 ></v-pagination>
             </div>
         </v-card>
     </div>
-
-    <v-dialog width="700" v-model="menuEvent.data.visible">
-        <v-card :title="menuEvent.data.dialogTitle">
-            <template #append>
-                <div class="mr-n4">
+    <v-dialog width="700" v-model="usersEvent.data.visible" title="">
+        <v-card>
+            <v-toolbar color="transparent">
+                <v-toolbar-title class="text-h6">Edit User</v-toolbar-title>
+                <template v-slot:append>
+                    <v-btn
+                        type="submit"
+                        variant="text"
+                        @click="usersEvent.data.visible = false"
+                        icon="mdi-close"
+                    />
+                </template>
+            </v-toolbar>
+            <v-sheet width="500" class="ma-10 mx-auto">
+                <v-form :ref="usersEvent.formRef" @submit.prevent>
+                    <v-text-field
+                        v-model="usersEvent.data.form.username"
+                        :rules="[(firstName: any) => !!firstName || 'required']"
+                        prepend-icon="mdi-account-edit-outline"
+                        label="Username"
+                        density="comfortable"
+                        variant="outlined"
+                        disabled
+                    ></v-text-field>
+                    <v-select
+                        v-model="usersEvent.data.roleIds"
+                        :items="rolesEvent.data.list"
+                        :rules="[(firstName: any) => firstName.length > 0 || 'required']"
+                        item-title="name"
+                        item-value="id"
+                        multiple
+                        chips
+                        label="Roles"
+                        class="ml-10"
+                    >
+                    </v-select>
+                    <v-checkbox
+                        v-model="usersEvent.data.form.enable"
+                        label="Enable"
+                        type="checkbox"
+                        class="ml-7"
+                    ></v-checkbox>
+                </v-form>
+            </v-sheet>
+            <v-divider></v-divider>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn text="Cancel" @click="usersEvent.onReset">Cancel</v-btn>
+                <v-btn color="primary" size="large" @click="usersEvent.onSubmit">Submit</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+    <v-dialog width="700" v-model="menuEvent.data.visible" title="">
+        <v-card>
+            <v-toolbar color="transparent">
+                <v-toolbar-title
+                    class="text-h6"
+                    :text="menuEvent.data.dialogTitle"
+                ></v-toolbar-title>
+                <template v-slot:append>
                     <v-btn
                         type="submit"
                         variant="text"
                         @click="menuEvent.data.visible = false"
                         icon="mdi-close"
                     />
-                </div>
-            </template>
+                </template>
+            </v-toolbar>
             <v-sheet width="500" class="ma-10 mx-auto">
                 <v-form :ref="menuEvent.formRef" @submit.prevent>
                     <v-text-field
@@ -259,9 +314,12 @@
 import { VTreeview } from 'vuetify/labs/VTreeview';
 import useMenu from './hooks/useMenu';
 import useUsers from './hooks/useUser';
+import useRoles from './hooks/useRole';
 import { VSpacer } from 'vuetify/components';
+
 const menuEvent = useMenu();
 const usersEvent = useUsers();
+const rolesEvent = useRoles();
 </script>
 <style lang="scss">
 .treeMenuItem {

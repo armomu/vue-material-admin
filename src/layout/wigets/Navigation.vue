@@ -53,16 +53,17 @@
                         />
                     </template>
                 </v-list-group>
-                <v-list-subheader v-if="item.name === 'Dashboard'">Dashboard</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'Editor'">Other</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'editor'">Access Control</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'AccessControl'">Other</v-list-subheader>
             </template>
-            <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
+            <!-- <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
                 <v-list-item-title
                     ><a target="_blank" href="https://vuetifyjs.com/" class="link"
                         >Document</a
                     ></v-list-item-title
                 >
-            </v-list-item>
+            </v-list-item> -->
             <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
                 <v-list-item-title
                     ><a

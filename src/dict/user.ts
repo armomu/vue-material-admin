@@ -1,7 +1,7 @@
 export const UserStatusDict = {
     0: {
         value: 0,
-        label: 'disable',
+        label: 'Disable',
         color: 'red',
     },
     1: {
