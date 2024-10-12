@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex">
-        <v-card min-width="600" style="height: var(--content-height)">
+        <v-card width="30%" style="height: var(--content-height)">
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6" text="Menus"> </v-toolbar-title>
                 <template v-slot:append>

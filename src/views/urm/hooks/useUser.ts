@@ -2,7 +2,6 @@ import { onBeforeMount, reactive, ref } from 'vue';
 import { ApiUser } from '@/api/user';
 import type { UserInterface } from '@/api/user';
 import { ApiRole } from '@/api/role';
-import { da } from 'vuetify/locale';
 
 const useUsers = () => {
     const formRef = ref<any>();
@@ -58,11 +57,12 @@ const useUsers = () => {
     };
 
     const onShowRole = (item: UserInterface) => {
-        data.form.id = item.id;
-        data.roleIds = item.roles.map((item) => item.id);
-        data.form.enable = item.enable;
-        data.form.username = item.username;
-        data.visible = true;
+        console.log(item);
+        // data.form.id = item.id;
+        // data.roleIds = item.roles.map((item) => item.id);
+        // data.form.enable = item.enable;
+        // data.form.username = item.username;
+        // data.visible = true;
     };
 
     onBeforeMount(initData);

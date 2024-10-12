@@ -173,7 +173,7 @@ export default [
                     keepAlive: false,
                     visible: true,
                 },
-                component: () => import('@/views/authority/index.vue'),
+                component: () => import('@/views/urm/index.vue'),
                 children: [],
             },
         ],

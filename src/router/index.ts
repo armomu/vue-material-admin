@@ -11,26 +11,26 @@ const router = createRouter({
     },
     routes: [
         {
-            path: '/access-control',
-            name: 'AccessControl',
-            redirect: '/access-control/menus',
+            path: '/urm',
+            name: 'urm',
+            redirect: '/urm/list',
             meta: {
                 visible: true,
-                title: 'Access Control',
+                title: 'Urm',
                 icon: 'mdi-account-supervisor-circle',
             },
             component: Layout,
             children: [
                 {
-                    path: 'menus',
-                    name: 'menus',
+                    path: 'list',
+                    name: 'urmList',
                     meta: {
-                        title: 'Menus',
-                        icon: 'mdi-alpha-m',
+                        title: 'Urm',
+                        icon: 'mdi-alpha-u',
                         keepAlive: false,
                         visible: true,
                     },
-                    component: () => import('@/views/authority/index.vue'),
+                    component: () => import('@/views/urm/index.vue'),
                     children: [],
                 },
             ],
