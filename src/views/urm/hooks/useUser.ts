@@ -1,7 +1,6 @@
 import { onBeforeMount, reactive, ref } from 'vue';
 import { ApiUser } from '@/api/user';
 import type { UserInterface } from '@/api/user';
-import { ApiRole } from '@/api/role';
 
 const useUsers = () => {
     const formRef = ref<any>();
@@ -17,23 +16,20 @@ const useUsers = () => {
             id: 0,
             username: '',
             enable: true,
+            roleIds: [0],
         },
-        roleIds: [],
-        total: 0,
+        password: '',
+        totalPage: 0,
         loading: true,
         visible: false,
+        isUser: false,
+        dialogTitle: 'New User',
     });
 
     const initData = async () => {
         const res = await ApiUser.users(data.query);
         data.list = res.data.pageData;
-        data.total = res.data.total;
-        onRoles();
-    };
-
-    const onRoles = async () => {
-        // const res = await ApiRole.list();
-        // data.list = res.data.pageData;
+        data.totalPage = Math.ceil(res.data.total / data.query.pageSize);
     };
 
     const onSearch = () => {
@@ -42,27 +38,53 @@ const useUsers = () => {
     };
 
     const onSubmit = async () => {
-        // console.log(formRef.value);
-        // const res = await formRef.value.validate();
-        // if (!res.valid) return;
-        // if (data.dialogTitle === 'New Menu') {
-        //     onAdd();
-        // } else {
-        //     onEdit();
-        // }
+        console.log(formRef.value);
+        const res = await formRef.value.validate();
+        if (!res.valid) return;
+        if (data.dialogTitle === 'New User') {
+            onAdd();
+        } else {
+            onEdit();
+        }
     };
+
+    const onAdd = async () => {
+        await ApiUser.add({
+            password: data.password,
+            ...data.form,
+        });
+        onReset();
+        initData();
+    };
+    const onEdit = async () => {
+        await ApiUser.edit(data.form);
+        onReset();
+        initData();
+    };
+
     const onReset = async () => {
         await formRef.value.reset();
         data.visible = false;
     };
 
+    const onShowAddDialog = () => {
+        data.dialogTitle = 'New User';
+
+        data.form.id = 0;
+        data.form.username = '';
+        data.form.roleIds = [];
+        data.form.enable = true;
+
+        data.visible = true;
+    };
+
     const onShowRole = (item: UserInterface) => {
-        console.log(item);
-        // data.form.id = item.id;
-        // data.roleIds = item.roles.map((item) => item.id);
-        // data.form.enable = item.enable;
-        // data.form.username = item.username;
-        // data.visible = true;
+        data.dialogTitle = 'Edit User';
+        data.form.id = item.id;
+        data.form.roleIds = item.roles.map((item) => item.id);
+        data.form.enable = item.enable;
+        data.form.username = item.username;
+        data.visible = true;
     };
 
     onBeforeMount(initData);
@@ -71,9 +93,11 @@ const useUsers = () => {
         formRef,
         data,
         onSearch,
+        onShowAddDialog,
         onShowRole,
         onSubmit,
         onReset,
+        initData,
     };
 };
 

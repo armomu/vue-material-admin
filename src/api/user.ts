@@ -1,5 +1,6 @@
 import request from './axios';
 import type { RootInterface, ArrayResult } from './axios';
+import type { Role } from './role';
 
 export const ApiUser = {
     login: async (data: SignInterface): Promise<void> => {
@@ -29,12 +30,25 @@ export const ApiUser = {
             params,
         });
     },
-    edit: (data: any): Promise<RootInterface<UserInterface>> => {
+    add: (data: AddUser): Promise<void> => {
         return request({
             url: '/user',
+            method: 'post',
             data,
         });
     },
+    edit: (data: EditUser): Promise<RootInterface<UserInterface>> => {
+        return request({
+            url: `/user/${data.id}`,
+            method: 'patch',
+            data: {
+                id: data.id,
+                enable: data.enable,
+                roleIds: data.roleIds,
+            },
+        });
+    },
+    delete: (id: number): Promise<void> => request({ url: `/user/${id}`, method: 'delete' }),
 };
 
 export interface SignInterface {
@@ -55,10 +69,12 @@ export interface UserInterface {
     address: string;
     email: string;
 }
-
-export interface Role {
-    id: number;
-    code: string;
-    name: string;
+export interface AddUser extends EditUser {
+    username: string;
+    password: string;
+}
+export interface EditUser {
+    id?: number;
     enable: boolean;
+    roleIds: number[];
 }

@@ -4,7 +4,6 @@
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6" text="Menus"> </v-toolbar-title>
                 <template v-slot:append>
-                    <v-btn icon="mdi-compare-horizontal" @click="menuEvent.getMenutree"></v-btn>
                     <v-btn icon="mdi-refresh" @click="menuEvent.getMenutree"></v-btn>
                     <v-btn
                         icon="mdi-plus"
@@ -83,13 +82,27 @@
             </VTreeview>
         </v-card>
 
-        <v-card class="px-4 ml-4" style="height: var(--content-height); flex: 1" title="Users">
-            <div class="d-flex mt-2">
+        <v-card
+            v-if="usersEvent.data.isUser"
+            class="ml-4"
+            style="height: var(--content-height); flex: 1"
+        >
+            <v-toolbar color="transparent">
+                <v-toolbar-title class="text-h6">Users</v-toolbar-title>
+                <template v-slot:append
+                    ><v-btn
+                        icon="mdi-compare-horizontal"
+                        @click="usersEvent.data.isUser = false"
+                    ></v-btn
+                ></template>
+            </v-toolbar>
+
+            <div class="d-flex mt-2 px-4">
                 <div>
                     <v-text-field
                         clear-icon="mdi-close-circle-outline"
                         prepend-inner-icon="mdi-magnify"
-                        label="Search menu"
+                        label="Search User"
                         clearable
                         flat
                         hide-details
@@ -109,7 +122,7 @@
                     />
                 </div>
                 <!-- <v-divider class="ma-4"></v-divider> -->
-                <v-btn class="btn ml-4" color="primary">
+                <v-btn class="btn ml-4" color="primary" @click="usersEvent.onShowAddDialog">
                     <v-icon icon="mdi-plus" size="large" />
                 </v-btn>
             </div>
@@ -171,17 +184,130 @@
             <div class="d-flex py-2" style="justify-content: center">
                 <v-pagination
                     v-model="usersEvent.data.query.pageNo"
-                    :length="usersEvent.data.total"
+                    :length="usersEvent.data.totalPage"
                     size="small"
                     rounded="circle"
+                    @update:modelValue="usersEvent.initData"
                 ></v-pagination>
             </div>
         </v-card>
+        <v-card v-else class="ml-4" style="height: var(--content-height); flex: 1">
+            <v-toolbar color="transparent">
+                <v-toolbar-title class="text-h6">Roles</v-toolbar-title>
+                <template v-slot:append
+                    ><v-btn
+                        icon="mdi-compare-horizontal"
+                        @click="usersEvent.data.isUser = true"
+                    ></v-btn
+                ></template>
+            </v-toolbar>
+            <div class="d-flex mt-2 px-4">
+                <div class="mr-auto">
+                    <v-text-field
+                        clear-icon="mdi-close-circle-outline"
+                        prepend-inner-icon="mdi-magnify"
+                        label="Search Role"
+                        clearable
+                        flat
+                        hide-details
+                        density="compact"
+                        style="width: 300px"
+                        @keydown.enter="rolesEvent.onSearch"
+                        v-model="rolesEvent.data.query.name"
+                    ></v-text-field>
+                </div>
+                <!-- <v-divider class="ma-4"></v-divider> -->
+                <v-btn class="btn ml-4" color="primary" @click="rolesEvent.onShowAddDialog">
+                    <v-icon icon="mdi-plus" size="large" />
+                </v-btn>
+            </div>
+            <v-data-table
+                class="ma-4"
+                :items="rolesEvent.data.list"
+                :headers="rolesEvent.data.headers"
+                hide-default-footer
+            >
+                <template #item.enable="{ item }">
+                    <v-chip v-if="item.enable" color="green"> Enable </v-chip>
+                    <v-chip v-else color="red">Disable</v-chip>
+                </template>
+                <template #item.actions="{ item }">
+                    <v-btn
+                        @click="rolesEvent.onShowEditDialog(item)"
+                        class="ml-2 text-none"
+                        size="small"
+                        variant="flat"
+                        flat
+                        :disabled="item.id === 1"
+                    >
+                        Edit
+                    </v-btn>
+                    <v-btn class="ml-2 text-none" size="small" variant="flat" flat> Delete </v-btn>
+                </template>
+            </v-data-table>
+        </v-card>
     </div>
-    <v-dialog width="700" v-model="usersEvent.data.visible" title="">
+    <v-dialog width="700" v-model="rolesEvent.data.visible">
         <v-card>
             <v-toolbar color="transparent">
-                <v-toolbar-title class="text-h6">Edit User</v-toolbar-title>
+                <v-toolbar-title
+                    class="text-h6"
+                    :text="rolesEvent.data.dialogTitle"
+                ></v-toolbar-title>
+                <template v-slot:append>
+                    <v-btn
+                        type="submit"
+                        variant="text"
+                        @click="rolesEvent.data.visible = false"
+                        icon="mdi-close"
+                    />
+                </template>
+            </v-toolbar>
+            <v-sheet width="500" class="ma-10 mx-auto">
+                <v-form :ref="rolesEvent.formRef" @submit.prevent>
+                    <v-text-field
+                        v-model="rolesEvent.data.form.name"
+                        :rules="[(firstName: any) => !!firstName || 'required']"
+                        label="Role name"
+                        density="comfortable"
+                        variant="outlined"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="rolesEvent.data.form.code"
+                        :rules="[(firstName: any) => !!firstName || 'required']"
+                        label="Role Code"
+                        density="comfortable"
+                        variant="outlined"
+                    ></v-text-field>
+                    <div style="height: 280px; overflow-y: scroll">
+                        <VTreeview
+                            v-model:selected="rolesEvent.data.form.permissionIds"
+                            :items="menuEvent.data.menuTree"
+                            item-title="name"
+                            density="compact"
+                            item-value="id"
+                            selectable
+                            select-strategy="independent"
+                        >
+                        </VTreeview>
+                    </div>
+                </v-form>
+            </v-sheet>
+            <v-divider></v-divider>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn text="Cancel" @click="rolesEvent.onReset">Cancel</v-btn>
+                <v-btn color="primary" size="large" @click="rolesEvent.onSubmit">Submit</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+    <v-dialog width="700" v-model="usersEvent.data.visible">
+        <v-card>
+            <v-toolbar color="transparent">
+                <v-toolbar-title
+                    class="text-h6"
+                    :text="usersEvent.data.dialogTitle"
+                ></v-toolbar-title>
                 <template v-slot:append>
                     <v-btn
                         type="submit"
@@ -200,12 +326,23 @@
                         label="Username"
                         density="comfortable"
                         variant="outlined"
-                        disabled
+                        :disabled="usersEvent.data.dialogTitle === 'Edit User'"
+                    ></v-text-field>
+                    <!-- @vue-ignore -->
+                    <v-text-field
+                        v-if="usersEvent.data.dialogTitle === 'New User'"
+                        v-model="usersEvent.data.password"
+                        :rules="[(firstName: any) => !!firstName || 'required']"
+                        prepend-icon="mdi-"
+                        label="Password"
+                        density="comfortable"
+                        variant="outlined"
+                        :disabled="usersEvent.data.dialogTitle === 'Edit User'"
+                        type="password"
                     ></v-text-field>
                     <v-select
-                        v-model="usersEvent.data.roleIds"
+                        v-model="usersEvent.data.form.roleIds"
                         :items="rolesEvent.data.list"
-                        :rules="[(firstName: any) => firstName.length > 0 || 'required']"
                         item-title="name"
                         item-value="id"
                         multiple
@@ -230,7 +367,7 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
-    <v-dialog width="700" v-model="menuEvent.data.visible" title="">
+    <v-dialog width="700" v-model="menuEvent.data.visible">
         <v-card>
             <v-toolbar color="transparent">
                 <v-toolbar-title

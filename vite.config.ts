@@ -33,6 +33,7 @@ export default defineConfig({
     assetsInclude: ['**/*.gltf', '**/*.glb'],
     resolve: {
         alias: {
+            // @ts-ignore
             '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
     },

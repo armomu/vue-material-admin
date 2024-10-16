@@ -47,12 +47,16 @@ const router = createRouter({
         },
         {
             path: '/:pathMatch(.*)',
-            name: 'Match',
-            meta: { keepAlive: false },
             redirect: '/404',
+        },
+        {
+            path: '/404',
+            name: 'NotFound',
+            meta: { keepAlive: false },
+            component: Layout,
             children: [
                 {
-                    path: '/404',
+                    path: '',
                     name: 'd404',
                     meta: {
                         title: 'Not found',
@@ -67,12 +71,10 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, _from, next) => {
-    console.log('router to', to);
-    console.log('router from', _from);
-    if (to.path === '/' && _from.path === '/404') {
-        next('');
-        return;
-    }
+    // console.log('router to==============');
+    // console.log(to);
+    // console.log('router from============');
+    // console.log(_from);
     next();
 });
 
