@@ -17,8 +17,11 @@
         <v-divider></v-divider>
 
         <v-list nav class="mx-2" color="primary">
-            <v-list-subheader>Dashboard</v-list-subheader>
             <template v-for="(item, key) in routes" :key="key">
+                <v-list-subheader v-if="item.name === 'Dashboard'">Dashboard</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'editor'">Access Control</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'AccessControl'">Other</v-list-subheader>
                 <v-list-item
                     v-if="item.meta?.visible && !item.children"
                     :prepend-icon="item.meta?.icon as any"
@@ -53,9 +56,6 @@
                         />
                     </template>
                 </v-list-group>
-                <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'editor'">Access Control</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'AccessControl'">Other</v-list-subheader>
             </template>
             <!-- <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
                 <v-list-item-title
@@ -81,7 +81,7 @@
 import logo from '@/assets/admin-logo.png';
 // import type { RouteRecordRaw } from 'vue-router';
 import { defineEmits, computed } from 'vue';
-import { useMenuStore } from '@/stores/useMenuStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 const emit = defineEmits(['update:value']);
 
 const props = withDefaults(
@@ -93,7 +93,7 @@ const props = withDefaults(
     {}
 );
 
-const menuEvent = useMenuStore();
+const menuEvent = useAuthStore();
 
 const val = computed({
     get() {

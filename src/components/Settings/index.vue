@@ -81,8 +81,8 @@
     </v-navigation-drawer>
 </template>
 <script setup lang="ts">
-import { useMainStore } from '@/stores/useMainStore';
-const mainStore = useMainStore();
+import { useAppStore } from '@/stores/useAppStore';
+const mainStore = useAppStore();
 </script>
 <style lang="scss">
 .settings-btns-picker {
@@ -94,4 +94,4 @@ const mainStore = useMainStore();
     }
 }
 </style>
-@/stores/useMainStore
+@/stores/useAppStore

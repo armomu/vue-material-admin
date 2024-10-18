@@ -1,7 +1,15 @@
 import request from './axios';
 import type { RootInterface, ArrayResult } from './axios';
+import type { Role } from './role';
 
 export const ApiAuth = {
+    // 当前登陆用户的详情
+    detail: (): Promise<RootInterface<CurrentUserDetail>> => request({ url: '/user/detail' }),
+    curMenuTree: (): Promise<RootInterface<MenuInterface[]>> => {
+        return request({
+            url: '/role/permissions/tree',
+        });
+    },
     menuTree: (): Promise<RootInterface<MenuInterface[]>> => {
         return request({
             url: '/permission/tree',
@@ -53,4 +61,25 @@ export interface MenuInterface {
     enable: boolean;
     order: number;
     children?: MenuInterface[];
+}
+export interface CurrentUserDetail {
+    createTime: string;
+    currentRole: Role;
+    enable: boolean;
+    id: number;
+    profile: Profile;
+    roles: Role[];
+    updateTime: string;
+    username: string;
+    [property: string]: any;
+}
+
+export interface Profile {
+    address: string;
+    avatar: string;
+    email: string;
+    gender: number;
+    id: number;
+    nickName: string;
+    userId: number;
 }

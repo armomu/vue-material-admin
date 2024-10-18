@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout/index.vue';
 import { checkVersion } from '@/plugins/pwa';
 import { ApiAuth, type MenuInterface } from '@/api/auth';
-import { useMenuStore } from '@/stores/useMenuStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -10,31 +10,6 @@ const router = createRouter({
         return { top: 0 };
     },
     routes: [
-        {
-            path: '/urm',
-            name: 'urm',
-            redirect: '/urm/list',
-            meta: {
-                visible: true,
-                title: 'Urm',
-                icon: 'mdi-account-supervisor-circle',
-            },
-            component: Layout,
-            children: [
-                {
-                    path: 'list',
-                    name: 'urmList',
-                    meta: {
-                        title: 'Urm',
-                        icon: 'mdi-alpha-u',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/urm/index.vue'),
-                    children: [],
-                },
-            ],
-        },
         {
             path: '/login',
             name: 'login',
@@ -70,11 +45,7 @@ const router = createRouter({
     ],
 });
 
-router.beforeEach(async (to, _from, next) => {
-    // console.log('router to==============');
-    // console.log(to);
-    // console.log('router from============');
-    // console.log(_from);
+router.beforeEach(async (to, from, next) => {
     next();
 });
 
@@ -87,13 +58,15 @@ export default router;
  * 获取菜单树数据 将处理后的路由添加至路由表及菜单存储
  * @param toFirst 是否跳转第一个路由
  */
-export async function syncRouter(toFirst = true) {
+export async function syncRouter(toFirst = false) {
     try {
-        const menuEvent = useMenuStore();
+        const authEvent = useAuthStore();
+        authEvent.resetMenu();
         const routeComponents = import.meta.glob('@/views/**/*.vue');
         console.log(routeComponents);
         const layout = import.meta.glob('@/layout/index.vue');
-        const res = await ApiAuth.menuTree();
+        const res = await ApiAuth.curMenuTree();
+        const user = await ApiAuth.detail();
         traverseTree(res.data, (item) => {
             if (item.component === '/src/layout/index.vue') {
                 // @ts-ignore
@@ -115,14 +88,15 @@ export async function syncRouter(toFirst = true) {
             // @ts-ignore
             router.addRoute(item);
             // @ts-ignore
-            menuEvent.addMenu(item);
+            authEvent.addMenu(item);
         });
+        authEvent.setUserDetail(user.data);
         if (toFirst) {
             router.push(route.path);
         }
-        return Promise.resolve(route);
-    } catch {
-        // router.push('/login');
+        return Promise.resolve(res.data);
+    } catch (err) {
+        console.log(err, '==================');
         return Promise.resolve();
     }
 }

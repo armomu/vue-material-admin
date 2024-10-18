@@ -18,12 +18,12 @@
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import Navigation from './wigets/Navigation.vue';
-import Header from './wigets/Header.vue';
+import Navigation from './widgets/Navigation.vue';
+import Header from './widgets/Header.vue';
 import { reactive, computed, watch } from 'vue';
-import { useMainStore } from '@/stores/useMainStore';
+import { useAppStore } from '@/stores/useAppStore';
 
-const mainStore = useMainStore();
+const mainStore = useAppStore();
 const navState = reactive({
     menuVisible: true,
     rail: !mainStore.isMobile,

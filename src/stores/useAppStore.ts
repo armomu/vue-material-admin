@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { vuetify } from '@/plugins/vuetify';
 
-export const useMainStore = defineStore('main', () => {
+export const useAppStore = defineStore('main', () => {
     // 初始化是否是移动端设备
     window.addEventListener('resize', () => {
         const res = getMobile();

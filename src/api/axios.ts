@@ -44,7 +44,6 @@ request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosReques
 request.interceptors.response.use(
     /** 请求有响应 */
     (response: AxiosResponse) => {
-        console.log(response.data, '====');
         // console.log(response.data);
         if (response.data) {
         }
@@ -53,6 +52,7 @@ request.interceptors.response.use(
     /** 请求无响应 */
     async (error: AxiosError): Promise<AxiosPromise> => {
         if (error.response?.status === 401) {
+            console.log('token过期======== 或者没有');
             router.push('/login');
         }
         return Promise.reject(error);

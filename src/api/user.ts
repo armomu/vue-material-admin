@@ -17,6 +17,7 @@ export const ApiUser = {
             return Promise.reject();
         }
     },
+    logout: (): Promise<void> => request({ url: '/auth/logout', method: 'post' }),
     /**
      * 获取验证码
      */
