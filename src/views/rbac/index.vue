@@ -174,9 +174,34 @@
                             >
                         </td>
                         <td>
-                            <v-btn class="ml-2 text-none" size="small" variant="flat" flat>
-                                Delete
-                            </v-btn>
+                            <v-dialog max-width="340">
+                                <template v-slot:activator="{ props: activatorProps }">
+                                    <v-btn
+                                        v-bind="activatorProps"
+                                        class="ml-2 text-none"
+                                        size="small"
+                                        variant="flat"
+                                        flat
+                                        :disabled="item.username === 'admin'"
+                                    >
+                                        Delete
+                                    </v-btn>
+                                </template>
+                                <template v-slot:default="{ isActive }">
+                                    <v-card
+                                        text="Cannot be restored after deletion"
+                                        :title="'Delete ' + item.username"
+                                    >
+                                        <template v-slot:actions>
+                                            <v-btn
+                                                class="ml-auto"
+                                                text="Delete"
+                                                @click="usersEvent.onDel(item.id, isActive)"
+                                            ></v-btn>
+                                        </template>
+                                    </v-card>
+                                </template>
+                            </v-dialog>
                         </td>
                     </tr>
                 </tbody>
@@ -216,7 +241,6 @@
                         v-model="rolesEvent.data.query.name"
                     ></v-text-field>
                 </div>
-                <!-- <v-divider class="ma-4"></v-divider> -->
                 <v-btn class="btn ml-4" color="primary" @click="rolesEvent.onShowAddDialog">
                     <v-icon icon="mdi-plus" size="large" />
                 </v-btn>

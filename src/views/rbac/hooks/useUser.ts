@@ -8,7 +8,7 @@ const useUsers = () => {
         list: [] as UserInterface[],
         query: {
             username: '',
-            enable: '',
+            enable: null,
             pageNo: 1,
             pageSize: 10,
         },
@@ -22,7 +22,7 @@ const useUsers = () => {
         totalPage: 0,
         loading: true,
         visible: false,
-        isUser: false,
+        isUser: true,
         dialogTitle: 'New User',
     });
 
@@ -62,6 +62,12 @@ const useUsers = () => {
         initData();
     };
 
+    const onDel = async (id: number, dialog: any) => {
+        await ApiUser.delete(id);
+        initData();
+        dialog.value = false;
+    };
+
     const onReset = async () => {
         await formRef.value.reset();
         data.visible = false;
@@ -98,6 +104,7 @@ const useUsers = () => {
         onSubmit,
         onReset,
         initData,
+        onDel,
     };
 };
 

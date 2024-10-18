@@ -86,7 +86,6 @@ const useUsers = () => {
         data.form.code = item.code;
         data.form.name = item.name;
         data.form.permissionIds = item.permissionIds.map((item) => item);
-
         data.visible = true;
     };
 
