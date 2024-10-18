@@ -19,9 +19,8 @@
         <v-list nav class="mx-2" color="primary">
             <template v-for="(item, key) in routes" :key="key">
                 <v-list-subheader v-if="item.name === 'Dashboard'">Dashboard</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'editor'">Access Control</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'AccessControl'">Other</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'componets'">Examples</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'RBAC'">Access Control</v-list-subheader>
                 <v-list-item
                     v-if="item.meta?.visible && !item.children"
                     :prepend-icon="item.meta?.icon as any"
@@ -64,7 +63,7 @@
                     ></v-list-item-title
                 >
             </v-list-item> -->
-            <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
+            <!-- <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
                 <v-list-item-title
                     ><a
                         target="_blank"
@@ -73,7 +72,7 @@
                         >Github</a
                     ></v-list-item-title
                 >
-            </v-list-item>
+            </v-list-item> -->
         </v-list>
     </v-navigation-drawer>
 </template>

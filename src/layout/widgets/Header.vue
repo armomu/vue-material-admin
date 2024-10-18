@@ -119,6 +119,6 @@ const onShowMenu = () => {
 const onLogout = async () => {
     await ApiUser.logout();
     router.push('/login');
-    location.reload();
+    // location.reload();
 };
 </script>
