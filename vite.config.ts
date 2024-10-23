@@ -1,17 +1,17 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vuetify from 'vite-plugin-vuetify';
-import vueJsx from '@vitejs/plugin-vue-jsx';
+import Vue from '@vitejs/plugin-vue';
+import Vuetify from 'vite-plugin-vuetify';
+import VueJsx from '@vitejs/plugin-vue-jsx';
 
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/',
     // base: '/vue-material-admin',
     plugins: [
-        vue(),
-        vueJsx(), // 都用Vue还用什么JSX
-        vuetify(),
+        Vue(),
+        Vuetify({ autoImport: true }), // 都用Vue还用什么JSX
+        VueJsx(),
     ],
     server: {
         open: true,

@@ -10,9 +10,6 @@ export const ApiUser = {
                 method: 'POST',
                 data,
             });
-            if (res.data.accessToken === 'access-token:admin:super-admin') {
-                res.data.accessToken = 'access-token:vuetifyjs:admin-serve';
-            }
             localStorage.setItem('accessToken', 'Bearer ' + res.data.accessToken);
             // router.push('/');
             return Promise.resolve();
