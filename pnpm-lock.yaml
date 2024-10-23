@@ -93,9 +93,6 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1
-      '@vuetify/loader-shared':
-        specifier: ^2.0.3
-        version: 2.0.3(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2)))
       eslint:
         specifier: ^8.2.2
         version: 8.57.0
