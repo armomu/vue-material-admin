@@ -22,8 +22,8 @@ declare module 'axios' {
  */
 const request = Axios.create({
     // baseURL: import.meta.env.VITE_API as string,
-    // baseURL: 'https://apifoxmock.com/m1/5061937-4723200-default',
-    baseURL: 'http://localhost:8085',
+    baseURL: 'https://apifoxmock.com/m1/5061937-4723200-default',
+    // baseURL: 'http://localhost:8085',
     timeout: 20000,
 });
 
