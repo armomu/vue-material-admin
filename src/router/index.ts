@@ -62,11 +62,11 @@ export async function syncRouter(toFirst = false) {
     try {
         const authEvent = useAuthStore();
         authEvent.resetMenu();
+        const res = await ApiAuth.curMenuTree();
+        const user = await ApiAuth.detail();
         const routeComponents = import.meta.glob('@/views/**/*.vue');
         console.log(routeComponents);
         const layout = import.meta.glob('@/layout/index.vue');
-        const res = await ApiAuth.curMenuTree();
-        const user = await ApiAuth.detail();
         traverseTree(res.data, (item) => {
             if (item.component === '/src/layout/index.vue') {
                 // @ts-ignore

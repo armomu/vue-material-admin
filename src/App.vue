@@ -12,12 +12,25 @@
         }"
     >
         <router-view />
+        <v-snackbar
+            v-for="(item, key) in snackbarEvent.items"
+            v-model="item.visible"
+            :timeout="item.timeout"
+            :key="key"
+            color="grey-darken-3"
+        >
+            {{ item.text }}
+            <template v-slot:actions>
+                <v-btn color="blue" variant="text" @click="item.visible = false"> Close </v-btn>
+            </template>
+        </v-snackbar>
     </v-app>
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import { useAppStore } from '@/stores/useAppStore';
+import { useSnackbarStore } from '@/stores/useSnackbarStore';
 const mainStore = useAppStore();
+const snackbarEvent = useSnackbarStore();
 </script>
 <style scoped lang="scss"></style>
-@/stores/useAppStore

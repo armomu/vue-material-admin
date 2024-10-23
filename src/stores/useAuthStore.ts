@@ -11,7 +11,10 @@ export const useAuthStore = defineStore('auth', () => {
     const addMenu = (menu: RouteRecordRaw) => {
         menus.value.push(cloneDeep(menu));
     };
-
+    /**
+     * 重置菜单
+     * 切换角色应该回出现BUG
+     */
     const resetMenu = () => {
         menus.value = cloneDeep(router.options.routes) as RouteRecordRaw[];
     };

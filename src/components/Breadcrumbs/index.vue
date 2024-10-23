@@ -18,53 +18,18 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const $route = useRoute();
-// const routes = ref();
 const pageTitle = computed(() => $route.meta.title);
 
 const routes = computed(() => {
     const { matched } = $route;
-    const arr: any[] = [];
-    if (matched[0].path === '/dashboard') {
-        return [
-            {
-                title: 'Dashboard',
-                disabled: false,
-                href: '/dashboard',
-            },
-        ];
-    }
-    if (matched[0].path === matched[1].path) {
-        return [
-            {
-                title: 'Index',
-                disabled: false,
-                href: '/dashboard',
-            },
-            {
-                title: matched[0].meta.title,
-                disabled: true,
-                href: matched[0].path,
-            },
-        ];
-    }
-    matched.forEach((route, index) => {
-        if (index === matched.length - 1) {
-            arr.push({
-                title: route.meta.title,
-                exact: true,
-                disabled: false,
-                href: $route.path,
-            });
-        } else {
-            arr.push({
-                title: route.meta.title,
-                exact: false,
-                disabled: true,
-                href: route.path,
-            });
-        }
+    return matched.map((route, index) => {
+        return {
+            title: route.meta.title,
+            disabled: true,
+            // disabled: index === matched.length - 1,
+            href: route.path,
+        };
     });
-    return arr;
 });
 </script>
 <style lang="scss">

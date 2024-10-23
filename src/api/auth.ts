@@ -6,6 +6,10 @@ export const ApiAuth = {
     // 当前登陆用户的详情
     detail: (): Promise<RootInterface<CurrentUserDetail>> => request({ url: '/user/detail' }),
     curMenuTree: (): Promise<RootInterface<MenuInterface[]>> => {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            return Promise.reject();
+        }
         return request({
             url: '/role/permissions/tree',
         });

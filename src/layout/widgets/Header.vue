@@ -73,7 +73,6 @@ import { useAppStore } from '@/stores/useAppStore';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { defineEmits, computed } from 'vue';
 import logo from '@/assets/admin-logo.png';
-import wxtx from '@/assets/wx.png';
 import { ApiUser } from '@/api/user';
 import router from '@/router';
 
@@ -118,6 +117,7 @@ const onShowMenu = () => {
 };
 const onLogout = async () => {
     await ApiUser.logout();
+    localStorage.removeItem('accessToken');
     router.push('/login');
     // location.reload();
 };
