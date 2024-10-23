@@ -1,5 +1,5 @@
 import request from './axios';
-import type { RootInterface, ArrayResult } from './axios';
+import type { RootInterface } from './axios';
 import type { Role } from './role';
 
 export const ApiAuth = {
