@@ -1,28 +1,37 @@
+# compiled output
+/dist
+/ncc-dist
+/node_modules
+
 # Logs
 logs
 *.log
-npminstall-debug.log*
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
-.DS_Store
-dist
-dist-ssrs
-coverage
 *.local
 
-stage.glb
-.vite/
+# OS
+.DS_Store
 
-# Editor directories and files
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 !.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?

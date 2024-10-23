@@ -1,25 +1,30 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import './styles/index.scss';
-import App from './App.vue';
-import router, { syncRouter } from './router';
-import { vuetify } from '@/plugins/vuetify';
-import registeComponent from './components';
+/**********************************
+ * @Author: Ronnie Zhang
+ * @LastEditor: Ronnie Zhang
+ * @LastEditTime: 2023/12/07 20:30:13
+ * @Email: zclzone@outlook.com
+ * Copyright © 2023 Ronnie Zhang(大脸怪) | https://isme.top
+ **********************************/
 
-const app = createApp(App);
-registeComponent(app);
-app.use(createPinia());
-app.use(vuetify);
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import * as session from 'express-session';
 
-syncRouter().then((res) => {
-    app.use(router);
-    if (!res) {
-        router.push('/login');
-    }
-    app.mount('#app').$nextTick(() => {
-        setTimeout(() => {
-            const d = document.getElementById('_loading_');
-            d?.setAttribute('class', 'loading_ hide');
-        }, 1000);
-    });
-});
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, { cors: true });
+  app.use(
+    session({
+      secret: 'isme',
+      name: 'isme.session',
+      rolling: true,
+      cookie: { maxAge: null },
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
+
+  await app.listen(process.env.APP_PORT || 8085);
+
+  console.log(`🚀 启动成功:aaa http://localhost:${process.env.APP_PORT}`);
+}
+bootstrap();

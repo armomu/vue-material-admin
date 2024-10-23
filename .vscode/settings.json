@@ -1,0 +1,16 @@
+{
+  "files.eol": "\n",
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript][typescript][typescriptreact][vue]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.associations": {
+    "*.env.*": "dotenv"
+  }
+}

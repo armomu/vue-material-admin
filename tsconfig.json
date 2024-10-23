@@ -1,22 +1,25 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": [
-    "src/**/*",
-    "src/**/*.vue",
-    "typings/*"
-  ],
   "compilerOptions": {
-    "module": "ESNext",
-    "baseUrl": ".",
-    "ignoreDeprecations": "5.0",
-    "types": ["vite/client"],
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"],
+      "~/*": ["./*"]
     }
-  },
-  "references": [
-    {
-      "path": "./tsconfig.config.json"
-    }
-  ]
+  }
 }
