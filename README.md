@@ -36,9 +36,6 @@ Vue Material Admin 是一个基于 `Vuetify.js` 组件库的开源中后台模�
 - 认证: JWT
 - 权限管理: RBAC
 
-> 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务，也从[vue-naive-admin](https://github.com/zclzone/vue-naive-admin)项目中学习到了一些新的封装思路
-
-
 
 ## 🌻 页面截图
 
@@ -82,6 +79,8 @@ Vue Material Admin 是一个基于 `Vuetify.js` 组件库的开源中后台模�
 
 ## 📑 本地开发
 
+ ### 前端
+
 > ⚠️ 本地开发需要 `nodejs 18/20` vite5不支持更低的nodejs版本
 
 ```
@@ -94,3 +93,9 @@ pnpm install
 pnpm run dev
 
 ```
+
+### 后端
+
+> 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务，也从[vue-naive-admin](https://github.com/zclzone/vue-naive-admin)项目中学习到了一些新的封装思路
+
+后端服务启动请切换到 [Serve](https://github.com/armomu/vue-material-admin/tree/serve) 分支查看教程
