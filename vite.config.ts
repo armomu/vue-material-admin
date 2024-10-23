@@ -19,7 +19,6 @@ export default defineConfig({
         port: 8088,
         hmr: true,
         // proxy: {
-        //     // 选项写法
         //     '/api': {
         //         target: 'xxxx',
         //         changeOrigin: true,
