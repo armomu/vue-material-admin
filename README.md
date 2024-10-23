@@ -9,6 +9,7 @@
 ![version](https://img.shields.io/badge/Vue-3.x-blue.svg)
 ![version](https://img.shields.io/badge/Vuetify-3.5.x-red.svg)
 ![version](https://img.shields.io/badge/Vite-5.x-green.svg)
+![version](https://img.shields.io/badge/Nestjs-10.x-blue.svg)
 ![stars](https://img.shields.io/github/stars/armomu/vue-material-admin.svg?style=social&label=Stars)
 
 </div>
@@ -16,7 +17,24 @@
 </h1>
 
 
-Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中后台模版，使用了`Vue3`、`Vite`、`Pinia`、`TypeScript`、`Pixi.js`、`Babylon.js`、`Three.js` 等案例技术栈，在 [Material Design](https://m3.material.io/) 的设计规范和 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件上，继续向上构建开发，该项目主要以用于学习、功能展示和测试一些开发用例所以尽量保持轻量化，当然也可用来作为项目的启动模版，会持续保持更新～🔥🔥🔥
+Vue Material Admin 是一个基于 `Vuetify.js` 组件库的开源中后台模板，采用了服务器端 + 前端全栈TypeScript技术开发，该项目遵循 [Material Design](https://m3.material.io/) 的设计规范，并在 [Vuetify.js](https://vuetifyjs.com/zh-Hans/) 基础组件继续向上构建开发，对其进行了扩展和优化，旨在实现一个轻量化、高性能的中后台解决方案，Vue Material Admin 目前阶段主要用于学习、功能展示和开发用例测试，同时也适合作为新项目的启动模板，项目将持续更新，增加更多的功能和优化现有的模块 🔥🔥🔥
+
+
+## ⛲ 技术栈
+### WEB 前端
+- 框架: Vue3
+- 构建工具: Vite
+- 状态管理: Pinia
+- 类型系统: TypeScript
+- UI 组件库: Vuetify.js
+- 图形库: Pixi.js, Babylon.js, Three.js
+
+### Nodejs 服务端
+- 框架: Nest.js
+- 数据库: MySQL
+- 缓存: Redis
+- 认证: JWT
+- 权限管理: RBAC
 
 
 ## 🌻 页面截图
@@ -54,10 +72,14 @@ Vue Material Admin 是一个基于 `Vuetify` 组件免费开源的纯前端中�
     - ✅ 夜间模式
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
-5. 💻 后端[参考这个 isme-nest-serve ](https://github.com/zclzone/isme-nest-serve)
-    - ❌ Nest.js
+5. 💻 后端 Nest.js
+    - ✅ JWT 认证
+    - ✅ 菜单管理
+    - ✅ RBAC 权限控制
 
 ## 📑 本地开发
+
+ ### 前端
 
 > ⚠️ 本地开发需要 `nodejs 18/20` vite5不支持更低的nodejs版本
 
@@ -72,8 +94,8 @@ pnpm run dev
 
 ```
 
-## 推荐项目 🔥 🔥
+### 后端
 
-- [Babylonjs Web3D物理角色控制器，已经获得`Babylonjs`官方库推荐 🔥 🔥 👍](https://github.com/armomu/ergoudan) 
-- [Babylonjs 马里奥3D场景](https://daisy-kaliman.vercel.app/#/index)
-- [Vue3 通用可视化编辑器，支持可拖拽、CSS样式编辑等功能，可输出原型图H5页面，类似于`磨刀`](https://github.com/armomu/oreo-editor)
+> 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务，也从[vue-naive-admin](https://github.com/zclzone/vue-naive-admin)项目中学习到了一些新的封装思路
+
+后端服务启动请切换到 [Serve](https://github.com/armomu/vue-material-admin/tree/serve) 分支查看教程

@@ -9,6 +9,7 @@ export default function registeComponent(app: ReturnType<typeof createApp>): voi
     for (const path in files) {
         const name = path.split('/')[1];
         files[path]().then((module) => {
+            // @ts-ignore
             app.component(name, module['default']);
         });
     }

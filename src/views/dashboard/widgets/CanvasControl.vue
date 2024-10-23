@@ -17,10 +17,10 @@
 <script setup lang="ts">
 import { shallowRef, onMounted, onUnmounted, reactive, watch, computed } from 'vue';
 import { Application, Graphics, Color } from 'pixi.js';
-import { useMainStore } from '@/stores/useMainStore';
+import { useAppStore } from '@/stores/useAppStore';
 // import * as TWEEN from '@tweenjs/tween.js';
 
-const mainStore = useMainStore();
+const mainStore = useAppStore();
 
 const props = withDefaults(
     defineProps<{
@@ -307,4 +307,4 @@ onUnmounted(() => {
     }
 }
 </style>
-@/stores/useMainStore
+@/stores/useAppStore

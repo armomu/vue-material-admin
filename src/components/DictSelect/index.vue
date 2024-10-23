@@ -47,19 +47,15 @@ const change = (val: any) => {
 
 const dict_list = ref<any>({});
 
+// TODO: 需要优化
 function initDict() {
-    // TODO 建议放全局变量里面
-    const res = localStorage.getItem('dict_list');
-    if (res) {
-        dict_list.value = JSON.parse(res);
-        return;
-    }
-    const modules = import.meta.glob('../../dict/*.ts');
+    const modules = import.meta.glob('@/dict/*.ts');
     const paths = [];
     const obj = {};
     for (const path in modules) {
         paths.push(modules[path]());
     }
+    // console.log(paths, '======');
     Promise.all(paths).then((res) => {
         for (const mod in res) {
             // @ts-ignore
@@ -69,8 +65,6 @@ function initDict() {
             }
         }
         dict_list.value = obj;
-        // TODO 建议放全局变量里面
-        localStorage.setItem('dict_list', JSON.stringify(obj));
     });
 }
 onBeforeMount(initDict);

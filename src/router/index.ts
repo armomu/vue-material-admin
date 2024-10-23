@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout/index.vue';
-
 import { checkVersion } from '@/plugins/pwa';
+import { ApiAuth, type MenuInterface } from '@/api/auth';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -9,160 +10,6 @@ const router = createRouter({
         return { top: 0 };
     },
     routes: [
-        {
-            path: '/',
-            redirect: '/dashboard/smart-house',
-            name: 'Dashboard',
-            meta: {
-                visible: true,
-                title: 'Dashboard',
-                icon: 'mdi-gauge',
-            },
-            component: Layout,
-            children: [
-                {
-                    path: '/dashboard/tesla-model-s',
-                    name: 'teslaModelS',
-                    meta: {
-                        title: 'Tesla Model S',
-                        icon: 'mdi-alpha-t',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/dashboard/teslaModelS.vue'),
-                    children: [],
-                },
-                {
-                    path: '/dashboard/smart-house',
-                    name: 'smartHouse',
-                    meta: {
-                        title: 'Smart House',
-                        icon: 'mdi-alpha-s',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/dashboard/smartHouse.vue'),
-                    children: [],
-                },
-            ],
-        },
-        {
-            path: '/componets',
-            name: 'componets',
-            meta: {
-                visible: true,
-                title: 'Componets',
-                icon: 'mdi-cube-scan',
-            },
-            component: Layout,
-            children: [
-                {
-                    path: 'samples',
-                    name: 'Samples',
-                    meta: {
-                        title: 'Samples',
-                        icon: 'mdi-alpha-s',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/componets/sample.vue'),
-                    children: [],
-                },
-                {
-                    path: 'table',
-                    name: 'table',
-                    meta: {
-                        title: 'Table',
-                        icon: 'mdi-alpha-t',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/componets/table.vue'),
-                    children: [],
-                },
-                {
-                    path: 'calendar',
-                    name: 'calendar',
-                    meta: {
-                        title: 'Calendar',
-                        icon: 'mdi-alpha-c',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/componets/calendar.vue'),
-                    children: [],
-                },
-            ],
-        },
-        {
-            path: '/graphics',
-            name: 'graphics',
-            meta: {
-                visible: true,
-                title: 'Graphics',
-                icon: 'mdi-image',
-            },
-            component: Layout,
-            children: [
-                {
-                    path: 'three-js',
-                    name: 'three.js',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Three.js',
-                        icon: 'mdi-alpha-t',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/threeJs.vue'),
-                },
-                {
-                    path: 'babylonjs',
-                    name: 'Babylon.js',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Babylon.js',
-                        icon: 'mdi-alpha-b',
-                        visible: true,
-                    },
-                    component: () => import('@/views/babylonjs/babylonjs.vue'),
-                },
-                {
-                    path: 'pixijs',
-                    name: 'Pixi.js',
-                    meta: {
-                        keepAlive: false,
-                        title: 'Pixi.js',
-                        icon: 'mdi-alpha-p',
-                        visible: true,
-                    },
-                    component: () => import('@/views/graphics/pixiJs.vue'),
-                },
-            ],
-        },
-        {
-            path: '/editor',
-            name: 'Editor',
-            meta: {
-                visible: true,
-                title: 'Editor',
-                icon: 'mdi-view-module',
-            },
-            component: Layout,
-            children: [
-                {
-                    path: 'oreo-editor',
-                    name: 'oreo',
-                    meta: {
-                        title: 'Oreo Editor',
-                        icon: 'mdi-alpha-o',
-                        keepAlive: false,
-                        visible: true,
-                    },
-                    component: () => import('@/views/oreo-editor/index.vue'),
-                    children: [],
-                },
-            ],
-        },
         {
             path: '/login',
             name: 'login',
@@ -173,11 +20,14 @@ const router = createRouter({
             },
             component: () => import('@/views/login/login.vue'),
         },
-        { path: '/:pathMatch(.*)', name: 'Match', meta: { keepAlive: false }, redirect: '/404' },
+        {
+            path: '/:pathMatch(.*)',
+            redirect: '/404',
+        },
         {
             path: '/404',
-            name: '404',
-            meta: { keepAlive: false, title: 'Not found', icon: 'mdi-paw-off', visible: false },
+            name: 'NotFound',
+            meta: { keepAlive: false },
             component: Layout,
             children: [
                 {
@@ -195,7 +45,7 @@ const router = createRouter({
     ],
 });
 
-router.beforeEach(async (to, _from, next) => {
+router.beforeEach(async (to, from, next) => {
     next();
 });
 
@@ -203,3 +53,59 @@ router.afterEach(() => {
     checkVersion();
 });
 export default router;
+
+/**
+ * 获取菜单树数据 将处理后的路由添加至路由表及菜单存储
+ * @param toFirst 是否跳转第一个路由
+ */
+export async function syncRouter(toFirst = false) {
+    try {
+        const authEvent = useAuthStore();
+        authEvent.resetMenu();
+        const routeComponents = import.meta.glob('@/views/**/*.vue');
+        console.log(routeComponents);
+        const layout = import.meta.glob('@/layout/index.vue');
+        const res = await ApiAuth.curMenuTree();
+        const user = await ApiAuth.detail();
+        traverseTree(res.data, (item) => {
+            if (item.component === '/src/layout/index.vue') {
+                // @ts-ignore
+                item.component = layout[item.component];
+            } else {
+                // @ts-ignore
+                item.component = routeComponents[item.component];
+            }
+            // @ts-ignore
+            item.meta = {
+                title: item.name,
+                icon: item.icon,
+                visible: !!item.show,
+            };
+            item.name = item.code;
+        });
+        const [route] = res.data;
+        res.data.forEach((item) => {
+            // @ts-ignore
+            router.addRoute(item);
+            // @ts-ignore
+            authEvent.addMenu(item);
+        });
+        authEvent.setUserDetail(user.data);
+        if (toFirst) {
+            router.push(route.path);
+        }
+        return Promise.resolve(res.data);
+    } catch (err) {
+        console.log(err, '==================');
+        return Promise.resolve();
+    }
+}
+function traverseTree(node: MenuInterface[], callback: (arg: MenuInterface) => void) {
+    node.forEach((item: MenuInterface) => {
+        // 对当前节点执行操作
+        callback(item);
+        if (item.children && Array.isArray(item.children)) {
+            traverseTree(item.children, callback);
+        }
+    });
+}

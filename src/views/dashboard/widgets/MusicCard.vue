@@ -60,8 +60,8 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onBeforeUnmount } from 'vue';
-import { useMainStore } from '@/stores/useMainStore';
-const mainStore = useMainStore();
+import { useAppStore } from '@/stores/useAppStore';
+const mainStore = useAppStore();
 
 const audio = ref<HTMLAudioElement>()!;
 const audioData = reactive({
@@ -193,4 +193,4 @@ onBeforeUnmount(() => {
     }
 }
 </style>
-@/stores/useMainStore
+@/stores/useAppStore

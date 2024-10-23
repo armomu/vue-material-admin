@@ -4,12 +4,7 @@
             mini_nav: navState.isMini,
         }"
     >
-        <Navigation
-            v-model:value="navState.menuVisible"
-            :rail="navState.rail"
-            :routes="navState.routes"
-            :mobile="device"
-        />
+        <Navigation v-model:value="navState.menuVisible" :rail="navState.rail" :mobile="device" />
         <main class="app_main">
             <Header
                 v-model:rail="navState.rail"
@@ -22,19 +17,17 @@
     </v-layout>
 </template>
 <script setup lang="ts">
-import { RouterView, useRouter } from 'vue-router';
-import Navigation from './wigets/Navigation.vue';
-import Header from './wigets/Header.vue';
+import { RouterView } from 'vue-router';
+import Navigation from './widgets/Navigation.vue';
+import Header from './widgets/Header.vue';
 import { reactive, computed, watch } from 'vue';
-import { useMainStore } from '@/stores/useMainStore';
+import { useAppStore } from '@/stores/useAppStore';
 
-const mainStore = useMainStore();
-const router = useRouter();
+const mainStore = useAppStore();
 const navState = reactive({
     menuVisible: true,
     rail: !mainStore.isMobile,
     isMini: !mainStore.isMobile,
-    routes: router.options.routes,
 });
 const device = computed(() => mainStore.isMobile);
 watch(device, () => {

@@ -24,11 +24,11 @@
 <script setup lang="ts">
 import { shallowRef, ref, onMounted } from 'vue';
 import * as BABYLON from '@babylonjs/core';
-import { useMainStore } from '@/stores/useMainStore';
+import { useAppStore } from '@/stores/useAppStore';
 const canvasDom = shallowRef<HTMLCanvasElement>();
 const isFullscreen = ref(false);
 const loading = ref(true);
-const mainStore = useMainStore();
+const mainStore = useAppStore();
 onMounted(() => {
     const engine = new BABYLON.Engine(canvasDom.value!, true);
     const scene = new BABYLON.Scene(engine);
@@ -197,4 +197,4 @@ const onFullscreen = () => {
     // height: 365px;
 }
 </style>
-@/stores/useMainStore
+@/stores/useAppStore

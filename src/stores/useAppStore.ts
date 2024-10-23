@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { vuetify } from '@/plugins/vuetify';
 
-export const useMainStore = defineStore('main', () => {
+export const useAppStore = defineStore('main', () => {
     // 初始化是否是移动端设备
     window.addEventListener('resize', () => {
         const res = getMobile();
@@ -36,7 +36,6 @@ export const useMainStore = defineStore('main', () => {
         } else {
             theme.value = theme.value === 'light' ? 'dark' : 'light';
         }
-
         root?.setAttribute('theme', theme.value);
     };
 
@@ -77,6 +76,7 @@ export const useMainStore = defineStore('main', () => {
         vuetify.theme.themes.value.light.colors.primary = val;
         vuetify.theme.themes.value.dark.colors.primary = val;
     };
+
     return { theme, isMobile, onTheme, settings, onDrawer, onPrimary, onBackgroundColor };
 });
 interface Settings {

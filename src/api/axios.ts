@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import router from '@/router';
 import type {
     AxiosResponse,
     AxiosRequestConfig,
@@ -14,21 +15,15 @@ declare module 'axios' {
         banErrTip?: boolean; // 接口请求失败时是否进行弹窗提示
     }
 }
-declare module 'axios' {
-    export interface AxiosResponse {
-        code: number;
-        message: string;
-    }
-}
 
 /**
  * @returns  {AxiosResponse} result
  * @tutorial see more:https://github.com/onlyling/some-demo/tree/master/typescript-width-axios
- * @example
- * service.get<{data: string; code: number}>('/test').then(({data}) => { console.log(data.code) })
  */
 const request = Axios.create({
-    baseURL: import.meta.env.VITE_API as string,
+    // baseURL: import.meta.env.VITE_API as string,
+    // baseURL: 'https://apifoxmock.com/m1/5061937-4723200-default',
+    baseURL: 'http://localhost:8085',
     timeout: 20000,
 });
 
@@ -37,11 +32,10 @@ const request = Axios.create({
  * @returns {AxiosRequestConfig} config
  */
 request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
-    const token = localStorage.getItem('Authorization');
-    if (token) {
-        config.headers.Authorization = token || '';
-    }
-
+    const token = localStorage.getItem('accessToken');
+    config.headers.Authorization = token || '';
+    // // config.withCredentials = true;
+    // console.log(config, '======');
     return config;
 });
 
@@ -51,30 +45,31 @@ request.interceptors.request.use((config: InternalAxiosRequestConfig<AxiosReques
 request.interceptors.response.use(
     /** 请求有响应 */
     (response: AxiosResponse) => {
+        // console.log(response.data);
+        if (response.data) {
+        }
         return Promise.resolve(response.data);
     },
     /** 请求无响应 */
-    (error: AxiosError): Promise<AxiosPromise> => {
+    async (error: AxiosError): Promise<AxiosPromise> => {
+        if (error.response?.status === 401) {
+            console.log('token过期======== 或者没有');
+            router.push('/login');
+        }
         return Promise.reject(error);
     }
 );
 
 export default request;
 
-export interface ApiModel<T = any> {
-    result: T;
+export interface RootInterface<T> {
+    code: number;
+    message: string;
+    data: T;
+    originUrl: string;
 }
 
-export interface ApiListModel<T = any> {
-    result: Array<T>;
-    total: number;
-}
-
-export interface Result<T = any> {
-    result: T;
-}
-
-export interface DataList<T = any> {
-    result: Array<T>;
+export interface ArrayResult<T> {
+    pageData: T[];
     total: number;
 }

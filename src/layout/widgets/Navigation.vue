@@ -17,8 +17,10 @@
         <v-divider></v-divider>
 
         <v-list nav class="mx-2" color="primary">
-            <v-list-subheader>Dashboard</v-list-subheader>
             <template v-for="(item, key) in routes" :key="key">
+                <v-list-subheader v-if="item.name === 'Dashboard'">Dashboard</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'componets'">Examples</v-list-subheader>
+                <v-list-subheader v-if="item.name === 'RBAC'">Access Control</v-list-subheader>
                 <v-list-item
                     v-if="item.meta?.visible && !item.children"
                     :prepend-icon="item.meta?.icon as any"
@@ -53,17 +55,15 @@
                         />
                     </template>
                 </v-list-group>
-                <v-list-subheader v-if="item.name === 'Dashboard'">Examples</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'Editor'">Other</v-list-subheader>
             </template>
-            <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
+            <!-- <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
                 <v-list-item-title
                     ><a target="_blank" href="https://vuetifyjs.com/" class="link"
                         >Document</a
                     ></v-list-item-title
                 >
-            </v-list-item>
-            <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
+            </v-list-item> -->
+            <!-- <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
                 <v-list-item-title
                     ><a
                         target="_blank"
@@ -72,14 +72,15 @@
                         >Github</a
                     ></v-list-item-title
                 >
-            </v-list-item>
+            </v-list-item> -->
         </v-list>
     </v-navigation-drawer>
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
-import type { RouteRecordRaw } from 'vue-router';
+// import type { RouteRecordRaw } from 'vue-router';
 import { defineEmits, computed } from 'vue';
+import { useAuthStore } from '@/stores/useAuthStore';
 const emit = defineEmits(['update:value']);
 
 const props = withDefaults(
@@ -87,10 +88,11 @@ const props = withDefaults(
         rail: boolean;
         value?: boolean;
         mobile?: boolean;
-        routes: readonly RouteRecordRaw[];
     }>(),
     {}
 );
+
+const menuEvent = useAuthStore();
 
 const val = computed({
     get() {
@@ -99,5 +101,10 @@ const val = computed({
     set(val: boolean) {
         emit('update:value', val);
     },
+});
+
+const routes = computed(() => {
+    console.log('menuEvent.menus=================');
+    return menuEvent.menus;
 });
 </script>

@@ -16,8 +16,8 @@
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import { useMainStore } from '@/stores/useMainStore';
-const mainStore = useMainStore();
+import { useAppStore } from '@/stores/useAppStore';
+const mainStore = useAppStore();
 </script>
 <style scoped lang="scss"></style>
-@/stores/useMainStore
+@/stores/useAppStore
