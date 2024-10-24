@@ -96,6 +96,10 @@ pnpm run dev
 
 ### 后端
 
+接口文档 [https://nliq7vrniv.apifox.cn](https://nliq7vrniv.apifox.cn)
+
 > 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务，也从[vue-naive-admin](https://github.com/zclzone/vue-naive-admin)项目中学习到了一些新的封装思路
 
-后端服务启动请切换到 [Serve](https://github.com/armomu/vue-material-admin/tree/serve) 分支查看教程
+后端服务启动请切换到 [Serve](https://github.com/armomu/vue-material-admin/tree/serve) 分支查看教程，注意MySQL要导入Serve分支下的sql脚本的数据
+
+
