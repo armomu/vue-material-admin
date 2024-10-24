@@ -44,11 +44,6 @@ request.interceptors.response.use(
     /** 请求有响应 */
     (response: AxiosResponse) => {
         // console.log(response.data);
-        if (response.data.code !== 0) {
-            const snackbarEvent = useSnackbarStore();
-            snackbarEvent.addItem(response.data.message);
-            return Promise.reject(response.data);
-        }
         return Promise.resolve(response.data);
     },
     /** 请求无响应 */
