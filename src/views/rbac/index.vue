@@ -328,10 +328,8 @@
     <v-dialog width="700" v-model="usersEvent.data.visible">
         <v-card>
             <v-toolbar color="transparent">
-                <v-toolbar-title
-                    class="text-h6"
-                    :text="usersEvent.data.dialogTitle"
-                ></v-toolbar-title>
+                <v-toolbar-title class="text-h6" :text="usersEvent.data.dialogTitle">
+                </v-toolbar-title>
                 <template v-slot:append>
                     <v-btn
                         type="submit"
@@ -466,7 +464,12 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn text="Cancel" @click="menuEvent.onReset">Cancel</v-btn>
-                <v-btn color="primary" size="large" @click="menuEvent.onSubmit">Submit</v-btn>
+                <v-btn
+                    color="primary"
+                    size="large"
+                    @click="menuEvent.onSubmit(menuEvent.formRef.value)"
+                    >Submit</v-btn
+                >
             </v-card-actions>
         </v-card>
     </v-dialog>

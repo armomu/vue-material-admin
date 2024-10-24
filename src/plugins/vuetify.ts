@@ -1,4 +1,5 @@
 // plugins/vuetify/vuetify.js
+import type { Ref } from 'vue';
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 // import * as components from 'vuetify/components';
@@ -24,3 +25,13 @@ export const vuetify = createVuetify({
     },
 });
 // vuetify.theme.themes.value.light.colors.primary = '#E53935';
+
+export interface VFormRef {
+    items: Ref<any[]>;
+    validate: () => Promise<{
+        valid: boolean;
+        errors: any[];
+    }>;
+    reset: () => void;
+    resetValidation: () => void;
+}

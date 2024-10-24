@@ -1,9 +1,9 @@
 import { ref, onBeforeMount, reactive } from 'vue';
 import { ApiAuth } from '@/api/auth';
 import type { MenuInterface } from '@/api/auth';
-
+import type { VFormRef } from '@/plugins/vuetify';
 const useMenu = () => {
-    const formRef = ref<any>();
+    const formRef = ref<VFormRef>();
 
     const data = reactive({
         form: {
@@ -45,9 +45,9 @@ const useMenu = () => {
         });
     };
 
-    const onSubmit = async () => {
-        console.log(formRef.value);
-        const res = await formRef.value.validate();
+    const onSubmit = async (formFefValidate?: VFormRef) => {
+        if (!formFefValidate) return;
+        const res = await formFefValidate.validate();
         if (!res.valid) return;
         if (data.dialogTitle === 'New Menu') {
             onAdd();
@@ -56,7 +56,7 @@ const useMenu = () => {
         }
     };
     const onReset = async () => {
-        await formRef.value.reset();
+        await formRef?.value?.reset();
         data.visible = false;
     };
 
@@ -74,6 +74,7 @@ const useMenu = () => {
             delete data.form.parentId;
         }
     };
+    //
     const onEdit = async () => {
         await ApiAuth.editMenu(data.curId, data.form);
         data.visible = false;
