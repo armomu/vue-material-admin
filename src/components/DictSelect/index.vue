@@ -18,7 +18,9 @@
     </v-select>
 </template>
 <script lang="ts" setup>
-import { computed, ref, onBeforeMount } from 'vue';
+import { computed } from 'vue';
+import { useDictStore } from '@/stores/useDictStore';
+
 const emit = defineEmits(['update:modelValue', 'change']);
 
 const props = withDefaults(defineProps<Props>(), {
@@ -41,39 +43,22 @@ const value = computed({
     },
 });
 
+const dictEvent = useDictStore();
+
 const change = (val: any) => {
     emit('change', val);
 };
 
-const dict_list = ref<any>({});
-
-// TODO: 需要优化
-function initDict() {
-    const modules = import.meta.glob('@/dict/*.ts');
-    const paths = [];
-    const obj = {};
-    for (const path in modules) {
-        paths.push(modules[path]());
-    }
-    // console.log(paths, '======');
-    Promise.all(paths).then((res) => {
-        for (const mod in res) {
-            // @ts-ignore
-            for (const item in res[mod]) {
-                // @ts-ignore
-                obj[item] = res[mod][item];
-            }
-        }
-        dict_list.value = obj;
-    });
-}
-onBeforeMount(initDict);
 const items = computed(() => {
-    const list = [];
-    for (const item in dict_list.value[props.dict]) {
-        list.push(dict_list.value[props.dict][item]);
+    try {
+        const list = [];
+        for (const item in dictEvent.dictList[props.dict]) {
+            list.push(dictEvent.dictList[props.dict][item]);
+        }
+        return list;
+    } catch (e) {
+        return [];
     }
-    return list;
 });
 interface Props {
     modelValue: any;
