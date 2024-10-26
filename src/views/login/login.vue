@@ -7,27 +7,25 @@
             </div>
             <v-form ref="formRef" @submit.prevent>
                 <div class="mt-4">
-                    <div class="mb-2" style="font-weight: 700">Usename</div>
+                    <!-- <div class="mb-2" style="font-weight: 700">Usename</div> -->
                     <v-text-field
                         v-model="state.username"
+                        label="Username"
+                        density="comfortable"
                         variant="outlined"
-                        density="compact"
                         clearable
-                        placeholder="Email"
-                        hide-details
                         :rules="[(firstName: any) => !!firstName || 'required']"
                     ></v-text-field>
                 </div>
                 <div class="my-4">
-                    <div class="mb-2 mt-4" style="font-weight: 700">Password</div>
+                    <!-- <div class="mb-2 mt-4" style="font-weight: 700">Password</div> -->
                     <v-text-field
                         v-model="state.password"
                         type="password"
+                        label="Password"
+                        density="comfortable"
                         variant="outlined"
-                        density="compact"
-                        placeholder="Password"
                         clearable
-                        hide-details
                         :rules="[(firstName: any) => !!firstName || 'required']"
                     ></v-text-field>
                 </div>
@@ -66,7 +64,7 @@
                 <v-divider></v-divider>
             </div>
             <div class="d-flex justify-center mt-4">
-                <v-btn icon color="white" size="large" href="/">
+                <v-btn icon size="large" href="/">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -101,7 +99,6 @@
                             fill="#EA4335"
                         ></path>
                     </svg>
-                    <!-- <div class="ml-2">Google</div> -->
                 </v-btn>
             </div>
         </v-card>
@@ -120,18 +117,8 @@ const state = reactive({
     isQuick: true,
 });
 
-// const router = useRouter();
-
 const formRef = shallowRef<any>();
 const loading = shallowRef(false);
-
-// const svg = ref('');
-
-// const initCaptcha = async () => {
-//     const res = await ApiUser.captcha();
-//     svg.value = res;
-// };
-// initCaptcha();
 
 const onSubmit = async () => {
     try {
@@ -156,7 +143,7 @@ const onSubmit = async () => {
     .form {
         border-radius: 8px;
         box-shadow: none;
-        width: 520px;
+        width: 420px;
         margin: 0 auto;
         padding: 40px;
         padding-bottom: 16px;

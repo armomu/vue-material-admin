@@ -18,13 +18,13 @@ export default defineConfig({
         host: '0.0.0.0',
         port: 8088,
         hmr: true,
-        // proxy: {
-        //     '/api': {
-        //         target: 'xxxx',
-        //         changeOrigin: true,
-        //         rewrite: (path) => path.replace(/^\/api/, '')
-        //     }
-        // }
+        proxy: {
+            '/5061937-4723200-default': {
+                target: 'http://localhost:8085',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        },
     },
     optimizeDeps: {
         exclude: ['@babylonjs/havok'],

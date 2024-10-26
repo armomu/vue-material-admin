@@ -53,6 +53,7 @@ const items = computed(() => {
     try {
         const list = [];
         for (const item in dictEvent.dictList[props.dict]) {
+            // @ts-ignore
             list.push(dictEvent.dictList[props.dict][item]);
         }
         return list;
