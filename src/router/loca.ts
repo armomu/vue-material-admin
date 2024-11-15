@@ -115,7 +115,7 @@ export default [
                     icon: 'mdi-alpha-b',
                     visible: true,
                 },
-                component: () => import('@/views/babylonjs/babylonjs.vue'),
+                component: () => import('@/views/graphics/babylonjs.vue'),
             },
             {
                 path: 'pixi-js',
