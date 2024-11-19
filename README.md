@@ -21,20 +21,17 @@ Vue Material Admin 是一个基于 `Vuetify.js` 组件库的开源中后台模�
 
 
 ## ⛲ 技术栈
-### WEB 前端
-- 框架: Vue3
-- 构建工具: Vite
+### WEB 前端 
+- 框架: Vue3                                     
 - 状态管理: Pinia
 - 类型系统: TypeScript
 - UI 组件库: Vuetify.js
-- 图形库: Pixi.js, Babylon.js, Three.js
 
 ### Nodejs 服务端
 - 框架: Nest.js
 - 数据库: MySQL
+- 映射工具: TypeORM
 - 缓存: Redis
-- 认证: JWT
-- 权限管理: RBAC
 
 
 ## 🌻 页面截图
@@ -73,8 +70,8 @@ Vue Material Admin 是一个基于 `Vuetify.js` 组件库的开源中后台模�
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
 5. 💻 后端 Nest.js
+    - ✅ TypeORM
     - ✅ JWT 认证
-    - ✅ 菜单管理
     - ✅ RBAC 权限控制
 
 ## 📑 本地开发
