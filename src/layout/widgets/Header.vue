@@ -53,15 +53,15 @@
                     <v-list :lines="false" nav density="compact">
                         <v-list-item
                             title="Github"
-                            prepend-icon="mdi-github"
+                            append-icon="mdi-github"
                             @click="link('https://github.com/armomu/vue-material-admin')"
                         />
                         <v-list-item
                             title="Email"
-                            prepend-icon="mdi-email"
+                            append-icon="mdi-email"
                             @click="link('mailto:894620576@qq.com')"
                         />
-                        <v-list-item title="Sign out" prepend-icon="mdi-login" @click="onLogout" />
+                        <v-list-item title="Sign out" append-icon="mdi-login" @click="onLogout" />
                     </v-list>
                 </v-menu>
             </v-btn>

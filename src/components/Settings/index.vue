@@ -24,7 +24,7 @@
                 ></v-btn>
             </template>
         </v-list-item>
-        <v-divider></v-divider>
+        <v-divider class="mx-4"></v-divider>
         <div class="pa-4">
             <div class="text-h7">Background Colors</div>
             <div class="my-4 settings-btns-picker">
@@ -54,20 +54,31 @@
                     <v-icon v-if="item === mainStore.settings.primary" icon="mdi-check" />
                 </v-btn>
             </div>
-            <div class="text-h7">Navigation</div>
-            <v-radio-group color="primary" inline v-model="mainStore.settings.welt" hide-details>
+            <div class="text-h7">Fixed header</div>
+            <v-radio-group
+                color="primary"
+                inline
+                v-model="mainStore.settings.fixedHeader"
+                hide-details
+                class="mt-2 ml-n2"
+            >
+                <v-radio label="Fixed" :value="true"></v-radio>
+                <v-radio label="Rolling" :value="false"></v-radio>
+            </v-radio-group>
+            <div class="text-h7 mt-4">Navigation</div>
+            <v-radio-group
+                color="primary"
+                class="mt-2 ml-n2"
+                inline
+                v-model="mainStore.settings.welt"
+                hide-details
+            >
                 <v-radio label="Welt" :value="true"></v-radio>
                 <v-radio label="Spacing" :value="false"></v-radio>
             </v-radio-group>
-            <!-- <v-switch
-                color="primary"
-                label="Active highlight"
-                class="ml-2"
-                v-model="mainStore.settings.highlightNav"
-            ></v-switch> -->
             <div class="text-h7 mt-4">Card Styles</div>
             <v-radio-group
-                class="mt-4"
+                class="mt-2 ml-n2"
                 inline
                 v-model="mainStore.settings.cardStyle"
                 color="primary"

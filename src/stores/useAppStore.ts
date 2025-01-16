@@ -41,12 +41,12 @@ export const useAppStore = defineStore('main', () => {
 
     const settings: Settings = reactive({
         welt: false,
-        backgroundColor: '#e5eaef',
+        backgroundColor: '#ffffff',
         drawer: false,
         primary: '#7F85F9',
         cardStyle: 'shadow', // border // default
         backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
-        // highlightNav: true,
+        fixedHeader: true,
         primaryColors: [
             '#7F85F9',
             '#2196F3',
@@ -83,7 +83,7 @@ interface Settings {
     welt: boolean;
     backgroundColor: string;
     drawer: boolean;
-    // highlightNav: boolean;
+    fixedHeader: boolean;
     primary: string;
     cardStyle: 'shadow' | 'border' | 'none';
     primaryColors: string[];

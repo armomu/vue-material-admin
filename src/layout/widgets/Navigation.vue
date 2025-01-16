@@ -1,6 +1,7 @@
 <template>
     <v-navigation-drawer
         class="my-4 layout_navigation"
+        :class="{ showSettings: showSettings }"
         :rail="rail"
         :mobile="mobile"
         expand-on-hover
@@ -56,29 +57,11 @@
                     </template>
                 </v-list-group>
             </template>
-            <!-- <v-list-item prepend-icon="mdi-text-box" class="mx-1" rounded="lg">
-                <v-list-item-title
-                    ><a target="_blank" href="https://vuetifyjs.com/" class="link"
-                        >Document</a
-                    ></v-list-item-title
-                >
-            </v-list-item> -->
-            <!-- <v-list-item prepend-icon="mdi-github" class="mx-1" rounded="lg">
-                <v-list-item-title
-                    ><a
-                        target="_blank"
-                        href="https://github.com/armomu/vue-material-admin"
-                        class="link"
-                        >Github</a
-                    ></v-list-item-title
-                >
-            </v-list-item> -->
         </v-list>
     </v-navigation-drawer>
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
-// import type { RouteRecordRaw } from 'vue-router';
 import { defineEmits, computed } from 'vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 const emit = defineEmits(['update:value']);
@@ -88,6 +71,7 @@ const props = withDefaults(
         rail: boolean;
         value?: boolean;
         mobile?: boolean;
+        showSettings?: boolean;
     }>(),
     {}
 );

@@ -1,3 +1,4 @@
+import type { RouteMeta } from 'vue-router';
 import request from './axios';
 import type { RootInterface } from './axios';
 import type { Role } from './role';
@@ -56,7 +57,7 @@ export interface MenuInterface {
     path: string;
     redirect: any;
     icon: string;
-    component: string;
+    component: any;
     layout?: string;
     keepAlive?: any;
     method?: any;
@@ -64,6 +65,7 @@ export interface MenuInterface {
     show: boolean;
     enable: boolean;
     order: number;
+    meta?: RouteMeta | undefined;
     children?: MenuInterface[];
 }
 export interface CurrentUserDetail {

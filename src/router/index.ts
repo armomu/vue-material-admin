@@ -65,29 +65,27 @@ export async function syncRouter(toFirst = false) {
         const res = await ApiAuth.curMenuTree();
         const user = await ApiAuth.detail();
         const routeComponents = import.meta.glob('@/views/**/*.vue');
-        console.log(routeComponents);
         const layout = import.meta.glob('@/layout/index.vue');
-        traverseTree(res.data, (item) => {
-            if (item.component === '/src/layout/index.vue') {
-                // @ts-ignore
-                item.component = layout[item.component];
-            } else {
-                // @ts-ignore
-                item.component = routeComponents[item.component];
+        traverseTree(res.data, async (item) => {
+            try {
+                if (item.component === '/src/layout/index.vue') {
+                    item.component = layout[item.component];
+                } else {
+                    item.component = routeComponents[item.component];
+                }
+                item.meta = {
+                    title: item.name,
+                    icon: item.icon,
+                    visible: !!item.show,
+                };
+                item.name = item.code;
+            } catch (err) {
+                console.log(err);
             }
-            // @ts-ignore
-            item.meta = {
-                title: item.name,
-                icon: item.icon,
-                visible: !!item.show,
-            };
-            item.name = item.code;
         });
         const [route] = res.data;
         res.data.forEach((item) => {
-            // @ts-ignore
             router.addRoute(item);
-            // @ts-ignore
             authEvent.addMenu(item);
         });
         authEvent.setUserDetail(user.data);
