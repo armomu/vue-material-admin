@@ -199,10 +199,10 @@
             margin-left: 256px;
             margin-top: 76px;
             .header {
-                width: calc(100vw - 256px);
-                border-radius: 0;
-                left: 256px;
-                top: 0;
+                // width: calc(100vw - 256px);
+                // border-radius: 0;
+                // left: 256px;
+                // top: 0;
                 background: rgba(var(--header-bg), 0.5);
                 .tool_btns {
                     padding-right: 16px;
@@ -212,11 +212,21 @@
     }
 
     .mini_nav {
+        &.fixed_header {
+            .app_main {
+                .header {
+                    left: 77px;
+                    width: calc(100vw - 77px);
+                    margin-top: 0;
+                    top: 0;
+                }
+            }
+        }
         .app_main {
             margin-left: 77px;
+            margin-top: 0;
             .header {
-                left: 77px;
-                width: calc(100vw - 77px);
+                margin: 0;
             }
         }
     }
