@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Layout from '@/layout/index.vue';
-import { checkVersion } from '@/plugins/pwa';
 import { ApiAuth, type MenuInterface } from '@/api/auth';
 import { useAuthStore } from '@/stores/useAuthStore';
 
@@ -45,13 +44,6 @@ const router = createRouter({
     ],
 });
 
-router.beforeEach(async (to, from, next) => {
-    next();
-});
-
-router.afterEach(() => {
-    checkVersion();
-});
 export default router;
 
 /**
@@ -95,7 +87,7 @@ export async function syncRouter(toFirst = false) {
         return Promise.resolve(res.data);
     } catch (err) {
         console.log(err, '==================');
-        return Promise.resolve();
+        return Promise.resolve(false);
     }
 }
 function traverseTree(node: MenuInterface[], callback: (arg: MenuInterface) => void) {

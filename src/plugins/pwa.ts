@@ -1,5 +1,4 @@
 // import { registerSW } from 'virtual:pwa-register';
-import { useAppStore } from '@/stores/useAppStore';
 
 // let pwaReg: ServiceWorkerRegistration | undefined;
 // registerSW({
@@ -19,6 +18,7 @@ import { useAppStore } from '@/stores/useAppStore';
 //     },
 // });
 
+// @ts-ignore
 window.getVersion = (version: string) => {
     const old = localStorage.frontendVersion;
     if (!old) {

@@ -30,11 +30,26 @@
                 variant="text"
                 :icon="appEvent.theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
             />
-            <v-btn variant="text" icon="mdi-bell-outline">
-                <v-badge content="2" color="error">
-                    <v-icon size="small"></v-icon>
-                </v-badge>
-            </v-btn>
+
+            <v-menu v-model="messageVisible">
+                <template v-slot:activator="{ props }">
+                    <v-btn v-bind="props" variant="text" icon="mdi-bell-outline">
+                        <v-badge content="2" color="error">
+                            <v-icon size="small"></v-icon>
+                        </v-badge>
+                    </v-btn>
+                </template>
+
+                <v-card min-width="300">
+                    <v-list>
+                        <v-list-item
+                            prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+                            subtitle="Founder of Vuetify"
+                            title="John Leider"
+                        />
+                    </v-list>
+                </v-card>
+            </v-menu>
             <v-btn
                 variant="text"
                 icon="mdi-github"
@@ -49,7 +64,7 @@
                 <span v-if="!appEvent.isMobile">
                     {{ authEvent.userDetail.username }}
                 </span>
-                <v-menu activator="parent">
+                <v-menu activator="parent" transition="slide-y-transition">
                     <v-list :lines="false" nav density="compact">
                         <v-list-item
                             title="Github"
@@ -61,7 +76,11 @@
                             append-icon="mdi-email"
                             @click="link('mailto:894620576@qq.com')"
                         />
-                        <v-list-item title="Sign out" append-icon="mdi-login" @click="onLogout" />
+                        <v-list-item
+                            title="Sign out"
+                            append-icon="mdi-login"
+                            @click="authEvent.logout"
+                        />
                     </v-list>
                 </v-menu>
             </v-btn>
@@ -71,10 +90,8 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/stores/useAppStore';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { defineEmits, computed } from 'vue';
+import { defineEmits, computed, ref } from 'vue';
 import logo from '@/assets/admin-logo.png';
-import { ApiUser } from '@/api/user';
-import router from '@/router';
 
 const emit = defineEmits(['update:rail', 'update:mini', 'update:visible']);
 
@@ -115,10 +132,5 @@ const link = (url: string, target = '_blank') => {
 const onShowMenu = () => {
     emit('update:visible', true);
 };
-const onLogout = async () => {
-    await ApiUser.logout();
-    localStorage.removeItem('accessToken');
-    router.push('/login');
-    // location.reload();
-};
+const messageVisible = ref(false);
 </script>

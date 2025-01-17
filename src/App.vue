@@ -29,9 +29,25 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import { useAppStore } from '@/stores/useAppStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useSnackbarStore } from '@/stores/useSnackbarStore';
-// import { VSnackbar, VApp } from 'vuetify/components';
+import router from './router';
+import { checkVersion } from './plugins/pwa';
 const mainStore = useAppStore();
+const useAuthEvent = useAuthStore();
 const snackbarEvent = useSnackbarStore();
+router.beforeEach((to, from, next) => {
+    if (useAuthEvent.userDetail.id <= 0 && to.path !== '/login') {
+        console.log(useAuthEvent.userDetail.id, 'useAuthEvent.userDetail.id');
+        next('/login');
+        location.reload();
+        return;
+    }
+    next();
+});
+
+router.afterEach(() => {
+    checkVersion();
+});
 </script>
 <style scoped lang="scss"></style>
