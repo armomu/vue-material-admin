@@ -16,7 +16,7 @@ module.exports = {
     // 0 = off, 1 = warn, 2 = error
     rules: {
         'prettier/prettier': 2,
-        '@typescript-eslint/ban-ts-comment': 1,
+        '@typescript-eslint/ban-ts-comment': 0,
         '@typescript-eslint/no-unused-vars': 1,
         '@typescript-eslint/no-explicit-any': 0,
         'vue/multi-word-component-names': 0,
