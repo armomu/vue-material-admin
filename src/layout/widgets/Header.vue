@@ -65,7 +65,11 @@
                     </div>
                 </v-card>
             </v-menu>
-            <v-btn variant="text" icon="mdi-github" @click="link('https://github.com/armomu/vue-material-admin')">
+            <v-btn
+                variant="text"
+                icon="mdi-github"
+                @click="link('https://github.com/armomu/vue-material-admin')"
+            >
                 <v-icon size="small"></v-icon>
             </v-btn>
             <v-btn variant="text" icon="mdi" class="mr-2">
@@ -92,7 +96,11 @@
                             append-icon="mdi-github"
                             @click="link('https://github.com/armomu/vue-material-admin')"
                         />
-                        <v-list-item title="Sign out" append-icon="mdi-login" @click="authEvent.logout" />
+                        <v-list-item
+                            title="Sign out"
+                            append-icon="mdi-login"
+                            @click="authEvent.logout"
+                        />
                     </v-list>
                 </v-menu>
             </v-btn>

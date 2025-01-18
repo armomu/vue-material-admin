@@ -16,7 +16,12 @@
                 <div class="text-h6">Settings</div>
             </template>
             <template v-slot:append>
-                <v-btn color="grey-lighten-1" icon="mdi-close" variant="text" @click="mainStore.onDrawer"></v-btn>
+                <v-btn
+                    color="grey-lighten-1"
+                    icon="mdi-close"
+                    variant="text"
+                    @click="mainStore.onDrawer"
+                ></v-btn>
             </template>
         </v-list-item>
         <v-divider class="mx-4"></v-divider>
@@ -58,12 +63,18 @@
                 class="mt-2 ml-n2"
             >
                 <v-radio label="Fixed" :value="true"></v-radio>
-                <v-radio label="Rolling" :value="false"></v-radio>
+                <v-radio label="Rolling" :value="false" class="ml-4"></v-radio>
             </v-radio-group>
             <div class="text-h7 mt-4">Navigation</div>
-            <v-radio-group color="primary" class="mt-2 ml-n2" inline v-model="mainStore.settings.welt" hide-details>
+            <v-radio-group
+                color="primary"
+                class="mt-2 ml-n2"
+                inline
+                v-model="mainStore.settings.welt"
+                hide-details
+            >
                 <v-radio label="Welt" :value="true"></v-radio>
-                <v-radio label="Spacing" :value="false"></v-radio>
+                <v-radio label="Spacing" :value="false" class="ml-4"></v-radio>
             </v-radio-group>
             <div class="text-h7 mt-4">Card Styles</div>
             <v-radio-group
@@ -74,7 +85,7 @@
                 hide-details
             >
                 <v-radio label="Shadow" value="shadow"></v-radio>
-                <v-radio label="Border" value="border"></v-radio>
+                <v-radio label="Border" value="border" class="ml-4"></v-radio>
                 <!-- <v-radio label="default" value="default"></v-radio> -->
             </v-radio-group>
         </div>
