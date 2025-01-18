@@ -15,7 +15,7 @@
                 <v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
             </v-list-item>
         </v-list>
-        <v-divider></v-divider>
+        <v-divider class="mx-5"></v-divider>
 
         <v-list nav class="mx-2" color="primary">
             <template v-for="(item, key) in routes" :key="key">
@@ -32,10 +32,7 @@
                     rounded="lg"
                 ></v-list-item>
 
-                <v-list-group
-                    v-if="item.meta?.visible && item.children && item.children.length > 0"
-                    class="mx-1"
-                >
+                <v-list-group v-if="item.meta?.visible && item.children && item.children.length > 0" class="mx-1">
                     <template v-slot:activator="{ props }">
                         <v-list-item
                             v-bind="props"

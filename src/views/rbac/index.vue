@@ -1,15 +1,11 @@
 <template>
     <div class="d-flex">
-        <v-card width="36%" style="height: var(--content-height)">
+        <v-card width="36%" style="min-height: var(--content-height)">
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6" text="Menus"> </v-toolbar-title>
                 <template v-slot:append>
                     <v-btn icon="mdi-refresh" @click="menuEvent.getMenutree"></v-btn>
-                    <v-btn
-                        icon="mdi-plus"
-                        @click="menuEvent.onShowAddDialog(0)"
-                        class="mr-2"
-                    ></v-btn>
+                    <v-btn icon="mdi-plus" @click="menuEvent.onShowAddDialog(0)" class="mr-2"></v-btn>
                 </template>
             </v-toolbar>
             <div class="d-flex mb-4 mt-2 mx-4">
@@ -81,7 +77,7 @@
                 </template>
             </VTreeview>
         </v-card>
-        <v-card class="ml-4" style="height: var(--content-height); flex: 1">
+        <v-card class="ml-4" style="min-height: var(--content-height); flex: 1">
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6">Roles</v-toolbar-title>
             </v-toolbar>
@@ -133,17 +129,9 @@
     <v-dialog width="700" v-model="rolesEvent.data.visible">
         <v-card>
             <v-toolbar color="transparent">
-                <v-toolbar-title
-                    class="text-h6"
-                    :text="rolesEvent.data.dialogTitle"
-                ></v-toolbar-title>
+                <v-toolbar-title class="text-h6" :text="rolesEvent.data.dialogTitle"></v-toolbar-title>
                 <template v-slot:append>
-                    <v-btn
-                        type="submit"
-                        variant="text"
-                        @click="rolesEvent.data.visible = false"
-                        icon="mdi-close"
-                    />
+                    <v-btn type="submit" variant="text" @click="rolesEvent.data.visible = false" icon="mdi-close" />
                 </template>
             </v-toolbar>
             <v-sheet width="500" class="ma-10 mx-auto">
@@ -187,17 +175,9 @@
     <v-dialog width="700" v-model="menuEvent.data.visible">
         <v-card>
             <v-toolbar color="transparent">
-                <v-toolbar-title
-                    class="text-h6"
-                    :text="menuEvent.data.dialogTitle"
-                ></v-toolbar-title>
+                <v-toolbar-title class="text-h6" :text="menuEvent.data.dialogTitle"></v-toolbar-title>
                 <template v-slot:append>
-                    <v-btn
-                        type="submit"
-                        variant="text"
-                        @click="menuEvent.data.visible = false"
-                        icon="mdi-close"
-                    />
+                    <v-btn type="submit" variant="text" @click="menuEvent.data.visible = false" icon="mdi-close" />
                 </template>
             </v-toolbar>
             <v-sheet width="500" class="ma-10 mx-auto">
@@ -259,12 +239,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn text="Cancel" @click="menuEvent.onReset">Cancel</v-btn>
-                <v-btn
-                    color="primary"
-                    size="large"
-                    @click="menuEvent.onSubmit(menuEvent.formRef.value)"
-                    >Submit</v-btn
-                >
+                <v-btn color="primary" size="large" @click="menuEvent.onSubmit(menuEvent.formRef.value)">Submit</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

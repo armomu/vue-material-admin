@@ -41,11 +41,16 @@
         }
     }
 }
-.borderCard {
 
+.v-menu > .v-overlay__content > .v-card, .v-menu > .v-overlay__content > .v-sheet, .v-menu > .v-overlay__content > .v-list {
+    border-radius: 6px !important;
+    box-shadow: rgba(146, 158, 171, 0.302) 0 0 2px,rgba(145, 158, 171, 0.122) 0 12px 24px -4px !important;
+}
+.borderCard {
     .v-card {
         box-shadow: none;
         border: 1px solid rgba(var(--v-theme-on-surface), var(--v-border-opacity));
+        box-sizing: content-box;
         &.elevation-0 {
             border: 0;
         }

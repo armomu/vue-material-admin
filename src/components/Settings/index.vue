@@ -16,12 +16,7 @@
                 <div class="text-h6">Settings</div>
             </template>
             <template v-slot:append>
-                <v-btn
-                    color="grey-lighten-1"
-                    icon="mdi-close"
-                    variant="text"
-                    @click="mainStore.onDrawer"
-                ></v-btn>
+                <v-btn color="grey-lighten-1" icon="mdi-close" variant="text" @click="mainStore.onDrawer"></v-btn>
             </template>
         </v-list-item>
         <v-divider class="mx-4"></v-divider>
@@ -66,13 +61,7 @@
                 <v-radio label="Rolling" :value="false"></v-radio>
             </v-radio-group>
             <div class="text-h7 mt-4">Navigation</div>
-            <v-radio-group
-                color="primary"
-                class="mt-2 ml-n2"
-                inline
-                v-model="mainStore.settings.welt"
-                hide-details
-            >
+            <v-radio-group color="primary" class="mt-2 ml-n2" inline v-model="mainStore.settings.welt" hide-details>
                 <v-radio label="Welt" :value="true"></v-radio>
                 <v-radio label="Spacing" :value="false"></v-radio>
             </v-radio-group>
@@ -84,9 +73,9 @@
                 color="primary"
                 hide-details
             >
-                <v-radio label="plain" value="shadow"></v-radio>
-                <v-radio label="border" value="border"></v-radio>
-                <v-radio label="default" value="default"></v-radio>
+                <v-radio label="Shadow" value="shadow"></v-radio>
+                <v-radio label="Border" value="border"></v-radio>
+                <!-- <v-radio label="default" value="default"></v-radio> -->
             </v-radio-group>
         </div>
     </v-navigation-drawer>
