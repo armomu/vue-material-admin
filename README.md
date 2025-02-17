@@ -17,19 +17,19 @@
 </h1>
 
 
-Vue Material Admin 是一个基于 `Vuetify.js` 组件库的开源中后台模板，采用了服务器端 + 前端全栈TypeScript技术开发，该项目遵循 [Material Design](https://m3.material.io/) 的设计规范，并在 [Vuetify.js](https://vuetifyjs.com/zh-Hans/) 基础组件继续向上构建开发，对其进行了扩展和优化，旨在实现一个简洁、轻量化的中后台解决方案，Vue Material Admin 目前阶段主要用于学习、功能展示和开发用例测试，同时也适合作为新项目的启动模板，项目将持续更新，增加更多的功能和优化现有的模块，有问题没问题都可以提 [Issue](https://github.com/armomu/vue-material-admin/issues) 聊天交流 💭💭💭
+Vue Material Admin 是一个基于 `Vuetify` 组件的开源中后台系统模板，采用了` Nesjs + Vue3 + TypeScript` 全栈开发，项目遵循 [Material Design](https://m3.material.io/) 的设计规范，并在 [Vuetify](https://vuetifyjs.com/zh-Hans/) 基础组件继续向上构建开发，对其进行了扩展和优化，旨在实现一个简洁、轻量化的中后台解决方案，项目目前阶段主要用于学习、功能展示和开发用例测试，同时也适合作为生产环境项目的启动模板，项目会持续更新，增加更多的功能和优化，欢迎大家来[Issue](https://github.com/armomu/vue-material-admin/issues)  💭💭💭 聊天交流 ➡️ ➡️ ➡️ 
 
 
 ## ⛲ 技术栈
-### WEB 前端 
+
+前端
 - 框架: Vue3                                     
 - 状态管理: Pinia
-- 类型系统: TypeScript
-- UI 组件库: Vuetify.js
+- 🌈 UI: Vuetify
 
-### Nodejs 服务端
+服务器
 - 框架: Nest.js
-- 数据库: MySQL（对象映射工具 TypeORM ）
+- 数据库: MySQL+TypeORM
 - 缓存: Redis
 
 ## 🌻 页面截图
@@ -76,7 +76,7 @@ Vercel需要🪜子！打不开的同学自行下载项目在本地开发环境�
 
 ## 📑 本地开发
 
-### 前端
+前端
 
 由于已经是配套了 `Nodejs` 服务端，本地开发环境接口使用了 [`apifoxmock`](https://nliq7vrniv.apifox.cn)模拟了服务器全部都接口，所以 `.env.development` 文件需要配置接口服务器地址 `VITE_API = https://apifoxmock.com/m1/5061937-4723200-default` 
 
@@ -97,7 +97,7 @@ pnpm run dev
 
 
 
-### Nodejs 服务端
+Nodejs 服务端
 
 接口文档 [https://nliq7vrniv.apifox.cn](https://nliq7vrniv.apifox.cn)
 
