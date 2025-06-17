@@ -16,50 +16,15 @@
             </v-list-item>
         </v-list>
         <v-divider class="mx-5"></v-divider>
-
         <v-list nav class="mx-2" color="primary">
-            <template v-for="(item, key) in routes" :key="key">
-                <v-list-subheader v-if="item.name === 'Dashboard'">Dashboard</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'componets'">Examples</v-list-subheader>
-                <v-list-subheader v-if="item.name === 'RBAC'">Access Control</v-list-subheader>
-                <v-list-item
-                    v-if="item.meta?.visible && !item.children"
-                    :prepend-icon="item.meta?.icon as any"
-                    :title="item.meta?.title as any"
-                    :to="{ name: item.name }"
-                    class="mx-1"
-                    active-class="nav_active"
-                    rounded="lg"
-                ></v-list-item>
-
-                <v-list-group v-if="item.meta?.visible && item.children && item.children.length > 0" class="mx-1">
-                    <template v-slot:activator="{ props }">
-                        <v-list-item
-                            v-bind="props"
-                            :prepend-icon="item.meta.icon as any"
-                            :title="item.meta.title as any"
-                            active-class="nav_active"
-                            rounded="lg"
-                        />
-                    </template>
-                    <template v-for="(row, i) in item.children">
-                        <v-list-item
-                            v-if="row.meta?.visible as any"
-                            :title="row.meta?.title as any"
-                            :prepend-icon="rail ? (row.meta?.icon as any) : ''"
-                            :key="i"
-                            :to="{ name: row.name }"
-                            rounded="lg"
-                        />
-                    </template>
-                </v-list-group>
-            </template>
+            <MenuNodeTree :data="routes" />
         </v-list>
     </v-navigation-drawer>
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
 import { defineEmits, computed } from 'vue';
+import MenuNodeTree from './MenuNodeTree.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 const emit = defineEmits(['update:value']);
 
@@ -85,7 +50,6 @@ const val = computed({
 });
 
 const routes = computed(() => {
-    console.log('menuEvent.menus=================');
     return menuEvent.menus;
 });
 </script>
