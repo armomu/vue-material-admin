@@ -88,6 +88,18 @@
                 <v-radio label="Border" value="border" class="ml-4"></v-radio>
                 <!-- <v-radio label="default" value="default"></v-radio> -->
             </v-radio-group>
+            <div class="text-h7 mt-4">Hateful Mouse</div>
+            <v-radio-group
+                class="mt-2 ml-n2"
+                inline
+                v-model="mainStore.settings.hatefulMouseVisible"
+                color="primary"
+                hide-details
+            >
+                <v-radio label="Show" :value="true"></v-radio>
+                <v-radio label="Hide" :value="false" class="ml-4"></v-radio>
+                <!-- <v-radio label="default" value="default"></v-radio> -->
+            </v-radio-group>
         </div>
     </v-navigation-drawer>
 </template>

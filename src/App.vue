@@ -24,6 +24,7 @@
                 <v-btn color="blue" variant="text" @click="item.visible = false"> Close </v-btn>
             </template>
         </v-snackbar>
+        <HatefulMouse />
     </v-app>
 </template>
 <script setup lang="ts">

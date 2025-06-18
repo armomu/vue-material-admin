@@ -47,6 +47,7 @@ export const useAppStore = defineStore('main', () => {
         cardStyle: 'shadow', // border // default
         backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
         fixedHeader: true,
+        hatefulMouseVisible: true,
         primaryColors: [
             '#7F85F9',
             '#2196F3',
@@ -81,6 +82,7 @@ export const useAppStore = defineStore('main', () => {
 });
 interface Settings {
     welt: boolean;
+    hatefulMouseVisible: boolean;
     backgroundColor: string;
     drawer: boolean;
     fixedHeader: boolean;
