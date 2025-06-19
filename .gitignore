@@ -27,4 +27,4 @@ stage.glb
 *.sln
 *.sw?
 
-typings/components.d.ts
+/typings/components.d.ts
