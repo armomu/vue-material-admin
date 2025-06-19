@@ -3,6 +3,8 @@ import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 import Vuetify from 'vite-plugin-vuetify';
 import VueJsx from '@vitejs/plugin-vue-jsx';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver, VuetifyResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,11 +12,16 @@ export default defineConfig({
     // base: '/vue-material-admin',
     plugins: [
         Vue(),
-        Vuetify({ autoImport: true }), // 都用Vue还用什么JSX
-        VueJsx(),
+        // 组件自动导入
+        Vuetify({ autoImport: { labs: true } }),
+        VueJsx(), // 都用Vue还用什么JSX
+        Components({
+            resolvers: [ElementPlusResolver(), VuetifyResolver()],
+            dts: 'typings/components.d.ts',
+        }),
     ],
     server: {
-        open: true,
+        open: false,
         host: '0.0.0.0',
         port: 8088,
         hmr: true,
