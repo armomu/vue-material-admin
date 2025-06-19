@@ -26,3 +26,5 @@ stage.glb
 *.njsproj
 *.sln
 *.sw?
+
+typings/components.d.ts
