@@ -19,7 +19,7 @@
     "@pixi/graphics-extras": "^7.3.1",
     "@pixi/ui": "^0.9.1",
     "apexcharts": "^3.36.3",
-    "axios": "^1.8.2",
+    "axios": "^1.10.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "pinia": "^2.0.28",
