@@ -14,15 +14,7 @@ const styles = computed(() => {
 
 const hatefulMouseDom = shallowRef<HTMLElement>();
 
-// 位置弹簧和阻尼参数
-const positionSpringConstant = 0.03 * 60; // 弹簧常数 (k) - 越大越硬
-const positionDampingFactor = 0.85 * 60; // 阻尼系数 (d) - 越小阻尼越大，越稳定
-
-// 缩放弹簧和阻尼参数
-const scaleSpringConstant = 0.1 * 60;
-const scaleDampingFactor = 0.8 * 60;
-const minScale = 0.7 * 60; // 移动时的最小缩放比例
-const stopDelay = 100 * 60; // 鼠标停止移动后多久恢复原大小 (毫秒)
+const stopDelay = 100; // 鼠标停止移动后多久恢复原大小 (毫秒)
 
 // 圆的状态
 let circleX = window.innerWidth / 2;
@@ -34,6 +26,7 @@ let scale = 1;
 let scaleVelocity = 0;
 let targetScale = 1;
 
+const minScale = 0.0; // 移动时的最小缩放比例
 // 鼠标目标位置和移动状态
 let targetX = circleX;
 let targetY = circleY;
@@ -41,7 +34,7 @@ let isMoving = false;
 let movementTimeout: NodeJS.Timeout | undefined = undefined;
 
 const event = (e: MouseEvent) => {
-    targetX = e.clientX;
+    targetX = e.clientX + 6;
     targetY = e.clientY;
 
     if (!isMoving) {
@@ -62,7 +55,19 @@ function animate(currentTime = 0) {
     if (!currentTime) {
         return requestAnimationFrame(animate);
     }
-    const deltaTime = (currentTime - lastTime) / 1000;
+
+    const deltaTime = currentTime - lastTime;
+    const fps = 1000 / deltaTime;
+    // 位置弹簧和阻尼参数
+    const positionSpringConstant = (0.03 * fps) / 1000; // 弹簧常数 (k) - 越大越硬
+    const positionDampingFactor = (0.6 * fps) / 1000; // 阻尼系数 (d) - 越小阻尼越大，越稳定
+
+    // 缩放弹簧和阻尼参数
+    const scaleSpringConstant = (0.1 * fps) / 1000;
+    const scaleDampingFactor = (0.8 * fps) / 1000;
+
+    // minScale = (0.7 * fps) / 1000; // 移动时的最小缩放比例
+
     const speed = positionSpringConstant * deltaTime;
     lastTime = currentTime;
 
@@ -108,6 +113,8 @@ onMounted(() => {
 <style lang="scss">
 .hateful-mouse {
     position: fixed;
+    left: -50px;
+    top: -50px;
     width: 100px;
     height: 100px;
     z-index: 999999;
