@@ -15,14 +15,14 @@ const styles = computed(() => {
 const hatefulMouseDom = shallowRef<HTMLElement>();
 
 // 位置弹簧和阻尼参数
-const positionSpringConstant = 0.03; // 弹簧常数 (k) - 越大越硬
-const positionDampingFactor = 0.85; // 阻尼系数 (d) - 越小阻尼越大，越稳定
+const positionSpringConstant = 0.03 * 60; // 弹簧常数 (k) - 越大越硬
+const positionDampingFactor = 0.85 * 60; // 阻尼系数 (d) - 越小阻尼越大，越稳定
 
 // 缩放弹簧和阻尼参数
-const scaleSpringConstant = 0.1;
-const scaleDampingFactor = 0.8;
-const minScale = 0.7; // 移动时的最小缩放比例
-const stopDelay = 100; // 鼠标停止移动后多久恢复原大小 (毫秒)
+const scaleSpringConstant = 0.1 * 60;
+const scaleDampingFactor = 0.8 * 60;
+const minScale = 0.7 * 60; // 移动时的最小缩放比例
+const stopDelay = 100 * 60; // 鼠标停止移动后多久恢复原大小 (毫秒)
 
 // 圆的状态
 let circleX = window.innerWidth / 2;
@@ -56,27 +56,36 @@ const event = (e: MouseEvent) => {
     }, stopDelay);
 };
 
-function animate() {
+let lastTime = performance.now();
+
+function animate(currentTime = 0) {
+    if (!currentTime) {
+        return requestAnimationFrame(animate);
+    }
+    const deltaTime = (currentTime - lastTime) / 1000;
+    const speed = positionSpringConstant * deltaTime;
+    lastTime = currentTime;
+
     // 计算位置弹簧力
-    const forceX = (targetX - circleX) * positionSpringConstant;
-    const forceY = (targetY - circleY) * positionSpringConstant;
+    const forceX = (targetX - circleX) * speed;
+    const forceY = (targetY - circleY) * speed;
 
     // 更新位置速度（考虑阻尼）
     velocityX += forceX;
     velocityY += forceY;
-    velocityX *= positionDampingFactor;
-    velocityY *= positionDampingFactor;
+    velocityX *= positionDampingFactor * deltaTime;
+    velocityY *= positionDampingFactor * deltaTime;
 
     // 更新圆的位置
     circleX += velocityX;
     circleY += velocityY;
 
     // 计算缩放弹簧力
-    const scaleForce = (targetScale - scale) * scaleSpringConstant;
+    const scaleForce = (targetScale - scale) * (scaleSpringConstant * deltaTime);
 
     // 更新缩放速度（考虑阻尼）
     scaleVelocity += scaleForce;
-    scaleVelocity *= scaleDampingFactor;
+    scaleVelocity *= scaleDampingFactor * deltaTime;
 
     // 更新缩放比例
     scale += scaleVelocity;
@@ -84,7 +93,7 @@ function animate() {
     if (hatefulMouseDom.value) {
         hatefulMouseDom.value.style.left = `${circleX}px`;
         hatefulMouseDom.value.style.top = `${circleY}px`;
-        hatefulMouseDom.value.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        // hatefulMouseDom.value.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
     // 请求下一帧动画
