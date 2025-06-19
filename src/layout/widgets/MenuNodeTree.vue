@@ -38,6 +38,6 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {});
 onMounted(() => {
-    console.log(props.data);
+    // console.log(props.data);
 });
 </script>
