@@ -2,9 +2,12 @@
     <div ref="hatefulMouseDom" class="hateful-mouse" :style="styles"></div>
 </template>
 <script lang="ts" setup>
-import { computed, shallowRef, onMounted } from 'vue';
+import { computed, shallowRef, onMounted, getCurrentInstance } from 'vue';
 import { useAppStore } from '@/stores/useAppStore';
+
 const mainStore = useAppStore();
+
+const $curWidgets = getCurrentInstance();
 
 const styles = computed(() => {
     return {
@@ -26,28 +29,55 @@ let scale = 1;
 let scaleVelocity = 0;
 let targetScale = 1;
 
-const minScale = 0.0; // 移动时的最小缩放比例
+const minScale = 0.42; // 移动时的最小缩放比例
 // 鼠标目标位置和移动状态
 let targetX = circleX;
 let targetY = circleY;
-let isMoving = false;
+let isMouseover = false;
 let movementTimeout: NodeJS.Timeout | undefined = undefined;
 
 const event = (e: MouseEvent) => {
-    targetX = e.clientX + 6;
+    targetX = e.clientX;
     targetY = e.clientY;
+};
 
-    if (!isMoving) {
-        isMoving = true;
+const mouseoverEvent = () => {
+    clearTimeout(movementTimeout);
+    if (!isMouseover) {
+        isMouseover = true;
         targetScale = minScale;
     }
-
+};
+const mouseoutEvent = () => {
     clearTimeout(movementTimeout);
     movementTimeout = setTimeout(() => {
-        isMoving = false;
+        isMouseover = false;
         targetScale = 1;
     }, stopDelay);
 };
+
+const allDoms: Element[] = [];
+const addEvent = () => {
+    allDoms.forEach((div) => {
+        div.removeEventListener('mouseover', mouseoverEvent);
+        div.removeEventListener('mouseout', mouseoutEvent);
+    });
+    // 想要变小的元素
+    const keys = ['v-selection-control', 'input', 'button', 'a'];
+    keys.forEach((name) => {
+        const all = document.querySelectorAll(name);
+        for (let i = 0; i < all.length; i++) {
+            all[i].addEventListener('mouseover', mouseoverEvent);
+            all[i].addEventListener('mouseout', mouseoutEvent);
+            allDoms.push(all[i]);
+        }
+    });
+};
+
+// 进入到下一个页面需要重新添加所有元素的 mouseover 和 mouseout 事件
+$curWidgets?.proxy?.$router.afterEach(() => {
+    setTimeout(addEvent, 2000);
+});
 
 let lastTime = performance.now();
 
@@ -60,13 +90,11 @@ function animate(currentTime = 0) {
     const fps = 1000 / deltaTime;
     // 位置弹簧和阻尼参数
     const positionSpringConstant = (0.03 * fps) / 1000; // 弹簧常数 (k) - 越大越硬
-    const positionDampingFactor = (0.6 * fps) / 1000; // 阻尼系数 (d) - 越小阻尼越大，越稳定
+    const positionDampingFactor = (0.861 * fps) / 1000; // 阻尼系数 (d) - 越小阻尼越大，越稳定
 
     // 缩放弹簧和阻尼参数
     const scaleSpringConstant = (0.1 * fps) / 1000;
     const scaleDampingFactor = (0.8 * fps) / 1000;
-
-    // minScale = (0.7 * fps) / 1000; // 移动时的最小缩放比例
 
     const speed = positionSpringConstant * deltaTime;
     lastTime = currentTime;
@@ -94,17 +122,14 @@ function animate(currentTime = 0) {
 
     // 更新缩放比例
     scale += scaleVelocity;
-    // 应用位置和缩放到DOM元素
     if (hatefulMouseDom.value) {
         hatefulMouseDom.value.style.left = `${circleX}px`;
         hatefulMouseDom.value.style.top = `${circleY}px`;
-        // hatefulMouseDom.value.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        hatefulMouseDom.value.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
-    // 请求下一帧动画
     requestAnimationFrame(animate);
 }
-
 onMounted(() => {
     document.addEventListener('mousemove', event);
     animate();
