@@ -39,6 +39,7 @@ let movementTimeout: NodeJS.Timeout | undefined = undefined;
 const event = (e: MouseEvent) => {
     targetX = e.clientX;
     targetY = e.clientY;
+
     if (hatefulMouseDom.value) {
         hatefulMouseDom.value.style.opacity = '1';
     }
@@ -61,7 +62,6 @@ const mouseoutEvent = () => {
 
 const allDoms: Element[] = [];
 const addEvent = () => {
-    // hatefulMouseDom.value?.style.opacity = '1';
     allDoms.forEach((div) => {
         div.removeEventListener('mouseover', mouseoverEvent);
         div.removeEventListener('mouseout', mouseoutEvent);
@@ -94,7 +94,7 @@ function animate(currentTime = 0) {
     const fps = 1000 / deltaTime;
     // 位置弹簧和阻尼参数
     const positionSpringConstant = (0.03 * fps) / 1000; // 弹簧常数 (k) - 越大越硬
-    const positionDampingFactor = (0.861 * fps) / 1000; // 阻尼系数 (d) - 越小阻尼越大，越稳定
+    const positionDampingFactor = ((fps > 60 ? 0.5 : 0.861) * fps) / 1000; // 阻尼系数 (d) - 越小阻尼越大，越稳定
 
     // 缩放弹簧和阻尼参数
     const scaleSpringConstant = (0.1 * fps) / 1000;
