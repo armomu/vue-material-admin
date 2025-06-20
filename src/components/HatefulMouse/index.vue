@@ -39,6 +39,9 @@ let movementTimeout: NodeJS.Timeout | undefined = undefined;
 const event = (e: MouseEvent) => {
     targetX = e.clientX;
     targetY = e.clientY;
+    if (hatefulMouseDom.value) {
+        hatefulMouseDom.value.style.opacity = '1';
+    }
 };
 
 const mouseoverEvent = () => {
@@ -58,6 +61,7 @@ const mouseoutEvent = () => {
 
 const allDoms: Element[] = [];
 const addEvent = () => {
+    // hatefulMouseDom.value?.style.opacity = '1';
     allDoms.forEach((div) => {
         div.removeEventListener('mouseover', mouseoverEvent);
         div.removeEventListener('mouseout', mouseoutEvent);
@@ -133,6 +137,7 @@ function animate(currentTime = 0) {
 onMounted(() => {
     document.addEventListener('mousemove', event);
     animate();
+    setTimeout(addEvent, 1000);
 });
 </script>
 <style lang="scss">
@@ -144,6 +149,7 @@ onMounted(() => {
     height: 100px;
     z-index: 999999;
     border-radius: 50%;
+    opacity: 0;
     transform-origin: center center; /* 设置缩放中心 */
     transform: translate(-50%, -50%) scale(1); /* 初始缩放 */
     pointer-events: none; /* 确保鼠标事件穿透圆到body */
