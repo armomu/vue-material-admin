@@ -1,6 +1,5 @@
 <template>
     <div class="login">
-        <canvas id="vr360" height="365" ref="canvasDom"></canvas>
         <v-card class="form">
             <div class="gs"></div>
             <div class="label">
@@ -108,14 +107,9 @@
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
-import { reactive, shallowRef, onMounted } from 'vue';
+import { reactive, shallowRef } from 'vue';
 import { ApiUser } from '@/api/user';
-// import { useRouter } from 'vue-router';
 import { syncRouter } from '@/router';
-
-// import * as BABYLON from '@babylonjs/core';
-// import '@babylonjs/loaders/glTF';
-// import HavokPhysics from '@babylonjs/havok';
 
 const state = reactive({
     username: 'admin',
@@ -139,111 +133,6 @@ const onSubmit = async () => {
         loading.value = false;
     }
 };
-// const canvasDom = shallowRef<HTMLCanvasElement>();
-// const addPhysicsAggregate = (
-//     meshe: BABYLON.TransformNode,
-//     scene: BABYLON.Scene,
-//     mass = 0,
-//     type = BABYLON.PhysicsShapeType.BOX
-// ) => {
-//     const res = new BABYLON.PhysicsAggregate(meshe, type, { mass: mass, friction: 0.5 }, scene);
-//     return res;
-// };
-// onMounted(async () => {
-//     const havokPlugin = await HavokPhysics();
-//     const engine = new BABYLON.Engine(canvasDom.value!, true);
-//     const scene = new BABYLON.Scene(engine);
-//     // scene.clearColor = new BABYLON.Color4(6 / 255, 6 / 255, 6 / 255, 1);
-//     scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-//     const camera = new BABYLON.ArcRotateCamera(
-//         'arcCamera1',
-//         0,
-//         0,
-//         6,
-//         BABYLON.Vector3.Zero(),
-//         scene
-//     );
-//     camera.attachControl(canvasDom.value!, false);
-
-//     camera.setPosition(new BABYLON.Vector3(0, 8.14, -9.26));
-//     camera.lowerRadiusLimit = 3; // 最小缩放;
-
-//     const hemisphericLight = new BABYLON.HemisphericLight(
-//         'hemisphericLight',
-//         new BABYLON.Vector3(0, 30, 0),
-//         scene
-//     );
-//     hemisphericLight.intensity = 0.6;
-
-//     const lightDirection = new BABYLON.Vector3(0, -1, 0);
-//     const light = new BABYLON.DirectionalLight('DirectionalLight', lightDirection, scene);
-//     light.position = new BABYLON.Vector3(0, 20, 6);
-//     light.intensity = 0.4;
-
-//     const ground = BABYLON.MeshBuilder.CreateBox(
-//         'ground',
-//         { width: 200, size: 200, height: 0.1 },
-//         scene
-//     );
-
-//     ground.rotation.x = Math.PI;
-//     ground.position.y = -5;
-//     ground.visibility = 0;
-//     const pbrMaterial = new BABYLON.PBRMaterial('pbrMaterial1', scene);
-
-//     // // 设置材质的透明度
-//     pbrMaterial.alpha = 0.1;
-//     ground.material = pbrMaterial;
-//     const shadowGenerator = new BABYLON.ShadowGenerator(2048, light);
-
-//     const physicsPlugin = new BABYLON.HavokPlugin(true, havokPlugin);
-//     scene.enablePhysics(undefined, physicsPlugin);
-//     const physicsViewer = new BABYLON.PhysicsViewer();
-//     addPhysicsAggregate(ground, scene);
-
-//     BABYLON.SceneLoader.LoadAssetContainer(
-//         import.meta.env.BASE_URL + 'mini_space_ship/',
-//         'scene.gltf',
-//         scene,
-//         (container) => {
-//             // resolve(container);
-//             container.meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
-//             container.meshes.forEach((item, index) => {
-//                 console.log(item);
-//                 try {
-//                     // setTimeout(() => {
-//                     //     const agg = addPhysicsAggregate(
-//                     //         item,
-//                     //         scene,
-//                     //         1,
-//                     //         BABYLON.PhysicsShapeType.CONVEX_HULL
-//                     //     );
-//                     // }, 100 * index);
-//                     const agg = addPhysicsAggregate(
-//                         item,
-//                         scene,
-//                         1,
-//                         BABYLON.PhysicsShapeType.CONVEX_HULL
-//                     );
-//                     // physicsViewer.showBody(agg.body);
-//                 } catch (e) {
-//                     console.log(index, '============================');
-//                     console.log(e);
-//                 }
-//             });
-//             container.addAllToScene();
-//         }
-//     );
-
-//     engine.runRenderLoop(() => {
-//         scene.render();
-//     });
-
-//     // camera.rotationQuaternion = new BABYLON.Quaternion();
-//     window.addEventListener('resize', () => {
-//         engine.resize();
-//     });
-// });
 </script>
 <style lang="scss" scoped>
 #vr360 {
