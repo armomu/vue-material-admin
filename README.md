@@ -99,3 +99,6 @@ pnpm run dev
 
 > 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务，也从[vue-naive-admin](https://github.com/zclzone/vue-naive-admin)项目中学习到了一些新的封装思路
 
+
+### 🎏 开源不易，如果您觉得还不错，请作者喝杯咖啡吧
+<img width="350" src="https://github.com/armomu/vue-material-admin/raw/master/public/skm.jpg" alt="微信支付">
