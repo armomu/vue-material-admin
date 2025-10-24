@@ -37,7 +37,7 @@ import { checkVersion } from './plugins/pwa';
 const mainStore = useAppStore();
 const useAuthEvent = useAuthStore();
 const snackbarEvent = useSnackbarStore();
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (useAuthEvent.userDetail.id <= 0 && to.path !== '/login') {
         console.log(useAuthEvent.userDetail.id, 'useAuthEvent.userDetail.id');
         next('/login');
@@ -45,6 +45,8 @@ router.beforeEach((to, from, next) => {
         return;
     }
     next();
+    const d = document.getElementById('_loading_');
+    d?.setAttribute('class', 'loading_ hide');
 });
 
 router.afterEach(() => {

@@ -16,10 +16,11 @@ syncRouter().then((res) => {
     if (!res) {
         router.push('/login');
     }
-    app.mount('#app').$nextTick(() => {
-        setTimeout(() => {
-            const d = document.getElementById('_loading_');
-            d?.setAttribute('class', 'loading_ hide');
-        }, 10);
-    });
+    app.mount('#app');
+    // .$nextTick(() => {
+    //     setTimeout(() => {
+    //         // const d = document.getElementById('_loading_');
+    //         // d?.setAttribute('class', 'loading_ hide');
+    //     }, 10);
+    // });
 });
