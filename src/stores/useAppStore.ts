@@ -44,10 +44,10 @@ export const useAppStore = defineStore('main', () => {
         backgroundColor: '#ffffff',
         drawer: false,
         primary: '#7F85F9',
-        cardStyle: 'shadow', // border // default
+        cardStyle: 'shadow', // border // default //
         backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
         fixedHeader: true,
-        hatefulMouseVisible: false,
+        cursor: 'default',
         primaryColors: [
             '#7F85F9',
             '#2196F3',
@@ -82,7 +82,7 @@ export const useAppStore = defineStore('main', () => {
 });
 interface Settings {
     welt: boolean;
-    hatefulMouseVisible: boolean;
+    cursor: 'default' | 'round' | 'fluid';
     backgroundColor: string;
     drawer: boolean;
     fixedHeader: boolean;

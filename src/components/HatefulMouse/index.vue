@@ -11,7 +11,7 @@ const $curWidgets = getCurrentInstance();
 
 const styles = computed(() => {
     return {
-        display: mainStore.settings.hatefulMouseVisible ? 'block' : 'none',
+        display: mainStore.settings.cursor === 'round' ? 'block' : 'none',
     };
 });
 

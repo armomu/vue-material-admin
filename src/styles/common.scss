@@ -9,6 +9,15 @@
 .arphl {
     background-color: #ddffe9;
 }
+// .NeuralBg, 
+.silk-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    top: 0;
+}
 .v-field__outline {
     color: rgba(var(--v-theme-on-surface), var(--v-border-opacity));
     --v-field-border-opacity: 1 !important;

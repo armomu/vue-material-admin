@@ -88,16 +88,17 @@
                 <v-radio label="Border" value="border" class="ml-4"></v-radio>
                 <!-- <v-radio label="default" value="default"></v-radio> -->
             </v-radio-group>
-            <div class="text-h7 mt-4">Hateful Mouse</div>
+            <div class="text-h7 mt-4">Cursor</div>
             <v-radio-group
                 class="mt-2 ml-n2"
                 inline
-                v-model="mainStore.settings.hatefulMouseVisible"
+                v-model="mainStore.settings.cursor"
                 color="primary"
                 hide-details
             >
-                <v-radio label="Show" :value="true"></v-radio>
-                <v-radio label="Hide" :value="false" class="ml-4"></v-radio>
+                <v-radio label="Default" value="default"></v-radio>
+                <v-radio label="Round" value="round"></v-radio>
+                <v-radio label="fluid" value="fluid" class="ml-4"></v-radio>
                 <!-- <v-radio label="default" value="default"></v-radio> -->
             </v-radio-group>
         </div>
