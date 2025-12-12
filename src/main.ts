@@ -4,15 +4,14 @@ import './styles/index.scss';
 import App from './App.vue';
 import router, { syncRouter } from './router';
 import { vuetify } from '@/plugins/vuetify';
-import { setupLiquidGlassDirective } from '@/directives/liquidGlass';
 import registeComponent from './components';
+import { setupLiquidGlassDirective } from './directives/liquidGlass';
 
 const app = createApp(App);
 registeComponent(app);
-setupLiquidGlassDirective(app);
 app.use(createPinia());
 app.use(vuetify);
-
+setupLiquidGlassDirective(app);
 syncRouter().then((res) => {
     app.use(router);
     if (!res) {

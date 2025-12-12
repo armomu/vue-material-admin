@@ -82,7 +82,6 @@
 }
 
 .liquid_glass {
-    // position: fixed;
     opacity: 1;
     background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0)));
     box-shadow:
@@ -104,6 +103,7 @@
         0px 4px 16px rgba(17, 17, 26, 0.05) inset,
         0px 8px 24px rgba(17, 17, 26, 0.05) inset,
         0px 16px 56px rgba(17, 17, 26, 0.05) inset;
+    position: relative;
     .slot-container {
         width: 100%;
         height: 100%;

@@ -1,11 +1,11 @@
 <template>
     <div class="no404">
-        <liquid-glass>
+        <div v-liquidGlass>
             <div class="pa-8">
                 <div class="title">Not found</div>
                 <span>404</span>
             </div>
-        </liquid-glass>
+        </div>
     </div>
 </template>
 <script setup lang="ts"></script>

@@ -1,6 +1,5 @@
 
 .v-layout {
-    // color: #344767!important;
     // background: rgb(var(--theme-background)) !important;
 
     .layout_navigation {
@@ -9,8 +8,8 @@
         height: calc(100vh - 2rem) !important;
         transition: all 0.2s;
         border-right-width: 0;
-        background: transparent;
-        .slot-container {
+        // background: transparent;
+        .liquid_glass {
             height: calc(100vh - 2rem) !important;
         }
         &.showSettings {
@@ -81,11 +80,11 @@
         // margin-left: 108px;
         transition: all 0.2s;
         .header {
-            // background: rgba(var(--header-bg), var(--header-bg-opacity));
-            // filter: blur(25px);
-            // backdrop-filter: saturate(200%) blur(30px);
-            // box-shadow: inset 0 0 1px 1px hsla(0,0%,99.6%,.9),0 20px 27px 0 rgba(0,0,0,.05)!important;
             height: 76px;
+        }
+        .header {
+            height: 76px;
+            // background: none;
             transition: all 0.2s;
             display: flex;
             align-items: center;

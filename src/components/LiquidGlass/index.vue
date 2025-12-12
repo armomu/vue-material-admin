@@ -100,7 +100,7 @@ interface Props {
 
 // Props definition
 const props = withDefaults(defineProps<Props>(), {
-    radius: 16,
+    radius: 8,
     border: 0.07,
     lightness: 50,
     displace: 0.05,
