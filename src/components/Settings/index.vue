@@ -86,7 +86,7 @@
             >
                 <v-radio label="Shadow" value="shadow"></v-radio>
                 <v-radio label="Border" value="border" class="ml-4"></v-radio>
-                <!-- <v-radio label="default" value="default"></v-radio> -->
+                <v-radio label="Glass" value="liquid-glass" class="ml-4"></v-radio>
             </v-radio-group>
             <div class="text-h7 mt-4">Cursor</div>
             <v-radio-group
@@ -99,7 +99,6 @@
                 <v-radio label="Default" value="default"></v-radio>
                 <v-radio label="Round" value="round"></v-radio>
                 <v-radio label="fluid" value="fluid" class="ml-4"></v-radio>
-                <!-- <v-radio label="default" value="default"></v-radio> -->
             </v-radio-group>
         </div>
     </v-navigation-drawer>

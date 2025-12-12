@@ -87,7 +87,7 @@ interface Settings {
     drawer: boolean;
     fixedHeader: boolean;
     primary: string;
-    cardStyle: 'shadow' | 'border' | 'none';
+    cardStyle: 'shadow' | 'border' | 'liquid-glass' | 'none';
     primaryColors: string[];
     backgroundColors: string[];
 }

@@ -189,11 +189,3 @@ onUnmounted(() => {
     }
 });
 </script>
-
-<style>
-.silk-canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
-</style>

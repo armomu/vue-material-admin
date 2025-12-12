@@ -8,10 +8,9 @@
         <div :class="cn('slot-container', props.class)">
             <slot />
         </div>
-
         <svg class="filter" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <filter id="displacementFilter" color-interpolation-filters="sRGB">
+                <filter :id="svgId" color-interpolation-filters="sRGB">
                     <feImage
                         x="0"
                         y="0"
@@ -96,6 +95,7 @@ interface Props {
     frost?: number;
     class?: HTMLAttributes['class'];
     containerClass?: HTMLAttributes['class'];
+    svgId?: string;
 }
 
 // Props definition
@@ -103,6 +103,7 @@ const props = withDefaults(defineProps<Props>(), {
     radius: 16,
     border: 0.07,
     lightness: 50,
+    displace: 0.05,
     blend: 'difference',
     xChannel: 'R',
     yChannel: 'B',
@@ -113,6 +114,7 @@ const props = withDefaults(defineProps<Props>(), {
     bOffset: 20,
     scale: -180,
     frost: 0.05,
+    svgId: crypto.randomUUID(),
 });
 
 // Refs
@@ -128,6 +130,7 @@ const baseStyle = computed(() => {
     return {
         '--frost': props.frost,
         'border-radius': `${props.radius}px`,
+        'backdrop-filter': `url(#${props.svgId})`,
     };
 });
 
@@ -200,47 +203,3 @@ onUnmounted(() => {
     observer?.disconnect();
 });
 </script>
-
-<style lang="scss" scoped>
-.liquid_glass {
-    // position: fixed;
-    display: block;
-    opacity: 1;
-    border-radius: inherit;
-    backdrop-filter: url(#displacementFilter);
-    background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0)));
-    box-shadow:
-        0 0 2px 1px
-            light-dark(
-                color-mix(in oklch, canvasText, #0000 85%),
-                color-mix(in oklch, canvasText, #0000 90%)
-            )
-            inset,
-        0 0 10px 4px
-            light-dark(
-                color-mix(in oklch, canvasText, #0000 90%),
-                color-mix(in oklch, canvasText, #0000 95%)
-            )
-            inset,
-        0px 4px 16px rgba(17, 17, 26, 0.05),
-        0px 8px 24px rgba(17, 17, 26, 0.05),
-        0px 16px 56px rgba(17, 17, 26, 0.05),
-        0px 4px 16px rgba(17, 17, 26, 0.05) inset,
-        0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-        0px 16px 56px rgba(17, 17, 26, 0.05) inset;
-    .slot-container {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        border-radius: inherit;
-    }
-
-    .filter {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-    }
-}
-</style>

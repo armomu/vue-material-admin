@@ -9,14 +9,18 @@
 .arphl {
     background-color: #ddffe9;
 }
-// .NeuralBg, 
-.silk-container {
+.NeuralBg, .silk-container {
     width: 100vw;
     height: 100vh;
     position: fixed;
     z-index: 0;
     left: 0;
     top: 0;
+    .silk-canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
 }
 .v-field__outline {
     color: rgba(var(--v-theme-on-surface), var(--v-border-opacity));
@@ -77,3 +81,41 @@
     }
 }
 
+.liquid_glass {
+    // position: fixed;
+    opacity: 1;
+    background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0)));
+    box-shadow:
+        0 0 2px 1px
+            light-dark(
+                color-mix(in oklch, canvasText, #0000 85%),
+                color-mix(in oklch, canvasText, #0000 90%)
+            )
+            inset,
+        0 0 10px 4px
+            light-dark(
+                color-mix(in oklch, canvasText, #0000 90%),
+                color-mix(in oklch, canvasText, #0000 95%)
+            )
+            inset,
+        0px 4px 16px rgba(17, 17, 26, 0.05),
+        0px 8px 24px rgba(17, 17, 26, 0.05),
+        0px 16px 56px rgba(17, 17, 26, 0.05),
+        0px 4px 16px rgba(17, 17, 26, 0.05) inset,
+        0px 8px 24px rgba(17, 17, 26, 0.05) inset,
+        0px 16px 56px rgba(17, 17, 26, 0.05) inset;
+    .slot-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: inherit;
+    }
+
+    .filter {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+}

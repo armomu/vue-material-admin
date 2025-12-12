@@ -9,16 +9,18 @@
         v-model="val"
         style="position: fixed"
     >
-        <v-list class="py-4 mx-2 logo" nav>
-            <v-list-item rounded :prepend-avatar="logo" class="mx-1" to="/vue-material-admin/">
-                <v-list-item-title class="title">Material UI</v-list-item-title>
-                <v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
-            </v-list-item>
-        </v-list>
-        <v-divider class="mx-5"></v-divider>
-        <v-list nav class="mx-2" color="primary">
-            <MenuNodeTree :data="routes" />
-        </v-list>
+        <liquid-glass>
+            <v-list class="py-4 mx-2 logo" nav>
+                <v-list-item rounded :prepend-avatar="logo" class="mx-1" to="/vue-material-admin/">
+                    <v-list-item-title class="title">Material UI</v-list-item-title>
+                    <v-list-item-subtitle>vue-material-admin</v-list-item-subtitle>
+                </v-list-item>
+            </v-list>
+            <v-divider class="mx-5"></v-divider>
+            <v-list nav class="mx-2" color="primary">
+                <MenuNodeTree :data="routes" />
+            </v-list>
+        </liquid-glass>
     </v-navigation-drawer>
 </template>
 <script lang="ts" setup>
