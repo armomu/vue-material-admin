@@ -23,7 +23,7 @@
 </template>
 <script lang="ts" setup>
 import logo from '@/assets/admin-logo.png';
-import { defineEmits, computed } from 'vue';
+import { computed } from 'vue';
 import MenuNodeTree from './MenuNodeTree.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 const emit = defineEmits(['update:value']);

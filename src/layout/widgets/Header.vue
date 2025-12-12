@@ -110,7 +110,7 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/stores/useAppStore';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { defineEmits, computed, ref } from 'vue';
+import { computed, ref } from 'vue';
 import logo from '@/assets/admin-logo.png';
 
 const emit = defineEmits(['update:rail', 'update:mini', 'update:visible']);

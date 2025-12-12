@@ -2,8 +2,7 @@
     <div class="test"></div>
 </template>
 <script lang="ts" setup>
-import { defineEmits } from 'vue';
-const props = withDefaults(
+withDefaults(
     defineProps<{
         visible: boolean;
     }>(),
