@@ -9,9 +9,6 @@
         transition: all 0.2s;
         border-right-width: 0;
         // background: transparent;
-        .liquid_glass {
-            height: calc(100vh - 2rem) !important;
-        }
         &.showSettings {
             z-index: 1 !important;
         }

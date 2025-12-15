@@ -83,6 +83,7 @@
                 v-model="mainStore.settings.cardStyle"
                 color="primary"
                 hide-details
+                @update:modelValue="mainStore.onCardStyleChange"
             >
                 <v-radio label="Shadow" value="shadow"></v-radio>
                 <v-radio label="Border" value="border" class="ml-4"></v-radio>
@@ -98,7 +99,7 @@
             >
                 <v-radio label="Default" value="default"></v-radio>
                 <v-radio label="Round" value="round"></v-radio>
-                <v-radio label="fluid" value="fluid" class="ml-4"></v-radio>
+                <v-radio label="Fuid" value="fluid" class="ml-4"></v-radio>
             </v-radio-group>
         </div>
     </v-navigation-drawer>

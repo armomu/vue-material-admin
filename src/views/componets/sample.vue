@@ -6,7 +6,7 @@
             <a href="https://next.vuetifyjs.com/en/" target="_black">documentation</a>
         </div>
     </div>
-    <v-card title="Alerts" class="my-4">
+    <v-card title="Alerts" class="my-4" v-liquidGlass>
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="12" sm="6" class="pr-0 pr-sm-2">
                 <v-alert type="success">I'm a success alert.</v-alert>
@@ -49,7 +49,7 @@
             </v-col>
         </v-row>
     </v-card>
-    <v-card title="Badges" class="my-4">
+    <v-card title="Badges" class="my-4" v-liquidGlass>
         <v-toolbar color="blue-grey-darken-3">
             <v-spacer></v-spacer>
 
@@ -82,7 +82,7 @@
             <v-spacer></v-spacer>
         </v-toolbar>
     </v-card>
-    <v-card title="Buttons">
+    <v-card title="Buttons" v-liquidGlass>
         <div class="pa-4">
             <v-row>
                 <v-col cols="6" sm="3">
@@ -150,7 +150,7 @@
             </v-row>
         </div>
     </v-card>
-    <v-card title="Alerts" class="my-4">
+    <v-card title="Alerts" class="my-4" v-liquidGlass>
         <v-row align="center" no-gutters class="pa-4">
             <v-col cols="6" class="pr-2"> </v-col>
             <v-col cols="6" class="pl-2"> </v-col>

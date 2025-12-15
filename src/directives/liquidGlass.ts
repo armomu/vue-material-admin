@@ -1,5 +1,4 @@
-// liquidGlassDirective.ts
-
+import { useAppStore } from '@/stores/useAppStore';
 import type { App, Directive } from 'vue';
 
 // 定义指令值（props）的接口
@@ -201,6 +200,7 @@ function updateElement(
             newOptions.radius!
         );
 
+        el.classList.add('liquid_glass');
         // 2. 重新创建 SVG 滤镜
         const newSvgElement = createSvgFilter(newOptions, svgId, newDisplacementDataUri);
 
@@ -222,16 +222,15 @@ function updateElement(
 export const liquidGlassDirective: Directive<HTMLElement, LiquidGlassOptions> = {
     // 指令绑定到元素时调用
     mounted(el, binding) {
-        // 确保元素具有定位上下文，以便 backdrop-filter 正确工作
-        if (getComputedStyle(el).position === 'static') {
-            el.style.position = 'relative';
+        const appState = useAppStore();
+        // console.log('mounted', appState.settings);
+        if (appState.settings.cardStyle !== 'liquid-glass') {
+            return;
         }
-
+        if (!el) return;
         // 初始设置
         const svgId = crypto.randomUUID();
         const initialOptions = { ...defaultOptions, ...binding.value };
-        console.log('====================initialOptions====================');
-        console.log(initialOptions);
         const initialWidth = el.clientWidth;
         const initialHeight = el.clientHeight;
         console.log(el.style.padding);

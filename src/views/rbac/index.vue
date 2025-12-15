@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex">
-        <v-card width="36%" style="height: var(--content-height)">
+        <v-card width="36%" style="height: var(--content-height)" v-liquidGlass>
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6" text="Menus"> </v-toolbar-title>
                 <template v-slot:append>
@@ -82,7 +82,7 @@
                 </VTreeview>
             </div>
         </v-card>
-        <v-card class="ml-4" style="min-height: var(--content-height); flex: 1">
+        <v-card class="ml-4" style="min-height: var(--content-height); flex: 1" v-liquidGlass>
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6">Roles</v-toolbar-title>
             </v-toolbar>
@@ -132,7 +132,7 @@
         </v-card>
     </div>
     <v-dialog width="700" v-model="rolesEvent.data.visible">
-        <v-card>
+        <v-card v-liquidGlass>
             <v-toolbar color="transparent">
                 <v-toolbar-title
                     class="text-h6"
@@ -186,7 +186,7 @@
         </v-card>
     </v-dialog>
     <v-dialog width="700" v-model="menuEvent.data.visible">
-        <v-card>
+        <v-card v-liquidGlass>
             <v-toolbar color="transparent">
                 <v-toolbar-title
                     class="text-h6"

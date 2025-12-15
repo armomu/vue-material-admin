@@ -1,5 +1,4 @@
 <template>
-    <FabricBg />
     <v-app
         :theme="mainStore.theme"
         :class="{
@@ -9,6 +8,7 @@
             welt: mainStore.settings.welt,
             shadowCard: mainStore.settings.cardStyle === 'shadow',
             borderCard: mainStore.settings.cardStyle === 'border',
+            glassCard: mainStore.settings.cardStyle === 'liquid-glass',
             mobile: mainStore.isMobile,
         }"
     >
@@ -25,7 +25,7 @@
                 <v-btn color="blue" variant="text" @click="item.visible = false"> Close </v-btn>
             </template>
         </v-snackbar>
-        <HatefulMouse />
+        <HatefulMouse v-if="mainStore.settings.cursor === 'round'" />
         <FluidCursor v-if="mainStore.settings.cursor === 'fluid'" />
     </v-app>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <v-card title="Air Conditioner" class="air_conditioner">
-        <PixiCanvas v-model:value="value" />
+        <ThermostatController v-model="value" />
         <div class="d-flex jsb btn_tool" style="width: 350px; margin: 26px auto 10px auto">
             <div class="item">
                 <v-btn variant="tonal" color="primary" icon="">
@@ -29,6 +29,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import PixiCanvas from './CanvasControl.vue';
+import ThermostatController from './ThermostatController.vue';
 
 const value = ref(26);
 const onAdd = () => {

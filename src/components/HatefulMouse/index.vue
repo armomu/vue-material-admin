@@ -1,19 +1,16 @@
 <template>
-    <div ref="hatefulMouseDom" class="hateful-mouse" :style="styles"></div>
+    <div ref="hatefulMouseDom" class="hateful-mouse"></div>
 </template>
 <script lang="ts" setup>
-import { computed, shallowRef, onMounted, getCurrentInstance } from 'vue';
-import { useAppStore } from '@/stores/useAppStore';
-
-const mainStore = useAppStore();
+import { computed, shallowRef, onMounted, getCurrentInstance, onBeforeUnmount } from 'vue';
 
 const $curWidgets = getCurrentInstance();
 
-const styles = computed(() => {
-    return {
-        display: mainStore.settings.cursor === 'round' ? 'block' : 'none',
-    };
-});
+// const styles = computed(() => {
+//     return {
+//         display: mainStore.settings.cursor === 'round' ? 'block' : 'none',
+//     };
+// });
 
 const hatefulMouseDom = shallowRef<HTMLElement>();
 
@@ -138,6 +135,9 @@ onMounted(() => {
     document.addEventListener('mousemove', event);
     animate();
     setTimeout(addEvent, 1000);
+});
+onBeforeUnmount(() => {
+    document.removeEventListener('mousemove', event);
 });
 </script>
 <style lang="scss">

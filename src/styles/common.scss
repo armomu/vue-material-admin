@@ -74,6 +74,19 @@
         border-right-width: 1px !important;
     }
 }
+
+.glassCard {
+    .layout_navigation {
+        box-shadow: none;
+        background: none !important;
+        .liquid_glass {
+            height: calc(100vh - 2rem) !important;
+        }
+    }
+    .v-table {
+        background: none;
+    }
+}
 .v-theme--dark.border_ {
     .v-card {
         box-shadow: none;
@@ -83,7 +96,7 @@
 
 .liquid_glass {
     opacity: 1;
-    background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0)));
+    background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0))) !important;
     box-shadow:
         0 0 2px 1px
             light-dark(
@@ -102,15 +115,8 @@
         0px 16px 56px rgba(17, 17, 26, 0.05),
         0px 4px 16px rgba(17, 17, 26, 0.05) inset,
         0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-        0px 16px 56px rgba(17, 17, 26, 0.05) inset;
+        0px 16px 56px rgba(17, 17, 26, 0.05) inset !important;
     position: relative;
-    .slot-container {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        border-radius: inherit;
-    }
-
     .filter {
         position: absolute;
         inset: 0;

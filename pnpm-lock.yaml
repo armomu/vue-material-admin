@@ -29,6 +29,9 @@ importers:
       '@pixi/ui':
         specifier: ^0.9.1
         version: 0.9.1(vsy3o3gxnkd4e5vhhrxbj6qfvu)
+      '@vueuse/core':
+        specifier: ^14.1.0
+        version: 14.1.0(vue@3.4.27(typescript@5.2.2))
       apexcharts:
         specifier: ^3.36.3
         version: 3.49.1
@@ -845,6 +848,9 @@ packages:
   '@types/three@0.149.0':
     resolution: {integrity: sha512-fgNBm9LWc65ER/W0cvoXdC0iMy7Ke9e2CONmEr6Jt8sDSY3sw4DgOubZfmdZ747dkPhbQrgRQAWwDEr2S/7IEg==}
 
+  '@types/web-bluetooth@0.0.21':
+    resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==, tarball: https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.21.tgz}
+
   '@types/webxr@0.5.16':
     resolution: {integrity: sha512-0E0Cl84FECtzrB4qG19TNTqpunw0F1YF0QZZnFMF6pDw1kNKJtrlTKlVB34stGIsHbZsYQ7H0tNjPfZftkHHoA==}
 
@@ -1013,6 +1019,19 @@ packages:
     peerDependencies:
       vue: ^3.0.0
       vuetify: ^3.0.0
+
+  '@vueuse/core@14.1.0':
+    resolution: {integrity: sha512-rgBinKs07hAYyPF834mDTigH7BtPqvZ3Pryuzt1SD/lg5wEcWqvwzXXYGEDb2/cP0Sj5zSvHl3WkmMELr5kfWw==, tarball: https://registry.npmjs.org/@vueuse/core/-/core-14.1.0.tgz}
+    peerDependencies:
+      vue: ^3.5.0
+
+  '@vueuse/metadata@14.1.0':
+    resolution: {integrity: sha512-7hK4g015rWn2PhKcZ99NyT+ZD9sbwm7SGvp7k+k+rKGWnLjS/oQozoIZzWfCewSUeBmnJkIb+CNr7Zc/EyRnnA==, tarball: https://registry.npmjs.org/@vueuse/metadata/-/metadata-14.1.0.tgz}
+
+  '@vueuse/shared@14.1.0':
+    resolution: {integrity: sha512-EcKxtYvn6gx1F8z9J5/rsg3+lTQnvOruQd8fUecW99DCK04BkWD7z5KQ/wTAx+DazyoEE9dJt/zV8OIEQbM6kw==, tarball: https://registry.npmjs.org/@vueuse/shared/-/shared-14.1.0.tgz}
+    peerDependencies:
+      vue: ^3.5.0
 
   '@yr/monotone-cubic-spline@1.0.3':
     resolution: {integrity: sha512-FQXkOta0XBSUPHndIKON2Y9JeQz5ZeMqLYZVVK93FliNBFm7LNMIZmY6FrMEB9XPcDbE2bekMbZD6kzDkxwYjA==}
@@ -2740,6 +2759,8 @@ snapshots:
     dependencies:
       '@types/webxr': 0.5.16
 
+  '@types/web-bluetooth@0.0.21': {}
+
   '@types/webxr@0.5.16': {}
 
   '@typescript-eslint/eslint-plugin@7.11.0(@typescript-eslint/parser@7.11.0(eslint@8.57.0)(typescript@5.2.2))(eslint@8.57.0)(typescript@5.2.2)':
@@ -2977,6 +2998,19 @@ snapshots:
       upath: 2.0.1
       vue: 3.4.27(typescript@5.2.2)
       vuetify: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2))
+
+  '@vueuse/core@14.1.0(vue@3.4.27(typescript@5.2.2))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 14.1.0
+      '@vueuse/shared': 14.1.0(vue@3.4.27(typescript@5.2.2))
+      vue: 3.4.27(typescript@5.2.2)
+
+  '@vueuse/metadata@14.1.0': {}
+
+  '@vueuse/shared@14.1.0(vue@3.4.27(typescript@5.2.2))':
+    dependencies:
+      vue: 3.4.27(typescript@5.2.2)
 
   '@yr/monotone-cubic-spline@1.0.3': {}
 

@@ -114,30 +114,6 @@ function airValToAngle(_airVal: number) {
     return angleVal;
 }
 
-// let tween: TWEEN.Tween<{ angle: number }>;
-// 因为这个圆圈不是线性的值 所以动画过渡就不搞了
-// 也不是不能搞，就是太麻烦了 艹
-// function setAngleAnmi() {
-//     if (keepOld === airVal.value) {
-//         return;
-//     }
-//     const oldAngle = airValToAngle(keepOld);
-//     const curAngle = airValToAngle(airVal.value);
-//     console.log('oldAngle', oldAngle, 'curAngle', curAngle);
-//     tween = new TWEEN.Tween({ angle: oldAngle })
-//         .to({ angle: curAngle }, 500)
-//         .easing(TWEEN.Easing.Quadratic.Out)
-//         .onUpdate((obj) => {
-//             setTemperature(obj.angle);
-//         })
-//         .start();
-// }
-// function animate(time: number) {
-//     tween?.update(time);
-//     requestAnimationFrame(animate);
-// }
-// requestAnimationFrame(animate);
-
 // 画出对应值的圆
 const setTemperature = (_angleVal: number) => {
     temperatureGraphics.clear();

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="tjjj pa-4">
+    <v-card class="tjjj pa-4" v-liquidGlass>
         <div class="d-flex jsb">
             <div class="text-h6">Statistics</div>
             <v-icon icon="mdi-dots-horizontal" />

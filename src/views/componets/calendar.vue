@@ -1,6 +1,6 @@
 <template>
     <div class="my-calendar">
-        <v-card class="mr-4">
+        <v-card class="mr-4" v-liquidGlass>
             <v-date-picker color="primary" show-adjacent-months></v-date-picker>
             <v-divider class="mx-4"></v-divider>
             <v-list v-model:opened="open" class="mx-4 my-2" density="comfortable">
@@ -50,7 +50,7 @@
                 </v-list-group>
             </v-list>
         </v-card>
-        <v-card style="flex: 1" class="pa-4">
+        <v-card style="flex: 1" class="pa-4" v-liquidGlass>
             <VCalendar
                 ref="calendar"
                 v-model="today"

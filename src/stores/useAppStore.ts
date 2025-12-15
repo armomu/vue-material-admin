@@ -1,6 +1,7 @@
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { vuetify } from '@/plugins/vuetify';
+import { useStorage } from '@vueuse/core';
 
 export const useAppStore = defineStore('main', () => {
     // 初始化是否是移动端设备
@@ -27,6 +28,7 @@ export const useAppStore = defineStore('main', () => {
     });
     const root = document.querySelector(':root');
     root?.setAttribute('theme', scheme.matches ? 'dark' : 'light');
+
     const theme = ref(scheme.matches ? 'dark' : 'light');
 
     const onTheme = (val?: string) => {
@@ -38,8 +40,7 @@ export const useAppStore = defineStore('main', () => {
         }
         root?.setAttribute('theme', theme.value);
     };
-
-    const settings: Settings = reactive({
+    let obj = {
         welt: false,
         backgroundColor: '#ffffff',
         drawer: false,
@@ -62,9 +63,26 @@ export const useAppStore = defineStore('main', () => {
             '#FF5722',
             '#FA896B',
         ],
-    });
+    };
+    const s = localStorage.getItem('appSettings');
+    if (s) {
+        obj = JSON.parse(s);
+    }
+    // @ts-ignore
+    const settings: Settings = reactive({ ...obj });
 
+    watch(
+        () => settings,
+        () => {
+            localStorage.setItem('appSettings', JSON.stringify(settings));
+        },
+        {
+            immediate: true,
+            deep: true,
+        }
+    );
     const onDrawer = () => {
+        console.log('onDrawer');
         settings.drawer = !settings.drawer;
     };
 
@@ -78,7 +96,24 @@ export const useAppStore = defineStore('main', () => {
         vuetify.theme.themes.value.dark.colors.primary = val;
     };
 
-    return { theme, isMobile, onTheme, settings, onDrawer, onPrimary, onBackgroundColor };
+    const onCardStyleChange = (val: Settings['cardStyle']) => {
+        if (val === 'liquid-glass') {
+            settings.cursor = 'fluid';
+        }
+        settings.drawer = false;
+        location.reload();
+    };
+
+    return {
+        theme,
+        isMobile,
+        onTheme,
+        settings,
+        onDrawer,
+        onPrimary,
+        onBackgroundColor,
+        onCardStyleChange,
+    };
 });
 interface Settings {
     welt: boolean;

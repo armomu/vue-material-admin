@@ -1,7 +1,7 @@
 <template>
     <div
         :class="cn('pointer-events-none fixed left-0 top-0 z-50 size-full', props.class)"
-        style="position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none"
+        :style="styles"
     >
         <canvas
             id="fluid"
@@ -15,7 +15,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/utils';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useAppStore } from '@/stores/useAppStore';
 
 interface ColorRGB {
     r: number;
@@ -56,6 +57,18 @@ const props = withDefaults(defineProps<Props>(), {
     colorUpdateSpeed: 10,
     backColor: () => ({ r: 0.5, g: 0, b: 0 }),
     transparent: true,
+});
+
+const appState = useAppStore();
+
+const styles = computed(() => {
+    return {
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        'z-index': appState.settings.cardStyle === 'liquid-glass' ? 0 : 999,
+        'pointer-events': 'none',
+    };
 });
 
 interface Pointer {

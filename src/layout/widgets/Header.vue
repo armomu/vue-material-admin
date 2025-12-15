@@ -1,5 +1,5 @@
 <template>
-    <v-card class="header">
+    <v-card class="header" v-liquidGlass>
         <Breadcrumbs v-if="!appEvent.isMobile" />
         <div v-if="!appEvent.isMobile" class="mt-3 ml-9 gamepad" @click="changeRail">
             <v-icon v-if="rail" icon="mdi-sort-variant-lock-open" />

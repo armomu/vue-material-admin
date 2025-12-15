@@ -18,6 +18,7 @@
     "@pixi/filter-displacement": "^7.3.2",
     "@pixi/graphics-extras": "^7.3.1",
     "@pixi/ui": "^0.9.1",
+    "@vueuse/core": "^14.1.0",
     "apexcharts": "^3.36.3",
     "axios": "^1.11.0",
     "dayjs": "^1.11.13",

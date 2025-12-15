@@ -36,15 +36,4 @@ const navState = reactive({
     isMini: !mainStore.isMobile,
 });
 const device = computed(() => mainStore.isMobile);
-// watch(device, () => {
-//     if (device.value && navState.rail) {
-//         // navState.rail = false;
-//         console.log(navState);
-//     }
-//     if (!device.value) {
-//         console.log(navState);
-//         // navState.rail = !navState.rail;
-//         // navState.isMini = !navState.rail;
-//     }
-// });
 </script>

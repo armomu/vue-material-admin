@@ -2,7 +2,7 @@
     <div class="smart_house pb-5">
         <v-row>
             <v-col cols="12" sm="6">
-                <v-card title="Cameras">
+                <v-card title="Camera" v-liquidGlass>
                     <v-tabs v-model="tab" align-tabs="end" class="mx-4" color="primary">
                         <v-tab :value="1">Living Room</v-tab>
                         <v-tab :value="2">Bed Room</v-tab>
@@ -38,17 +38,34 @@
                 </v-card>
             </v-col>
             <v-col cols="12" sm="2" class="px-sm-1 px-3 py-1 py-sm-3">
-                <Device v-model="widgets.wifi" title="5G WI-FI" icon="mdi-wifi" :toolw="false" />
-                <Device v-model="widgets.tv" class="my-4" title="Apple TV" icon="mdi-television" />
-                <Device v-model="widgets.ts" title="Air Conditioner" icon="mdi-snowflake" />
+                <Device
+                    v-liquidGlass
+                    v-model="widgets.wifi"
+                    title="5G WI-FI"
+                    icon="mdi-wifi"
+                    :toolw="false"
+                />
+                <Device
+                    v-liquidGlass
+                    v-model="widgets.tv"
+                    class="my-4"
+                    title="Apple TV"
+                    icon="mdi-television"
+                />
+                <Device
+                    v-liquidGlass
+                    v-model="widgets.ts"
+                    title="Air Conditioner"
+                    icon="mdi-snowflake"
+                />
             </v-col>
-            <v-col cols="12" sm="4"> <AirConditioner /></v-col>
+            <v-col cols="12" sm="4"> <AirConditioner v-liquidGlass /></v-col>
         </v-row>
         <v-row>
             <v-col cols="12" sm="8" class="py-1">
                 <v-row>
                     <v-col cols="12" sm="5">
-                        <v-card>
+                        <v-card v-liquidGlass>
                             <div class="d-flex justify-space-between">
                                 <v-avatar size="120" rounded="0" class="ma-4">
                                     <img src="../../assets/cloud.png" height="120" />
@@ -68,13 +85,16 @@
                             </div>
                         </v-card>
                     </v-col>
-                    <v-col cols="12" sm="7" class="px-1 sm_item_ sm_pt_1"><MusicCard /></v-col>
+                    <v-col cols="12" sm="7" class="px-1 sm_item_ sm_pt_1">
+                        <MusicCard v-liquidGlass />
+                    </v-col>
                     <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
                         <Device
                             v-model="widgets.cctv"
                             title="Camera CCTV"
                             :imgSrc="imgcctv"
                             dev-model="Google Camera - X2"
+                            v-liquidGlass
                         />
                     </v-col>
                     <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
@@ -83,6 +103,7 @@
                             title="Speaker"
                             :imgSrc="imgspeaker"
                             dev-model="Google Speaker - A2"
+                            v-liquidGlass
                         />
                     </v-col>
                     <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
@@ -91,6 +112,7 @@
                             title="Thermostat"
                             :imgSrc="imgthermostat"
                             dev-model="Google Thermostat"
+                            v-liquidGlass
                         />
                     </v-col>
                     <v-col cols="12" sm="3" class="py-1 pr-1 sm_item_">
@@ -99,12 +121,13 @@
                             title="Humidifier"
                             :imgSrc="imghumidifier"
                             dev-model="Xiaomi Mi - X500"
+                            v-liquidGlass
                         />
                     </v-col>
                 </v-row>
             </v-col>
             <v-col cols="12" sm="4" class="py-1 py1_no">
-                <EnergyUsed />
+                <EnergyUsed v-liquidGlass />
             </v-col>
         </v-row>
     </div>

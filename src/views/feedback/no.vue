@@ -1,10 +1,8 @@
 <template>
     <div class="no404">
         <div v-liquidGlass>
-            <div class="pa-8">
-                <div class="title">Not found</div>
-                <span>404</span>
-            </div>
+            <div class="title">Not found</div>
+            <span>404</span>
         </div>
     </div>
 </template>

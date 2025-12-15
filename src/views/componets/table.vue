@@ -14,7 +14,7 @@
                 ><Statistic value="15,260" chart-color="#FF5722" :chart-data="[68, 58, 65, 72]"
             /></v-col>
         </v-row>
-        <v-card class="my-4">
+        <v-card class="my-4" v-liquidGlass>
             <div class="search-bar ma-4 d-flex">
                 <div class="filter d-flex">
                     <div class="row">
@@ -141,7 +141,7 @@
             </div>
         </v-card>
         <v-dialog v-model="dialog" width="30%">
-            <v-card title="Dialog">
+            <v-card title="Dialog" v-liquidGlass>
                 <v-card-text>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua.
