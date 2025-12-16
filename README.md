@@ -29,7 +29,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件的开源中后台系统模�
 
 服务器
 - 💻 框架: Nest.js
-- 🫙 数据库: MySQL+TypeORM
+- 🫙 数据库: MySQL、TypeORM
 - 🍪 缓存: Redis
 
 ## 🌻 页面截图
@@ -41,9 +41,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件的开源中后台系统模�
   <img width="49%" src="https://github.com/armomu/vue-material-admin/raw/master/src/assets/babylonjs.png">
 </p>
 
-## 🍭 PreView
-
-Vercel需要科学上网！打不开的同学自行下载项目在本地开发环境预览
+## 🍭 在线预览
 
 - 🌍 Vercel [https://vue-material-admin.vercel.app/](https://vue-material-admin-alpha.vercel.app/)
 
@@ -51,28 +49,22 @@ Vercel需要科学上网！打不开的同学自行下载项目在本地开发�
 ## 👊 TODO
 
 1. 🍳 Vuetify 组件
-    - ✅ Table
+    - ✅ Card
+    - ✅ Form
+    - ✅ Data Table
     - ✅ Calendar
-    - ✅ DictSelect(自动注册可枚举字典下拉框)
-    - ❌ 日期选择器
-    - ❌ 全局加载效果Api
-2. 🏡 智能家居控制组件
-    - ✅ 环形控制器(支持鼠标拖动进度)
-    - ✅ 360度全景图预览(其实是Babylon.js的一个API而已)
-3. 🔥 [Pixi.js捕鱼DEMO](https://chenhuajie.gitee.io/vue-material-admin/#/graphics/pixijs) 
-    - ✅ 小鱼自动移动
-    - ✅ 射击撒网
-    - ❌ 小鱼获取新位置后旋转对应角度方向
-    - ❌ 击落效果获取金币
-    - ❌ 音频
-4. 🐝 适配
-    - ✅ 夜间模式
+    - ✅ Menu
+    - ✅ Tree
+    - loading...
+2. 🐝 优化适配
+    - ✅ 深色模式
     - ✅ 适配移动设备(大部分适配)
     - ✅ 主题颜色修改
-5. 💻 后端 Node.js
+    - ✅ 液态玻璃等...
+3. 💻 服务器
     - ✅ Nest.js
-    - ✅ MySQL + TypeORM
-    - ✅ JWT + RBAC 权限控制
+    - ✅ MySQL、TypeORM、Redis
+    - ✅ RBAC 权限控制
 
 ## 📑 本地开发
 
@@ -97,8 +89,8 @@ pnpm run dev
 
 切换 [Serve](https://github.com/armomu/vue-material-admin/tree/serve) 分支查看教程，接口文档 [https://nliq7vrniv.apifox.cn](https://nliq7vrniv.apifox.cn)
 
-> 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务，也从[vue-naive-admin](https://github.com/zclzone/vue-naive-admin)项目中学习到了一些新的封装思路
+> 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务
 
 
-### 🎏 开源不易，如果您觉得还不错，请作者喝杯咖啡吧
+### 🎏 如果您觉得还不错，请作者喝杯咖啡吧
 <img width="350" src="https://github.com/armomu/vue-material-admin/raw/master/public/skm.jpg" alt="微信支付">
