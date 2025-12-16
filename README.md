@@ -74,6 +74,7 @@ Vue Material Admin 是一个基于 `Vuetify` 组件的开源中后台系统模�
 
 如果想和服务端一起开发预览，请切换到 [Serve](https://github.com/armomu/vue-material-admin/tree/serve) 分支查看启动服务端教程，然后把 `.env.development` 文件服务器地址改为 `VITE_API = http://localhost:8085` 
 
+
 ```
 git clone https://github.com/armomu/vue-material-admin.git
 
@@ -91,6 +92,3 @@ pnpm run dev
 
 > 非常感谢 [zclzone](https://github.com/zclzone)大佬提供的Nestjs服务项目，让我快速搭建了这个模版的后台服务
 
-
-### 🎏 如果您觉得还不错，请作者喝杯咖啡吧
-<img width="350" src="https://github.com/armomu/vue-material-admin/raw/master/public/skm.jpg" alt="微信支付">
