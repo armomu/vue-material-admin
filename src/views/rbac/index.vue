@@ -132,7 +132,7 @@
         </v-card>
     </div>
     <v-dialog width="700" v-model="rolesEvent.data.visible">
-        <v-card v-liquidGlass>
+        <v-card>
             <v-toolbar color="transparent">
                 <v-toolbar-title
                     class="text-h6"
@@ -147,7 +147,7 @@
                     />
                 </template>
             </v-toolbar>
-            <v-sheet width="500" class="ma-10 mx-auto">
+            <v-sheet width="500" class="ma-10 mx-auto" color="transparent">
                 <v-form :ref="rolesEvent.formRef" @submit.prevent>
                     <v-text-field
                         v-model="rolesEvent.data.form.name"
@@ -186,7 +186,7 @@
         </v-card>
     </v-dialog>
     <v-dialog width="700" v-model="menuEvent.data.visible">
-        <v-card v-liquidGlass>
+        <v-card>
             <v-toolbar color="transparent">
                 <v-toolbar-title
                     class="text-h6"
@@ -201,7 +201,7 @@
                     />
                 </template>
             </v-toolbar>
-            <v-sheet width="500" class="ma-10 mx-auto">
+            <v-sheet width="500" class="ma-10 mx-auto" color="transparent">
                 <v-form :ref="menuEvent.formRef" @submit.prevent>
                     <v-text-field
                         v-model="menuEvent.data.form.name"

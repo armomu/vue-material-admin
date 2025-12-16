@@ -17,7 +17,7 @@
                 v-model:mini="navState.isMini"
                 v-model:visible="navState.menuVisible"
             />
-            <div class="router"><RouterView /></div>
+            <div class="router"><RouterView :key="mainStore.theme" /></div>
         </main>
         <Settings />
     </v-layout>
@@ -35,5 +35,11 @@ const navState = reactive({
     rail: !mainStore.isMobile,
     isMini: !mainStore.isMobile,
 });
+if (mainStore.settings.cardStyle === 'liquid-glass') {
+    setTimeout(() => {
+        navState.isMini = false;
+        navState.rail = false;
+    }, 1000);
+}
 const device = computed(() => mainStore.isMobile);
 </script>

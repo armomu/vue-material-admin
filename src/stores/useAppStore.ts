@@ -29,11 +29,11 @@ export const useAppStore = defineStore('main', () => {
     const root = document.querySelector(':root');
     root?.setAttribute('theme', scheme.matches ? 'dark' : 'light');
 
-    const theme = ref(scheme.matches ? 'dark' : 'light');
+    const theme = ref<'dark' | 'light'>('dark');
+    // const theme = ref(scheme.matches ? 'dark' : 'light');
 
-    const onTheme = (val?: string) => {
+    const onTheme = (val?: 'dark' | 'light') => {
         if (typeof val === 'string') {
-            console.log(val, 'theme');
             theme.value = val;
         } else {
             theme.value = theme.value === 'light' ? 'dark' : 'light';
@@ -81,7 +81,6 @@ export const useAppStore = defineStore('main', () => {
         }
     );
     const onDrawer = () => {
-        console.log('onDrawer');
         settings.drawer = !settings.drawer;
     };
 

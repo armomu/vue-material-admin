@@ -12,6 +12,7 @@
             <v-icon size="small"></v-icon>
         </v-btn>
         <v-spacer></v-spacer>
+        <div v-if="appEvent.settings.cardStyle === 'liquid-glass'" ref="pDom" class="mr-4"></div>
         <div v-if="!appEvent.isMobile" style="width: 320px" class="search_ip mr-2">
             <v-text-field
                 rounded
@@ -37,7 +38,7 @@
                         </v-badge>
                     </v-btn>
                 </template>
-                <v-card min-width="300" class="px-2" v-liquidGlass>
+                <v-card min-width="300" class="px-2">
                     <v-list style="height: 200px; overflow: auto">
                         <v-list-item
                             prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
@@ -110,7 +111,9 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/stores/useAppStore';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
+import Stats from 'stats-js';
+
 import logo from '@/assets/admin-logo.png';
 
 const emit = defineEmits(['update:rail', 'update:mini', 'update:visible']);
@@ -153,4 +156,24 @@ const onShowMenu = () => {
     emit('update:visible', true);
 };
 const messageVisible = ref(false);
+const pDom = ref();
+const stats = new Stats();
+// // 可选：设置面板位置（默认左上角）
+stats.dom.style.cssText += 'position: relative; left: 0px; top: 0px;';
+// document.body.appendChild(stats.dom);
+
+// 开始监听帧率
+const animate = () => {
+    stats?.begin();
+    // 这里不需要写渲染逻辑，因为 Vue 负责 DOM 更新
+    // stats.js 只需 begin/end 包裹每一帧（即使空操作）
+    stats?.end();
+    requestAnimationFrame(animate);
+};
+onMounted(() => {
+    animate();
+    if (pDom.value) {
+        pDom.value.appendChild(stats.dom);
+    }
+});
 </script>

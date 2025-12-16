@@ -50,7 +50,7 @@
         </v-row>
     </v-card>
     <v-card title="Badges" class="my-4" v-liquidGlass>
-        <v-toolbar color="blue-grey-darken-3">
+        <v-toolbar color="transparent">
             <v-spacer></v-spacer>
 
             <v-btn class="text-none" stacked>

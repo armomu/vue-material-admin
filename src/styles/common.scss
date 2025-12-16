@@ -86,6 +86,9 @@
     .v-table {
         background: none;
     }
+    .v-list {
+        background: none;
+    }
 }
 .v-overlay__content {
     .v-list {
@@ -102,25 +105,6 @@
 .liquid_glass {
     opacity: 1;
     background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0))) !important;
-    // box-shadow:
-    //     0 0 2px 1px
-    //         light-dark(
-    //             color-mix(in oklch, canvasText, #0000 85%),
-    //             color-mix(in oklch, canvasText, #0000 90%)
-    //         )
-    //         inset,
-    //     0 0 10px 4px
-    //         light-dark(
-    //             color-mix(in oklch, canvasText, #0000 90%),
-    //             color-mix(in oklch, canvasText, #0000 95%)
-    //         )
-    //         inset,
-    //     0px 4px 16px rgba(17, 17, 26, 0.001),
-    //     0px 8px 24px rgba(17, 17, 26, 0.001),
-    //     0px 16px 56px rgba(17, 17, 26, 0.001),
-    //     0px 4px 16px rgba(17, 17, 26, 0.001) inset,
-    //     0px 8px 24px rgba(17, 17, 26, 0.001) inset,
-    //     0px 16px 56px rgba(17, 17, 26, 0.001) inset !important;
     box-shadow:
         /* 第一组：内部阴影 (inset) */
         0 0 2px 1px

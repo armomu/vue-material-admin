@@ -121,7 +121,7 @@
         </div>
     </v-card>
     <v-dialog width="700" v-model="usersEvent.data.visible">
-        <v-card v-liquidGlass>
+        <v-card>
             <v-toolbar color="transparent">
                 <v-toolbar-title class="text-h6" :text="usersEvent.data.dialogTitle">
                 </v-toolbar-title>

@@ -53,6 +53,9 @@ importers:
       pixi.js:
         specifier: ^7.3.2
         version: 7.4.2
+      stats-js:
+        specifier: ^1.0.1
+        version: 1.0.1
       three:
         specifier: ^0.149.0
         version: 0.149.0
@@ -1845,6 +1848,9 @@ packages:
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
+
+  stats-js@1.0.1:
+    resolution: {integrity: sha512-EAwEFghGNv8mlYC4CZzI5kWghsnP8uBKXw6VLRHtXkOk5xySfUKLTqTkjgJFfDluIkf/O7eZwi5MXP50VeTbUg==, tarball: https://registry.npmjs.org/stats-js/-/stats-js-1.0.1.tgz}
 
   strip-ansi@6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
@@ -3856,6 +3862,8 @@ snapshots:
   source-map-js@1.2.0: {}
 
   source-map-js@1.2.1: {}
+
+  stats-js@1.0.1: {}
 
   strip-ansi@6.0.1:
     dependencies:
