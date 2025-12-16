@@ -5,7 +5,7 @@
         </v-btn>
     </div>
     <v-navigation-drawer
-        style="height: 100vh; z-index: 1000; position: fixed"
+        style="height: 100vh; z-index: 1000; position: fixed; top: 0"
         location="right"
         v-model="mainStore.settings.drawer"
         temporary

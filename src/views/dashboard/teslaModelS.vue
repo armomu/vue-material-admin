@@ -2,8 +2,8 @@
     <div class="tesla">
         <div class="car">
             <img src="../../assets/tesla-model-s.png" class="tesla_img" />
-            <v-card class="elevation-0 cloud_card py-2" theme="light">
-                <div class="d-flex justify-space-between">
+            <v-card class="cloud_card" :theme="theme" v-liquidGlass>
+                <div class="d-flex justify-space-between py-2">
                     <div style="flex: 1">
                         <v-card-title class="text-h5"> ShenZhen Tody </v-card-title>
 
@@ -22,61 +22,73 @@
                 </div>
             </v-card>
             <div class="row2">
-                <v-card class="elevation-0 pa-4 battery" theme="light">
-                    <div class="d-flex">
-                        <v-btn
-                            color="rgba(0,0,0,0.8)"
-                            icon="mdi-battery-90"
-                            theme="dark"
-                            class="elevation-0 innericon"
-                        ></v-btn>
-                        <v-card-title class="text-h6"> Battery Health</v-card-title>
+                <v-card class="battery" :theme="theme" v-liquidGlass>
+                    <div class="pa-4">
+                        <div class="d-flex">
+                            <v-btn
+                                color="rgba(0,0,0,0.8)"
+                                icon="mdi-battery-90"
+                                theme="dark"
+                                class="elevation-0 innericon"
+                            ></v-btn>
+                            <v-card-title class="text-h6"> Battery Health</v-card-title>
+                        </div>
+                        <v-card-text class="py-0 mt-4 px-0">
+                            <v-row align="center" no-gutters>
+                                <v-col cols="6" style="border-right: 1px solid rgba(0, 0, 0, 0.3)">
+                                    <v-card-subtitle class="ml-0 pl-0"
+                                        >Remaining Battery</v-card-subtitle
+                                    >
+                                    <div class="text-h3">90<span class="text-h6">%</span></div>
+                                </v-col>
+                                <v-col cols="6">
+                                    <div class="pl-4">
+                                        <v-card-subtitle class="ml-0 pl-0"
+                                            >Distance</v-card-subtitle
+                                        >
+                                        <div class="text-h3">
+                                            415<span class="text-h6">Km</span>
+                                        </div>
+                                    </div>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
                     </div>
-                    <v-card-text class="py-0 mt-4 px-0">
-                        <v-row align="center" no-gutters>
-                            <v-col cols="6" style="border-right: 1px solid rgba(0, 0, 0, 0.3)">
-                                <v-card-subtitle class="ml-0 pl-0"
-                                    >Remaining Battery</v-card-subtitle
-                                >
-                                <div class="text-h3">90<span class="text-h6">%</span></div>
-                            </v-col>
-                            <v-col cols="6">
-                                <div class="pl-4">
-                                    <v-card-subtitle class="ml-0 pl-0">Distance</v-card-subtitle>
-                                    <div class="text-h3">415<span class="text-h6">Km</span></div>
-                                </div>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
                 </v-card>
-                <v-card class="elevation-0 pa-4 Trip" theme="light">
-                    <div class="d-flex">
-                        <v-btn
-                            color="rgba(0,0,0,0.8)"
-                            icon="mdi-speedometer"
-                            theme="dark"
-                            class="elevation-0 innericon"
-                        ></v-btn>
-                        <v-card-title class="text-h6"> Today's Trip</v-card-title>
+                <v-card class="Trip" :theme="theme" v-liquidGlass>
+                    <div class="pa-4">
+                        <div class="d-flex">
+                            <v-btn
+                                color="rgba(0,0,0,0.8)"
+                                icon="mdi-speedometer"
+                                theme="dark"
+                                class="elevation-0 innericon"
+                            ></v-btn>
+                            <v-card-title class="text-h6"> Today's Trip</v-card-title>
+                        </div>
+                        <v-card-text class="py-0 mt-4 px-0">
+                            <v-row align="center" no-gutters>
+                                <v-col cols="6" style="border-right: 1px solid rgba(0, 0, 0, 0.3)">
+                                    <v-card-subtitle class="ml-0 pl-0"
+                                        >Average Speed
+                                    </v-card-subtitle>
+                                    <div class="text-h3">52<span class="text-h6">Km</span></div>
+                                </v-col>
+                                <v-col cols="6">
+                                    <div class="pl-4">
+                                        <v-card-subtitle class="ml-0 pl-0"
+                                            >Distance</v-card-subtitle
+                                        >
+                                        <div class="text-h3">98<span class="text-h6">Km</span></div>
+                                    </div>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
                     </div>
-                    <v-card-text class="py-0 mt-4 px-0">
-                        <v-row align="center" no-gutters>
-                            <v-col cols="6" style="border-right: 1px solid rgba(0, 0, 0, 0.3)">
-                                <v-card-subtitle class="ml-0 pl-0">Average Speed </v-card-subtitle>
-                                <div class="text-h3">52<span class="text-h6">Km</span></div>
-                            </v-col>
-                            <v-col cols="6">
-                                <div class="pl-4">
-                                    <v-card-subtitle class="ml-0 pl-0">Distance</v-card-subtitle>
-                                    <div class="text-h3">98<span class="text-h6">Km</span></div>
-                                </div>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
                 </v-card>
             </div>
         </div>
-        <div class="car_sys mt-4">
+        <div class="car_sys mt-4" v-liquidGlass>
             <v-system-bar
                 theme="dark"
                 style="position: relative; left: 0; top: 0; width: auto; background: none"
@@ -215,8 +227,19 @@
 </template>
 <script setup lang="ts">
 // eslint-disable-next-line no-unused-vars
-import { shallowRef, onMounted, onBeforeUnmount } from 'vue';
+import { shallowRef, onMounted, onBeforeUnmount, computed } from 'vue';
 import AMapLoader from '@amap/amap-jsapi-loader';
+import { useAppStore } from '@/stores/useAppStore';
+
+const appStore = useAppStore();
+
+const theme = computed(() => {
+    if (appStore.theme === 'dark' && appStore.settings.cardStyle === 'liquid-glass') {
+        return 'dark';
+    }
+    return 'light';
+});
+
 onMounted(() => {
     // audio.value.addEventListener();
 });

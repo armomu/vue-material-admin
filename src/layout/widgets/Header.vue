@@ -1,5 +1,5 @@
 <template>
-    <v-card class="header" v-liquidGlass>
+    <v-card class="header" :key="appEvent.theme" v-liquidGlass>
         <Breadcrumbs v-if="!appEvent.isMobile" />
         <div v-if="!appEvent.isMobile" class="mt-3 ml-9 gamepad" @click="changeRail">
             <v-icon v-if="rail" icon="mdi-sort-variant-lock-open" />
@@ -37,7 +37,7 @@
                         </v-badge>
                     </v-btn>
                 </template>
-                <v-card min-width="300" class="px-2">
+                <v-card min-width="300" class="px-2" v-liquidGlass>
                     <v-list style="height: 200px; overflow: auto">
                         <v-list-item
                             prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
@@ -77,7 +77,7 @@
                     <v-img :src="authEvent.userDetail.profile.avatar" alt="陈咩啊"></v-img>
                 </v-avatar>
                 <v-menu activator="parent" transition="slide-y-transition">
-                    <v-list :lines="false" nav density="compact" class="pa-2">
+                    <v-list :lines="false" nav density="compact" class="pa-2" v-liquidGlass>
                         <v-list-item
                             :title="authEvent.userDetail.username"
                             :prependAvatar="authEvent.userDetail.profile.avatar"

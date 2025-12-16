@@ -87,6 +87,11 @@
         background: none;
     }
 }
+.v-overlay__content {
+    .v-list {
+        background: none;
+    }
+}
 .v-theme--dark.border_ {
     .v-card {
         box-shadow: none;
@@ -97,25 +102,57 @@
 .liquid_glass {
     opacity: 1;
     background: light-dark(hsl(0 0% 100% / var(--frost, 0)), hsl(0 0% 0% / var(--frost, 0))) !important;
+    // box-shadow:
+    //     0 0 2px 1px
+    //         light-dark(
+    //             color-mix(in oklch, canvasText, #0000 85%),
+    //             color-mix(in oklch, canvasText, #0000 90%)
+    //         )
+    //         inset,
+    //     0 0 10px 4px
+    //         light-dark(
+    //             color-mix(in oklch, canvasText, #0000 90%),
+    //             color-mix(in oklch, canvasText, #0000 95%)
+    //         )
+    //         inset,
+    //     0px 4px 16px rgba(17, 17, 26, 0.001),
+    //     0px 8px 24px rgba(17, 17, 26, 0.001),
+    //     0px 16px 56px rgba(17, 17, 26, 0.001),
+    //     0px 4px 16px rgba(17, 17, 26, 0.001) inset,
+    //     0px 8px 24px rgba(17, 17, 26, 0.001) inset,
+    //     0px 16px 56px rgba(17, 17, 26, 0.001) inset !important;
     box-shadow:
+        /* 第一组：内部阴影 (inset) */
         0 0 2px 1px
             light-dark(
-                color-mix(in oklch, canvasText, #0000 85%),
-                color-mix(in oklch, canvasText, #0000 90%)
+                /* 浅色模式下：将 canvasText 混合 95% 的透明色 */
+                color-mix(in oklch, canvasText, #0000 95%),
+                /* 深色模式下：将 canvasText 混合 97% 的透明色 */
+                color-mix(in oklch, canvasText, #0000 97%)
             )
             inset,
+
+        /* 第二组：内部阴影 (inset) */
         0 0 10px 4px
             light-dark(
-                color-mix(in oklch, canvasText, #0000 90%),
-                color-mix(in oklch, canvasText, #0000 95%)
+                /* 浅色模式下：混合 97% 的透明色 */
+                color-mix(in oklch, canvasText, #0000 97%),
+                /* 深色模式下：混合 98% 的透明色 */
+                color-mix(in oklch, canvasText, #0000 98%)
             )
             inset,
-        0px 4px 16px rgba(17, 17, 26, 0.05),
-        0px 8px 24px rgba(17, 17, 26, 0.05),
-        0px 16px 56px rgba(17, 17, 26, 0.05),
-        0px 4px 16px rgba(17, 17, 26, 0.05) inset,
-        0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-        0px 16px 56px rgba(17, 17, 26, 0.05) inset !important;
+
+        /* 第三组：外部阴影 (External Shadows) */
+        /* 将所有透明度调整为 0.0005 (比 0.0001 深，比 0.001 浅) */
+        0px 4px 16px rgba(17, 17, 26, 0.0005),
+        0px 8px 24px rgba(17, 17, 26, 0.0005),
+        0px 16px 56px rgba(17, 17, 26, 0.0005),
+        
+        /* 第四组：内部阴影 (Inset Shadows) */
+        /* 将所有透明度调整为 0.0005 */
+        0px 4px 16px rgba(17, 17, 26, 0.0005) inset,
+        0px 8px 24px rgba(17, 17, 26, 0.0005) inset,
+        0px 16px 56px rgba(17, 17, 26, 0.0005) inset !important;
     position: relative;
     .filter {
         position: absolute;
@@ -123,5 +160,6 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
+        color: rgba(211, 211, 211, 0.001);
     }
 }
