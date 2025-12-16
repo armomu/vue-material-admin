@@ -40,15 +40,15 @@ export const useAppStore = defineStore('main', () => {
         }
         root?.setAttribute('theme', theme.value);
     };
-    let obj = {
+    let obj: Settings = {
         welt: false,
         backgroundColor: '#ffffff',
         drawer: false,
         primary: '#7F85F9',
-        cardStyle: 'shadow', // border // default //
+        cardStyle: 'liquid-glass', // border // default //
         backgroundColors: ['#ffffff', '#f8f8f8', '#e5eaef'],
         fixedHeader: true,
-        cursor: 'default',
+        cursor: 'fluid',
         primaryColors: [
             '#7F85F9',
             '#2196F3',
@@ -68,7 +68,6 @@ export const useAppStore = defineStore('main', () => {
     if (s) {
         obj = JSON.parse(s);
     }
-    // @ts-ignore
     const settings: Settings = reactive({ ...obj });
 
     watch(
