@@ -18,10 +18,4 @@ syncRouter().then((res) => {
         router.push('/login');
     }
     app.mount('#app');
-    // .$nextTick(() => {
-    //     setTimeout(() => {
-    //         // const d = document.getElementById('_loading_');
-    //         // d?.setAttribute('class', 'loading_ hide');
-    //     }, 10);
-    // });
 });

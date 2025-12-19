@@ -97,6 +97,8 @@ export const useAppStore = defineStore('main', () => {
     const onCardStyleChange = (val: Settings['cardStyle']) => {
         if (val === 'liquid-glass') {
             settings.cursor = 'fluid';
+        } else {
+            settings.cursor = 'default';
         }
         settings.drawer = false;
         location.reload();
