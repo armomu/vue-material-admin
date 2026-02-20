@@ -28,7 +28,7 @@ importers:
         version: 7.4.2(@pixi/core@7.4.2)(@pixi/graphics@7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2(@pixi/core@7.4.2))(@pixi/sprite@7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2(@pixi/core@7.4.2))))
       '@pixi/ui':
         specifier: ^0.9.1
-        version: 0.9.1(vsy3o3gxnkd4e5vhhrxbj6qfvu)
+        version: 0.9.1(1142af754965f13c9471cfe7ab2bd842)
       '@vueuse/core':
         specifier: ^14.1.0
         version: 14.1.0(vue@3.4.27(typescript@5.2.2))
@@ -62,6 +62,9 @@ importers:
       vue:
         specifier: ^3.2.45
         version: 3.4.27(typescript@5.2.2)
+      vue-i18n:
+        specifier: ^11.2.8
+        version: 11.2.8(vue@3.4.27(typescript@5.2.2))
       vue-router:
         specifier: ^4.1.6
         version: 4.3.2(vue@3.4.27(typescript@5.2.2))
@@ -73,7 +76,7 @@ importers:
         version: 4.1.0(vue@3.4.27(typescript@5.2.2))
       vuetify:
         specifier: ^3.6.7
-        version: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2))
+        version: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue-i18n@11.2.8(vue@3.4.27(typescript@5.2.2)))(vue@3.4.27(typescript@5.2.2))
     devDependencies:
       '@mdi/font':
         specifier: ^7.1.96
@@ -464,6 +467,18 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
 
+  '@intlify/core-base@11.2.8':
+    resolution: {integrity: sha512-nBq6Y1tVkjIUsLsdOjDSJj4AsjvD0UG3zsg9Fyc+OivwlA/oMHSKooUy9tpKj0HqZ+NWFifweHavdljlBLTwdA==, tarball: https://registry.npmjs.org/@intlify/core-base/-/core-base-11.2.8.tgz}
+    engines: {node: '>= 16'}
+
+  '@intlify/message-compiler@11.2.8':
+    resolution: {integrity: sha512-A5n33doOjmHsBtCN421386cG1tWp5rpOjOYPNsnpjIJbQ4POF0QY2ezhZR9kr0boKwaHjbOifvyQvHj2UTrDFQ==, tarball: https://registry.npmjs.org/@intlify/message-compiler/-/message-compiler-11.2.8.tgz}
+    engines: {node: '>= 16'}
+
+  '@intlify/shared@11.2.8':
+    resolution: {integrity: sha512-l6e4NZyUgv8VyXXH4DbuucFOBmxLF56C/mqh2tvApbzl2Hrhi1aTDcuv5TKdxzfHYmpO3UB0Cz04fgDT9vszfw==, tarball: https://registry.npmjs.org/@intlify/shared/-/shared-11.2.8.tgz}
+    engines: {node: '>= 16'}
+
   '@jridgewell/gen-mapping@0.3.5':
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
     engines: {node: '>=6.0.0'}
@@ -756,56 +771,67 @@ packages:
     resolution: {integrity: sha512-54v4okehwl5TaSIkpp97rAHGp7t3ghinRd/vyC1iXqXMfjYUTm7TfYmCzXDoHUPTTf36L8pr0E7YsD3CfB3ZDg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm-gnueabihf/-/rollup-linux-arm-gnueabihf-4.50.1.tgz}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.50.1':
     resolution: {integrity: sha512-p/LaFyajPN/0PUHjv8TNyxLiA7RwmDoVY3flXHPSzqrGcIp/c2FjwPPP5++u87DGHtw+5kSH5bCJz0mvXngYxw==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm-musleabihf/-/rollup-linux-arm-musleabihf-4.50.1.tgz}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.50.1':
     resolution: {integrity: sha512-2AbMhFFkTo6Ptna1zO7kAXXDLi7H9fGTbVaIq2AAYO7yzcAsuTNWPHhb2aTA6GPiP+JXh85Y8CiS54iZoj4opw==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.50.1.tgz}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.50.1':
     resolution: {integrity: sha512-Cgef+5aZwuvesQNw9eX7g19FfKX5/pQRIyhoXLCiBOrWopjo7ycfB292TX9MDcDijiuIJlx1IzJz3IoCPfqs9w==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm64-musl/-/rollup-linux-arm64-musl-4.50.1.tgz}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.50.1':
     resolution: {integrity: sha512-RPhTwWMzpYYrHrJAS7CmpdtHNKtt2Ueo+BlLBjfZEhYBhK00OsEqM08/7f+eohiF6poe0YRDDd8nAvwtE/Y62Q==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-loongarch64-gnu/-/rollup-linux-loongarch64-gnu-4.50.1.tgz}
     cpu: [loong64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-ppc64-gnu@4.50.1':
     resolution: {integrity: sha512-eSGMVQw9iekut62O7eBdbiccRguuDgiPMsw++BVUg+1K7WjZXHOg/YOT9SWMzPZA+w98G+Fa1VqJgHZOHHnY0Q==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-ppc64-gnu/-/rollup-linux-ppc64-gnu-4.50.1.tgz}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.50.1':
     resolution: {integrity: sha512-S208ojx8a4ciIPrLgazF6AgdcNJzQE4+S9rsmOmDJkusvctii+ZvEuIC4v/xFqzbuP8yDjn73oBlNDgF6YGSXQ==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-riscv64-gnu/-/rollup-linux-riscv64-gnu-4.50.1.tgz}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.50.1':
     resolution: {integrity: sha512-3Ag8Ls1ggqkGUvSZWYcdgFwriy2lWo+0QlYgEFra/5JGtAd6C5Hw59oojx1DeqcA2Wds2ayRgvJ4qxVTzCHgzg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-riscv64-musl/-/rollup-linux-riscv64-musl-4.50.1.tgz}
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.50.1':
     resolution: {integrity: sha512-t9YrKfaxCYe7l7ldFERE1BRg/4TATxIg+YieHQ966jwvo7ddHJxPj9cNFWLAzhkVsbBvNA4qTbPVNsZKBO4NSg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-s390x-gnu/-/rollup-linux-s390x-gnu-4.50.1.tgz}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.50.1':
     resolution: {integrity: sha512-MCgtFB2+SVNuQmmjHf+wfI4CMxy3Tk8XjA5Z//A0AKD7QXUYFMQcns91K6dEHBvZPCnhJSyDWLApk40Iq/H3tA==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.50.1.tgz}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.50.1':
     resolution: {integrity: sha512-nEvqG+0jeRmqaUMuwzlfMKwcIVffy/9KGbAGyoa26iu6eSngAYQ512bMXuqqPrlTyfqdlB9FVINs93j534UJrg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.50.1.tgz}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-openharmony-arm64@4.50.1':
     resolution: {integrity: sha512-RDsLm+phmT3MJd9SNxA9MNuEAO/J2fhW8GXk62G/B4G7sLVumNFbRwDL6v5NrESb48k+QMqdGbHgEtfU0LCpbA==, tarball: https://registry.npmjs.org/@rollup/rollup-openharmony-arm64/-/rollup-openharmony-arm64-4.50.1.tgz}
@@ -2054,6 +2080,12 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
+  vue-i18n@11.2.8:
+    resolution: {integrity: sha512-vJ123v/PXCZntd6Qj5Jumy7UBmIuE92VrtdX+AXr+1WzdBHojiBxnAxdfctUFL+/JIN+VQH4BhsfTtiGsvVObg==, tarball: https://registry.npmjs.org/vue-i18n/-/vue-i18n-11.2.8.tgz}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      vue: ^3.0.0
+
   vue-router@4.3.2:
     resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
     peerDependencies:
@@ -2439,6 +2471,18 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
+  '@intlify/core-base@11.2.8':
+    dependencies:
+      '@intlify/message-compiler': 11.2.8
+      '@intlify/shared': 11.2.8
+
+  '@intlify/message-compiler@11.2.8':
+    dependencies:
+      '@intlify/shared': 11.2.8
+      source-map-js: 1.2.1
+
+  '@intlify/shared@11.2.8': {}
+
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
       '@jridgewell/set-array': 1.2.1
@@ -2657,7 +2701,7 @@ snapshots:
       '@pixi/settings': 7.4.2
       '@pixi/utils': 7.4.2
 
-  '@pixi/ui@0.9.1(vsy3o3gxnkd4e5vhhrxbj6qfvu)':
+  '@pixi/ui@0.9.1(1142af754965f13c9471cfe7ab2bd842)':
     dependencies:
       '@pixi/core': 7.4.2
       '@pixi/display': 7.4.2(@pixi/core@7.4.2)
@@ -2999,11 +3043,11 @@ snapshots:
 
   '@vue/tsconfig@0.5.1': {}
 
-  '@vuetify/loader-shared@2.0.3(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2)))':
+  '@vuetify/loader-shared@2.0.3(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8)':
     dependencies:
       upath: 2.0.1
       vue: 3.4.27(typescript@5.2.2)
-      vuetify: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2))
+      vuetify: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue-i18n@11.2.8(vue@3.4.27(typescript@5.2.2)))(vue@3.4.27(typescript@5.2.2))
 
   '@vueuse/core@14.1.0(vue@3.4.27(typescript@5.2.2))':
     dependencies:
@@ -4002,12 +4046,12 @@ snapshots:
 
   vite-plugin-vuetify@2.0.3(vite@5.4.20(@types/node@18.19.33)(sass@1.77.4))(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8):
     dependencies:
-      '@vuetify/loader-shared': 2.0.3(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2)))
+      '@vuetify/loader-shared': 2.0.3(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8)
       debug: 4.3.5
       upath: 2.0.1
       vite: 5.4.20(@types/node@18.19.33)(sass@1.77.4)
       vue: 3.4.27(typescript@5.2.2)
-      vuetify: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2))
+      vuetify: 3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue-i18n@11.2.8(vue@3.4.27(typescript@5.2.2)))(vue@3.4.27(typescript@5.2.2))
     transitivePeerDependencies:
       - supports-color
 
@@ -4037,6 +4081,13 @@ snapshots:
       semver: 7.6.2
     transitivePeerDependencies:
       - supports-color
+
+  vue-i18n@11.2.8(vue@3.4.27(typescript@5.2.2)):
+    dependencies:
+      '@intlify/core-base': 11.2.8
+      '@intlify/shared': 11.2.8
+      '@vue/devtools-api': 6.6.1
+      vue: 3.4.27(typescript@5.2.2)
 
   vue-router@4.3.2(vue@3.4.27(typescript@5.2.2)):
     dependencies:
@@ -4075,12 +4126,13 @@ snapshots:
       sortablejs: 1.14.0
       vue: 3.4.27(typescript@5.2.2)
 
-  vuetify@3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue@3.4.27(typescript@5.2.2)):
+  vuetify@3.6.8(typescript@5.2.2)(vite-plugin-vuetify@2.0.3)(vue-i18n@11.2.8(vue@3.4.27(typescript@5.2.2)))(vue@3.4.27(typescript@5.2.2)):
     dependencies:
       vue: 3.4.27(typescript@5.2.2)
     optionalDependencies:
       typescript: 5.2.2
       vite-plugin-vuetify: 2.0.3(vite@5.4.20(@types/node@18.19.33)(sass@1.77.4))(vue@3.4.27(typescript@5.2.2))(vuetify@3.6.8)
+      vue-i18n: 11.2.8(vue@3.4.27(typescript@5.2.2))
 
   webpack-virtual-modules@0.6.2: {}
 
