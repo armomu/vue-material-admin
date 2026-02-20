@@ -73,6 +73,7 @@
             >
                 <v-icon size="small"></v-icon>
             </v-btn>
+            <LocaleSwitcher></LocaleSwitcher>
             <v-btn variant="text" icon="mdi" class="mr-2">
                 <v-avatar size="small" class="avatar">
                     <v-img :src="authEvent.userDetail.profile.avatar" alt="陈咩啊"></v-img>
@@ -115,6 +116,7 @@ import { computed, ref, onMounted } from 'vue';
 import Stats from 'stats-js';
 
 import logo from '@/assets/admin-logo.png';
+import LocaleSwitcher from './LocaleSwitcher.vue';
 
 const emit = defineEmits(['update:rail', 'update:mini', 'update:visible']);
 
